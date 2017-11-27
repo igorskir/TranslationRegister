@@ -1,0 +1,31 @@
+﻿@model TranslationRegistryModel.Document
+
+@{
+    ViewBag.Title = "Данные документа";
+}
+
+<h2>Данные документа</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Path)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Path)
+        </dd>
+
+        <dd>
+            @Html.ActionLink("Скачать","Download","Documents", new { @filepath=Model.Path}, null)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Назад к списку", "Index")
+</p>

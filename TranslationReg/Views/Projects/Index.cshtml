@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TranslationRegistryModel.Project>
+
+@{
+    ViewBag.Title = "Проекты";
+}
+
+<h2>Проекты</h2>
+
+<p>
+    @Html.ActionLink("Добавить", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Название")
+        </th>
+        <th>
+            @Html.Label("Язык оригинала")
+        </th>
+        <th>
+            @Html.Label("Язык перевода")
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OriginalLanguage.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FinalLanguage.Name)
+        </td>
+      
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+            @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
+            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -14,6 +14,11 @@ namespace SqlRepository
         public SqlRep()
         {
             this.context = new SqlContext();
+            if (context.Languages.Count() == 0)
+            {
+                context.Languages.Add(new Language() {Name = "Русский", ShortName = "ru"});
+                context.SaveChanges();
+            }
         }
 
         public SqlRep(string connStr)

@@ -17,10 +17,10 @@ public class AutofacConfig
         builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
         // регистрируем споставление типов
-        var dbConnStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SqlRepository.SqlContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        builder.RegisterType<SqlRep>().As<IRepository>()
-            .WithParameter("connStr",dbConnStr);
-
+        //var dbConnStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SqlRepository.SqlContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //builder.RegisterType<SqlRep>().As<IRepository>()
+        //    .WithParameter("connStr",dbConnStr);
+        builder.RegisterType<SqlRep>().As<IRepository>();
         // создаем новый контейнер с теми зависимостями, которые определены выше
         var container = builder.Build();
 

@@ -10,17 +10,15 @@ namespace TranslationReg.Controllers
 {
     public class HomeController : Controller
     {
-        public IRepository repository { get; set; }
+        public IRepository rep { get; set; }
         public HomeController(IRepository repository)
         {
-            this.repository = repository;
+            this.rep = repository;
         }
-
-        public HomeController(){}
 
         public async Task<ActionResult> Index()
         {
-            var l = await repository.GetLanguages();
+            var l = await rep.GetLanguages();
             return View();
         }
 

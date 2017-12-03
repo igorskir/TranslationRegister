@@ -56,16 +56,16 @@
                 </td>
 
                 <td>
-                    @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = item.Path }, htmlAttributes: new { @class = "btn" })|
-                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Скачать", "Download",     "Documents", new { @filepath = item.Path }, htmlAttributes: new { @class = "btn btn-success" })|
+                    @Html.ActionLink("Редактировать", "Edit",   "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Подробно", "Details",     "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
+                    @Html.ActionLink("Удалить", "Delete",       "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
                 </td>
             </tr>
         }
     </table>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Назад к списку", "Index")
+    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
+    @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
 </p>

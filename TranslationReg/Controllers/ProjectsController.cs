@@ -14,35 +14,39 @@ namespace TranslationReg.Controllers
 {
     public class ProjectsController : Controller
     {
-        private SqlContext db = new SqlContext();
+        public IRepository rep { get; set; }
+        public ProjectsController(IRepository repository)
+        {
+            this.rep = repository;
+        }
+        //private SqlContext db = new SqlContext();
 
         // GET: Projects
         public async Task<ActionResult> Index()
         {
-            var projects = db.Projects.Include(p => p.FinalLanguage).Include(p => p.OriginalLanguage);
-            return View(await projects.ToListAsync());
+            var projects = await rep.GetProjects();
+            return View(projects);
         }
 
         // GET: Projects/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Project project = await db.Projects.Include(x=>x.Documents).Where(x=>x.Id == id).FirstOrDefaultAsync();
+
+            Project project = await rep.GetProject(id.Value);
+
             if (project == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(project);
         }
 
         // GET: Projects/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            ViewBag.FinalLanguageId = new SelectList(db.Languages, "Id", "Name");
-            ViewBag.OriginalLanguageId = new SelectList(db.Languages, "Id", "Name");
+            ViewBag.FinalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name");
+            ViewBag.OriginalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name");
             return View();
         }
 
@@ -55,13 +59,12 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Projects.Add(project);
-                await db.SaveChangesAsync();
+                await rep.AddProject(project);
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FinalLanguageId = new SelectList(db.Languages, "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(db.Languages, "Id", "Name", project.OriginalLanguageId);
+            ViewBag.FinalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name", project.FinalLanguageId);
+            ViewBag.OriginalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name", project.OriginalLanguageId);
             return View(project);
         }
 
@@ -69,16 +72,16 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Project project = await db.Projects.FindAsync(id);
+
+            Project project = await rep.GetProject(id.Value);
+
             if (project == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.FinalLanguageId = new SelectList(db.Languages, "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(db.Languages, "Id", "Name", project.OriginalLanguageId);
+
+            var languages = await rep.GetLanguages();
+            ViewBag.FinalLanguageId = new SelectList(languages, "Id", "Name", project.FinalLanguageId);
+            ViewBag.OriginalLanguageId = new SelectList(languages, "Id", "Name", project.OriginalLanguageId);
             return View(project);
         }
 
@@ -91,12 +94,13 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(project).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await rep.PutProject(project);
                 return RedirectToAction("Index");
             }
-            ViewBag.FinalLanguageId = new SelectList(db.Languages, "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(db.Languages, "Id", "Name", project.OriginalLanguageId);
+
+            var languages = await rep.GetLanguages();
+            ViewBag.FinalLanguageId = new SelectList(languages, "Id", "Name", project.FinalLanguageId);
+            ViewBag.OriginalLanguageId = new SelectList(languages, "Id", "Name", project.OriginalLanguageId);
             return View(project);
         }
 
@@ -104,14 +108,13 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Project project = await db.Projects.FindAsync(id);
+
+            Project project = await rep.GetProject(id.Value);
+
             if (project == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(project);
         }
 
@@ -120,9 +123,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Project project = await db.Projects.FindAsync(id);
-            db.Projects.Remove(project);
-            await db.SaveChangesAsync();
+            await rep.DeleteProject(id);
             return RedirectToAction("Index");
         }
 
@@ -130,7 +131,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                rep.Dispose();
             }
             base.Dispose(disposing);
         }

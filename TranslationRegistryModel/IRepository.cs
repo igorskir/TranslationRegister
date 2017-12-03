@@ -8,6 +8,8 @@ namespace TranslationRegistryModel
 {
     public interface IRepository
     {
+        void Dispose();
+
         //---------------------------------- Language CRUD -----------------------------------------------
 
         Task<List<Language>> GetLanguages();
@@ -19,39 +21,28 @@ namespace TranslationRegistryModel
 
 
         //---------------------------------- User CRUD ---------------------------------------------------
-        List<User> GetUsers();
-        User GetUser(int id);
-        void PutUser(User user);
-        void DeleteUser(int id);
-        void AddUser(User user);
-        //------------------------------------------------------------------------------------------------
-
-        //---------------------------------- Document CRUD ---------------------------------------------------
-        List<Document> GetDocuments();
-        Document GetDocument(int id);
-        void PutDocument(Document doc);
-        void DeleteDocument(int id);
-        void AddDocument(Document doc);
-        //------------------------------------------------------------------------------------------------
-
-        #region asyncUsr
-        /*
         Task<List<User>> GetUsers();
         Task<User> GetUser(int id);
         Task PutUser(User user);
         Task DeleteUser(int id);
         Task AddUser(User user);
-        */
-        #endregion
+        //------------------------------------------------------------------------------------------------
 
-        #region asyncLang
-        /*
-        Task<List<Language>> GetLanguages();
-        Task<Language> GetLanguage(int id);
-        Task PutLanguage(Language language);
-        Task DeleteLanguage(int id);
-        Task AddLanguage(Language language);
-        */
-        #endregion
+        //---------------------------------- Document CRUD ---------------------------------------------------
+        Task<List<Document>> GetDocuments();
+        Task<Document> GetDocument(int id);
+        Task PutDocument(Document doc);
+        Task DeleteDocument(int id);
+        Task AddDocument(Document doc);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- Project CRUD ---------------------------------------------------
+        Task<List<Project>> GetProjects();
+        Task<Project> GetProject(int id);
+        Task PutProject(Project doc);
+        Task DeleteProject(int id);
+        Task AddProject(Project doc);
+        //------------------------------------------------------------------------------------------------
+
     }
 }

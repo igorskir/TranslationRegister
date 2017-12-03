@@ -25,5 +25,10 @@ namespace SqlRepository
         {
             this.context = new SqlContext(connStr);
         }
+
+        public void Dispose()
+        {
+            context.Dispose();
+        }
     }
 }

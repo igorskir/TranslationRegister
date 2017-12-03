@@ -11,23 +11,27 @@ namespace SqlRepository
 {
     public partial class SqlRep : IRepository
     {
-        public async Task AddDocument(Document doc)
+        public async Task AddProject(Project doc)
         {
-            context.Documents.Add(doc);
+            context.Projects.Add(doc);
             await context.SaveChangesAsync();
         }
 
-        public async Task<Document> GetDocument(int id)
+        public async Task<Project> GetProject(int id)
         {
-            return await context.Documents.FindAsync(id);
+            return await context.Projects
+                .Include(x => x.Documents)
+                .Include(x => x.FinalLanguage)
+                .Include(x => x.OriginalLanguage)
+                .FirstOrDefaultAsync(x=>x.Id == id);
         }
 
-        public async Task<List<Document>> GetDocuments()
+        public async Task<List<Project>> GetProjects()
         {
-            return await context.Documents.ToListAsync();
+            return await context.Projects.Include(x=>x.FinalLanguage).Include(x=>x.OriginalLanguage).ToListAsync();
         }
 
-        public async Task PutDocument(Document doc)
+        public async Task PutProject(Project doc)
         {
             context.Entry(doc).State = EntityState.Modified;
 
@@ -38,13 +42,13 @@ namespace SqlRepository
             catch (DbUpdateConcurrencyException) { }
         }
 
-        public async Task DeleteDocument(int id)
+        public async Task DeleteProject(int id)
         {
-            var doc = context.Documents.SingleOrDefault(m => m.Id == id);
+            var doc = context.Projects.SingleOrDefault(m => m.Id == id);
             if (doc == null)
                 return;
 
-            context.Documents.Remove(doc);
+            context.Projects.Remove(doc);
             await context.SaveChangesAsync();
         }
     }

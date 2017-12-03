@@ -11,21 +11,9 @@ namespace SqlRepository
 {
     public partial class SqlRep : IRepository
     {
-
-        public async Task DeleteLanguage(int id)
+        public async Task<Language> GetLanguage(int id)
         {
-            var language = await context.Languages.SingleOrDefaultAsync(m => m.Id == id);
-            //todo log?
-            if (language == null)
-                return;
-
-            context.Languages.Remove(language);
-            await context.SaveChangesAsync();
-        }
-
-        public Task<Language> GetLanguage(int id)
-        {
-            return context.Languages.SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Languages.FindAsync(id);
         }
 
         public async Task<List<Language>> GetLanguages()
@@ -47,6 +35,16 @@ namespace SqlRepository
         public async Task AddLanguage(Language language)
         {
             context.Languages.Add(language);
+            await context.SaveChangesAsync();
+        }
+
+        public async Task DeleteLanguage(int id)
+        {
+            var language = await GetLanguage(id);
+            if (language == null)
+                return;
+
+            context.Languages.Remove(language);
             await context.SaveChangesAsync();
         }
     }

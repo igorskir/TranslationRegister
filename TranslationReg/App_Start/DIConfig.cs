@@ -18,17 +18,17 @@ public class AutofacConfig
 
         // Регистрируем споставление типов
         // Работа с готовой БД
-        //var dbConnStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SqlRepository.SqlContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //builder.RegisterType<SqlRep>().As<IRepository>()
-        //    .WithParameter("connStr",dbConnStr);
+        var dbConnStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SqlRepository.SqlContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        builder.RegisterType<SqlRep>().As<IRepository>()
+            .WithParameter("connStr",dbConnStr);
 
         // Для автоматического создания БД
-        builder.RegisterType<SqlRep>().As<IRepository>();
+        //builder.RegisterType<SqlRep>().As<IRepository>();
 
         // создаем новый контейнер с теми зависимостями, которые определены выше
         var container = builder.Build();
 
-        // установка сопоставителя зависимостей
+        // установка сопоставителя зависимостей\
         DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
     }
 }

@@ -11,10 +11,10 @@ namespace SqlRepository
 {
     public partial class SqlRep : IRepository
     {
-        public void DeleteUser(int id)
+        public async Task DeleteUser(int id)
         {
-            var user = context.Users.SingleOrDefault(m => m.Id == id);
-            //todo log?
+            var user = await context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            //todo logs
             if (user == null)
                 return;
 
@@ -22,31 +22,31 @@ namespace SqlRepository
             context.SaveChanges();
         }
 
-        public User GetUser(int id)
+        public async Task<User> GetUser(int id)
         {
-            return context.Users.SingleOrDefault(m => m.Id == id);
+            return await context.Users.SingleOrDefaultAsync(m => m.Id == id);
         }
 
-        public List<User> GetUsers()
+        public async  Task<List<User>> GetUsers()
         {
-            return context.Users.ToList();
+            return await context.Users.ToListAsync();
         }
 
-        public void PutUser(User user)
+        public async Task PutUser(User user)
         {
             context.Entry(user).State = EntityState.Modified;
 
             try
             {
-                context.SaveChanges();
+                await context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException) { }
         }
 
-        public void AddUser(User user)
+        public async Task AddUser(User user)
         {
             context.Users.Add(user);
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
 
     }

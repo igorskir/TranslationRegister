@@ -16,41 +16,44 @@ namespace TranslationReg.Controllers
 {
     public class DocumentsController : Controller
     {
-        private SqlContext db = new SqlContext();
+        public IRepository rep { get; set; }
+        public DocumentsController(IRepository repository)
+        {
+            this.rep = repository;
+        }
 
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return View(await db.Documents.ToListAsync());
+            return View(await rep.GetDocuments());
         }
 
         // GET: Documents/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Document document = await db.Documents.FindAsync(id);
+
+            Document document = await rep.GetDocument(id.Value);
+
             if (document == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(document);
         }
 
         // GET: Documents/Create
         public async Task<ActionResult> Create()
         {
-            DocUploadModel viewmodel = new DocUploadModel();
-            viewmodel.document = new Document();
-            viewmodel.languages = new SelectList(await db.Languages.ToArrayAsync(), "Id", "ShortName");
-            viewmodel.projects = new SelectList(await db.Projects.ToArrayAsync(), "Id", "Name");
+            DocUploadModel DocCreateViewModel = new DocUploadModel();
+            DocCreateViewModel.document = new Document();
+            DocCreateViewModel.languages = new SelectList(await rep.GetLanguages(), "Id", "ShortName");
+            DocCreateViewModel.projects = new SelectList(await rep.GetProjects(), "Id", "Name");
 
-            return View(viewmodel);
+            return View(DocCreateViewModel);
         }
 
-        // GET: Documents/Create
+        // GET: Documents/Download
         public ActionResult Download(string filepath)
         {
             if (System.IO.File.Exists(filepath))
@@ -63,22 +66,10 @@ namespace TranslationReg.Controllers
             return HttpNotFound("Файл не найден");
         }
 
-        // POST: Documents/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Path")] Document document)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Documents.Add(document);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
 
-        //    return View(document);
-        //}
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,6 +77,7 @@ namespace TranslationReg.Controllers
         {
             //todo исправить при вводе юзеров
             document.UserId = 1;
+
             if (file!= null && file.ContentLength != 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
@@ -94,8 +86,7 @@ namespace TranslationReg.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    db.Documents.Add(document);
-                    await db.SaveChangesAsync();
+                    await rep.AddDocument(document);
                     file.SaveAs(path);
                     return RedirectToAction("Index");
                 }
@@ -108,16 +99,17 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Document document = await db.Documents.FindAsync(id);
+
+            Document document = await rep.GetDocument(id.Value);
+
             if (document == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.LanguageId = new SelectList(db.Languages, "Id", "ShortName", document.LanguageId);
-            ViewBag.ProjectId = new SelectList(db.Projects, "Id", "Name", document.ProjectId);
+
+            //todo viewmodel
+            ViewBag.LanguageId = new SelectList(await rep.GetLanguages(), "Id", "ShortName", document.LanguageId);
+            ViewBag.ProjectId = new SelectList(await rep.GetLanguages(), "Id", "Name", document.ProjectId);
+
             return View(document);
         }
 
@@ -130,36 +122,34 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(document).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await rep.PutDocument(document);
                 return RedirectToAction("Index");
             }
             return View(document);
         }
 
         // GET: Documents/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Document document = await db.Documents.FindAsync(id);
+
+            Document document = await rep.GetDocument(id.Value);
+
             if (document == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(document);
         }
 
         // POST: Documents/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Document document = await db.Documents.FindAsync(id);
-            db.Documents.Remove(document);
-            await db.SaveChangesAsync();
+            await rep.DeleteDocument(id);
             return RedirectToAction("Index");
         }
 
@@ -167,7 +157,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                rep.Dispose();
             }
             base.Dispose(disposing);
         }

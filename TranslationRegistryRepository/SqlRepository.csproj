@@ -116,6 +116,7 @@
       <DependentUpon>201711261242123_0004.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
     <Compile Include="SqlContext.cs" />
     <Compile Include="Seeding\SqlRepositorySeeder.cs" />

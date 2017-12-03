@@ -14,27 +14,16 @@ namespace TranslationReg.Controllers
 {
     public class LanguagesController : Controller
     {
-        static string dbConnStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SqlRepository.SqlContext;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        private SqlContext db = new SqlContext(dbConnStr);
+        public IRepository rep { get; set; }
+        public LanguagesController(IRepository repository)
+        {
+            this.rep = repository;
+        }
+
         // GET: Languages
         public async Task<ActionResult> Index()
         {
-            return View(await db.Languages.ToListAsync());
-        }
-
-        // GET: Languages/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = await db.Languages.FindAsync(id);
-            if (language == null)
-            {
-                return HttpNotFound();
-            }
-            return View(language);
+            return View(await rep.GetLanguages());
         }
 
         // GET: Languages/Create
@@ -44,16 +33,13 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Languages/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,ShortName")] Language language)
+        public async Task<ActionResult> Create(Language language)
         {
             if (ModelState.IsValid)
             {
-                db.Languages.Add(language);
-                await db.SaveChangesAsync();
+                await rep.AddLanguage(language);
                 return RedirectToAction("Index");
             }
 
@@ -64,56 +50,51 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = await db.Languages.FindAsync(id);
+
+            Language language = await rep.GetLanguage(id.Value);
+
             if (language == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(language);
         }
 
         // POST: Languages/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,ShortName")] Language language)
+        public async Task<ActionResult> Edit(Language language)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(language).State = EntityState.Modified;
-                await db.SaveChangesAsync();
+                await rep.PutLanguage(language);
                 return RedirectToAction("Index");
             }
             return View(language);
         }
 
         // GET: Languages/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Language language = await db.Languages.FindAsync(id);
+
+            Language language = await rep.GetLanguage(id.Value);
+
             if (language == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(language);
         }
 
         // POST: Languages/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Language language = await db.Languages.FindAsync(id);
-            db.Languages.Remove(language);
-            await db.SaveChangesAsync();
+            await rep.DeleteLanguage(id);
             return RedirectToAction("Index");
         }
 
@@ -121,7 +102,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                rep.Dispose();
             }
             base.Dispose(disposing);
         }

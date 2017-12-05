@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRepository.cs" />
+    <Compile Include="Models\ProjectStatuse.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\User.cs" />

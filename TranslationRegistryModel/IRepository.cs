@@ -23,6 +23,7 @@ namespace TranslationRegistryModel
         //---------------------------------- User CRUD ---------------------------------------------------
         Task<List<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<User> GetUser(string login, string password);
         Task PutUser(User user);
         Task DeleteUser(int id);
         Task AddUser(User user);

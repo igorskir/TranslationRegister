@@ -14,6 +14,7 @@ using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class DocumentsController : Controller
     {
         public IRepository rep { get; set; }
@@ -144,7 +145,6 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Documents/Delete/5
-        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

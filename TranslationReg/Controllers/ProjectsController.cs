@@ -12,6 +12,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class ProjectsController : Controller
     {
         public IRepository rep { get; set; }

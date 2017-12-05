@@ -31,6 +31,8 @@ namespace TranslationRegistryModel
 
         public int WordsNumber { get; set; }
 
+        public string Customer { get; set; }
+
         public ICollection<Document> Documents { get; set; }
     }
 }

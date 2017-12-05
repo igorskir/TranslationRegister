@@ -7,25 +7,16 @@ using System.Threading.Tasks;
 
 namespace TranslationRegistryModel
 {
-    public class User
+    public class ProjectStatuse
     {
-        public User()
-        {
-            this.Projects = new HashSet<Project>();
-        }
-
         [Key]
         public int Id { get; set; }
 
         [Required]
         public string Name { get; set; }
 
-        [Required]
-        public string Password { get; set; }
+        public DateTime ChangeDate { get; set; }
 
-        [EmailAddress]
-        public string Email { get; set; }
-
-        public virtual ICollection<Project> Projects { get; set; }
+        public string Description { get; set; }
     }
 }

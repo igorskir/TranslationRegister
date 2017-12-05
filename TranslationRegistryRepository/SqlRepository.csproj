@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201711261242123_0004.Designer.cs">
       <DependentUpon>201711261242123_0004.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712052103522_0005.cs" />
+    <Compile Include="Migrations\201712052103522_0005.Designer.cs">
+      <DependentUpon>201712052103522_0005.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
@@ -144,6 +148,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201711261242123_0004.resx">
       <DependentUpon>201711261242123_0004.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712052103522_0005.resx">
+      <DependentUpon>201712052103522_0005.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

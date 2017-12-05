@@ -61,6 +61,7 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Languages/Edit/5
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Language language)

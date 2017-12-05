@@ -13,7 +13,7 @@ namespace SqlRepository
     {
         public async Task DeleteUser(int id)
         {
-            var user = await context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            var user = await context.Users.FindAsync(id);
             //todo logs
             if (user == null)
                 return;
@@ -24,7 +24,14 @@ namespace SqlRepository
 
         public async Task<User> GetUser(int id)
         {
-            return await context.Users.SingleOrDefaultAsync(m => m.Id == id);
+            return await context.Users.FindAsync(id);
+        }
+
+        public async Task<User> GetUser(string login, string password)
+        {
+            return await context.Users.SingleOrDefaultAsync(
+                m => m.Password == password && 
+                (m.Name == login || m.Email == login));
         }
 
         public async  Task<List<User>> GetUsers()

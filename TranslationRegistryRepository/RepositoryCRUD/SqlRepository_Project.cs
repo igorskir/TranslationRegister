@@ -44,7 +44,7 @@ namespace SqlRepository
 
         public async Task DeleteProject(int id)
         {
-            var doc = context.Projects.SingleOrDefault(m => m.Id == id);
+            var doc = await context.Projects.SingleOrDefaultAsync(m => m.Id == id);
             if (doc == null)
                 return;
 

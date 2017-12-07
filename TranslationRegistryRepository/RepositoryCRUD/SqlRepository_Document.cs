@@ -40,7 +40,7 @@ namespace SqlRepository
 
         public async Task DeleteDocument(int id)
         {
-            var doc = context.Documents.SingleOrDefault(m => m.Id == id);
+            var doc = await context.Documents.SingleOrDefaultAsync(m => m.Id == id);
             if (doc == null)
                 return;
 

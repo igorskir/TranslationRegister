@@ -31,10 +31,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\TranslationReg\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\TranslationReg\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Extensions.Caching.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.Caching.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.Caching.Abstractions.dll</HintPath>
@@ -95,31 +97,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201711251747303_InitialCreate.cs" />
-    <Compile Include="Migrations\201711251747303_InitialCreate.Designer.cs">
-      <DependentUpon>201711251747303_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711251834102_0001.cs" />
-    <Compile Include="Migrations\201711251834102_0001.Designer.cs">
-      <DependentUpon>201711251834102_0001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711251947235_0002.cs" />
-    <Compile Include="Migrations\201711251947235_0002.Designer.cs">
-      <DependentUpon>201711251947235_0002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711252006562_0003.cs" />
-    <Compile Include="Migrations\201711252006562_0003.Designer.cs">
-      <DependentUpon>201711252006562_0003.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711261242123_0004.cs" />
-    <Compile Include="Migrations\201711261242123_0004.Designer.cs">
-      <DependentUpon>201711261242123_0004.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712052103522_0005.cs" />
-    <Compile Include="Migrations\201712052103522_0005.Designer.cs">
-      <DependentUpon>201712052103522_0005.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
     <Compile Include="SqlContext.cs" />
@@ -134,30 +111,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711251747303_InitialCreate.resx">
-      <DependentUpon>201711251747303_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711251834102_0001.resx">
-      <DependentUpon>201711251834102_0001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711251947235_0002.resx">
-      <DependentUpon>201711251947235_0002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711252006562_0003.resx">
-      <DependentUpon>201711252006562_0003.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711261242123_0004.resx">
-      <DependentUpon>201711261242123_0004.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712052103522_0005.resx">
-      <DependentUpon>201712052103522_0005.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
       <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -23,6 +23,7 @@ namespace TranslationRegistryModel
         //---------------------------------- User CRUD ---------------------------------------------------
         Task<List<User>> GetUsers();
         Task<User> GetUser(int id);
+        Task<User> GetUser(string login);
         Task<User> GetUser(string login, string password);
         Task PutUser(User user);
         Task DeleteUser(int id);
@@ -45,5 +46,28 @@ namespace TranslationRegistryModel
         Task AddProject(Project doc);
         //------------------------------------------------------------------------------------------------
 
+        //---------------------------------- LanguagePair CRUD -----------------------------------------------
+        Task<List<LanguagePair>> GetLanguagePairs();
+        Task<LanguagePair> GetLanguagePair(int id);
+        Task PutLanguagePair(LanguagePair languagePair);
+        Task DeleteLanguagePair(int id);
+        Task AddLanguagePair(LanguagePair languagePair);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- WorkType CRUD -----------------------------------------------
+        Task<List<WorkType>> GetWorkTypes();
+        Task<WorkType> GetWorkType(int id);
+        Task PutWorkType(WorkType workType);
+        Task DeleteWorkType(int id);
+        Task AddWorkType(WorkType workType);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- ProjectStatuse CRUD -----------------------------------------------
+        Task<List<ProjectStatus>> GetProjectStatuses();
+        Task<ProjectStatus> GetProjectStatus(int id);
+        Task PutProjectStatus(ProjectStatus projectStatuse);
+        Task DeleteProjectStatus(int id);
+        Task AddProjectStatus(ProjectStatus projectStatuse);
+        //------------------------------------------------------------------------------------------------
     }
 }

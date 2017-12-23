@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SqlRepository;
 using TranslationRegistryModel;
+using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
@@ -20,7 +21,6 @@ namespace TranslationReg.Controllers
         {
             this.rep = repository;
         }
-        //private SqlContext db = new SqlContext();
 
         // GET: Projects
         public async Task<ActionResult> Index()
@@ -46,17 +46,13 @@ namespace TranslationReg.Controllers
         // GET: Projects/Create
         public async Task<ActionResult> Create()
         {
-            ViewBag.FinalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name");
-            ViewBag.OriginalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name");
-            return View();
+            ProjectModel model = await ProjectModel.GetModel(rep);
+            return View(model);
         }
 
-        // POST: Projects/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,OriginalLanguageId,FinalLanguageId,WordsNumber")] Project project)
+        public async Task<ActionResult> Create(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -64,9 +60,9 @@ namespace TranslationReg.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.FinalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(await rep.GetLanguages(), "Id", "Name", project.OriginalLanguageId);
-            return View(project);
+            ProjectModel model = await ProjectModel.GetModel(rep);
+            model.Project = project;
+            return View(model);
         }
 
         // GET: Projects/Edit/5
@@ -81,17 +77,13 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             var languages = await rep.GetLanguages();
-            ViewBag.FinalLanguageId = new SelectList(languages, "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(languages, "Id", "Name", project.OriginalLanguageId);
+            ViewBag.LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
             return View(project);
         }
 
-        // POST: Projects/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,OriginalLanguageId,FinalLanguageId,WordsNumber")] Project project)
+        public async Task<ActionResult> Edit(Project project)
         {
             if (ModelState.IsValid)
             {
@@ -100,8 +92,7 @@ namespace TranslationReg.Controllers
             }
 
             var languages = await rep.GetLanguages();
-            ViewBag.FinalLanguageId = new SelectList(languages, "Id", "Name", project.FinalLanguageId);
-            ViewBag.OriginalLanguageId = new SelectList(languages, "Id", "Name", project.OriginalLanguageId);
+            ViewBag.LanguagePair = new SelectList(await rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
             return View(project);
         }
 

@@ -46,11 +46,7 @@ namespace TranslationReg.Controllers
         // GET: Documents/Create
         public async Task<ActionResult> Create()
         {
-            DocUploadModel DocCreateViewModel = new DocUploadModel();
-            DocCreateViewModel.document = new Document();
-            DocCreateViewModel.languages = new SelectList(await rep.GetLanguages(), "Id", "ShortName");
-            DocCreateViewModel.projects = new SelectList(await rep.GetProjects(), "Id", "Name");
-
+            DocumentModel DocCreateViewModel = await DocumentModel.GetModel(rep);
             return View(DocCreateViewModel);
         }
 
@@ -71,19 +67,19 @@ namespace TranslationReg.Controllers
         // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Path")] Document document)
 
-
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create( Document document, HttpPostedFileBase file)
         {
-            //todo исправить при вводе юзеров
-            document.UserId = 1;
+            //todo переделать получение юзера 
+            document.OwnerId = rep.GetUser(User.Identity.Name).Id;
 
             if (file!= null && file.ContentLength != 0)
             {
                 var fileName = Path.GetFileName(file.FileName);
                 var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                document.Path = path;
+                document.OriginalFile.Path = path;
 
                 if (ModelState.IsValid)
                 {
@@ -108,7 +104,6 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             //todo viewmodel
-            ViewBag.LanguageId = new SelectList(await rep.GetLanguages(), "Id", "ShortName", document.LanguageId);
             ViewBag.ProjectId = new SelectList(await rep.GetLanguages(), "Id", "Name", document.ProjectId);
 
             return View(document);

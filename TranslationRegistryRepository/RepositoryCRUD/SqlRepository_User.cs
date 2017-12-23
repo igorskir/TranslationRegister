@@ -27,11 +27,16 @@ namespace SqlRepository
             return await context.Users.FindAsync(id);
         }
 
+        public async Task<User> GetUser(string login)
+        {
+            return await context.Users.SingleOrDefaultAsync(
+                m => m.Name == login);
+        }
+
         public async Task<User> GetUser(string login, string password)
         {
             return await context.Users.SingleOrDefaultAsync(
-                m => m.Password == password && 
-                (m.Name == login || m.Email == login));
+                m => m.Password == password && m.Name == login);
         }
 
         public async  Task<List<User>> GetUsers()

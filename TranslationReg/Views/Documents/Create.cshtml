@@ -1,4 +1,4 @@
-﻿@model TranslationReg.Models.DocUploadModel
+﻿@model TranslationReg.Models.DocumentModel
 
 @{
     ViewBag.Title = "Создание документа";
@@ -22,14 +22,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.document.LanguageId, "Язык документа", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => Model.document.LanguageId, Model.languages, new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.document.LanguageId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.document.ProjectId, "Проект", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownListFor(model => Model.document.ProjectId, Model.projects, new { @class = "form-control" })
@@ -38,15 +30,16 @@
         </div>
 
         <div class="form-group">
-            <label class="control-label col-md-2">Другие поля...</label>
+            @Html.Label("Файл оригинала", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
+                <input type="file" name="originalFile" />
             </div>
         </div>
 
         <div class="form-group">
-            @Html.Label("Файл", new { @class = "control-label col-md-2" })
+            @Html.Label("Файл перевода", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="file" />
+                <input type="file" name="originalFile" />
             </div>
         </div>
 

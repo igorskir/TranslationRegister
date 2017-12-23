@@ -1,0 +1,878 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="SqlRepository.SqlContextModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="SqlRepositorySqlContextModelStoreContainer">
+    <EntitySet Name="Documents" EntityType="SqlRepository.SqlContextModel.Store.Documents" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Files" EntityType="SqlRepository.SqlContextModel.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LanguagePairs" EntityType="SqlRepository.SqlContextModel.Store.LanguagePairs" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Languages" EntityType="SqlRepository.SqlContextModel.Store.Languages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Projects" EntityType="SqlRepository.SqlContextModel.Store.Projects" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectStatuses" EntityType="SqlRepository.SqlContextModel.Store.ProjectStatuses" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Stages" EntityType="SqlRepository.SqlContextModel.Store.Stages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="User_Stage" EntityType="SqlRepository.SqlContextModel.Store.User_Stage" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="SqlRepository.SqlContextModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkTypes" EntityType="SqlRepository.SqlContextModel.Store.WorkTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectUsers" EntityType="SqlRepository.SqlContextModel.Store.ProjectUsers" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Projects_ProjectId">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Documents_dbo_Users_UserId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Users_UserId">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Documents" EntitySet="Documents" />
+    </AssociationSet>
+    <AssociationSet Name="FK_DocumentStage" Association="SqlRepository.SqlContextModel.Store.FK_DocumentStage">
+      <End Role="Documents" EntitySet="Documents" />
+      <End Role="Stages" EntitySet="Stages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StageFile" Association="SqlRepository.SqlContextModel.Store.FK_StageFile">
+      <End Role="Files" EntitySet="Files" />
+      <End Role="Stages" EntitySet="Stages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
+      <End Role="LanguagePairs" EntitySet="LanguagePairs" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId">
+      <End Role="ProjectStatuses" EntitySet="ProjectStatuses" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectUser" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Projects" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StageWorkType" Association="SqlRepository.SqlContextModel.Store.FK_StageWorkType">
+      <End Role="WorkTypes" EntitySet="WorkTypes" />
+      <End Role="Stages" EntitySet="Stages" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_StageStage" Association="SqlRepository.SqlContextModel.Store.FK_User_StageStage">
+      <End Role="Stages" EntitySet="Stages" />
+      <End Role="User_Stage" EntitySet="User_Stage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_StageUser" Association="SqlRepository.SqlContextModel.Store.FK_User_StageUser">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="User_Stage" EntitySet="User_Stage" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectUsers_Projects" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUsers_Projects">
+      <End Role="Projects" EntitySet="Projects" />
+      <End Role="ProjectUsers" EntitySet="ProjectUsers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectUsers_Users" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUsers_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="ProjectUsers" EntitySet="ProjectUsers" />
+    </AssociationSet>
+    <AssociationSet Name="LanguageLanguagePair" Association="SqlRepository.SqlContextModel.Store.LanguageLanguagePair">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="LanguagePair" EntitySet="LanguagePairs" />
+    </AssociationSet>
+    <AssociationSet Name="LanguageLanguagePair1" Association="SqlRepository.SqlContextModel.Store.LanguageLanguagePair1">
+      <End Role="Language" EntitySet="Languages" />
+      <End Role="LanguagePair" EntitySet="LanguagePairs" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentFile" Association="SqlRepository.SqlContextModel.Store.DocumentFile">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+    <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.Store.DocFinalFile">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="File" EntitySet="Files" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Documents">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="OwnerId" Type="int" Nullable="true" />
+    <Property Name="WordsNumber" Type="int" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="true" />
+    <Property Name="OriginalFileId" Type="int" Nullable="false" />
+    <Property Name="FinalFileId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Files">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LanguagePairs">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="OriginalLanguageId" Type="int" Nullable="false" />
+    <Property Name="TranslationLanguageId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Languages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ShortName" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Projects">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="WordsNumber" Type="int" Nullable="false" />
+    <Property Name="Customer" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="LanguagePairId" Type="int" Nullable="true" />
+    <Property Name="ProjectStatuseId" Type="int" Nullable="true" />
+    <Property Name="CreatorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectStatuses">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Stages">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DocumentId" Type="int" Nullable="false" />
+    <Property Name="WorkTypeId" Type="int" Nullable="false" />
+    <Property Name="FileId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User_Stage">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Amount" Type="int" Nullable="false" />
+    <Property Name="StageId" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+  </EntityType>
+  <EntityType Name="ProjectUsers">
+    <Key>
+      <PropertyRef Name="Projects_Id" />
+      <PropertyRef Name="Workers_Id" />
+    </Key>
+    <Property Name="Projects_Id" Type="int" Nullable="false" />
+    <Property Name="Workers_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="0..1" />
+    <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Documents_dbo_Users_UserId">
+    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Documents">
+        <PropertyRef Name="OwnerId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_DocumentStage">
+    <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="1" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Documents">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stages">
+        <PropertyRef Name="DocumentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StageFile">
+    <End Role="Files" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Files">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stages">
+        <PropertyRef Name="FileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
+    <End Role="LanguagePairs" Type="SqlRepository.SqlContextModel.Store.LanguagePairs" Multiplicity="0..1" />
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LanguagePairs">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="LanguagePairId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId">
+    <End Role="ProjectStatuses" Type="SqlRepository.SqlContextModel.Store.ProjectStatuses" Multiplicity="0..1" />
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectStatuses">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="ProjectStatuseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectUser">
+    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Projects">
+        <PropertyRef Name="CreatorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StageWorkType">
+    <End Role="WorkTypes" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="1" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkTypes">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stages">
+        <PropertyRef Name="WorkTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_StageStage">
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="1" />
+    <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Stages">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User_Stage">
+        <PropertyRef Name="StageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_StageUser">
+    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
+    <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User_Stage">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LanguageLanguagePair">
+    <End Role="Language" Type="SqlRepository.SqlContextModel.Store.Languages" Multiplicity="1" />
+    <End Role="LanguagePair" Type="SqlRepository.SqlContextModel.Store.LanguagePairs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LanguagePair">
+        <PropertyRef Name="OriginalLanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LanguageLanguagePair1">
+    <End Role="Language" Type="SqlRepository.SqlContextModel.Store.Languages" Multiplicity="1" />
+    <End Role="LanguagePair" Type="SqlRepository.SqlContextModel.Store.LanguagePairs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Language">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LanguagePair">
+        <PropertyRef Name="TranslationLanguageId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentFile">
+    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <End Role="File" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="OriginalFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocFinalFile">
+    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <End Role="File" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="File">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="FinalFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectUsers_Projects">
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="1" />
+    <End Role="ProjectUsers" Type="SqlRepository.SqlContextModel.Store.ProjectUsers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Projects">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectUsers">
+        <PropertyRef Name="Projects_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectUsers_Users">
+    <End Role="ProjectUsers" Type="SqlRepository.SqlContextModel.Store.ProjectUsers" Multiplicity="*" />
+    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectUsers">
+        <PropertyRef Name="Workers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="SqlRepository.SqlContextModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Document">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OwnerId" Type="Int32" />
+          <Property Name="WordsNumber" Type="Int32" Nullable="false" />
+          <Property Name="ProjectId" Type="Int32" />
+          <NavigationProperty Name="Project" Relationship="Self.FK_dbo_Documents_dbo_Projects_ProjectId" FromRole="Documents" ToRole="Projects" />
+          <NavigationProperty Name="User" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Documents" ToRole="Users" />
+          <NavigationProperty Name="Stages" Relationship="Self.FK_DocumentStage" FromRole="Documents" ToRole="Stages" />
+          <NavigationProperty Name="OriginalFile" Relationship="SqlRepository.SqlContextModel.DocumentFile" FromRole="Document" ToRole="File" />
+          <Property Name="OriginalFileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocFinalFile" FromRole="Document" ToRole="File" />
+          <Property Name="FinalFileId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="File">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Stages" Relationship="Self.FK_StageFile" FromRole="Files" ToRole="Stages" />
+        </EntityType>
+        <EntityType Name="LanguagePair">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" FromRole="LanguagePairs" ToRole="Projects" />
+          <NavigationProperty Name="OriginalLanguage" Relationship="SqlRepository.SqlContextModel.LanguageLanguagePair" FromRole="LanguagePair" ToRole="Language" />
+          <Property Name="OriginalLanguageId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TranslationLanguage" Relationship="SqlRepository.SqlContextModel.LanguageLanguagePair1" FromRole="LanguagePair" ToRole="Language" />
+          <Property Name="TranslationLanguageId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Language">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ShortName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WordsNumber" Type="Int32" Nullable="false" />
+          <Property Name="Customer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LanguagePairId" Type="Int32" />
+          <Property Name="ProjectStatuseId" Type="Int32" />
+          <Property Name="CreatorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Projects_ProjectId" FromRole="Projects" ToRole="Documents" />
+          <NavigationProperty Name="LanguagePair" Relationship="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" FromRole="Projects" ToRole="LanguagePairs" />
+          <NavigationProperty Name="ProjectStatus" Relationship="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" FromRole="Projects" ToRole="ProjectStatuses" />
+          <NavigationProperty Name="Creator" Relationship="Self.FK_ProjectUser" FromRole="Projects" ToRole="Users" />
+          <NavigationProperty Name="Workers" Relationship="Self.ProjectUsers" FromRole="Projects" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="ProjectStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" FromRole="ProjectStatuses" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="Stage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocumentId" Type="Int32" Nullable="false" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="false" />
+          <Property Name="FileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Document" Relationship="Self.FK_DocumentStage" FromRole="Stages" ToRole="Documents" />
+          <NavigationProperty Name="File" Relationship="Self.FK_StageFile" FromRole="Stages" ToRole="Files" />
+          <NavigationProperty Name="WorkType" Relationship="Self.FK_StageWorkType" FromRole="Stages" ToRole="WorkTypes" />
+          <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageStage" FromRole="Stages" ToRole="User_Stage" />
+        </EntityType>
+        <EntityType Name="User_Stage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <Property Name="StageId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Stage" Relationship="Self.FK_User_StageStage" FromRole="User_Stage" ToRole="Stages" />
+          <NavigationProperty Name="User" Relationship="Self.FK_User_StageUser" FromRole="User_Stage" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Users" ToRole="Documents" />
+          <NavigationProperty Name="MyProjects" Relationship="Self.FK_ProjectUser" FromRole="Users" ToRole="Projects" />
+          <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageUser" FromRole="Users" ToRole="User_Stage" />
+          <NavigationProperty Name="Projects" Relationship="Self.ProjectUsers" FromRole="Users" ToRole="Projects" />
+        </EntityType>
+        <EntityType Name="WorkType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Stages" Relationship="Self.FK_StageWorkType" FromRole="WorkTypes" ToRole="Stages" />
+        </EntityType>
+        <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Documents_dbo_Users_UserId">
+          <End Role="Users" Type="Self.User" Multiplicity="0..1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Documents">
+              <PropertyRef Name="OwnerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DocumentStage">
+          <End Role="Documents" Type="Self.Document" Multiplicity="1" />
+          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Documents">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stages">
+              <PropertyRef Name="DocumentId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StageFile">
+          <End Role="Files" Type="Self.File" Multiplicity="1" />
+          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Files">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stages">
+              <PropertyRef Name="FileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
+          <End Role="LanguagePairs" Type="Self.LanguagePair" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LanguagePairs">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="LanguagePairId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId">
+          <End Role="ProjectStatuses" Type="Self.ProjectStatus" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectStatuses">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="ProjectStatuseId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectUser">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Projects">
+              <PropertyRef Name="CreatorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_StageWorkType">
+          <End Role="WorkTypes" Type="Self.WorkType" Multiplicity="1" />
+          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="WorkTypes">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stages">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_StageStage">
+          <End Role="Stages" Type="Self.Stage" Multiplicity="1" />
+          <End Role="User_Stage" Type="Self.User_Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stages">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Stage">
+              <PropertyRef Name="StageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_StageUser">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="User_Stage" Type="Self.User_Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Stage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProjectUsers">
+          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Documents" EntityType="Self.Document" />
+          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="LanguagePairs" EntityType="Self.LanguagePair" />
+          <EntitySet Name="Languages" EntityType="Self.Language" />
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatus" />
+          <EntitySet Name="Stages" EntityType="Self.Stage" />
+          <EntitySet Name="User_Stage" EntityType="Self.User_Stage" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <EntitySet Name="WorkTypes" EntityType="Self.WorkType" />
+          <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="Self.FK_dbo_Documents_dbo_Projects_ProjectId">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Documents_dbo_Users_UserId" Association="Self.FK_dbo_Documents_dbo_Users_UserId">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Documents" EntitySet="Documents" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DocumentStage" Association="Self.FK_DocumentStage">
+            <End Role="Documents" EntitySet="Documents" />
+            <End Role="Stages" EntitySet="Stages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StageFile" Association="Self.FK_StageFile">
+            <End Role="Files" EntitySet="Files" />
+            <End Role="Stages" EntitySet="Stages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" Association="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
+            <End Role="LanguagePairs" EntitySet="LanguagePairs" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" Association="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId">
+            <End Role="ProjectStatuses" EntitySet="ProjectStatuses" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectUser" Association="Self.FK_ProjectUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Projects" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StageWorkType" Association="Self.FK_StageWorkType">
+            <End Role="WorkTypes" EntitySet="WorkTypes" />
+            <End Role="Stages" EntitySet="Stages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_StageStage" Association="Self.FK_User_StageStage">
+            <End Role="Stages" EntitySet="Stages" />
+            <End Role="User_Stage" EntitySet="User_Stage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_StageUser" Association="Self.FK_User_StageUser">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="User_Stage" EntitySet="User_Stage" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectUsers" Association="Self.ProjectUsers">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="LanguageLanguagePair" Association="SqlRepository.SqlContextModel.LanguageLanguagePair">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="LanguagePair" EntitySet="LanguagePairs" />
+          </AssociationSet>
+          <AssociationSet Name="LanguageLanguagePair1" Association="SqlRepository.SqlContextModel.LanguageLanguagePair1">
+            <End Role="Language" EntitySet="Languages" />
+            <End Role="LanguagePair" EntitySet="LanguagePairs" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentFile" Association="SqlRepository.SqlContextModel.DocumentFile">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.DocFinalFile">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="File" EntitySet="Files" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="LanguageLanguagePair">
+          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.LanguagePair" Role="LanguagePair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguagePair">
+              <PropertyRef Name="OriginalLanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LanguageLanguagePair1">
+          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.LanguagePair" Role="LanguagePair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Language">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="LanguagePair">
+              <PropertyRef Name="TranslationLanguageId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocumentFile">
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.File" Role="File" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="OriginalFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocFinalFile">
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.File" Role="File" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="File">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="FinalFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="SqlRepositorySqlContextModelStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="Documents">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Document)">
+        <MappingFragment StoreEntitySet="Documents">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
+          <ScalarProperty Name="WordsNumber" ColumnName="WordsNumber" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="OriginalFileId" ColumnName="OriginalFileId" />
+          <ScalarProperty Name="FinalFileId" ColumnName="FinalFileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Files">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.File)">
+        <MappingFragment StoreEntitySet="Files">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Path" ColumnName="Path" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LanguagePairs">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.LanguagePair)">
+        <MappingFragment StoreEntitySet="LanguagePairs">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="OriginalLanguageId" ColumnName="OriginalLanguageId" />
+          <ScalarProperty Name="TranslationLanguageId" ColumnName="TranslationLanguageId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Languages">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Language)">
+        <MappingFragment StoreEntitySet="Languages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Projects">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Project)">
+        <MappingFragment StoreEntitySet="Projects">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="WordsNumber" ColumnName="WordsNumber" />
+          <ScalarProperty Name="Customer" ColumnName="Customer" />
+          <ScalarProperty Name="LanguagePairId" ColumnName="LanguagePairId" />
+          <ScalarProperty Name="ProjectStatuseId" ColumnName="ProjectStatuseId" />
+          <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProjectStatuses">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.ProjectStatus)">
+        <MappingFragment StoreEntitySet="ProjectStatuses">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Stages">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Stage)">
+        <MappingFragment StoreEntitySet="Stages">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
+          <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
+          <ScalarProperty Name="FileId" ColumnName="FileId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="User_Stage">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.User_Stage)">
+        <MappingFragment StoreEntitySet="User_Stage">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="StageId" ColumnName="StageId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WorkTypes">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.WorkType)">
+        <MappingFragment StoreEntitySet="WorkTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="ProjectUsers" TypeName="SqlRepository.SqlContextModel.ProjectUsers" StoreEntitySet="ProjectUsers">
+      <EndProperty Name="Projects">
+        <ScalarProperty Name="Id" ColumnName="Projects_Id" />
+      </EndProperty>
+      <EndProperty Name="Users">
+        <ScalarProperty Name="Id" ColumnName="Workers_Id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

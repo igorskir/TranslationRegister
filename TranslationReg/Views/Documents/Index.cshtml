@@ -34,11 +34,15 @@
         <th>
             @Html.Label("Имя")
         </th>
-        <th>
-            @Html.Label("Язык")
-        </th>
+
         <th>
             @Html.Label("Количество слов")
+        </th>
+        <th>
+            @Html.Label("Оригинал")
+        </th>
+        <th>
+            @Html.Label("Перевод")
         </th>
         <th>
 
@@ -51,10 +55,19 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Language.ShortName)
+            @Html.DisplayFor(modelItem => item.WordsNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.WordsNumber)
+            @if(!String.IsNullOrWhiteSpace(item.OriginalPath))
+            {
+                @Html.ActionLink("Скачать оргигинал", "Download", "Documents", new { @filepath = item.OriginalPath }, null)
+            }
+        </td>
+        <td>
+            @if (!String.IsNullOrWhiteSpace(item.OriginalPath))
+            {
+                @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = item.TranslationPath }, null)
+            }
         </td>
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })

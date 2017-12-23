@@ -15,10 +15,7 @@
             @Html.Label("Название")
         </th>
         <th>
-            @Html.Label("Язык оригинала")
-        </th>
-        <th>
-            @Html.Label("Язык перевода")
+            @Html.Label("Языковая пара")
         </th>
        
         <th></th>
@@ -30,10 +27,7 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.OriginalLanguage.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FinalLanguage.Name)
+            @Html.DisplayFor(modelItem => item.LanguagePair.Name)
         </td>
       
         <td>

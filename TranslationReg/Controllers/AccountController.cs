@@ -62,7 +62,7 @@ namespace TranslationReg.Controllers
                 if (user == null)
                 {
                     // создаем нового пользователя
-                    user = new User { Email = model.Email, Name = model.Name, Password = model.Password };
+                    user = new User {Name = model.Name, Password = model.Password };
                     await rep.AddUser(user);
                     user = await rep.GetUser(model.Name, model.Password);
                     // если пользователь удачно добавлен в бд

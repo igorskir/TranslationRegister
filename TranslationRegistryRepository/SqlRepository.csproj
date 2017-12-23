@@ -95,31 +95,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201711251747303_InitialCreate.cs" />
-    <Compile Include="Migrations\201711251747303_InitialCreate.Designer.cs">
-      <DependentUpon>201711251747303_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711251834102_0001.cs" />
-    <Compile Include="Migrations\201711251834102_0001.Designer.cs">
-      <DependentUpon>201711251834102_0001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711251947235_0002.cs" />
-    <Compile Include="Migrations\201711251947235_0002.Designer.cs">
-      <DependentUpon>201711251947235_0002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711252006562_0003.cs" />
-    <Compile Include="Migrations\201711252006562_0003.Designer.cs">
-      <DependentUpon>201711252006562_0003.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201711261242123_0004.cs" />
-    <Compile Include="Migrations\201711261242123_0004.Designer.cs">
-      <DependentUpon>201711261242123_0004.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712052103522_0005.cs" />
-    <Compile Include="Migrations\201712052103522_0005.Designer.cs">
-      <DependentUpon>201712052103522_0005.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_ProjectStatuse.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_WorkType.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_LanguagePair.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
     <Compile Include="SqlContext.cs" />
@@ -132,26 +110,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201711251747303_InitialCreate.resx">
-      <DependentUpon>201711251747303_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711251834102_0001.resx">
-      <DependentUpon>201711251834102_0001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711251947235_0002.resx">
-      <DependentUpon>201711251947235_0002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711252006562_0003.resx">
-      <DependentUpon>201711252006562_0003.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201711261242123_0004.resx">
-      <DependentUpon>201711261242123_0004.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712052103522_0005.resx">
-      <DependentUpon>201712052103522_0005.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">

@@ -11,16 +11,12 @@
     <hr />
     <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Path)
-        </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Path)
+            @Html.ActionLink("Скачать оргигинал","Download","Documents", new { @filepath=Model.OriginalPath}, null)
         </dd>
 
         <dd>
-            @Html.ActionLink("Скачать","Download","Documents", new { @filepath=Model.Path}, null)
+            @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = Model.TranslationPath }, null)
         </dd>
 
     </dl>

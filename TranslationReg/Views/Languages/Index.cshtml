@@ -7,15 +7,15 @@
 <h2>Языки</h2>
 
 <p>
-    @Html.ActionLink("Создать", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+    @Html.ActionLink("Добавить", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.Label("Наименование")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.ShortName)
+            @Html.Label("Сокращение")
         </th>
         <th></th>
     </tr>

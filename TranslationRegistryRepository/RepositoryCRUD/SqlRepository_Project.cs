@@ -21,14 +21,13 @@ namespace SqlRepository
         {
             return await context.Projects
                 .Include(x => x.Documents)
-                .Include(x => x.FinalLanguage)
-                .Include(x => x.OriginalLanguage)
+                .Include(x => x.LanguagePair)
                 .FirstOrDefaultAsync(x=>x.Id == id);
         }
 
         public async Task<List<Project>> GetProjects()
         {
-            return await context.Projects.Include(x=>x.FinalLanguage).Include(x=>x.OriginalLanguage).ToListAsync();
+            return await context.Projects.Include(x=>x.LanguagePair).ToListAsync();
         }
 
         public async Task PutProject(Project doc)

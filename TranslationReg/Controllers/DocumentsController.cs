@@ -72,8 +72,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create( Document document, HttpPostedFileBase file)
         {
-            //todo переделать получение юзера 
-            document.OwnerId = rep.GetUser(User.Identity.Name).Id;
+            document.OwnerId = (await rep.GetUser(User.Identity.Name)).Id;
 
             if (file!= null && file.ContentLength != 0)
             {

@@ -49,10 +49,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Document.cs">
+    <Compile Include="DocFile.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="File.cs">
+    <Compile Include="Document.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
     <Compile Include="IRepository.cs" />

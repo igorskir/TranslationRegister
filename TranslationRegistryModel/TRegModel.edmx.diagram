@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="969a2d6fde4e4039aa1ed7eba6809b54" Name="Diagram1" ZoomLevel="67">
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.Document" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.File" Width="1.5" PointX="7.5" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.DocFile" Width="1.5" PointX="7.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.LanguagePair" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.Language" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.Project" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
@@ -18,18 +18,19 @@
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Documents_dbo_Projects_ProjectId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Documents_dbo_Users_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_DocumentStage" ManuallyRouted="false" />
-        <AssociationConnector Association="SqlRepository.SqlContextModel.FK_StageFile" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_ProjectUser" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_StageWorkType" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_User_StageStage" ManuallyRouted="false" />
-        <AssociationConnector Association="SqlRepository.SqlContextModel.FK_User_StageUser" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.ProjectUsers" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair1" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentFile" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocFinalFile" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.DocFileStage" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.UserUser_Stage" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.DocFileUser_Stage" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

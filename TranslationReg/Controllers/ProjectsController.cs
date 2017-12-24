@@ -54,6 +54,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Project project)
         {
+            project.CreatorId = (await rep.GetUser(User.Identity.Name)).Id;
             if (ModelState.IsValid)
             {
                 await rep.AddProject(project);

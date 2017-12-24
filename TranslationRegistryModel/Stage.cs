@@ -23,12 +23,12 @@ namespace TranslationRegistryModel
         public int Id { get; set; }
         public int DocumentId { get; set; }
         public int WorkTypeId { get; set; }
-        public int FileId { get; set; }
+        public int DocFileId { get; set; }
     
         public virtual Document Document { get; set; }
-        public virtual File File { get; set; }
         public virtual WorkType WorkType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_Stage> User_Stage { get; set; }
+        public virtual DocFile DocFile { get; set; }
     }
 }

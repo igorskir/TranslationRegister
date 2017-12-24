@@ -12,19 +12,10 @@ namespace TranslationRegistryModel
     using System;
     using System.Collections.Generic;
     
-    public partial class File
+    public partial class DocFile
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public File()
-        {
-            this.Stages = new HashSet<Stage>();
-        }
-    
         public int Id { get; set; }
         public string Path { get; set; }
         public System.DateTime Date { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stage> Stages { get; set; }
     }
 }

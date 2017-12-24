@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/24/2017 06:36:19
+-- Date Created: 12/25/2017 03:52:13
 -- Generated from EDMX file: C:\Users\Иван\Documents\Visual Studio 2017\Projects\TranslationReg\TranslationRegistryModel\TRegModel.edmx
 -- --------------------------------------------------
 
@@ -22,12 +22,6 @@ IF OBJECT_ID(N'[dbo].[FK_dbo_Documents_dbo_Projects_ProjectId]', 'F') IS NOT NUL
 GO
 IF OBJECT_ID(N'[dbo].[FK_dbo_Documents_dbo_Users_UserId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_dbo_Documents_dbo_Users_UserId];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DocumentFile]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentFile];
-GO
-IF OBJECT_ID(N'[dbo].[FK_DocumentFile1]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentFile1];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DocumentStage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Stages] DROP CONSTRAINT [FK_DocumentStage];
@@ -64,6 +58,12 @@ IF OBJECT_ID(N'[dbo].[FK_LanguageLanguagePair]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_LanguageLanguagePair1]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[LanguagePairs] DROP CONSTRAINT [FK_LanguageLanguagePair1];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentFile];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocFinalFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocFinalFile];
 GO
 
 -- --------------------------------------------------
@@ -120,8 +120,8 @@ CREATE TABLE [dbo].[Documents] (
 );
 GO
 
--- Creating table 'Files'
-CREATE TABLE [dbo].[Files] (
+-- Creating table 'DocFiles'
+CREATE TABLE [dbo].[DocFiles] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Path] nvarchar(max)  NOT NULL,
     [Date] datetime  NOT NULL
@@ -170,7 +170,8 @@ CREATE TABLE [dbo].[Stages] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DocumentId] int  NOT NULL,
     [WorkTypeId] int  NOT NULL,
-    [FileId] int  NOT NULL
+    [FileId] int  NOT NULL,
+    [DocFileId] int  NOT NULL
 );
 GO
 
@@ -179,7 +180,8 @@ CREATE TABLE [dbo].[User_Stage] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Amount] int  NOT NULL,
     [StageId] int  NOT NULL,
-    [UserId] int  NOT NULL
+    [UserId] int  NOT NULL,
+    [WorkFile_Id] int  NOT NULL
 );
 GO
 
@@ -216,9 +218,9 @@ ADD CONSTRAINT [PK_Documents]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
--- Creating primary key on [Id] in table 'Files'
-ALTER TABLE [dbo].[Files]
-ADD CONSTRAINT [PK_Files]
+-- Creating primary key on [Id] in table 'DocFiles'
+ALTER TABLE [dbo].[DocFiles]
+ADD CONSTRAINT [PK_DocFiles]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -325,21 +327,6 @@ ON [dbo].[Stages]
     ([DocumentId]);
 GO
 
--- Creating foreign key on [FileId] in table 'Stages'
-ALTER TABLE [dbo].[Stages]
-ADD CONSTRAINT [FK_StageFile]
-    FOREIGN KEY ([FileId])
-    REFERENCES [dbo].[Files]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_StageFile'
-CREATE INDEX [IX_FK_StageFile]
-ON [dbo].[Stages]
-    ([FileId]);
-GO
-
 -- Creating foreign key on [LanguagePairId] in table 'Projects'
 ALTER TABLE [dbo].[Projects]
 ADD CONSTRAINT [FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId]
@@ -415,21 +402,6 @@ ON [dbo].[User_Stage]
     ([StageId]);
 GO
 
--- Creating foreign key on [UserId] in table 'User_Stage'
-ALTER TABLE [dbo].[User_Stage]
-ADD CONSTRAINT [FK_User_StageUser]
-    FOREIGN KEY ([UserId])
-    REFERENCES [dbo].[Users]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_User_StageUser'
-CREATE INDEX [IX_FK_User_StageUser]
-ON [dbo].[User_Stage]
-    ([UserId]);
-GO
-
 -- Creating foreign key on [Projects_Id] in table 'ProjectUsers'
 ALTER TABLE [dbo].[ProjectUsers]
 ADD CONSTRAINT [FK_ProjectUsers_Projects]
@@ -488,7 +460,7 @@ GO
 ALTER TABLE [dbo].[Documents]
 ADD CONSTRAINT [FK_DocumentFile]
     FOREIGN KEY ([OriginalFileId])
-    REFERENCES [dbo].[Files]
+    REFERENCES [dbo].[DocFiles]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -503,7 +475,7 @@ GO
 ALTER TABLE [dbo].[Documents]
 ADD CONSTRAINT [FK_DocFinalFile]
     FOREIGN KEY ([FinalFileId])
-    REFERENCES [dbo].[Files]
+    REFERENCES [dbo].[DocFiles]
         ([Id])
     ON DELETE NO ACTION ON UPDATE NO ACTION;
 GO
@@ -512,6 +484,51 @@ GO
 CREATE INDEX [IX_FK_DocFinalFile]
 ON [dbo].[Documents]
     ([FinalFileId]);
+GO
+
+-- Creating foreign key on [DocFileId] in table 'Stages'
+ALTER TABLE [dbo].[Stages]
+ADD CONSTRAINT [FK_DocFileStage]
+    FOREIGN KEY ([DocFileId])
+    REFERENCES [dbo].[DocFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DocFileStage'
+CREATE INDEX [IX_FK_DocFileStage]
+ON [dbo].[Stages]
+    ([DocFileId]);
+GO
+
+-- Creating foreign key on [UserId] in table 'User_Stage'
+ALTER TABLE [dbo].[User_Stage]
+ADD CONSTRAINT [FK_UserUser_Stage]
+    FOREIGN KEY ([UserId])
+    REFERENCES [dbo].[Users]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UserUser_Stage'
+CREATE INDEX [IX_FK_UserUser_Stage]
+ON [dbo].[User_Stage]
+    ([UserId]);
+GO
+
+-- Creating foreign key on [WorkFile_Id] in table 'User_Stage'
+ALTER TABLE [dbo].[User_Stage]
+ADD CONSTRAINT [FK_User_StageDocFile]
+    FOREIGN KEY ([WorkFile_Id])
+    REFERENCES [dbo].[DocFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_User_StageDocFile'
+CREATE INDEX [IX_FK_User_StageDocFile]
+ON [dbo].[User_Stage]
+    ([WorkFile_Id]);
 GO
 
 -- --------------------------------------------------

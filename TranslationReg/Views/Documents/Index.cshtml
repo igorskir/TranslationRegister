@@ -38,6 +38,11 @@
         <th>
             @Html.Label("Количество слов")
         </th>
+
+        <th>
+            @Html.Label("Создатель")
+        </th>
+
         <th>
             @Html.Label("Оригинал")
         </th>
@@ -58,15 +63,18 @@
             @Html.DisplayFor(modelItem => item.WordsNumber)
         </td>
         <td>
-            @if(!String.IsNullOrWhiteSpace(item.OriginalPath))
+            @Html.DisplayFor(modelItem => item.User.Name)
+        </td>
+        <td>
+            @if(!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
             {
-                @Html.ActionLink("Скачать оргигинал", "Download", "Documents", new { @filepath = item.OriginalPath }, null)
+                @Html.ActionLink("Скачать оргигинал", "Download", "Documents", new { @filepath = item.OriginalFile.Path }, null)
             }
         </td>
         <td>
-            @if (!String.IsNullOrWhiteSpace(item.OriginalPath))
+            @if (!String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
-                @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = item.TranslationPath }, null)
+                @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = item.FinalFile.Path }, null)
             }
         </td>
         <td>

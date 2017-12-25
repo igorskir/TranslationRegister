@@ -17,7 +17,7 @@ namespace TranslationRegistryModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public WorkType()
         {
-            this.Stages = new HashSet<Stage>();
+            this.Stages = new HashSet<DocStage>();
         }
     
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace TranslationRegistryModel
         public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stage> Stages { get; set; }
+        public virtual ICollection<DocStage> Stages { get; set; }
     }
 }

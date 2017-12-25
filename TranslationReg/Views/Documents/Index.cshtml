@@ -63,7 +63,7 @@
             @Html.DisplayFor(modelItem => item.WordsNumber)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.User.Name)
+            @Html.DisplayFor(modelItem => item.Owner.Name)
         </td>
         <td>
             @if(!String.IsNullOrWhiteSpace(item.OriginalFile.Path))

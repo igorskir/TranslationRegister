@@ -12,10 +12,10 @@ namespace TranslationRegistryModel
     using System;
     using System.Collections.Generic;
     
-    public partial class Stage
+    public partial class DocStage
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Stage()
+        public DocStage()
         {
             this.User_Stage = new HashSet<User_Stage>();
         }

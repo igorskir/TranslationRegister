@@ -69,5 +69,22 @@ namespace TranslationRegistryModel
         Task DeleteProjectStatus(int id);
         Task AddProjectStatus(ProjectStatus projectStatuse);
         //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- DocFile CRUD -----------------------------------------------
+        Task<List<DocFile>> GetDocFiles();
+        Task<DocFile> GetDocFile(int id);
+        Task PutDocFile(DocFile docFile);
+        Task DeleteDocFile(int id);
+        Task AddDocFile(DocFile docFile);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- DocFile CRUD -----------------------------------------------
+        Task<List<DocStage>> GetDocStages();
+        Task<DocStage> GetDocStage(int id);
+        Task PutDocStage(DocStage docStage);
+        Task DeleteDocStage(int id);
+        Task AddDocStage(DocStage docStage);
+        //------------------------------------------------------------------------------------------------
+
     }
 }

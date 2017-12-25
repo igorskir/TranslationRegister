@@ -95,13 +95,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RepositoryCRUD\SqlRepository_DocFile.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_DocStage.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_ProjectStatuse.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_WorkType.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_LanguagePair.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
     <Compile Include="SqlContext.cs" />
-    <Compile Include="Seeding\SqlRepositorySeeder.cs" />
     <Compile Include="SqlRepository.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_User.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Language.cs" />
@@ -116,6 +117,9 @@
       <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
       <Name>Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Seeding\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -12,7 +12,7 @@
     <dl class="dl-horizontal">
 
         <dt>
-            @Html.LabelFor(model => model.LanguagePair.Name,"Языковая пара")
+            @Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")
         </dt>
 
         <dd>
@@ -56,18 +56,52 @@
             </th>
         </tr>
 
-        @foreach (var item in Model.Documents)
+        @foreach (var doc in Model.Documents)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Name)
+                    @Html.DisplayFor(modelItem => doc.Name)
                 </td>
 
                 <td>
-                    @Html.ActionLink("Скачать", "Download",     "Documents", new { @filepath = item.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
-                    @Html.ActionLink("Редактировать", "Edit",   "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Подробно", "Details",     "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                    @Html.ActionLink("Удалить", "Delete",       "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                    @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
+                    @Html.ActionLink("Редактировать", "Edit", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Подробно", "Details", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-info" })
+                    @Html.ActionLink("Удалить", "Delete", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @foreach (var stage in doc.Stages)
+                    {
+                        <table>
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => stage.WorkType.Name)
+                                </td>
+                                <td></td>
+                            </tr>
+
+                            @foreach (var userStage in stage.User_Stage)
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => userStage.User.Name)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => userStage.Amount)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => userStage.DocFile.Date)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                                    </td>
+                                </tr>
+
+                            }
+                        </table>
+                    }
                 </td>
             </tr>
         }

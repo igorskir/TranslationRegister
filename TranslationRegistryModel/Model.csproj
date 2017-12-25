@@ -52,6 +52,9 @@
     <Compile Include="DocFile.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="DocStage.cs">
+      <DependentUpon>TRegModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Document.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
@@ -69,9 +72,6 @@
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stage.cs">
-      <DependentUpon>TRegModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="TRegModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

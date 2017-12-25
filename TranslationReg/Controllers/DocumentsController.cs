@@ -70,25 +70,55 @@ namespace TranslationReg.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( Document document, HttpPostedFileBase file)
+        public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
         {
             document.OwnerId = (await rep.GetUser(User.Identity.Name)).Id;
 
-            if (file!= null && file.ContentLength != 0)
+            if (originalFile!= null && originalFile.ContentLength != 0)
             {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                document.OriginalFile.Path = path;
+
+                document.OriginalFile = await SetFile(originalFile);
+
+                if (finalFile != null && finalFile.ContentLength != 0)
+                    document.FinalFile = await SetFile(finalFile); ;
 
                 if (ModelState.IsValid)
                 {
+                    originalFile.SaveAs(document.OriginalFile.Path);
+
+                    if (document.FinalFile!=null)
+                        finalFile.SaveAs(document.FinalFile.Path);
+
                     await rep.AddDocument(document);
-                    file.SaveAs(path);
                     return RedirectToAction("Index");
                 }
             }
 
             return View(document);
+        }
+
+        private async Task<DocFile> SetFile(HttpPostedFileBase file)
+        {
+            DocFile docfile = new DocFile();
+            docfile.Date = DateTime.Now;
+            docfile.Path = GetValidPath(file);
+            await rep.AddDocFile(docfile);
+            return docfile;
+        }
+
+        private string GetValidPath(HttpPostedFileBase file)
+        {
+            var fileName = Path.GetFileName(file.FileName);
+            var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+            if (System.IO.File.Exists(path))
+            {
+                Guid guid = Guid.NewGuid();
+                fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                string extension = Path.GetExtension(file.FileName);
+                fileName += guid.ToString() + extension;
+                path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+            }
+            return path;
         }
 
         // GET: Documents/Edit/5

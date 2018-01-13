@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SqlRepository;
 using TranslationRegistryModel;
+using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
@@ -23,7 +24,7 @@ namespace TranslationReg.Controllers
         // GET: Languages
         public async Task<ActionResult> Index()
         {
-            return View(await rep.GetLanguages());
+            return View(await LanguagesModel.GetModel(rep));
         }
 
         // GET: Languages/Create

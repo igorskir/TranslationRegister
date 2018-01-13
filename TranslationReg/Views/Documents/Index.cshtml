@@ -74,7 +74,9 @@
         <td>
             @if (!String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
-                @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = item.FinalFile.Path }, null)
+                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })">
+                    <span class="glyphicon glyphicon-download" aria-hidden="true" filepath = "@item.FinalFile.Path"></span>
+                </a>
             }
         </td>
         <td>

@@ -77,11 +77,23 @@
                         <table>
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => stage.WorkType.Name)
+                                    <b>@stage.WorkType.Name</b>
                                 </td>
-                                <td></td>
                             </tr>
-
+                            <tr>
+                                <th>
+                                    Пользователь
+                                </th>
+                                <th>
+                                    Количество (слов)?
+                                </th>
+                                <th>
+                                    Дата загрузки
+                                </th>
+                                <th>
+                                    Ссылка
+                                </th>
+                            </tr>
                             @foreach (var userStage in stage.User_Stage)
                             {
                                 <tr>

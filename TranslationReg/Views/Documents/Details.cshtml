@@ -10,16 +10,44 @@
     <h4>@Model.Name</h4>
     <hr />
     <dl class="dl-horizontal">
-
         <dd>
-            @Html.ActionLink("Скачать оргигинал","Download","Documents", new { @filepath=Model.OriginalPath}, null)
+            @Html.ActionLink("Скачать оргигинал","Download","Documents", new { @filepath=Model.OriginalFile.Path}, null)
         </dd>
 
         <dd>
-            @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = Model.TranslationPath }, null)
+            @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = Model.FinalFile.Path }, null)
         </dd>
-
     </dl>
+    @foreach (var stage in Model.Stages)
+    {
+        <table>
+            <tr>
+                <td>
+                    <b>@stage.WorkType.Name</b>
+                </td>
+                <td></td>
+            </tr>
+
+            @foreach (var userStage in stage.User_Stage)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => userStage.User.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => userStage.Amount)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => userStage.DocFile.Date)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                    </td>
+                </tr>
+
+            }
+        </table>
+    }
 </div>
 <p>
     @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |

@@ -15,16 +15,16 @@ namespace TranslationReg.Controllers
 {
     public class LanguagesController : Controller
     {
-        public IRepository rep { get; set; }
+        public IRepository Rep { get; set; }
         public LanguagesController(IRepository repository)
         {
-            this.rep = repository;
+            this.Rep = repository;
         }
 
         // GET: Languages
         public async Task<ActionResult> Index()
         {
-            return View(await LanguagesModel.GetModel(rep));
+            return View(await LanguagesModel.GetModel(Rep));
         }
 
         // GET: Languages/Create
@@ -40,7 +40,7 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.AddLanguage(language);
+                await Rep.AddLanguage(language);
                 return RedirectToAction("Index");
             }
 
@@ -53,7 +53,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Language language = await rep.GetLanguage(id.Value);
+            Language language = await Rep.GetLanguage(id.Value);
 
             if (language == null)
                 return HttpNotFound();
@@ -69,7 +69,7 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.PutLanguage(language);
+                await Rep.PutLanguage(language);
                 return RedirectToAction("Index");
             }
             return View(language);
@@ -82,7 +82,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Language language = await rep.GetLanguage(id.Value);
+            Language language = await Rep.GetLanguage(id.Value);
 
             if (language == null)
                 return HttpNotFound();
@@ -96,7 +96,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await rep.DeleteLanguage(id);
+            await Rep.DeleteLanguage(id);
             return RedirectToAction("Index");
         }
 
@@ -104,7 +104,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                rep.Dispose();
+                Rep.Dispose();
             }
             base.Dispose(disposing);
         }

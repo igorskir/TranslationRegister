@@ -15,9 +15,11 @@ namespace TranslationReg.Models
 
         public static async Task<DocumentModel> GetModel(IRepository rep)
         {
-            DocumentModel model = new DocumentModel();
-            model.Document = new Document();
-            model.Projects = new SelectList(await rep.GetProjects(), "Id", "Name");
+            DocumentModel model = new DocumentModel
+            {
+                Document = new Document(),
+                Projects = new SelectList(await rep.GetProjects(), "Id", "Name")
+            };
 
             return model;
         }

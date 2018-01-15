@@ -15,9 +15,11 @@ namespace TranslationReg.Models
 
         public static async Task<LanguagesModel> GetModel(IRepository rep)
         {
-            LanguagesModel model = new LanguagesModel();
-            model.languages = await rep.GetLanguages();
-            model.languagePairs = await rep.GetLanguagePairs();
+            LanguagesModel model = new LanguagesModel
+            {
+                languages = await rep.GetLanguages(),
+                languagePairs = await rep.GetLanguagePairs()
+            };
             return model;
         }
     }

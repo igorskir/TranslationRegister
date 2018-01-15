@@ -16,16 +16,16 @@ namespace TranslationReg.Controllers
     [Authorize]
     public class ProjectsController : Controller
     {
-        public IRepository rep { get; set; }
+        public IRepository Rep { get; set; }
         public ProjectsController(IRepository repository)
         {
-            this.rep = repository;
+            this.Rep = repository;
         }
 
         // GET: Projects
         public async Task<ActionResult> Index()
         {
-            var projects = await rep.GetProjects();
+            var projects = await Rep.GetProjects();
             return View(projects);
         }
 
@@ -35,7 +35,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Project project = await rep.GetProject(id.Value);
+            Project project = await Rep.GetProject(id.Value);
 
             if (project == null)
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace TranslationReg.Controllers
         // GET: Projects/Create
         public async Task<ActionResult> Create()
         {
-            ProjectModel model = await ProjectModel.GetModel(rep);
+            ProjectModel model = await ProjectModel.GetModel(Rep);
             return View(model);
         }
 
@@ -54,14 +54,14 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Project project)
         {
-            project.CreatorId = (await rep.GetUser(User.Identity.Name)).Id;
+            project.CreatorId = (await Rep.GetUser(User.Identity.Name)).Id;
             if (ModelState.IsValid)
             {
-                await rep.AddProject(project);
+                await Rep.AddProject(project);
                 return RedirectToAction("Index");
             }
 
-            ProjectModel model = await ProjectModel.GetModel(rep);
+            ProjectModel model = await ProjectModel.GetModel(Rep);
             model.Project = project;
             return View(model);
         }
@@ -72,13 +72,13 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Project project = await rep.GetProject(id.Value);
+            Project project = await Rep.GetProject(id.Value);
 
             if (project == null)
                 return HttpNotFound();
 
-            var languages = await rep.GetLanguages();
-            ViewBag.LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
+            var languages = await Rep.GetLanguages();
+            ViewBag.LanguagePairs = new SelectList(await Rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
             return View(project);
         }
 
@@ -88,12 +88,12 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.PutProject(project);
+                await Rep.PutProject(project);
                 return RedirectToAction("Index");
             }
 
-            var languages = await rep.GetLanguages();
-            ViewBag.LanguagePair = new SelectList(await rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
+            var languages = await Rep.GetLanguages();
+            ViewBag.LanguagePair = new SelectList(await Rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
             return View(project);
         }
 
@@ -103,7 +103,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Project project = await rep.GetProject(id.Value);
+            Project project = await Rep.GetProject(id.Value);
 
             if (project == null)
                 return HttpNotFound();
@@ -116,7 +116,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await rep.DeleteProject(id);
+            await Rep.DeleteProject(id);
             return RedirectToAction("Index");
         }
 
@@ -124,7 +124,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                rep.Dispose();
+                Rep.Dispose();
             }
             base.Dispose(disposing);
         }

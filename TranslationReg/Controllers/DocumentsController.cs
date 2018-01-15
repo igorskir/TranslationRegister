@@ -17,16 +17,16 @@ namespace TranslationReg.Controllers
     [Authorize]
     public class DocumentsController : Controller
     {
-        public IRepository rep { get; set; }
+        public IRepository Rep { get; set; }
         public DocumentsController(IRepository repository)
         {
-            this.rep = repository;
+            this.Rep = repository;
         }
 
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return View(await rep.GetDocuments());
+            return View(await Rep.GetDocuments());
         }
 
         // GET: Documents/Details/5
@@ -35,7 +35,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
@@ -46,7 +46,7 @@ namespace TranslationReg.Controllers
         // GET: Documents/Create
         public async Task<ActionResult> Create()
         {
-            DocumentModel DocCreateViewModel = await DocumentModel.GetModel(rep);
+            DocumentModel DocCreateViewModel = await DocumentModel.GetModel(Rep);
             return View(DocCreateViewModel);
         }
 
@@ -72,7 +72,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
         {
-            document.OwnerId = (await rep.GetUser(User.Identity.Name)).Id;
+            document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
 
             if (originalFile!= null && originalFile.ContentLength != 0)
             {
@@ -89,7 +89,7 @@ namespace TranslationReg.Controllers
                     if (document.FinalFile!=null)
                         finalFile.SaveAs(document.FinalFile.Path);
 
-                    await rep.AddDocument(document);
+                    await Rep.AddDocument(document);
                     return RedirectToAction("Index");
                 }
             }
@@ -99,10 +99,12 @@ namespace TranslationReg.Controllers
 
         private async Task<DocFile> SetFile(HttpPostedFileBase file)
         {
-            DocFile docfile = new DocFile();
-            docfile.Date = DateTime.Now;
-            docfile.Path = GetValidPath(file);
-            await rep.AddDocFile(docfile);
+            DocFile docfile = new DocFile
+            {
+                Date = DateTime.Now,
+                Path = GetValidPath(file)
+            };
+            await Rep.AddDocFile(docfile);
             return docfile;
         }
 
@@ -127,13 +129,13 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
 
             //todo viewmodel
-            ViewBag.ProjectId = new SelectList(await rep.GetLanguages(), "Id", "Name", document.ProjectId);
+            ViewBag.ProjectId = new SelectList(await Rep.GetLanguages(), "Id", "Name", document.ProjectId);
 
             return View(document);
         }
@@ -147,7 +149,7 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.PutDocument(document);
+                await Rep.PutDocument(document);
                 return RedirectToAction("Index");
             }
             return View(document);
@@ -160,7 +162,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
@@ -173,7 +175,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await rep.DeleteDocument(id);
+            await Rep.DeleteDocument(id);
             return RedirectToAction("Index");
         }
 
@@ -181,7 +183,7 @@ namespace TranslationReg.Controllers
         {
             if (disposing)
             {
-                rep.Dispose();
+                Rep.Dispose();
             }
             base.Dispose(disposing);
         }

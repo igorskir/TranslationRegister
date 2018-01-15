@@ -30,7 +30,7 @@ namespace TranslationReg.Controllers
         // GET: Languages/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Languages/Create
@@ -58,7 +58,7 @@ namespace TranslationReg.Controllers
             if (language == null)
                 return HttpNotFound();
 
-            return View(language);
+            return PartialView(language);
         }
 
         // POST: Languages/Edit/5
@@ -87,7 +87,7 @@ namespace TranslationReg.Controllers
             if (language == null)
                 return HttpNotFound();
 
-            return View(language);
+            return PartialView(language);
         }
 
         // POST: Languages/Delete/5

@@ -1,39 +1,35 @@
-﻿@model TranslationRegistryModel.Language
+﻿<div class="dialogForm">
+    @model TranslationRegistryModel.Language
 
-@{
-    ViewBag.Title = "Удаление";
-}
+    <h3>Вы уверены, что хотите удалить данную запись?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.Label("Язык")
+            </dt>
 
-<h2>Удаление</h2>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
 
-<h3>Вы уверены, что хотите удалить данную запись?</h3>
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.Label("Язык")
-        </dt>
+            <dt>
+                @Html.Label("Сокращение")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.ShortName)
+            </dd>
 
-        <dt>
-            @Html.Label("Сокращение")
-        </dt>
+        </dl>
 
-        <dd>
-            @Html.DisplayFor(model => model.ShortName)
-        </dd>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("Назад к списку", "Index")
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Удалить" class="btn btn-default" /> |
+            </div>
+        }
+    </div>
 </div>

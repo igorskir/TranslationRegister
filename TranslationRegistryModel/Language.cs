@@ -11,14 +11,11 @@ namespace TranslationRegistryModel
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Language
     {
         public int Id { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string ShortName { get; set; }
     }
 }

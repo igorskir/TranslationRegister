@@ -3,14 +3,13 @@
 @{
     ViewBag.Title = "Языки";
 }
-<script src='@Url.Content("~/Scripts/jquery-1.12.4.min.js")' type="text/javascript"></script>
-<script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
 <h2>Языки</h2>
 
-<p>
-    @Html.ActionLink("Добавить", "Create", null,
-        htmlAttributes: new { @class = "btn btn-success viewDialog", data_dialog_title = "Добавить запись" })
-</p>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm" href="/Languages/Create" id="addLanguageBtn">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+<div id="addLanguageForm" class="dynamicBlock"></div>
+
 <table class="table">
     <tr>
         <th>
@@ -32,19 +31,24 @@
                 @Html.DisplayFor(modelItem => item.ShortName)
             </td>
             <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, 
-                    htmlAttributes: new { @class = "btn btn-primary viewDialog", data_dialog_title = "Редактировать запись" })
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, 
-                    htmlAttributes: new { @class = "btn btn-danger viewDialog", data_dialog_title = "Удалить запись" })
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id" class="glyphicon glyphicon-edit langEditBtn editBtn"></a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id" class="glyphicon glyphicon-remove"></a>
             </td>
+
+        </tr>
+        <tr class="table-light">
+            <td id="language@(item.Id)"  class="dynamicBlock"></td>
         </tr>
     }
 </table>
 
 <h2>Языковые пары</h2>
-<p>
-    @Html.ActionLink("Добавить (мулька)", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
-</p>
+
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguagePairForm" href="/Languages/Create" id="addLanguageBtn">
+    <span class="glyphicon glyphicon-plus"></span>
+</a>
+<div id="addLanguagePairForm" class="dynamicBlock"></div>
+
 <table class="table">
     <tr>
         <th>
@@ -72,33 +76,25 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a class="addEditForm" value="@item.Id"> тест</a>
-                @Html.ActionLink("Редактировать (мулька)", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                @Html.ActionLink("Удалить (мулька)", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="glyphicon glyphicon-edit editBtn"></a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Delete/@item.Id" class="glyphicon glyphicon-remove"></a>
             </td>
+        </tr>
+        <tr>
+            <td id="languagePair@(item.Id)" class="dynamicBlock"></td>
         </tr>
     }
 </table>
-
+<button id="toggle">Show</button>
+@section scripts {
 <script>
-    $(document).ready(function () {
-
-        $.ajaxSetup({ cache: false });
-
-        $(".viewDialog").on("click", function (e) {
-            e.preventDefault();
-
-            $("<div></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    height: 300,
-                    width: 500,
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true
-                })
-                .load(this.href);
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                $(this).toggleClass("glyphicon-edit");
+                $(this).toggleClass("glyphicon-arrow-up");
+                selector = $(this).attr("data-ajax-update");
+                $(selector).toggle();
+            });
         });
-    });
 </script>
+}

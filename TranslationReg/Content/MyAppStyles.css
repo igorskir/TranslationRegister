@@ -4,3 +4,7 @@
     font-size : 25px;
     text-align:center;
 }
+
+.dynamicBlock {
+    display:none
+}

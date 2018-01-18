@@ -61,7 +61,7 @@ namespace TranslationReg.Controllers
             }
             ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
             ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.TranslationLanguageId);
-            return View(languagePair);
+            return PartialView(languagePair);
         }
 
         // POST: LanguagePairs/Edit/5

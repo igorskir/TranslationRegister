@@ -1,125 +1,124 @@
-﻿@model TranslationRegistryModel.Project
+﻿<div>
 
-@{
-    ViewBag.Title = "Детали проекта";
-}
+    @model TranslationRegistryModel.Project
 
-<h2>Детали проекта</h2>
+    <h2>Детали проекта</h2>
 
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
+    <div>
+        <h4>@Model.Name</h4>
+        <hr />
+        <dl class="dl-horizontal">
 
-        <dt>
-            @Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")
-        </dt>
+            <dt>
+                @Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.LanguagePair.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.LanguagePair.Name)
+            </dd>
 
-        <dt>
-            @Html.LabelFor(model => model.WordsNumber, "Количество слов")
-        </dt>
+            <dt>
+                @Html.LabelFor(model => model.WordsNumber, "Количество слов")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.WordsNumber)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.WordsNumber)
+            </dd>
 
-        <dt>
-            @Html.LabelFor(model => model.Customer, "Заказчик")
-        </dt>
+            <dt>
+                @Html.LabelFor(model => model.Customer, "Заказчик")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Customer)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Customer)
+            </dd>
 
-        <dt>
-            @Html.LabelFor(model => model.Creator.Name, "Создатель")
-        </dt>
+            <dt>
+                @Html.LabelFor(model => model.Creator.Name, "Создатель")
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Creator.Name)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Creator.Name)
+            </dd>
 
-    </dl>
+        </dl>
 
 
-    <table class="table">
-        <tr>
-            <th>
-                Документы проекта
-            </th>
-            <th>
-
-            </th>
-        </tr>
-
-        @foreach (var doc in Model.Documents)
-        {
+        <table class="table">
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => doc.Name)
-                </td>
+                <th>
+                    Документы проекта
+                </th>
+                <th>
 
-                <td>
-                    @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
-                    @Html.ActionLink("Редактировать", "Edit", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Подробно", "Details", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                    @Html.ActionLink("Удалить", "Delete", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-                </td>
+                </th>
             </tr>
-            <tr>
-                <td>
-                    @foreach (var stage in doc.Stages)
-                    {
-                        <table>
-                            <tr>
-                                <td>
-                                    <b>@stage.WorkType.Name</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Пользователь
-                                </th>
-                                <th>
-                                    Количество (слов)?
-                                </th>
-                                <th>
-                                    Дата загрузки
-                                </th>
-                                <th>
-                                    Ссылка
-                                </th>
-                            </tr>
-                            @foreach (var userStage in stage.User_Stage)
-                            {
+
+            @foreach (var doc in Model.Documents)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => doc.Name)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
+                        @Html.ActionLink("Редактировать", "Edit", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Подробно", "Details", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-info" })
+                        @Html.ActionLink("Удалить", "Delete", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @foreach (var stage in doc.Stages)
+                        {
+                            <table>
                                 <tr>
                                     <td>
-                                        @Html.DisplayFor(modelItem => userStage.User.Name)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => userStage.Amount)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => userStage.DocFile.Date)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                                        <b>@stage.WorkType.Name</b>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <th>
+                                        Пользователь
+                                    </th>
+                                    <th>
+                                        Количество (слов)?
+                                    </th>
+                                    <th>
+                                        Дата загрузки
+                                    </th>
+                                    <th>
+                                        Ссылка
+                                    </th>
+                                </tr>
+                                @foreach (var userStage in stage.User_Stage)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => userStage.User.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => userStage.Amount)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => userStage.DocFile.Date)
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                                        </td>
+                                    </tr>
 
-                            }
-                        </table>
-                    }
-                </td>
-            </tr>
-        }
-    </table>
+                                }
+                            </table>
+                        }
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
+        @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
-</p>

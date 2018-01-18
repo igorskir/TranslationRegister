@@ -40,7 +40,7 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            return View(project);
+            return PartialView(project);
         }
 
         // GET: Projects/Create

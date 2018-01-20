@@ -1,1 +1,49 @@
-﻿
+﻿@model List<TranslationRegistryModel.LanguagePair>
+
+<h2>Языковые пары</h2>
+
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguagePairForm" 
+   href="/Languages/Create" class="glyphicon glyphicon-plus createBtn">
+</a>
+<div id="addLanguagePairForm" class="dynamicBlock"></div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Язык оригинала")
+        </th>
+        <th>
+            @Html.Label("Язык перевода")
+        </th>
+        <th>
+            @Html.Label("Отображаемое наименование")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OriginalLanguage.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TranslationLanguage.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="glyphicon glyphicon-edit editBtn"></a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Delete/@item.Id" class="glyphicon glyphicon-remove deleteBtn"></a>
+            </td>
+        </tr>
+        <tr>
+            <td id="languagePair@(item.Id)" class="dynamicBlock"></td>
+        </tr>
+
+        @*
+        @Html.Partial("../LanguagePairs/Item", item)
+        *@
+    }
+</table>

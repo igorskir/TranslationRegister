@@ -1,0 +1,16 @@
+﻿@model TranslationRegistryModel.Language
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => Model.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => Model.ShortName)
+    </td>
+    <td>
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" href="/Languages/Edit/@Model.Id"
+           class="glyphicon glyphicon-edit langEditBtn editBtn"></a>
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" href="/Languages/Delete/@Model.Id"
+           class="glyphicon glyphicon-remove deleteBtn"></a>
+    </td>
+
+</tr>

@@ -1,0 +1,43 @@
+﻿@model List<TranslationRegistryModel.Language>
+@{
+    ViewBag.Title = "Языки";
+}
+<h2>Языки</h2>
+
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm" 
+   href="/Languages/Create" class="glyphicon glyphicon-plus createBtn"></a>
+<div id="addLanguageForm" class="dynamicBlock"></div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.Label("Наименование")
+        </th>
+        <th>
+            @Html.Label("Сокращение")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShortName)
+            </td>
+            <td>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id"
+                   class="glyphicon glyphicon-edit langEditBtn editBtn"></a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id"
+                   class="glyphicon glyphicon-remove deleteBtn"></a>
+            </td>
+
+        </tr>
+        <tr class="table-light">
+            <td id="language@(item.Id)" class="dynamicBlock"></td>
+        </tr>
+    }
+</table>

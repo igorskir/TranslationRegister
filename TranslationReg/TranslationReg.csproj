@@ -278,7 +278,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Languages\Create.cshtml" />
     <Content Include="Views\Languages\Delete.cshtml" />
-    <Content Include="Views\Languages\Details.cshtml" />
     <Content Include="Views\Languages\Edit.cshtml" />
     <Content Include="Views\Languages\Index.cshtml" />
     <Content Include="Views\Documents\Create.cshtml" />
@@ -296,6 +295,10 @@
     <Content Include="Views\LanguagePairs\Create.cshtml" />
     <Content Include="Views\LanguagePairs\Edit.cshtml" />
     <Content Include="Views\LanguagePairs\List.cshtml" />
+    <Content Include="Views\LanguagePairs\Item.cshtml" />
+    <Content Include="Views\Languages\List.cshtml" />
+    <Content Include="Views\Languages\Item.cshtml" />
+    <Content Include="Views\LanguagePairs\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

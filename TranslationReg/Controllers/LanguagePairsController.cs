@@ -20,6 +20,11 @@ namespace TranslationReg.Controllers
             this.Rep = Rep;
         }
 
+        public async Task<ActionResult> List()
+        {
+            return PartialView(await Rep.GetLanguagePairs());
+        }
+
         // GET: LanguagePairs/Create
         public async Task<ActionResult> CreateAsync()
         {

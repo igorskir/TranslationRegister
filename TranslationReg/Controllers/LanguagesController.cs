@@ -21,10 +21,22 @@ namespace TranslationReg.Controllers
             this.Rep = repository;
         }
 
-        // GET: Languages
+        // GET: Languages & LanguagePairs
         public async Task<ActionResult> Index()
         {
             return View(await LanguagesModel.GetModel(Rep));
+        }
+
+        // GET: Languages
+        public async Task<ActionResult> Item(int id)
+        {
+            return PartialView(await Rep.GetLanguage(id));
+        }
+
+        // GET: Languages
+        public async Task<ActionResult> List()
+        {
+            return PartialView(await Rep.GetLanguages());
         }
 
         // GET: Languages/Create
@@ -70,7 +82,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutLanguage(language);
-                return RedirectToAction("Index");
+                return PartialView(language);
             }
             return View(language);
         }

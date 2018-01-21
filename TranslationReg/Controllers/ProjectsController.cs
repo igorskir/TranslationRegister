@@ -40,14 +40,14 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            return PartialView(project);
+            return View(project);
         }
 
         // GET: Projects/Create
         public async Task<ActionResult> Create()
         {
             ProjectModel model = await ProjectModel.GetModel(Rep);
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -108,7 +108,7 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            return View(project);
+            return PartialView(project);
         }
 
         // POST: Projects/Delete/5

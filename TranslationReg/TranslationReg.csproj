@@ -299,6 +299,7 @@
     <Content Include="Views\Languages\List.cshtml" />
     <Content Include="Views\Languages\Item.cshtml" />
     <Content Include="Views\LanguagePairs\Delete.cshtml" />
+    <Content Include="Views\Projects\DetailsShort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

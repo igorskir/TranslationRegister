@@ -6,9 +6,10 @@
 
 <h2>Проекты</h2>
 
-<p>
-    @Html.ActionLink("Добавить", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
-</p>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addProj"
+   href="/Projects/Create" class="glyphicon glyphicon-plus createBtn"></a>
+<div id="addProj" class="dynamicBlock"></div>
+
 <table class="table">
     <tr>
         <th>
@@ -25,28 +26,6 @@
     {
         <tr>
             <td>
-                @Ajax.ActionLink(
-                       "Button1",
-                       "Details",
-                       new
-                       {
-                           id = item.Id
-                       },
-                       new AjaxOptions
-                       {
-                           UpdateTargetId = item.Id.ToString()
-                       }
-                  )
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id" href="/Projects/Details/@item.Id">
-                    <span class="glyphicon glyphicon-chevron-down"></span>
-                </a>
-            </td>
-
-
-        </tr>
-
-        <tr>
-            <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
@@ -55,11 +34,56 @@
 
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info", @data = @item.Id })
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                
+                <a href="/Projects/Details/@item.Id" class="btn btn-info"></a>
+                
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id"
+                   href="/Projects/Details/@item.Id" class="glyphicon glyphicon-chevron-down"></a>
+
+                <a data-ajax="true"
+                   href="/Projects/Delete/@item.Id" class="glyphicon glyphicon-remove deleteBtn"></a>
             </td>
         </tr>
         <tr id="@(item.Id)"></tr>
     }
 
 </table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                $(this).toggleClass("glyphicon-edit");
+                $(this).toggleClass("glyphicon-arrow-up");
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle();
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                $(this).toggleClass("glyphicon-remove");
+                $(this).toggleClass("glyphicon-arrow-up");
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle();
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

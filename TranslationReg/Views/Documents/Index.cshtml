@@ -68,15 +68,13 @@
         <td>
             @if(!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
             {
-                @Html.ActionLink("Скачать оргигинал", "Download", "Documents", new { @filepath = item.OriginalFile.Path }, null)
+                <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
             }
         </td>
         <td>
             @if (!String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })">
-                    <span class="glyphicon glyphicon-download" aria-hidden="true" filepath = "@item.FinalFile.Path"></span>
-                </a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
             }
         </td>
         <td>

@@ -19,7 +19,7 @@ namespace TranslationReg.Controllers
         public IRepository Rep { get; set; }
         public ProjectsController(IRepository repository)
         {
-            this.Rep = repository;
+            Rep = repository;
         }
 
         // GET: Projects

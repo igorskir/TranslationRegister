@@ -8,31 +8,30 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
-        public IRepository rep { get; set; }
+        public IRepository Rep { get; set; }
         public HomeController(IRepository repository)
         {
-            this.rep = repository;
+            this.Rep = repository;
         }
 
         public async Task<ActionResult> Index()
         {
-            var l = await rep.GetLanguages();
+            var l = await Rep.GetLanguages();
             return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
-
+            ViewBag.Message = "Реестр переводов";
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
+            ViewBag.Message = "Контакты";
             return View();
         }
     }

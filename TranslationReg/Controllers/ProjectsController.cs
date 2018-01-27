@@ -43,6 +43,20 @@ namespace TranslationReg.Controllers
             return View(project);
         }
 
+        // GET: Projects/DetailsShort/5
+        public async Task<ActionResult> DetailsShort(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            return PartialView(project);
+        }
+
         // GET: Projects/Create
         public async Task<ActionResult> Create()
         {

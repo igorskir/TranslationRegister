@@ -1,9 +1,7 @@
-﻿<div>
+﻿<div style="margin-bottom:50px">
     @model TranslationRegistryModel.Project
-    <h2>Детали проекта</h2>
-
+    <h4>Детали проекта</h4>
     <div>
-        <h4>@Model.Name</h4>
         <hr />
         <dl class="dl-horizontal">
 
@@ -40,30 +38,5 @@
             </dd>
 
         </dl>
-
-
-        <table class="table">
-            <tr>
-                <th>
-                    Документы проекта
-                </th>
-            </tr>
-
-            @foreach (var doc in Model.Documents)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => doc.Name)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
-                        @Html.ActionLink("Редактировать", "Edit", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Подробно", "Details", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                        @Html.ActionLink("Удалить", "Delete", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
-            }
-        </table>
     </div>
 </div>

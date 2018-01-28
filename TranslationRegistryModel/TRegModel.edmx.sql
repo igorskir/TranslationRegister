@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 12/25/2017 04:06:26
--- Generated from EDMX file: C:\Users\Иван\Documents\Visual Studio 2017\Projects\TranslationReg\TranslationRegistryModel\TRegModel.edmx
+-- Date Created: 01/21/2018 00:49:58
+-- Generated from EDMX file: D:\badas code\TranslationRegistryModel\TRegModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [SqlRepository.SqlContext];
+USE [TransReg];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -24,7 +24,7 @@ IF OBJECT_ID(N'[dbo].[FK_dbo_Documents_dbo_Users_UserId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_dbo_Documents_dbo_Users_UserId];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DocumentStage]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Stages] DROP CONSTRAINT [FK_DocumentStage];
+    ALTER TABLE [dbo].[DocStages] DROP CONSTRAINT [FK_DocumentStage];
 GO
 IF OBJECT_ID(N'[dbo].[FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Projects] DROP CONSTRAINT [FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId];
@@ -36,7 +36,7 @@ IF OBJECT_ID(N'[dbo].[FK_ProjectUser]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Projects] DROP CONSTRAINT [FK_ProjectUser];
 GO
 IF OBJECT_ID(N'[dbo].[FK_StageWorkType]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Stages] DROP CONSTRAINT [FK_StageWorkType];
+    ALTER TABLE [dbo].[DocStages] DROP CONSTRAINT [FK_StageWorkType];
 GO
 IF OBJECT_ID(N'[dbo].[FK_User_StageStage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[User_Stage] DROP CONSTRAINT [FK_User_StageStage];
@@ -60,13 +60,13 @@ IF OBJECT_ID(N'[dbo].[FK_DocFinalFile]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocFinalFile];
 GO
 IF OBJECT_ID(N'[dbo].[FK_DocFileStage]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Stages] DROP CONSTRAINT [FK_DocFileStage];
+    ALTER TABLE [dbo].[DocStages] DROP CONSTRAINT [FK_DocFileStage];
 GO
 IF OBJECT_ID(N'[dbo].[FK_UserUser_Stage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[User_Stage] DROP CONSTRAINT [FK_UserUser_Stage];
 GO
-IF OBJECT_ID(N'[dbo].[FK_User_StageDocFile]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[User_Stage] DROP CONSTRAINT [FK_User_StageDocFile];
+IF OBJECT_ID(N'[dbo].[FK_DocFileUser_Stage]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[User_Stage] DROP CONSTRAINT [FK_DocFileUser_Stage];
 GO
 
 -- --------------------------------------------------
@@ -91,8 +91,8 @@ GO
 IF OBJECT_ID(N'[dbo].[ProjectStatuses]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProjectStatuses];
 GO
-IF OBJECT_ID(N'[dbo].[Stages]', 'U') IS NOT NULL
-    DROP TABLE [dbo].[Stages];
+IF OBJECT_ID(N'[dbo].[DocStages]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[DocStages];
 GO
 IF OBJECT_ID(N'[dbo].[User_Stage]', 'U') IS NOT NULL
     DROP TABLE [dbo].[User_Stage];

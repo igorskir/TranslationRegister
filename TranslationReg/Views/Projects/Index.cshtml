@@ -38,17 +38,21 @@
         </td>
 
         <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+            <a href="/Projects/Details/@item.Id" class="btn btn-info">Открыть</a>
         </td>
+
         <td>
-            <a href="/Projects/Details/@item.Id" class="btn btn-info">Подробно</a>
+            <a href="/Projects/Edit/@item.Id" class="btn btn-success">Редактировать</a>
         </td>
+
         <td>
             <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id"
-               href="/Projects/DetailsShort/@item.Id" class="glyphicon glyphicon-chevron-down detailsBtn"></a>
+               href="/Projects/DetailsShort/@item.Id" class="btn btn-info detailsBtn">Детали</a>
+        </td>
+
         <td>
             <a data-ajax="true"
-               href="/Projects/Delete/@item.Id" class="glyphicon glyphicon-remove deleteBtn"></a>
+               href="/Projects/Delete/@item.Id" class="btn btn-danger deleteBtn">Удалить</a>
         </td>
     </tr>
         
@@ -75,8 +79,6 @@
 
         $(document).ready(function () {
             $(".createBtn").click(function () {
-                $(this).toggleClass("glyphicon-remove");
-                $(this).toggleClass("glyphicon-arrow-up");
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle();
@@ -85,8 +87,6 @@
 
         $(document).ready(function () {
             $(".detailsBtn").click(function () {
-                $(this).toggleClass("glyphicon-chevron-down");
-                $(this).toggleClass("glyphicon-chevron-up");
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle();

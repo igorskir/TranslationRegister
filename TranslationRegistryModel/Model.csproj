@@ -58,6 +58,7 @@
     <Compile Include="Document.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Entities.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="Language.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>

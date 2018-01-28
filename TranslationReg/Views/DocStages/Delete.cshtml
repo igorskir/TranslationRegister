@@ -1,0 +1,56 @@
+﻿@model TranslationRegistryModel.DocStage
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete</title>
+</head>
+<body>
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>DocStage</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DocFile.Path)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocFile.Path)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Document.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Document.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.WorkType.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.WorkType.Name)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</body>
+</html>

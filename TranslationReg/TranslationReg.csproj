@@ -173,6 +173,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DocStagesController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\Helper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -243,6 +244,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Scripts\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery-1.12.4.min.js" />
@@ -300,6 +302,11 @@
     <Content Include="Views\Languages\Item.cshtml" />
     <Content Include="Views\LanguagePairs\Delete.cshtml" />
     <Content Include="Views\Projects\DetailsShort.cshtml" />
+    <Content Include="Views\DocStages\Create.cshtml" />
+    <Content Include="Views\DocStages\Delete.cshtml" />
+    <Content Include="Views\DocStages\Details.cshtml" />
+    <Content Include="Views\DocStages\Edit.cshtml" />
+    <Content Include="Views\DocStages\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

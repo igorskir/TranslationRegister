@@ -4,40 +4,27 @@
 }
 <h2>Языки</h2>
 
-<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm" 
-   href="/Languages/Create" class="glyphicon glyphicon-plus createBtn"></a>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm"
+   href="/Languages/Create" class="btn btn-primary createBtn">Добавить язык</a>
 <div id="addLanguageForm" class="dynamicBlock"></div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Наименование")
-        </th>
-        <th>
-            @Html.Label("Сокращение")
-        </th>
-        <th></th>
-    </tr>
-
+<div class="container languageForm" id="languageEditor">
+    <div class="languageTitles">
+        <div>@Html.Label("Наименование")</div>
+        <div>@Html.Label("Сокращение")</div>
+        <div>@Html.Label("Выполнить")</div>
+    </div>
     @foreach (var item in Model)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ShortName)
-            </td>
-            <td>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id"
-                   class="glyphicon glyphicon-edit langEditBtn editBtn"></a>
+        <div class="languageProp">
+            <div>@Html.DisplayFor(modelItem => item.Name)</div>
+            <div>@Html.DisplayFor(modelItem => item.ShortName)</div>
+            <div>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id" class="btn btn-primary langEditBtn editBtn">Редактировать</a>
                 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id"
-                   class="glyphicon glyphicon-remove deleteBtn"></a>
-            </td>
-
-        </tr>
-        <tr class="table-light">
-            <td id="language@(item.Id)" class="dynamicBlock"></td>
-        </tr>
+                   class="btn btn-danger deleteBtn">Удалить</a>
+            </div>
+        </div>
+        <div id="language@(item.Id)" class="dynamicBlock"></div>
     }
-</table>
+</div>

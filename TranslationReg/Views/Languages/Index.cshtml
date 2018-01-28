@@ -5,13 +5,10 @@
 
 @section scripts {
     <script>
+        var hiddenStat = false;
         $(document).ready(function () {
             $(".editBtn").click(function () {
-                $(this).toggleClass("glyphicon-edit");
-                $(this).toggleClass("glyphicon-arrow-up");
-                // изначально display:none, описанов MyAppStyles.css
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle();
+                $(".dynamicBlock").toggle("fast");
             });
         });
 
@@ -27,8 +24,9 @@
 
         $(document).ready(function () {
             $(".createBtn").click(function () {
-                $(this).toggleClass("glyphicon-remove");
-                $(this).toggleClass("glyphicon-arrow-up");
+                //$(this).toggleClass("glyphicon-remove");
+                //$(this).toggleClass("glyphicon-arrow-up);
+                $(this).toggleClass('active');
                 // изначально display:none, описанов MyAppStyles.css
                 updatedBlock = $(this).attr("data-ajax-update");
                 $(updatedBlock).toggle();
@@ -49,5 +47,7 @@
                 })
                 .load(this.href);
         });
+
+
     </script>
 }

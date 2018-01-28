@@ -26,7 +26,7 @@ namespace TranslationReg.Controllers
         }
 
         // GET: LanguagePairs/Create
-        public async Task<ActionResult> CreateAsync()
+        public async Task<ActionResult> Create()
         {
             ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");
             ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");

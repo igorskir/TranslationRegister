@@ -1,30 +1,30 @@
 ﻿@model List<TranslationRegistryModel.Language>
-@{
-    ViewBag.Title = "Языки";
-}
-<h2>Языки</h2>
+<div>
 
-<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm"
-   href="/Languages/Create" class="btn btn-primary createBtn">Добавить язык</a>
-<div id="addLanguageForm" class="dynamicBlock"></div>
+    <h2>Языки</h2>
 
-<div class="container languageForm" id="languageEditor">
-    <div class="languageTitles">
-        <div>@Html.Label("Наименование")</div>
-        <div>@Html.Label("Сокращение")</div>
-        <div>@Html.Label("Выполнить")</div>
-    </div>
-    @foreach (var item in Model)
-    {
-        <div class="languageProp">
-            <div>@Html.DisplayFor(modelItem => item.Name)</div>
-            <div>@Html.DisplayFor(modelItem => item.ShortName)</div>
-            <div>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id" class="btn btn-primary langEditBtn editBtn">Редактировать</a>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id"
-                   class="btn btn-danger deleteBtn">Удалить</a>
-            </div>
+    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm"
+       href="/Languages/Create" class="btn btn-success createBtn">Добавить</a>
+    <div id="addLanguageForm" class="dynamicBlock"></div>
+
+    <div class="container languageForm" id="languageEditor">
+        <div class="languageTitles">
+            <div>@Html.Label("Наименование")</div>
+            <div>@Html.Label("Сокращение")</div>
+            <div>@Html.Label("Выполнить")</div>
         </div>
-        <div id="language@(item.Id)" class="dynamicBlock"></div>
-    }
+        @foreach (var item in Model)
+        {
+            <div class="languageProp">
+                <div>@Html.DisplayFor(modelItem => item.Name)</div>
+                <div>@Html.DisplayFor(modelItem => item.ShortName)</div>
+                <div>
+                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
+                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id"
+                       class="btn btn-danger deleteBtn">Удалить</a>
+                </div>
+            </div>
+            <div id="language@(item.Id)" class="dynamicBlock"></div>
+        }
+    </div>
 </div>

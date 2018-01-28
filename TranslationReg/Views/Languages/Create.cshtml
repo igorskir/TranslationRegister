@@ -1,5 +1,5 @@
-﻿<div class="dialogForm" id="editDialogForm">
-
+﻿<div class="formContainer">
+    <hr />
     @model TranslationRegistryModel.Language
 
     @using (Html.BeginForm())
@@ -7,7 +7,6 @@
         @Html.AntiForgeryToken()
 
         <div class="form-horizontal">
-            <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, "Наименование", htmlAttributes: new { @class = "control-label col-md-5" })
@@ -32,4 +31,5 @@
             </div>
         </div>
     }
+    <hr />
 </div>

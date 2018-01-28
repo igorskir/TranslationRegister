@@ -17,10 +17,9 @@ namespace TranslationReg.Controllers
             this.Rep = repository;
         }
 
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            var l = await Rep.GetLanguages();
-            return View();
+            return RedirectToAction("Index","Projects");
         }
 
         public ActionResult About()

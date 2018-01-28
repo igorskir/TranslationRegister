@@ -130,7 +130,7 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             //todo viewmodel
-            ViewBag.ProjectId = new SelectList(await Rep.GetLanguages(), "Id", "Name", document.ProjectId);
+            ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
             return View(document);
         }

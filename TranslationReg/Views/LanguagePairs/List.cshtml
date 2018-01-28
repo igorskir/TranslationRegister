@@ -3,8 +3,8 @@
 <h2>Языковые пары</h2>
 
 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguagePairForm" 
-   href="/LanguagePairs/Create" class="btn btn-primary createBtn" role="button">
-    Добавить языковую пару
+   href="/LanguagePairs/Create" class="btn btn-success createBtn" role="button">
+    Добавить
 </a>
 <div id="addLanguagePairForm" class="dynamicBlock"></div>
 
@@ -22,7 +22,7 @@
             <div>@Html.DisplayFor(modelItem => item.TranslationLanguage.Name)</div>
             <div>@Html.DisplayFor(modelItem => item.Name)</div>
             <div>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary langEditBtn editBtn">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
                 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id"
                    class="btn btn-danger deleteBtn">Удалить</a>
             </div>

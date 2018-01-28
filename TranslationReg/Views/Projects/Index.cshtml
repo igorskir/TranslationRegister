@@ -1,76 +1,43 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Project>
-
-@{
-    ViewBag.Title = "Проекты";
-}
+@{ViewBag.Title = "Проекты";}
 
 <h2>Проекты</h2>
 
 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addProj"
-   href="/Projects/Create" class="glyphicon glyphicon-plus createBtn"></a>
+   href="/Projects/Create" class="btn btn-success createBtn">Добавить</a>
 <div id="addProj" class="dynamicBlock"></div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Название")
-        </th>
-        <th>
-            @Html.Label("Языковая пара")
-        </th>
-
-        <th></th>
-        <th></th>
-        <th></th>
-        <th></th>
-    </tr>
+<div class="container languageForm Pair" id="languageEditor">
+    <div class="languageTitles">
+        <div>@Html.Label("Название")</div>
+        <div>@Html.Label("Языковая пара")</div>
+        <div>@Html.Label("Команды")</div>
+    </div>
 
     @foreach (var item in Model)
     {
-    <tr>
-        <td>
-            <h3>
-                @Html.DisplayFor(modelItem => item.Name)
-            </h3>
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LanguagePair.Name)
-        </td>
+        <div class="languageProp">
+            <div>@Html.DisplayFor(modelItem => item.Name)</div>
 
-        <td>
-            <a href="/Projects/Details/@item.Id" class="btn btn-info">Открыть</a>
-        </td>
+            <div>@Html.DisplayFor(modelItem => item.LanguagePair.Name)</div>
 
-        <td>
-            <a href="/Projects/Edit/@item.Id" class="btn btn-success">Редактировать</a>
-        </td>
-
-        <td>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id"
-               href="/Projects/DetailsShort/@item.Id" class="btn btn-info detailsBtn">Детали</a>
-        </td>
-
-        <td>
-            <a data-ajax="true"
-               href="/Projects/Delete/@item.Id" class="btn btn-danger deleteBtn">Удалить</a>
-        </td>
-    </tr>
-        
-    <tr>
-        <td id="@(item.Id)" class="dynamicBlock">
-
-        </td>
-    </tr>
+            <div>
+                <a href="/Projects/Details/@item.Id" class="btn btn-info">Открыть</a>
+                <a href="/Projects/Edit/@item.Id" class="btn btn-primary">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id"
+                   href="/Projects/DetailsShort/@item.Id" class="btn btn-info detailsBtn">Детали</a>
+                <a data-ajax="true"
+                   href="/Projects/Delete/@item.Id" class="btn btn-danger deleteBtn">Удалить</a>
+            </div>
+        </div>
+        <div id="@(item.Id)" class="dynamicBlock"></div>
     }
-
-</table>
+</div>
 
 @section scripts {
     <script>
         $(document).ready(function () {
             $(".editBtn").click(function () {
-                $(this).toggleClass("glyphicon-edit");
-                $(this).toggleClass("glyphicon-arrow-up");
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle();
@@ -81,7 +48,7 @@
             $(".createBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle();
+                $(updatedBlock).toggle("fast");
             });
         });
 
@@ -89,7 +56,7 @@
             $(".detailsBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle();
+                $(updatedBlock).toggle("fast");
             });
         });
         

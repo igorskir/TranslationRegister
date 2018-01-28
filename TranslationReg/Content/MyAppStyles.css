@@ -1,5 +1,15 @@
-﻿.dynamicBlock{
+﻿/*body {
+    background-image: url(images/SiteBg.jpg); 
+    background-color: #e8e8e8; 
+}*/
+
+.dynamicBlock{
     display: none;
+}
+
+.formContainer {
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .languageForm {
@@ -17,7 +27,7 @@
 }
 
 .languageTitles > div{
-    width: 33%;
+    width: 34%;
     text-align: center;
     background-color: #d6d6d6;
     height: 55px;

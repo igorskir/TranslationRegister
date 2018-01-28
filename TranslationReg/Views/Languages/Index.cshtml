@@ -8,17 +8,16 @@
         var hiddenStat = false;
         $(document).ready(function () {
             $(".editBtn").click(function () {
-                $(".dynamicBlock").toggle("fast");
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
             });
         });
 
         $(document).ready(function () {
             $(".createBtn").click(function () {
-                //$(this).toggleClass("glyphicon-remove");
-                //$(this).toggleClass("glyphicon-arrow-up);
                 $(this).toggleClass('active');
-                // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle();
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
             });
         });
 
@@ -36,7 +35,5 @@
                 })
                 .load(this.href);
         });
-
-
     </script>
 }

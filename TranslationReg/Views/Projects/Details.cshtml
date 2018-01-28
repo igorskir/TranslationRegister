@@ -1,12 +1,8 @@
-﻿<div>
-
+﻿<div class="formContainer">
     @model TranslationRegistryModel.Project
-
-    <h2>Детали проекта</h2>
 
     <div>
         <h4>@Model.Name</h4>
-        <hr />
         <dl class="dl-horizontal">
 
             <dt>
@@ -121,4 +117,5 @@
         @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
         @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
     </p>
+    <hr />
 </div>

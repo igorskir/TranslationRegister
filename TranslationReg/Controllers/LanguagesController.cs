@@ -82,9 +82,9 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutLanguage(language);
-                return PartialView(language);
+                return RedirectToAction("Index");
             }
-            return View(language);
+            return PartialView(language);
         }
 
         // GET: Languages/Delete/5

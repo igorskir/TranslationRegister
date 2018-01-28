@@ -11,6 +11,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class LanguagePairsController : Controller
     {
         IRepository Rep;
@@ -20,6 +21,7 @@ namespace TranslationReg.Controllers
             this.Rep = Rep;
         }
 
+        // GET: LanguagePairs/List
         public async Task<ActionResult> List()
         {
             return PartialView(await Rep.GetLanguagePairs());
@@ -31,15 +33,13 @@ namespace TranslationReg.Controllers
             ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");
             ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");
 
-            return View();
+            return PartialView();
         }
 
         // POST: LanguagePairs/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,OriginalLanguageId,TranslationLanguageId")] LanguagePair languagePair)
+        public async Task<ActionResult> Create(LanguagePair languagePair)
         {
             if (ModelState.IsValid)
             {
@@ -70,11 +70,9 @@ namespace TranslationReg.Controllers
         }
 
         // POST: LanguagePairs/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,OriginalLanguageId,TranslationLanguageId")] LanguagePair languagePair)
+        public async Task<ActionResult> Edit(LanguagePair languagePair)
         {
             if (ModelState.IsValid)
             {

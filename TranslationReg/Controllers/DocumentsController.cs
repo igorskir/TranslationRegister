@@ -63,11 +63,6 @@ namespace TranslationReg.Controllers
             return HttpNotFound("Файл не найден");
         }
 
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Path")] Document document)
-
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
@@ -156,7 +151,6 @@ namespace TranslationReg.Controllers
         }
 
         // GET: Documents/Delete/5
-        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)

@@ -12,23 +12,12 @@
             });
         });
 
-        //$(document).ready(function () {
-        //    $(".deleteBtn").click(function () {
-        //        $(this).toggleClass("glyphicon-remove");
-        //        $(this).toggleClass("glyphicon-arrow-up");
-        //        // изначально display:none, описанов MyAppStyles.css
-        //        updatedBlock = $(this).attr("data-ajax-update");
-        //        $(updatedBlock).toggle();
-        //    });
-        //});
-
         $(document).ready(function () {
             $(".createBtn").click(function () {
                 //$(this).toggleClass("glyphicon-remove");
                 //$(this).toggleClass("glyphicon-arrow-up);
                 $(this).toggleClass('active');
                 // изначально display:none, описанов MyAppStyles.css
-                updatedBlock = $(this).attr("data-ajax-update");
                 $(updatedBlock).toggle();
             });
         });

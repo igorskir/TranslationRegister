@@ -13,6 +13,7 @@ using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class LanguagesController : Controller
     {
         public IRepository Rep { get; set; }
@@ -74,7 +75,6 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Languages/Edit/5
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Language language)
@@ -88,7 +88,6 @@ namespace TranslationReg.Controllers
         }
 
         // GET: Languages/Delete/5
-        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -103,7 +102,6 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Languages/Delete/5
-        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

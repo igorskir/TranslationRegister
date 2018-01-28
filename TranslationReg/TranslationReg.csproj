@@ -183,11 +183,11 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\LanguagePairsModel.cs" />
     <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Uploads\FileManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
@@ -299,9 +299,11 @@
     <Content Include="Views\Languages\List.cshtml" />
     <Content Include="Views\Languages\Item.cshtml" />
     <Content Include="Views\LanguagePairs\Delete.cshtml" />
+    <Content Include="Views\Projects\DetailsShort.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -27,7 +27,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.LanguagePairId, "Языковая пара", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("FinalLanguageId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownList("LanguagePairs", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.LanguagePairId, "", new { @class = "text-danger" })
             </div>
         </div>

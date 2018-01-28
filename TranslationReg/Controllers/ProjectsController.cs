@@ -19,7 +19,7 @@ namespace TranslationReg.Controllers
         public IRepository Rep { get; set; }
         public ProjectsController(IRepository repository)
         {
-            this.Rep = repository;
+            Rep = repository;
         }
 
         // GET: Projects
@@ -40,6 +40,20 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
+            return View(project);
+        }
+
+        // GET: Projects/DetailsShort/5
+        public async Task<ActionResult> DetailsShort(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
             return PartialView(project);
         }
 
@@ -47,7 +61,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Create()
         {
             ProjectModel model = await ProjectModel.GetModel(Rep);
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpPost]
@@ -108,7 +122,7 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            return View(project);
+            return PartialView(project);
         }
 
         // POST: Projects/Delete/5

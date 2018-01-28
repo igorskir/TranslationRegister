@@ -113,13 +113,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
-      <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
+    <Folder Include="Seeding\" />
+    <Folder Include="TranslationRegistryModel\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Seeding\" />
+    <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
+      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

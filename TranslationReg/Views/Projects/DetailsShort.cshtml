@@ -1,0 +1,42 @@
+﻿<div style="margin-bottom:50px">
+    @model TranslationRegistryModel.Project
+    <h4>Детали проекта</h4>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+
+            <dt>
+                @Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.LanguagePair.Name)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.WordsNumber, "Количество слов")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.WordsNumber)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.Customer, "Заказчик")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Customer)
+            </dd>
+
+            <dt>
+                @Html.LabelFor(model => model.Creator.Name, "Создатель")
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Creator.Name)
+            </dd>
+
+        </dl>
+    </div>
+</div>

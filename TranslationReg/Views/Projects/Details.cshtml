@@ -2,120 +2,101 @@
     @model TranslationRegistryModel.Project
 
     <div>
-        <h4>@Model.Name</h4>
-        <dl class="dl-horizontal">
+        <h1><b>@Model.Name</b></h1>
 
-            <dt>
-                @Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")
-            </dt>
+        @Html.Partial("DetailsShort", Model)
 
-            <dd>
-                @Html.DisplayFor(model => model.LanguagePair.Name)
-            </dd>
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocForm"
+           href="/Documents/Create" class="btn btn-success createBtn">Добавить документ</a>
+        <div id="addDocForm" class="dynamicBlock"></div>
 
-            <dt>
-                @Html.LabelFor(model => model.WordsNumber, "Количество слов")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.WordsNumber)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.Customer, "Заказчик")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Customer)
-            </dd>
-
-            <dt>
-                @Html.LabelFor(model => model.Creator.Name, "Создатель")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Creator.Name)
-            </dd>
-
-        </dl>
-
-
-        <table class="table">
-            <tr>
-                <th>
-                    Документы проекта
-                </th>
-                <th>
-
-                </th>
-            </tr>
+        <div class="container myForm Pair">
+            <div class="myTitles">
+                <div class="col-md-6">Документы проекта</div>
+                <div class="col-md-6">Команды</div>
+            </div>
 
             @foreach (var doc in Model.Documents)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => doc.Name)
-                    </td>
+            <div class="row">
+                <div class="col-md-6"><h3>@Html.DisplayFor(modelItem => doc.Name)</h3></div>
+                <div class="col-md-6">
+                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm@(doc.Id)"
+                       href="/DocStages/Create/@doc.Id" class="btn btn-success createBtn">Добавить стадию</a>
 
-                    <td>
-                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })|
-                        @Html.ActionLink("Редактировать", "Edit", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                        @Html.ActionLink("Подробно", "Details", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                        @Html.ActionLink("Удалить", "Delete", "Documents", new { id = doc.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        @foreach (var stage in doc.Stages)
-                        {
-                            <table>
-                                <tr>
-                                    <td>
-                                        <b>@stage.WorkType.Name</b>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>
-                                        Пользователь
-                                    </th>
-                                    <th>
-                                        Количество (слов)?
-                                    </th>
-                                    <th>
-                                        Дата загрузки
-                                    </th>
-                                    <th>
-                                        Ссылка
-                                    </th>
-                                </tr>
-                                @foreach (var userStage in stage.User_Stage)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => userStage.User.Name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => userStage.Amount)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => userStage.DocFile.Date)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
-                                        </td>
-                                    </tr>
+                    @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                    <a class="btn btn-primary" href="/Documents/Edit/1">Редактировать</a>
+                    <a class="btn btn-info" href="/Documents/Details/1">Подробно</a>
+                    <a class="btn btn-danger" href="/Documents/Delete/1">Удалить</a>
+                </div>
+                <div id="addDocStageForm@(doc.Id)" class="dynamicBlock"></div>
+            </div>
+                <div>
+                    @foreach (var stage in doc.Stages)
+                    {
+                        <div class="container myForm Pair">
+                            <div>
+                                <b>@stage.WorkType.Name</b>
+                            </div>
 
-                                }
-                            </table>
-                        }
-                    </td>
-                </tr>
+                            @if (stage.User_Stage != null && stage.User_Stage.Count != 0)
+                            {
+                                <div class="myTitles">
+                                    <div class="col-md-3">Пользователь</div>
+                                    <div class="col-md-3">Количество (слов)?</div>
+                                    <div class="col-md-3">Дата загрузки</div>
+                                    <div class="col-md-3">Ссылка</div>
+                                </div>
+                            }
+
+                            @foreach (var userStage in stage.User_Stage)
+                            {
+                                <div class="myProp">
+                                    <div class="col-md-3">@Html.DisplayFor(modelItem => userStage.User.Name)</div>
+                                    <div class="col-md-3">@Html.DisplayFor(modelItem => userStage.Amount)</div>
+                                    <div class="col-md-3">@Html.DisplayFor(modelItem => userStage.DocFile.Date)</div>
+                                    <div class="col-md-3">@Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })</div>
+                                </div>
+                            }
+                        </div>
+                    }
+                </div>
             }
-        </table>
+        </div>
     </div>
-    <p>
-        @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
-        @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
-    </p>
     <hr />
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                $(this).toggleClass('active');
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

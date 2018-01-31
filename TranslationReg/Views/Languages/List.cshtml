@@ -7,18 +7,18 @@
        href="/Languages/Create" class="btn btn-success createBtn">Добавить</a>
     <div id="addLanguageForm" class="dynamicBlock"></div>
 
-    <div class="container languageForm" id="languageEditor">
-        <div class="languageTitles">
-            <div>@Html.Label("Наименование")</div>
-            <div>@Html.Label("Сокращение")</div>
-            <div>@Html.Label("Выполнить")</div>
+    <div class="container myForm" id="languageEditor">
+        <div class="myTitles">
+            <div class="col-md-4">@Html.Label("Наименование")</div>
+            <div class="col-md-4">@Html.Label("Сокращение")</div>
+            <div class="col-md-4">@Html.Label("Выполнить")</div>
         </div>
         @foreach (var item in Model)
         {
             <div class="languageProp">
-                <div>@Html.DisplayFor(modelItem => item.Name)</div>
-                <div>@Html.DisplayFor(modelItem => item.ShortName)</div>
-                <div>
+                <div class="col-md-4">@Html.DisplayFor(modelItem => item.Name)</div>
+                <div class="col-md-4">@Html.DisplayFor(modelItem => item.ShortName)</div>
+                <div class="col-md-4">
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)" href="/Languages/Delete/@item.Id"
                        class="btn btn-danger deleteBtn">Удалить</a>

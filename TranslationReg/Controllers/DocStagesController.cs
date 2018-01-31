@@ -41,10 +41,12 @@ namespace TranslationReg.Controllers
         }
 
         // GET: DocStages/Create
-        public async Task<ActionResult> Create(int docId)
+        // принимает id документа для которого создается
+        public async Task<ActionResult> Create(int Id)
         {
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
-            return View();
+            DocStage stage = new DocStage() { DocumentId = Id };
+            return PartialView(stage);
         }
 
         [HttpPost]

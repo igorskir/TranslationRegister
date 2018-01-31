@@ -26,7 +26,7 @@ namespace TranslationRegistryModel
         public int WordsNumber { get; set; }
         public Nullable<int> ProjectId { get; set; }
         public int OriginalFileId { get; set; }
-        public int FinalFileId { get; set; }
+        public Nullable<int> FinalFileId { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual User Owner { get; set; }

@@ -72,7 +72,7 @@
             }
         </td>
         <td>
-            @if (!String.IsNullOrWhiteSpace(item.FinalFile.Path))
+            @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
                 <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
             }

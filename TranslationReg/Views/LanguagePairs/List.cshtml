@@ -8,20 +8,20 @@
 </a>
 <div id="addLanguagePairForm" class="dynamicBlock"></div>
 
-<div class="container languageForm Pair" id="languageEditor">
-    <div class="languageTitles">
-        <div>@Html.Label("Язык оригинала")</div>
-        <div>@Html.Label("Язык перевода")</div>
-        <div>@Html.Label("Наименование")</div>
-        <div>@Html.Label("Выполнить")</div>
+<div class="container myForm" id="languageEditor">
+    <div class="myTitles">
+        <div class="col-md-3">@Html.Label("Язык оригинала")</div>
+        <div class="col-md-3">@Html.Label("Язык перевода")</div>
+        <div class="col-md-3">@Html.Label("Наименование")</div>
+        <div class="col-md-3">@Html.Label("Выполнить")</div>
     </div>
     @foreach (var item in Model)
     {
-        <div class="languageProp">
-            <div>@Html.DisplayFor(modelItem => item.OriginalLanguage.Name)</div>
-            <div>@Html.DisplayFor(modelItem => item.TranslationLanguage.Name)</div>
-            <div>@Html.DisplayFor(modelItem => item.Name)</div>
-            <div>
+        <div class="myProp">
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.OriginalLanguage.Name)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.TranslationLanguage.Name)</div>
+            <div class="col-md-3">@Html.DisplayFor(modelItem => item.Name)</div>
+            <div class="col-md-3">
                 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
                 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id"
                    class="btn btn-danger deleteBtn">Удалить</a>

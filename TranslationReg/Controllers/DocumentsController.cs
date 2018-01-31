@@ -47,7 +47,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Create()
         {
             DocumentModel DocCreateViewModel = await DocumentModel.GetModel(Rep);
-            return View(DocCreateViewModel);
+            return PartialView(DocCreateViewModel);
         }
 
         // GET: Documents/Download

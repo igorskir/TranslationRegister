@@ -14,23 +14,23 @@
         <div>@Html.Label("Команды")</div>
     </div>
 
-    @foreach (var item in Model)
+    @foreach (var project in Model)
     {
         <div class="languageProp">
-            <div>@Html.DisplayFor(modelItem => item.Name)</div>
+            <div><h2><a href="/Projects/TabPages/@(project.Id)">@project.Name</a></h2></div>
 
-            <div>@Html.DisplayFor(modelItem => item.LanguagePair.Name)</div>
+            <div>@Html.DisplayFor(modelItem => project.LanguagePair.Name)</div>
 
             <div>
-                <a href="/Projects/Details/@item.Id" class="btn btn-info">Открыть</a>
-                <a href="/Projects/Edit/@item.Id" class="btn btn-primary">Редактировать</a>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@item.Id"
-                   href="/Projects/DetailsShort/@item.Id" class="btn btn-info detailsBtn">Детали</a>
+                <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
+                <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@project.Id"
+                   href="/Projects/DetailsShort/@project.Id" class="btn btn-info detailsBtn">Детали</a>
                 <a data-ajax="true"
-                   href="/Projects/Delete/@item.Id" class="btn btn-danger deleteBtn">Удалить</a>
+                   href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
             </div>
         </div>
-        <div id="@(item.Id)" class="dynamicBlock"></div>
+        <div id="@(project.Id)" class="dynamicBlock"></div>
     }
 </div>
 

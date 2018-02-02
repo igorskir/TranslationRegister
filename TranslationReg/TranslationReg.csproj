@@ -316,6 +316,10 @@
     <Content Include="Views\User_Stage\Index.cshtml" />
     <Content Include="Views\User_Stage\Item.cshtml" />
     <Content Include="Views\User_Stage\List.cshtml" />
+    <Content Include="Views\Projects\TabPages.cshtml" />
+    <Content Include="Views\Projects\Documents.cshtml" />
+    <Content Include="Views\Documents\Item.cshtml" />
+    <Content Include="Views\Documents\DocAndStages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

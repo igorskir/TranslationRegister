@@ -43,6 +43,20 @@ namespace TranslationReg.Controllers
             return View(document);
         }
 
+        // GET: Documents/DocAndStages/5
+        public async Task<ActionResult> DocAndStages(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document document = await Rep.GetDocument(id.Value);
+
+            if (document == null)
+                return HttpNotFound();
+
+            return View(document);
+        }
+
         // GET: Documents/Create
         public async Task<ActionResult> Create()
         {

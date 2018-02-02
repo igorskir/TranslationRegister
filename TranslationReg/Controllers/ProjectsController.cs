@@ -29,6 +29,20 @@ namespace TranslationReg.Controllers
             return View(projects);
         }
 
+        // GET: Projects/Tabpages
+        public async Task<ActionResult> Tabpages(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            return View(project);
+        }
+
         // GET: Projects/Details/5
         public async Task<ActionResult> Details(int? id)
         {

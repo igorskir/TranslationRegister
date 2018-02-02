@@ -1,0 +1,32 @@
+﻿@model TranslationRegistryModel.Document
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Создатель
+        </dt>
+        <dd>
+            @Html.Label(Model.Owner.Name)
+        </dd>
+
+        <dt>
+            Скачать оргигинал
+        </dt>
+        <dd>
+            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
+        </dd>
+
+        <dt>
+            Скачать перевод
+        </dt>
+        <dd>
+            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
+        </dd>
+    </dl>
+
+    <div>
+        @foreach (var stage in Model.Stages)
+        {
+            @Html.Partial("../DocStages/Item", stage)
+        }
+    </div>
+</div>

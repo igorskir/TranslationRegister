@@ -1,6 +1,5 @@
 ﻿@model List<TranslationRegistryModel.Language>
 <div>
-
     <h2>Языки</h2>
 
     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm"
@@ -11,7 +10,7 @@
         <div class="myTitles">
             <div class="col-md-4">@Html.Label("Наименование")</div>
             <div class="col-md-4">@Html.Label("Сокращение")</div>
-            <div class="col-md-4">@Html.Label("Выполнить")</div>
+            <div class="col-md-4">@Html.Label("Команды")</div>
         </div>
         @foreach (var item in Model)
         {

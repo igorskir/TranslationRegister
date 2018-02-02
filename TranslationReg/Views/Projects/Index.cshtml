@@ -40,7 +40,7 @@
             $(".editBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle();
+                $(updatedBlock).toggle("fast");
             });
         });
 

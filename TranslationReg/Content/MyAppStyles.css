@@ -41,7 +41,7 @@
     margin-bottom: 5px;
 }
 .myProp > div {
-    padding: 10px 0px;
+    padding: 10px 0;
     text-align: center;
     height: 55px;
     font-family: Arial, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -50,15 +50,6 @@
 .myProp:hover {
     background-color: #e8e8e8;
 }
-
-
-
-
-
-
-
-
-
 
 
 .languageTitles {
@@ -88,7 +79,7 @@
 }
 
 .languageProp > div{
-    padding: 10px 0px;
+    padding: 10px 0;
     width: 33%;
     text-align: center;
     height: 55px;

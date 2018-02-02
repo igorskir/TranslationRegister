@@ -180,6 +180,7 @@
     <Compile Include="Controllers\LanguagePairsController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\User_StageController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -307,6 +308,14 @@
     <Content Include="Views\DocStages\Details.cshtml" />
     <Content Include="Views\DocStages\Edit.cshtml" />
     <Content Include="Views\DocStages\Index.cshtml" />
+    <Content Include="Views\DocStages\Item.cshtml" />
+    <Content Include="Views\User_Stage\Create.cshtml" />
+    <Content Include="Views\User_Stage\Delete.cshtml" />
+    <Content Include="Views\User_Stage\Details.cshtml" />
+    <Content Include="Views\User_Stage\Edit.cshtml" />
+    <Content Include="Views\User_Stage\Index.cshtml" />
+    <Content Include="Views\User_Stage\Item.cshtml" />
+    <Content Include="Views\User_Stage\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

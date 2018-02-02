@@ -60,7 +60,7 @@ namespace TranslationReg.Controllers
             }
 
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
-            return View(docStage);
+            return RedirectToAction("Details","",docStage);
         }
 
         // GET: DocStages/Edit/5
@@ -102,7 +102,7 @@ namespace TranslationReg.Controllers
             if (docStage == null)
                 return HttpNotFound();
 
-            return View(docStage);
+            return PartialView(docStage);
         }
 
         // POST: DocStages/Delete/5

@@ -1,0 +1,23 @@
+﻿@model TranslationRegistryModel.DocStage
+
+<div>
+    <div class="container myForm">
+        <div class="myProp">
+            <div class="col-md-4"><b>@Model.WorkType.Name</b></div>
+            <div class="col-md-4">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUserStageForm@(Model.Id)"
+                   href="/UserStages/Create/@Model.Id" class="btn btn-success createBtn">Добавить работу</a>
+            </div>
+            <div class="col-md-4">
+                <a class="btn btn-danger deleteBtn" href="/DocStages/Delete/@Model.Id">Удалить стадию</a>
+            </div>
+        </div>
+        <div id="addUserStageForm@(Model.Id)" class="dynamicBlock"></div>
+
+        @if (Model.User_Stage != null && Model.User_Stage.Count != 0)
+        {
+            @Html.Partial("../User_Stage/List", Model.User_Stage.ToList())
+        }
+
+    </div>
+</div>

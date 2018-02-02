@@ -1,0 +1,14 @@
+﻿@model List<TranslationRegistryModel.User_Stage>
+<div>
+    <div class="myTitles">
+        <div class="col-md-3">Пользователь</div>
+        <div class="col-md-3">Количество (слов)?</div>
+        <div class="col-md-3">Дата загрузки</div>
+        <div class="col-md-3">Команды</div>
+    </div>
+
+    @foreach (var userStage in Model)
+    {
+        @Html.Partial("../User_Stage/Item", userStage)
+    }
+</div>

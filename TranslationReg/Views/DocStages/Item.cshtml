@@ -6,7 +6,7 @@
             <div class="col-md-4"><b>@Model.WorkType.Name</b></div>
             <div class="col-md-4">
                 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUserStageForm@(Model.Id)"
-                   href="/UserStages/Create/@Model.Id" class="btn btn-success createBtn">Добавить работу</a>
+                   href="/User_Stage/Create/@Model.Id" class="btn btn-success createBtn">Добавить работу</a>
             </div>
             <div class="col-md-4">
                 <a class="btn btn-danger deleteBtn" href="/DocStages/Delete/@Model.Id">Удалить стадию</a>
@@ -21,3 +21,30 @@
 
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

@@ -64,19 +64,6 @@ namespace TranslationReg.Controllers
             return PartialView(DocCreateViewModel);
         }
 
-        // GET: Documents/Download
-        public ActionResult Download(string filepath)
-        {
-            if (System.IO.File.Exists(filepath))
-            {
-                FileInfo file = new FileInfo(filepath);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-                string fileName = file.Name;
-                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-            }
-            return HttpNotFound("Файл не найден");
-        }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
@@ -99,11 +86,24 @@ namespace TranslationReg.Controllers
                         finalFile.SaveAs(document.FinalFile.Path);
 
                     await Rep.AddDocument(document);
-                    return RedirectToAction("Index");
+                    return Redirect(Request.UrlReferrer.ToString());
                 }
             }
 
             return View(document);
+        }
+
+        // GET: Documents/Download
+        public ActionResult Download(string filepath)
+        {
+            if (System.IO.File.Exists(filepath))
+            {
+                FileInfo file = new FileInfo(filepath);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+                string fileName = file.Name;
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+            return HttpNotFound("Файл не найден");
         }
 
         private async Task<DocFile> SetFile(HttpPostedFileBase file)
@@ -184,15 +184,14 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             await Rep.DeleteDocument(id);
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 Rep.Dispose();
-            }
+
             base.Dispose(disposing);
         }
     }

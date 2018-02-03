@@ -1,27 +1,11 @@
 ﻿@model TranslationRegistryModel.Document
 <div>
-    <dl class="dl-horizontal">
-        <dt>
-            Создатель
-        </dt>
-        <dd>
-            @Html.Label(Model.Owner.Name)
-        </dd>
 
-        <dt>
-            Скачать оргигинал
-        </dt>
-        <dd>
-            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
-        </dd>
+    @Html.Partial("../Documents/Details", Model)
 
-        <dt>
-            Скачать перевод
-        </dt>
-        <dd>
-            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
-        </dd>
-    </dl>
+    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm"
+       href="/DocStages/Create/@Model.Id" class="btn btn-primary createBtn">Добавить стадию</a>
+    <div id="addDocStageForm" class="dynamicBlock"></div>
 
     <div>
         @foreach (var stage in Model.Stages)
@@ -30,3 +14,30 @@
         }
     </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

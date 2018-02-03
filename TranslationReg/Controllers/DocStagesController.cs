@@ -42,10 +42,24 @@ namespace TranslationReg.Controllers
 
         // GET: DocStages/Create
         // принимает id документа для которого создается
-        public async Task<ActionResult> Create(int Id)
+        public async Task<ActionResult> Create(int? id)
         {
-            ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
-            DocStage stage = new DocStage() { DocumentId = Id };
+            //проверка привязки к документу
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Document parentDoc = await Rep.GetDocument(id.Value);
+            if (parentDoc == null)
+                return HttpNotFound();
+
+            //список доступных стадий
+            List<WorkType> availableWorkTypes = await Rep.GetWorkTypes();
+            List<WorkType> takenWorktypes = parentDoc.Stages.Select(x => x.WorkType).ToList();
+            availableWorkTypes = availableWorkTypes.Except(takenWorktypes).ToList();
+            ViewBag.WorkTypeId = new SelectList(availableWorkTypes, "Id", "Name");
+            //флаг возможности добавления стадии
+            ViewBag.Available = (availableWorkTypes.Count != 0);
+
+            DocStage stage = new DocStage() { DocumentId = parentDoc.Id };
             return PartialView(stage);
         }
 
@@ -55,8 +69,8 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await Rep.AddDocStage(docStage); 
-                return RedirectToAction("Index");
+                await Rep.AddDocStage(docStage);
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
@@ -85,7 +99,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutDocStage(docStage);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
             return View(docStage);
@@ -111,7 +125,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             await Rep.DeleteDocStage(id);
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)

@@ -54,7 +54,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddLanguage(language);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(language);
@@ -82,7 +82,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutLanguage(language);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             return PartialView(language);
         }
@@ -107,7 +107,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             await Rep.DeleteLanguage(id);
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)

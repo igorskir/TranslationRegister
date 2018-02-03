@@ -17,7 +17,7 @@
     @foreach (var project in Model)
     {
         <div class="languageProp">
-            <div><h2><a href="/Projects/TabPages/@(project.Id)">@project.Name</a></h2></div>
+            <div><a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a></div>
 
             <div>@Html.DisplayFor(modelItem => project.LanguagePair.Name)</div>
 

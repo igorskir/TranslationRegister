@@ -13,56 +13,64 @@ namespace TranslationReg.Controllers
 {
     public class User_StageController : Controller
     {
-        private Entities db = new Entities();
+        IRepository Rep;
+        public User_StageController(IRepository Rep)
+        {
+            this.Rep = Rep;
+        }
 
         // GET: User_Stage
         public async Task<ActionResult> Index()
         {
-            var user_Stage = db.User_Stage.Include(u => u.Stage).Include(u => u.User).Include(u => u.DocFile);
-            return View(await user_Stage.ToListAsync());
+            return View(await Rep.GetUser_Stages());
         }
 
         // GET: User_Stage/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User_Stage user_Stage = await db.User_Stage.FindAsync(id);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
             if (user_Stage == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(user_Stage);
         }
 
         // GET: User_Stage/Create
-        public ActionResult Create()
+        // принимает id стадии
+        public async Task<ActionResult> Create(int? id)
         {
-            ViewBag.StageId = new SelectList(db.DocStages, "Id", "Id");
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name");
-            ViewBag.DocFileId = new SelectList(db.DocFiles, "Id", "Path");
-            return View();
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            DocStage docStage = await Rep.GetDocStage(id.Value);
+            if (docStage == null)
+                return HttpNotFound();
+
+            User_Stage userStage = new User_Stage { StageId = docStage.Id };
+
+            return PartialView(userStage);
         }
 
         // POST: User_Stage/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Amount,StageId,UserId,DocFileId")] User_Stage user_Stage)
+        public async Task<ActionResult> Create(User_Stage user_Stage, [Bind(Include = "workFile")]HttpPostedFileBase workFile)
         {
-            if (ModelState.IsValid)
+            user_Stage.UserId = (await Rep.GetUser(User.Identity.Name)).Id;
+            if (workFile != null && workFile.ContentLength != 0)
             {
-                db.User_Stage.Add(user_Stage);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                user_Stage.DocFile = await Helper.SetFile(workFile, Rep, Server);
             }
 
-            ViewBag.StageId = new SelectList(db.DocStages, "Id", "Id", user_Stage.StageId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", user_Stage.UserId);
-            ViewBag.DocFileId = new SelectList(db.DocFiles, "Id", "Path", user_Stage.DocFileId);
+            if (ModelState.IsValid)
+            {
+                await Rep.AddUser_Stage(user_Stage);
+                return Redirect(Request.UrlReferrer.ToString());
+            }
+
             return View(user_Stage);
         }
 
@@ -70,17 +78,13 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User_Stage user_Stage = await db.User_Stage.FindAsync(id);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
             if (user_Stage == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.StageId = new SelectList(db.DocStages, "Id", "Id", user_Stage.StageId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", user_Stage.UserId);
-            ViewBag.DocFileId = new SelectList(db.DocFiles, "Id", "Path", user_Stage.DocFileId);
+
             return View(user_Stage);
         }
 
@@ -93,13 +97,10 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(user_Stage).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                await Rep.PutUser_Stage(user_Stage);
+                return Redirect(Request.UrlReferrer.ToString());
             }
-            ViewBag.StageId = new SelectList(db.DocStages, "Id", "Id", user_Stage.StageId);
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", user_Stage.UserId);
-            ViewBag.DocFileId = new SelectList(db.DocFiles, "Id", "Path", user_Stage.DocFileId);
+
             return View(user_Stage);
         }
 
@@ -107,14 +108,11 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            User_Stage user_Stage = await db.User_Stage.FindAsync(id);
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
             if (user_Stage == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(user_Stage);
         }
 
@@ -123,18 +121,15 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            User_Stage user_Stage = await db.User_Stage.FindAsync(id);
-            db.User_Stage.Remove(user_Stage);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            await Rep.DeleteUser_Stage(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                Rep.Dispose();
+
             base.Dispose(disposing);
         }
     }

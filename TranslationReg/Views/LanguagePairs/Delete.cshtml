@@ -34,15 +34,10 @@
         {
             @Html.AntiForgeryToken()
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Удалить" class="btn btn-danger"/>
-            </div>
+            <input type="submit" value="Удалить" class="btn btn-danger"/>
         }
     </div>
 </div>
-
-@* Для закрытия диалога (в нем открывается форма) id="closeDialog" и скрипт*@
-<button type="button" class="ui-dialog-titlebar-close btn btn-info">Назад</button>
 
 <script>
     $(document).ready(function () {

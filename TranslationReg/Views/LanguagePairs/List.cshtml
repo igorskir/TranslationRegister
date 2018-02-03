@@ -22,9 +22,10 @@
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.TranslationLanguage.Name)</div>
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.Name)</div>
             <div class="col-md-3">
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" href="/LanguagePairs/Edit/@item.Id"
-                   class="btn btn-danger deleteBtn">Удалить</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" 
+                   href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)" 
+                   href="/LanguagePairs/Delete/@item.Id"class="btn btn-danger deleteBtn"  data-dialog-title="Удаление записи">Удалить</a>
             </div>
         </div>
         <div id="languagePair@(item.Id)" class="dynamicBlock"></div>

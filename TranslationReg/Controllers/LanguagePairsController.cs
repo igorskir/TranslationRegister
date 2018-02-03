@@ -44,7 +44,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddLanguagePair(languagePair);
-                return RedirectToAction("Index", "Languages");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
@@ -77,7 +77,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutLanguagePair(languagePair);
-                return RedirectToAction("Index", "Languages");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
             ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.TranslationLanguageId);
@@ -105,7 +105,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             await Rep.DeleteLanguagePair(id);
-            return RedirectToAction("Index", "Languages");
+            return Redirect(Request.UrlReferrer.ToString());
 
         }
 

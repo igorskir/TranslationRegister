@@ -78,12 +78,20 @@ namespace TranslationRegistryModel
         Task AddDocFile(DocFile docFile);
         //------------------------------------------------------------------------------------------------
 
-        //---------------------------------- DocFile CRUD -----------------------------------------------
+        //---------------------------------- DocStage CRUD -----------------------------------------------
         Task<List<DocStage>> GetDocStages();
         Task<DocStage> GetDocStage(int id);
         Task PutDocStage(DocStage docStage);
         Task DeleteDocStage(int id);
         Task AddDocStage(DocStage docStage);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- User_Stage CRUD -----------------------------------------------
+        Task<List<User_Stage>> GetUser_Stages();
+        Task<User_Stage> GetUser_Stage(int id);
+        Task PutUser_Stage(User_Stage User_Stage);
+        Task DeleteUser_Stage(int id);
+        Task AddUser_Stage(User_Stage User_Stage);
         //------------------------------------------------------------------------------------------------
 
     }

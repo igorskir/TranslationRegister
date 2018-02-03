@@ -6,6 +6,7 @@
 <div id="detailsTab">
     @Html.Partial("../Projects/DetailsShort", Model)
 </div>
+
 <div id="docsTab" class="dynamicBlock">
     @Html.Partial("../Projects/Documents", Model)
 </div>
@@ -14,14 +15,14 @@
     <script>
         $(document).ready(function () {
             $("#detailsBtn").click(function () {
-                $("#detailsTab").show("300");
-                $("#docsTab").hide("300");
+                $("#detailsTab").show("100");
+                $("#docsTab").hide("100");
             });
         });
         $(document).ready(function () {
             $("#docsBtn").click(function () {
-                $("#detailsTab").hide("300");
-                $("#docsTab").show("300");
+                $("#detailsTab").hide("100");
+                $("#docsTab").show("100");
             });
         });
     </script>

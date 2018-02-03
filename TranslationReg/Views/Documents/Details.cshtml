@@ -1,14 +1,6 @@
 ﻿@model TranslationRegistryModel.Document
-
-@{
-    ViewBag.Title = "Данные документа";
-}
-
-<h4>Данные документа</h4>
-
 <div>
     <h2>@Model.Name</h2>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             Создатель
@@ -31,42 +23,4 @@
             <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
         </dd>
     </dl>
-    @if (Model.Stages != null && Model.Stages.Count!=0)
-    {
-        <h4>Стадии перевода документа</h4>
-    }
-    @foreach (var stage in Model.Stages)
-    {
-        <table>
-            <tr>
-                <td>
-                    <b>@stage.WorkType.Name</b>
-                </td>
-                <td></td>
-            </tr>
-
-            @foreach (var userStage in stage.User_Stage)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => userStage.User.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => userStage.Amount)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => userStage.DocFile.Date)
-                    </td>
-                    <td>
-                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = userStage.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
-                    </td>
-                </tr>
-
-            }
-        </table>
-    }
 </div>
-<p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Назад к списку", "Index")
-</p>

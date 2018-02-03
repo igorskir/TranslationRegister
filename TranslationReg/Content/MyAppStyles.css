@@ -3,6 +3,41 @@
     background-color: #e8e8e8; 
 }*/
 
+a,
+p{
+    font-family: Arial, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media (min-width: 768px){
+    .container{
+        width: 100%;
+    }
+    .navbar-right{
+        display: block;
+        padding-right: 15px;
+    }
+    .main-menu > li > a {
+        display: block;
+        font-weight: 500;
+        color: white;
+        border-bottom: 3px solid white;
+        border-radius: 2px;
+        margin-right: 7px;
+    }
+    .main-menu > li > a:hover,
+    .main-menu > li > a:focus{
+        background-color: #505b69;
+    }
+}
+
+.body-content{
+    padding: 
+}
+
+.navbar {
+    background-color: #4D5B69;
+}
+
 .dynamicBlock{
     display: none;
 }
@@ -14,7 +49,7 @@
 
 .myForm {
     margin-top: 10px;
-    padding: 10px;
+    padding: 10px 0;
 }
 
 .myTitles {

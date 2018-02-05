@@ -23,7 +23,7 @@ namespace TranslationRegistryModel
         public int Id { get; set; }
         public int DocumentId { get; set; }
         public int WorkTypeId { get; set; }
-        public Nullable<int> DocFileId { get; set; }
+        public int DocFileId { get; set; }
     
         public virtual Document Document { get; set; }
         public virtual WorkType WorkType { get; set; }

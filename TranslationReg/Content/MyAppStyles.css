@@ -60,7 +60,7 @@ p{
 }
 
 .navbar {
-    background-color: #4D5B69;
+    background-color: #241717;
 }
 
 .dynamicBlock{
@@ -149,7 +149,7 @@ p{
 }
 /*-----------------------Стили элементов таблиц----------------------------*/
 
-@media screen and(max-width:479px){
+@media screen and (max-width:479px){
     .nav-tabs-responsive > li {
         display: none;
         width: 23%;
@@ -241,3 +241,19 @@ p{
 #docsTab{
     margin-top: 30px;
 }
+
+/*----------------------- правки ----------------------------*/
+.inner-list{
+    padding: 40px;
+}
+
+.formContainer{
+    margin-top:20px;
+    margin-bottom:10px;
+}
+
+.createBtn {
+    margin-bottom: 10px;
+}
+
+/*----------------------- правки ----------------------------*/

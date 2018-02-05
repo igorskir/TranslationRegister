@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 01/21/2018 00:49:58
--- Generated from EDMX file: D:\badas code\TranslationRegistryModel\TRegModel.edmx
+-- Date Created: 02/05/2018 17:23:08
+-- Generated from EDMX file: C:\Users\Иван\Documents\Visual Studio 2017\Projects\TranslationReg\TranslationRegistryModel\TRegModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [TransReg];
+USE [SqlRepository.SqlContext];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -56,9 +56,6 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_DocumentFile]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentFile];
 GO
-IF OBJECT_ID(N'[dbo].[FK_DocFinalFile]', 'F') IS NOT NULL
-    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocFinalFile];
-GO
 IF OBJECT_ID(N'[dbo].[FK_DocFileStage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[DocStages] DROP CONSTRAINT [FK_DocFileStage];
 GO
@@ -67,6 +64,9 @@ IF OBJECT_ID(N'[dbo].[FK_UserUser_Stage]', 'F') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[FK_DocFileUser_Stage]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[User_Stage] DROP CONSTRAINT [FK_DocFileUser_Stage];
+GO
+IF OBJECT_ID(N'[dbo].[FK_DocumentDocFile]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentDocFile];
 GO
 
 -- --------------------------------------------------
@@ -119,7 +119,7 @@ CREATE TABLE [dbo].[Documents] (
     [WordsNumber] int  NOT NULL,
     [ProjectId] int  NULL,
     [OriginalFileId] int  NOT NULL,
-    [FinalFileId] int  NOT NULL
+    [FinalFileId] int  NULL
 );
 GO
 
@@ -473,21 +473,6 @@ ON [dbo].[Documents]
     ([OriginalFileId]);
 GO
 
--- Creating foreign key on [FinalFileId] in table 'Documents'
-ALTER TABLE [dbo].[Documents]
-ADD CONSTRAINT [FK_DocFinalFile]
-    FOREIGN KEY ([FinalFileId])
-    REFERENCES [dbo].[DocFiles]
-        ([Id])
-    ON DELETE NO ACTION ON UPDATE NO ACTION;
-GO
-
--- Creating non-clustered index for FOREIGN KEY 'FK_DocFinalFile'
-CREATE INDEX [IX_FK_DocFinalFile]
-ON [dbo].[Documents]
-    ([FinalFileId]);
-GO
-
 -- Creating foreign key on [DocFileId] in table 'DocStages'
 ALTER TABLE [dbo].[DocStages]
 ADD CONSTRAINT [FK_DocFileStage]
@@ -531,6 +516,21 @@ GO
 CREATE INDEX [IX_FK_DocFileUser_Stage]
 ON [dbo].[User_Stage]
     ([DocFileId]);
+GO
+
+-- Creating foreign key on [FinalFileId] in table 'Documents'
+ALTER TABLE [dbo].[Documents]
+ADD CONSTRAINT [FK_DocumentDocFile]
+    FOREIGN KEY ([FinalFileId])
+    REFERENCES [dbo].[DocFiles]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_DocumentDocFile'
+CREATE INDEX [IX_FK_DocumentDocFile]
+ON [dbo].[Documents]
+    ([FinalFileId]);
 GO
 
 -- --------------------------------------------------

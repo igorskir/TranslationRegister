@@ -1,29 +1,33 @@
 ﻿@model TranslationRegistryModel.Project
 
 <div>
-    <div class="container myForm Pair">
-        <div class="myTitles">
+    <div class="container Pair">
+        <div class="titles">
             <div class="col-md-6">Документы проекта</div>
             <div class="col-md-6">Команды</div>
         </div>
         @foreach (var doc in Model.Documents)
         {
-            <div class="myProp">
+            <div class="prorepties">
                 <div class="col-md-6">
                     <a class="titleLink" href="/Documents/DocAndStages/@doc.Id">@doc.Name</a>
                 </div>
                 <div class="col-md-6">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         @Html.ActionLink("Скачать оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
                     </div>
-                    <div class="col-md-3">
-                        @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
+                    @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
                         {
-                            @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                        <div class="col-md-4">
+                                @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                        </div>
                         }
+                    <div class="col-md-4">
+                        <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
                     </div>
-                    <a class="col-md-3 btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
-                    <a class="col-md-3 btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
+                    <div class="col-md-4">
+                        <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
+                    </div>
                 </div>
             </div>
         }

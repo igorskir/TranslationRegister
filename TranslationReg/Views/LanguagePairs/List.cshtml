@@ -3,13 +3,13 @@
 <h2>Языковые пары</h2>
 
 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguagePairForm" 
-   href="/LanguagePairs/Create" class="btn btn-success createBtn" role="button">
+   href="/LanguagePairs/Create" class="btn btn-primary createBtn" role="button">
     Добавить
 </a>
 <div id="addLanguagePairForm" class="dynamicBlock"></div>
 
 <div class="container myForm" id="languageEditor">
-    <div class="myTitles">
+    <div class="titles">
         <div class="col-md-3">@Html.Label("Язык оригинала")</div>
         <div class="col-md-3">@Html.Label("Язык перевода")</div>
         <div class="col-md-3">@Html.Label("Наименование")</div>
@@ -17,7 +17,7 @@
     </div>
     @foreach (var item in Model)
     {
-        <div class="myProp">
+        <div class="prorepties">
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.OriginalLanguage.Name)</div>
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.TranslationLanguage.Name)</div>
             <div class="col-md-3">@Html.DisplayFor(modelItem => item.Name)</div>
@@ -28,7 +28,7 @@
                    href="/LanguagePairs/Delete/@item.Id"class="btn btn-danger deleteBtn"  data-dialog-title="Удаление записи">Удалить</a>
             </div>
         </div>
-        <div id="languagePair@(item.Id)" class="dynamicBlock"></div>
+        <div id="languagePair@(item.Id)" class="dynamicBlock dynamicItem"></div>
     }
 </div>
-
+ 

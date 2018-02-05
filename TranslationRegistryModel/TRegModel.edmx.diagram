@@ -27,10 +27,10 @@
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair1" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentFile" />
-        <AssociationConnector Association="SqlRepository.SqlContextModel.DocFinalFile" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocFileStage" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.UserUser_Stage" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocFileUser_Stage" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentDocFile" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

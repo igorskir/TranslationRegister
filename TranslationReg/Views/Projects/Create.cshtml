@@ -1,11 +1,5 @@
 ﻿@model TranslationReg.Models.ProjectModel
-<div>
-    @{
-        ViewBag.Title = "Создание проекта";
-    }
-
-    <h2>Добавить проект</h2>
-
+<div class="formContainer">
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()

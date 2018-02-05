@@ -69,10 +69,6 @@
       <End Role="Document" EntitySet="Documents" />
       <End Role="File" EntitySet="DocFiles" />
     </AssociationSet>
-    <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.Store.DocFinalFile">
-      <End Role="Document" EntitySet="Documents" />
-      <End Role="File" EntitySet="DocFiles" />
-    </AssociationSet>
     <AssociationSet Name="DocFileStage" Association="SqlRepository.SqlContextModel.Store.DocFileStage">
       <End Role="DocFile" EntitySet="DocFiles" />
       <End Role="Stage" EntitySet="DocStages" />
@@ -85,6 +81,10 @@
       <End Role="DocFile" EntitySet="DocFiles" />
       <End Role="User_Stage" EntitySet="User_Stage" />
     </AssociationSet>
+    <AssociationSet Name="DocumentDocFile" Association="SqlRepository.SqlContextModel.Store.DocumentDocFile">
+      <End Role="Document" EntitySet="Documents" />
+      <End Role="DocFile" EntitySet="DocFiles" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Documents">
     <Key>
@@ -96,7 +96,7 @@
     <Property Name="WordsNumber" Type="int" Nullable="false" />
     <Property Name="ProjectId" Type="int" Nullable="true" />
     <Property Name="OriginalFileId" Type="int" Nullable="false" />
-    <Property Name="FinalFileId" Type="int" Nullable="false" />
+    <Property Name="FinalFileId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="DocFiles">
     <Key>
@@ -318,18 +318,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="DocFinalFile">
-    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
-    <End Role="File" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="File">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Document">
-        <PropertyRef Name="FinalFileId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="DocFileStage">
     <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
     <End Role="Stage" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
@@ -363,6 +351,18 @@
       </Principal>
       <Dependent Role="User_Stage">
         <PropertyRef Name="DocFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentDocFile">
+    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DocFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="FinalFileId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -408,8 +408,8 @@
           <NavigationProperty Name="Stages" Relationship="Self.FK_DocumentStage" FromRole="Documents" ToRole="Stages" />
           <NavigationProperty Name="OriginalFile" Relationship="SqlRepository.SqlContextModel.DocumentFile" FromRole="Document" ToRole="File" />
           <Property Name="OriginalFileId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocFinalFile" FromRole="Document" ToRole="File" />
-          <Property Name="FinalFileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocumentDocFile" FromRole="Document" ToRole="DocFile" />
+          <Property Name="FinalFileId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="DocFile">
           <Key>
@@ -670,10 +670,6 @@
             <End Role="Document" EntitySet="Documents" />
             <End Role="File" EntitySet="DocFiles" />
           </AssociationSet>
-          <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.DocFinalFile">
-            <End Role="Document" EntitySet="Documents" />
-            <End Role="File" EntitySet="DocFiles" />
-          </AssociationSet>
           <AssociationSet Name="DocFileStage" Association="SqlRepository.SqlContextModel.DocFileStage">
             <End Role="DocFile" EntitySet="DocFiles" />
             <End Role="Stage" EntitySet="DocStages" />
@@ -685,6 +681,10 @@
           <AssociationSet Name="DocFileUser_Stage" Association="SqlRepository.SqlContextModel.DocFileUser_Stage">
             <End Role="DocFile" EntitySet="DocFiles" />
             <End Role="User_Stage" EntitySet="User_Stage" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentDocFile" Association="SqlRepository.SqlContextModel.DocumentDocFile">
+            <End Role="Document" EntitySet="Documents" />
+            <End Role="DocFile" EntitySet="DocFiles" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
@@ -723,18 +723,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DocFinalFile">
-          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
-          <End Type="SqlRepository.SqlContextModel.DocFile" Role="File" Multiplicity="1" />
-          <ReferentialConstraint>
-            <Principal Role="File">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Document">
-              <PropertyRef Name="FinalFileId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="DocFileStage">
           <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="1" />
           <End Type="SqlRepository.SqlContextModel.DocStage" Role="Stage" Multiplicity="*" />
@@ -768,6 +756,18 @@
             </Principal>
             <Dependent Role="User_Stage">
               <PropertyRef Name="DocFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocumentDocFile">
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DocFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Document">
+              <PropertyRef Name="FinalFileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

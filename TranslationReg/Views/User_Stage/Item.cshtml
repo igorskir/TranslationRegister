@@ -6,8 +6,13 @@
         <div class="col-md-3">@Html.DisplayFor(modelItem => Model.Amount)</div>
         <div class="col-md-3">@Html.DisplayFor(modelItem => Model.DocFile.Date)</div>
         <div class="col-md-3">
-            <div class="col-md-6">@Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })</div>
-            <div class="col-md-6"><a class="btn btn-danger" href="/User_Stage/Delete/@Model.Id">Удалить</a></div>
+            <div class="col-md-6">
+                @if (Model.DocFile!=null && !String.IsNullOrWhiteSpace(Model.DocFile.Path))
+                {
+                    @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                }
+            </div>
+            <div class="col-md-6"><a class="btn btn-danger deleteBtn" href="/User_Stage/Delete/@Model.Id">Удалить</a></div>
         </div>
     </div>
 </div>

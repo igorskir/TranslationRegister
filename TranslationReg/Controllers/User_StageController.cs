@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TranslationRegistryModel;
+using System.IO;
 
 namespace TranslationReg.Controllers
 {
@@ -68,6 +69,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddUser_Stage(user_Stage);
+                workFile.SaveAs(user_Stage.DocFile.Path);
                 return Redirect(Request.UrlReferrer.ToString());
             }
 
@@ -89,8 +91,6 @@ namespace TranslationReg.Controllers
         }
 
         // POST: User_Stage/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,Amount,StageId,UserId,DocFileId")] User_Stage user_Stage)
@@ -113,7 +113,7 @@ namespace TranslationReg.Controllers
             if (user_Stage == null)
                 return HttpNotFound();
 
-            return View(user_Stage);
+            return PartialView(user_Stage);
         }
 
         // POST: User_Stage/Delete/5
@@ -123,6 +123,19 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteUser_Stage(id);
             return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // GET: User_Stage/Download
+        public ActionResult Download(string filepath)
+        {
+            if (System.IO.File.Exists(filepath))
+            {
+                FileInfo file = new FileInfo(filepath);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+                string fileName = file.Name;
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            }
+            return HttpNotFound("Файл не найден");
         }
 
         protected override void Dispose(bool disposing)

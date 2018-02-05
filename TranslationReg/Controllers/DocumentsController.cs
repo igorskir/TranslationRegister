@@ -73,10 +73,10 @@ namespace TranslationReg.Controllers
             if (originalFile!= null && originalFile.ContentLength != 0)
             {
 
-                document.OriginalFile = await SetFile(originalFile);
+                document.OriginalFile = await Helper.SetFile(originalFile,Rep,Server);
 
                 if (finalFile != null && finalFile.ContentLength != 0)
-                    document.FinalFile = await SetFile(finalFile); ;
+                    document.FinalFile = await Helper.SetFile(originalFile, Rep, Server);
 
                 if (ModelState.IsValid)
                 {
@@ -104,32 +104,6 @@ namespace TranslationReg.Controllers
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
             return HttpNotFound("Файл не найден");
-        }
-
-        private async Task<DocFile> SetFile(HttpPostedFileBase file)
-        {
-            DocFile docfile = new DocFile
-            {
-                Date = DateTime.Now,
-                Path = GetValidPath(file)
-            };
-            await Rep.AddDocFile(docfile);
-            return docfile;
-        }
-
-        private string GetValidPath(HttpPostedFileBase file)
-        {
-            var fileName = Path.GetFileName(file.FileName);
-            var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-            if (System.IO.File.Exists(path))
-            {
-                Guid guid = Guid.NewGuid();
-                fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                string extension = Path.GetExtension(file.FileName);
-                fileName += guid.ToString() + extension;
-                path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-            }
-            return path;
         }
 
         // GET: Documents/Edit/5

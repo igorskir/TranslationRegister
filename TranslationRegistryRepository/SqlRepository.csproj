@@ -103,6 +103,7 @@
     <Compile Include="RepositoryCRUD\SqlRepository_LanguagePair.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
+    <Compile Include="Seeding\Seeder.cs" />
     <Compile Include="SqlRepository.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_User.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Language.cs" />
@@ -113,7 +114,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Seeding\" />
     <Folder Include="TranslationRegistryModel\" />
   </ItemGroup>
   <ItemGroup>

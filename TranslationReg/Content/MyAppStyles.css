@@ -60,11 +60,11 @@ p{
     display: none;
 }
 
-.dynamicItem{
+.dynamicItem {
     margin: 0 auto;
     padding-top: 20px;
-    background-color: white;
-    border: 1px solid white;
+    background-color: #EEF1F5;
+    border: 1px solid #EEF1F5;
 }
 
 .titleLink {

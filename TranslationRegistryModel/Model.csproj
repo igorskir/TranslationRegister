@@ -88,6 +88,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>TRegModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="UnitOfMeasure.cs">
+      <DependentUpon>TRegModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="User.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>

@@ -2,13 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 02/05/2018 17:23:08
+-- Date Created: 02/09/2018 00:20:22
 -- Generated from EDMX file: C:\Users\Иван\Documents\Visual Studio 2017\Projects\TranslationReg\TranslationRegistryModel\TRegModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
 GO
-USE [SqlRepository.SqlContext];
+USE [TranslationRegistry];
 GO
 IF SCHEMA_ID(N'dbo') IS NULL EXECUTE(N'CREATE SCHEMA [dbo]');
 GO
@@ -68,6 +68,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_DocumentDocFile]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[Documents] DROP CONSTRAINT [FK_DocumentDocFile];
 GO
+IF OBJECT_ID(N'[dbo].[FK_UnitOfMeasureWorkType]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[WorkTypes] DROP CONSTRAINT [FK_UnitOfMeasureWorkType];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -102,6 +105,9 @@ IF OBJECT_ID(N'[dbo].[Users]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[WorkTypes]', 'U') IS NOT NULL
     DROP TABLE [dbo].[WorkTypes];
+GO
+IF OBJECT_ID(N'[dbo].[UnitOfMeasures]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[UnitOfMeasures];
 GO
 IF OBJECT_ID(N'[dbo].[ProjectUsers]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProjectUsers];
@@ -173,7 +179,7 @@ CREATE TABLE [dbo].[DocStages] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [DocumentId] int  NOT NULL,
     [WorkTypeId] int  NOT NULL,
-    [DocFileId] int  NOT NULL
+    [DocFileId] int  NULL
 );
 GO
 
@@ -197,6 +203,15 @@ GO
 
 -- Creating table 'WorkTypes'
 CREATE TABLE [dbo].[WorkTypes] (
+    [Id] int IDENTITY(1,1) NOT NULL,
+    [Name] nvarchar(max)  NOT NULL,
+    [Description] nvarchar(max)  NULL,
+    [UnitOfMeasureId] int  NOT NULL
+);
+GO
+
+-- Creating table 'UnitOfMeasures'
+CREATE TABLE [dbo].[UnitOfMeasures] (
     [Id] int IDENTITY(1,1) NOT NULL,
     [Name] nvarchar(max)  NOT NULL,
     [Description] nvarchar(max)  NULL
@@ -271,6 +286,12 @@ GO
 -- Creating primary key on [Id] in table 'WorkTypes'
 ALTER TABLE [dbo].[WorkTypes]
 ADD CONSTRAINT [PK_WorkTypes]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'UnitOfMeasures'
+ALTER TABLE [dbo].[UnitOfMeasures]
+ADD CONSTRAINT [PK_UnitOfMeasures]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -531,6 +552,21 @@ GO
 CREATE INDEX [IX_FK_DocumentDocFile]
 ON [dbo].[Documents]
     ([FinalFileId]);
+GO
+
+-- Creating foreign key on [UnitOfMeasureId] in table 'WorkTypes'
+ALTER TABLE [dbo].[WorkTypes]
+ADD CONSTRAINT [FK_UnitOfMeasureWorkType]
+    FOREIGN KEY ([UnitOfMeasureId])
+    REFERENCES [dbo].[UnitOfMeasures]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_UnitOfMeasureWorkType'
+CREATE INDEX [IX_FK_UnitOfMeasureWorkType]
+ON [dbo].[WorkTypes]
+    ([UnitOfMeasureId]);
 GO
 
 -- --------------------------------------------------

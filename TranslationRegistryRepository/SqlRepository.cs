@@ -14,10 +14,10 @@ namespace SqlRepository
         public SqlRep()
         {
             context = new Entities();
+            //флаг пустой базы
             if (context.Languages.Count() == 0)
             {
-                context.Languages.Add(new Language() {Name = "Русский", ShortName = "ru"});
-                context.SaveChanges();
+                Seeding.Seeder.Seed(context);
             }
         }
 

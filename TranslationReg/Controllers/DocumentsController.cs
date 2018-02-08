@@ -49,12 +49,14 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await Rep.GetDocument(id.Value);
+            Document doc = await Rep.GetDocument(id.Value);
 
-            if (document == null)
+            if (doc == null)
                 return HttpNotFound();
 
-            return View(document);
+            //var newDoc = new Document() { Name = document.Name, Owner = document.Owner, FinalFile = document.FinalFile , OriginalFile = document.OriginalFile, Id = document.Id, Stages = document.Stages };
+
+            return View(doc);
         }
 
         // GET: Documents/Create

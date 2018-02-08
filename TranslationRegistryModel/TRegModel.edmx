@@ -16,6 +16,7 @@
     <EntitySet Name="User_Stage" EntityType="SqlRepository.SqlContextModel.Store.User_Stage" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="SqlRepository.SqlContextModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkTypes" EntityType="SqlRepository.SqlContextModel.Store.WorkTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.Store.UnitOfMeasures" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProjectUsers" EntityType="SqlRepository.SqlContextModel.Store.ProjectUsers" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Projects_ProjectId">
       <End Role="Projects" EntitySet="Projects" />
@@ -85,6 +86,10 @@
       <End Role="Document" EntitySet="Documents" />
       <End Role="DocFile" EntitySet="DocFiles" />
     </AssociationSet>
+    <AssociationSet Name="UnitOfMeasureWorkType" Association="SqlRepository.SqlContextModel.Store.UnitOfMeasureWorkType">
+      <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
+      <End Role="WorkType" EntitySet="WorkTypes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Documents">
     <Key>
@@ -150,7 +155,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DocumentId" Type="int" Nullable="false" />
     <Property Name="WorkTypeId" Type="int" Nullable="false" />
-    <Property Name="DocFileId" Type="int" Nullable="false" />
+    <Property Name="DocFileId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="User_Stage">
     <Key>
@@ -171,6 +176,15 @@
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UnitOfMeasureId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitOfMeasures">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -319,7 +333,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="DocFileStage">
-    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
     <End Role="Stage" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocFile">
@@ -363,6 +377,18 @@
       </Principal>
       <Dependent Role="Document">
         <PropertyRef Name="FinalFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UnitOfMeasureWorkType">
+    <End Role="UnitOfMeasure" Type="SqlRepository.SqlContextModel.Store.UnitOfMeasures" Multiplicity="1" />
+    <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitOfMeasure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkType">
+        <PropertyRef Name="UnitOfMeasureId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -476,7 +502,7 @@
           <NavigationProperty Name="WorkType" Relationship="Self.FK_StageWorkType" FromRole="Stages" ToRole="WorkTypes" />
           <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageStage" FromRole="Stages" ToRole="User_Stage" />
           <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileStage" FromRole="Stage" ToRole="DocFile" />
-          <Property Name="DocFileId" Type="Int32" Nullable="false" />
+          <Property Name="DocFileId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="User_Stage">
           <Key>
@@ -510,6 +536,8 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Stages" Relationship="Self.FK_StageWorkType" FromRole="WorkTypes" ToRole="Stages" />
+          <NavigationProperty Name="UnitOfMeasure" Relationship="SqlRepository.SqlContextModel.UnitOfMeasureWorkType" FromRole="WorkType" ToRole="UnitOfMeasure" />
+          <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
           <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
@@ -686,6 +714,11 @@
             <End Role="Document" EntitySet="Documents" />
             <End Role="DocFile" EntitySet="DocFiles" />
           </AssociationSet>
+          <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.UnitOfMeasure" />
+          <AssociationSet Name="UnitOfMeasureWorkType" Association="SqlRepository.SqlContextModel.UnitOfMeasureWorkType">
+            <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
+            <End Role="WorkType" EntitySet="WorkTypes" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
           <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" />
@@ -724,7 +757,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocFileStage">
-          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
           <End Type="SqlRepository.SqlContextModel.DocStage" Role="Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocFile">
@@ -768,6 +801,26 @@
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="FinalFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UnitOfMeasure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="UnitOfMeasureWorkType">
+          <End Type="SqlRepository.SqlContextModel.UnitOfMeasure" Role="UnitOfMeasure" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitOfMeasure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkType">
+              <PropertyRef Name="UnitOfMeasureId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -873,6 +926,16 @@
     <EntitySetMapping Name="WorkTypes">
       <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.WorkType)">
         <MappingFragment StoreEntitySet="WorkTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UnitOfMeasureId" ColumnName="UnitOfMeasureId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitOfMeasures">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.UnitOfMeasure)">
+        <MappingFragment StoreEntitySet="UnitOfMeasures">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />

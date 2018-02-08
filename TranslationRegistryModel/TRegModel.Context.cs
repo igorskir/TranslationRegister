@@ -35,5 +35,6 @@ namespace TranslationRegistryModel
         public virtual DbSet<User_Stage> User_Stage { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkType> WorkTypes { get; set; }
+        public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
     }
 }

@@ -12,9 +12,9 @@
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.Project" Width="1.5" PointX="5.25" PointY="3" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.ProjectStatus" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.DocStage" Width="1.5" PointX="12" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.User_Stage" Width="1.5" PointX="14.25" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.User_Stage" Width="1.5" PointX="14.875" PointY="6.5" IsExpanded="true" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.User" Width="1.5" PointX="7.5" PointY="7.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.WorkType" Width="1.5" PointX="9.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.WorkType" Width="1.5" PointX="9.75" PointY="1.25" IsExpanded="true" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Documents_dbo_Projects_ProjectId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_dbo_Documents_dbo_Users_UserId" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_DocumentStage" ManuallyRouted="false" />
@@ -31,6 +31,8 @@
         <AssociationConnector Association="SqlRepository.SqlContextModel.UserUser_Stage" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocFileUser_Stage" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentDocFile" />
+        <EntityTypeShape EntityType="SqlRepository.SqlContextModel.UnitOfMeasure" Width="1.5" PointX="13.75" PointY="1.375" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.UnitOfMeasureWorkType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -6,10 +6,6 @@
 
 <h2>Документы</h2>
 
-<p>
-    @Html.ActionLink("Создать", "Create", null,htmlAttributes: new { @class = "btn btn-success" })
-</p>
-
 <div class="container">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -29,60 +25,84 @@
     </div>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Имя")
-        </th>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDoc"
+   href="/Documents/Create" class="btn btn-primary createBtn">Добавить</a>
+<div id="addDoc" class="dynamicBlock"></div>
 
-        <th>
-            @Html.Label("Количество слов")
-        </th>
+<div class="titles">
+    <div class="col-md-3">@Html.Label("Наименование")</div>
+    <div class="col-md-2">@Html.Label("Создатель")</div>
+    <div class="col-md-2">@Html.Label("Количество слов")</div>
+    <div class="col-md-1">@Html.Label("Оригинал")</div>
+    <div class="col-md-1">@Html.Label("Перевод")</div>
+    <div class="col-md-3">@Html.Label("Команды")</div>
+</div>
 
-        <th>
-            @Html.Label("Создатель")
-        </th>
-
-        <th>
-            @Html.Label("Оригинал")
-        </th>
-        <th>
-            @Html.Label("Перевод")
-        </th>
-        <th>
-
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
+@foreach (var item in Model)
+{
+    <div class="prorepties">
+        <div class="col-md-3">
             @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WordsNumber)
-        </td>
-        <td>
+        </div>
+        <div class="col-md-2">
             @Html.DisplayFor(modelItem => item.Owner.Name)
-        </td>
-        <td>
-            @if(!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
+        </div>
+
+        <div class="col-md-2">
+            @Html.DisplayFor(modelItem => item.WordsNumber)
+        </div>
+
+        <div class="col-md-1">
+            @if (!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
             {
                 <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
             }
-        </td>
-        <td>
+        </div>
+        <div class="col-md-1">
             @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
                 <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
             }
-        </td>
-        <td>
+        </div>
+        <div class="col-md-3">
             @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
             @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
             @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
+        </div>
+    </div>
 }
 
-</table>
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

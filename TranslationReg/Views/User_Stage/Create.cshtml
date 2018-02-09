@@ -1,5 +1,5 @@
 ﻿@model TranslationRegistryModel.User_Stage
-<div>
+<div class="formContainer">
     @using (Html.BeginForm("Create", "User_Stage", null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
     {
         @Html.HiddenFor(model=>model.StageId)

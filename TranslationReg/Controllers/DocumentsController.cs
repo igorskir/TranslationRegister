@@ -54,8 +54,6 @@ namespace TranslationReg.Controllers
             if (doc == null)
                 return HttpNotFound();
 
-            //var newDoc = new Document() { Name = document.Name, Owner = document.Owner, FinalFile = document.FinalFile , OriginalFile = document.OriginalFile, Id = document.Id, Stages = document.Stages };
-
             return View(doc);
         }
 

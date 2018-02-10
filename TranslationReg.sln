@@ -1,13 +1,19 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.16
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationReg", "TranslationReg\TranslationReg.csproj", "{EE2170F9-5923-43C5-ABD1-7C820522B05F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "TranslationRegistryModel\Model.csproj", "{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SqlRepository", "TranslationRegistryRepository\SqlRepository.csproj", "{58F0F26D-7D74-4E75-8231-236E8A331740}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "пожелания к дизайну", "пожелания к дизайну", "{AE98EDB8-9251-4BDC-8C9D-9AE97434B8D9}"
+	ProjectSection(SolutionItems) = preProject
+		пожелания к интерфейсу.txt = пожелания к интерфейсу.txt
+		пожелания к стилям.txt = пожелания к стилям.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

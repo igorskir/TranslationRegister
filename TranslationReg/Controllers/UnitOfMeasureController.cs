@@ -13,27 +13,10 @@ namespace TranslationReg.Controllers
 {
     public class UnitOfMeasureController : Controller
     {
-        private Entities db = new Entities();
-
-        // GET: UnitOfMeasure
-        public async Task<ActionResult> Index()
+        public IRepository Rep { get; set; }
+        public UnitOfMeasureController(IRepository repository)
         {
-            return View(await db.UnitOfMeasures.ToListAsync());
-        }
-
-        // GET: UnitOfMeasure/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UnitOfMeasure unitOfMeasure = await db.UnitOfMeasures.FindAsync(id);
-            if (unitOfMeasure == null)
-            {
-                return HttpNotFound();
-            }
-            return View(unitOfMeasure);
+            this.Rep = repository;
         }
 
         // GET: UnitOfMeasure/Create
@@ -43,16 +26,13 @@ namespace TranslationReg.Controllers
         }
 
         // POST: UnitOfMeasure/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description")] UnitOfMeasure unitOfMeasure)
+        public async Task<ActionResult> Create(UnitOfMeasure unitOfMeasure)
         {
             if (ModelState.IsValid)
             {
-                db.UnitOfMeasures.Add(unitOfMeasure);
-                await db.SaveChangesAsync();
+                await Rep.AddUnitOfMeasure(unitOfMeasure);
                 return RedirectToAction("Index");
             }
 
@@ -63,29 +43,25 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UnitOfMeasure unitOfMeasure = await db.UnitOfMeasures.FindAsync(id);
+
+            UnitOfMeasure unitOfMeasure = await Rep.GetUnitOfMeasure(id.Value);
+
             if (unitOfMeasure == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(unitOfMeasure);
         }
 
         // POST: UnitOfMeasure/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description")] UnitOfMeasure unitOfMeasure)
+        public async Task<ActionResult> Edit( UnitOfMeasure unitOfMeasure)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(unitOfMeasure).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                await Rep.PutUnitOfMeasure(unitOfMeasure);
+                return Redirect(Request.UrlReferrer.ToString());
             }
             return View(unitOfMeasure);
         }
@@ -94,14 +70,13 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            UnitOfMeasure unitOfMeasure = await db.UnitOfMeasures.FindAsync(id);
+
+            UnitOfMeasure unitOfMeasure = await Rep.GetUnitOfMeasure(id.Value);
+
             if (unitOfMeasure == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(unitOfMeasure);
         }
 
@@ -110,18 +85,14 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            UnitOfMeasure unitOfMeasure = await db.UnitOfMeasures.FindAsync(id);
-            db.UnitOfMeasures.Remove(unitOfMeasure);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            await Rep.DeleteUnitOfMeasure(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                Rep.Dispose();
             base.Dispose(disposing);
         }
     }

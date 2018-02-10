@@ -189,6 +189,7 @@
     </Compile>
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LanguagePairsModel.cs" />
+    <Compile Include="Models\WorkTypesModel.cs" />
     <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
@@ -327,12 +328,9 @@
     <Content Include="Views\Documents\DocAndStages.cshtml" />
     <Content Include="Views\UnitOfMeasure\Create.cshtml" />
     <Content Include="Views\UnitOfMeasure\Delete.cshtml" />
-    <Content Include="Views\UnitOfMeasure\Details.cshtml" />
     <Content Include="Views\UnitOfMeasure\Edit.cshtml" />
-    <Content Include="Views\UnitOfMeasure\Index.cshtml" />
     <Content Include="Views\WorkTypes\Create.cshtml" />
     <Content Include="Views\WorkTypes\Delete.cshtml" />
-    <Content Include="Views\WorkTypes\Details.cshtml" />
     <Content Include="Views\WorkTypes\Edit.cshtml" />
     <Content Include="Views\WorkTypes\Index.cshtml" />
     <Content Include="Style\bootstrap-theme.css.map" />
@@ -340,6 +338,8 @@
     <Content Include="Style\bootstrap.css.map" />
     <Content Include="Style\bootstrap.min.css.map" />
     <Content Include="Style\style.less" />
+    <Content Include="Views\WorkTypes\List.cshtml" />
+    <Content Include="Views\UnitOfMeasure\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

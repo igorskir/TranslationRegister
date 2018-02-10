@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using TranslationRegistryModel;
+using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
@@ -18,15 +19,15 @@ namespace TranslationReg.Controllers
         // GET: WorkTypes
         public async Task<ActionResult> Index()
         {
-            var workTypes = await Rep.GetWorkTypes();
-            return View(workTypes);
+            var workTypesModel = await WorkTypesModel.GetModel(Rep);
+            return View(workTypesModel);
         }
 
         // GET: WorkTypes/Create
-        public async Task<ActionResult> CreateAsync()
+        public async Task<ActionResult> Create()
         {
             ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name");
-            return View();
+            return PartialView();
         }
 
         // POST: WorkTypes/Create
@@ -56,7 +57,7 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
-            return View(workType);
+            return PartialView(workType);
         }
 
         // POST: WorkTypes/Edit/5
@@ -83,7 +84,7 @@ namespace TranslationReg.Controllers
 
             if (workType == null)
                 return HttpNotFound();
-            return View(workType);
+            return PartialView(workType);
         }
 
         // POST: WorkTypes/Delete/5

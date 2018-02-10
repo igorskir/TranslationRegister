@@ -1,0 +1,29 @@
+﻿
+@model List<TranslationRegistryModel.UnitOfMeasure>
+<div>
+    <h2>Единицы измерения</h2>
+
+    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUnitForm"
+       href="/WorkTypes/Create" class="btn btn-primary createBtn">Добавить</a>
+    <div id="addUnitForm" class="dynamicBlock"></div>
+
+    <div class="titles">
+        <div class="col-md-3">@Html.Label("Наименование")</div>
+        <div class="col-md-6">@Html.Label("Описание")</div>
+        <div class="col-md-3">@Html.Label("Команды")</div>
+    </div>
+    @foreach (var workType in Model)
+    {
+        <div class="properties">
+            <div class="col-md-3">@Html.DisplayFor(modelItem => workType.Name)</div>
+            <div class="col-md-6">@Html.DisplayFor(modelItem => workType.Description)</div>
+            <div class="col-md-3">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(workType.Id)"
+                   href="/WorkTypes/Edit/@workType.Id" class="btn btn-primary editBtn">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(workType.Id)"
+                   href="/WorkTypes/Delete/@workType.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+            </div>
+        </div>
+        <div id="unit@(workType.Id)" class="dynamicBlock dynamicItem"></div>
+    }
+</div>

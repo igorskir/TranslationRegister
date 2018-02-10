@@ -18,7 +18,7 @@ namespace TranslationReg.Controllers
         // GET: UnitOfMeasure/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: UnitOfMeasure/Create
@@ -46,7 +46,7 @@ namespace TranslationReg.Controllers
             if (unitOfMeasure == null)
                 return HttpNotFound();
 
-            return View(unitOfMeasure);
+            return PartialView(unitOfMeasure);
         }
 
         // POST: UnitOfMeasure/Edit/5
@@ -73,7 +73,7 @@ namespace TranslationReg.Controllers
             if (unitOfMeasure == null)
                 return HttpNotFound();
 
-            return View(unitOfMeasure);
+            return PartialView(unitOfMeasure);
         }
 
         // POST: UnitOfMeasure/Delete/5

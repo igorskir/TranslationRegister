@@ -13,12 +13,12 @@ namespace TranslationReg.Models
         public List<Language> languages;
         public List<LanguagePair> languagePairs;
 
-        public static async Task<LanguagesModel> GetModel(IRepository rep)
+        public static async Task<LanguagesModel> GetModel(IRepository Rep)
         {
             LanguagesModel model = new LanguagesModel
             {
-                languages = await rep.GetLanguages(),
-                languagePairs = await rep.GetLanguagePairs()
+                languages = await Rep.GetLanguages(),
+                languagePairs = await Rep.GetLanguagePairs()
             };
             return model;
         }

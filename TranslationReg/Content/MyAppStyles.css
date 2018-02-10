@@ -120,7 +120,7 @@ p{
 /*--------------------Стили заголовков для таблиц-------------------------*/
 
 /*-----------------------Стили элементов таблиц----------------------------*/
-.prorepties {
+.properties {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -131,7 +131,7 @@ p{
     border-color: darkgray;
 }
 
-.prorepties > div{
+.properties > div{
     padding: 10px 0;
     text-align: center;
     height: 55px;
@@ -140,11 +140,11 @@ p{
     border-right: 2px solid darkgray;
 }
 
-.prorepties > div:last-child{
+.properties > div:last-child{
     border-right: none;
 }
 
-.prorepties:hover{
+.properties:hover{
     background-color: #e8e8e8;
 }
 /*-----------------------Стили элементов таблиц----------------------------*/

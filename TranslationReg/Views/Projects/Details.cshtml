@@ -11,40 +11,38 @@
            href="/Documents/Create" class="btn btn-success createBtn">Добавить документ</a>
         <div id="addDocForm" class="dynamicBlock"></div>
 
-        <div class="container myForm Pair">
-            <div class="myTitles">
-                <div class="col-md-6">Документы проекта</div>
-                <div class="col-md-6">Команды</div>
-            </div>
-
-            @foreach (var doc in Model.Documents)
-            {
-                <div>
-                    <div class="row">
-                        <div class="col-md-6"><h3>@Html.DisplayFor(modelItem => doc.Name)</h3></div>
-                        <div class="col-md-6">
-
-                            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm@(doc.Id)"
-                               href="/DocStages/Create/@doc.Id" class="btn btn-success createBtn">Добавить стадию</a>
-
-                            @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
-                            <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
-                            <a class="btn btn-info" href="/Documents/Details/@doc.Id">Подробно</a>
-                            <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
-
-                        </div>
-                        <div id="addDocStageForm@(doc.Id)" class="dynamicBlock"></div>
-                    </div>
-
-                    <div>
-                        @foreach (var stage in doc.Stages)
-                        {
-                        @Html.Partial("../DocStages/Item", stage)
-                        }
-                    </div>
-                </div>
-            }
+        <div class="titles">
+            <div class="col-md-6">Название документа</div>
+            <div class="col-md-6">Команды</div>
         </div>
+
+        @foreach (var doc in Model.Documents)
+        {
+            <div class="properties">
+                <div class="row">
+                    <div class="col-md-6"><h3>@Html.DisplayFor(modelItem => doc.Name)</h3></div>
+                    <div class="col-md-6">
+
+                        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm@(doc.Id)"
+                           href="/DocStages/Create/@doc.Id" class="btn btn-success createBtn">Добавить стадию</a>
+
+                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                        <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
+                        <a class="btn btn-info" href="/Documents/Details/@doc.Id">Подробно</a>
+                        <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
+
+                    </div>
+                    <div id="addDocStageForm@(doc.Id)" class="dynamicBlock"></div>
+                </div>
+
+                <div>
+                    @foreach (var stage in doc.Stages)
+                    {
+                        @Html.Partial("../DocStages/Item", stage)
+                    }
+                </div>
+            </div>
+        }
     </div>
 </div>
 

@@ -27,10 +27,10 @@ namespace TranslationReg
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/respond.js"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/Site.css",
-                      "~/Content/MyAppStyles.css"
+            bundles.Add(new StyleBundle("~/Style/css").Include(
+                      "~/Style/bootstrap.css",
+                      "~/Style/Site.css",
+                      "~/Style/style.css"
                       ));
         }
     }

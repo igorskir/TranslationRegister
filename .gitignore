@@ -263,3 +263,5 @@ paket-files/
 __pycache__/
 *.pyc
 /TranslationRegistryRepository/Migrations
+/TranslationReg/Style
+/TranslationReg/package-lock.json

@@ -15,13 +15,9 @@ using TranslationReg.Models;
 namespace TranslationReg.Controllers
 {
     [Authorize]
-    public class DocumentsController : Controller
+    public class DocumentsController : RepositoryController
     {
-        public IRepository Rep { get; set; }
-        public DocumentsController(IRepository repository)
-        {
-            this.Rep = repository;
-        }
+        public DocumentsController(IRepository repository) : base(repository) { }
 
         // GET: Documents
         public async Task<ActionResult> Index()

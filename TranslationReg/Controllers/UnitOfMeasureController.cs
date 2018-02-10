@@ -11,13 +11,9 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
-    public class UnitOfMeasureController : Controller
+    public class UnitOfMeasureController : RepositoryController
     {
-        public IRepository Rep { get; set; }
-        public UnitOfMeasureController(IRepository repository)
-        {
-            this.Rep = repository;
-        }
+        public UnitOfMeasureController(IRepository repository) : base(repository) { }
 
         // GET: UnitOfMeasure/Create
         public ActionResult Create()
@@ -33,7 +29,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddUnitOfMeasure(unitOfMeasure);
-                return RedirectToAction("Index");
+                Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(unitOfMeasure);

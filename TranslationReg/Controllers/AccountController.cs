@@ -12,13 +12,9 @@ using System.Web.Security;
 
 namespace TranslationReg.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : RepositoryController
     {
-        public IRepository Rep { get; set; }
-        public AccountController(IRepository repository)
-        {
-            this.Rep = repository;
-        }
+        public AccountController(IRepository repository) : base(repository){}
 
         public ActionResult Login()
         {

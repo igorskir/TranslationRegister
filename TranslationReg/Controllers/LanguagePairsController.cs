@@ -12,14 +12,9 @@ using TranslationRegistryModel;
 namespace TranslationReg.Controllers
 {
     [Authorize]
-    public class LanguagePairsController : Controller
+    public class LanguagePairsController : RepositoryController
     {
-        IRepository Rep;
-
-        public LanguagePairsController(IRepository Rep)
-        {
-            this.Rep = Rep;
-        }
+        public LanguagePairsController(IRepository repository) : base(repository) { }
 
         // GET: LanguagePairs/List
         public async Task<ActionResult> List()

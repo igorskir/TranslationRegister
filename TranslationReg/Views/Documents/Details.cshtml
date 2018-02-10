@@ -16,11 +16,15 @@
             <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
         </dd>
 
-        <dt>
-            Скачать перевод
-        </dt>
-        <dd>
-            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
-        </dd>
+        @if (Model.FinalFile != null && !String.IsNullOrWhiteSpace(Model.FinalFile.Path))
+        {
+            <dt>
+                Скачать перевод
+            </dt>
+            <dd>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
+
+            </dd>
+        }
     </dl>
 </div>

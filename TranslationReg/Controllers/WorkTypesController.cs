@@ -11,54 +11,36 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
-    public class WorkTypesController : Controller
+    public class WorkTypesController : RepositoryController
     {
-        private Entities db = new Entities();
+        public WorkTypesController(IRepository repository) : base(repository) { }
 
         // GET: WorkTypes
         public async Task<ActionResult> Index()
         {
-            var workTypes = db.WorkTypes.Include(w => w.UnitOfMeasure);
-            return View(await workTypes.ToListAsync());
-        }
-
-        // GET: WorkTypes/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WorkType workType = await db.WorkTypes.FindAsync(id);
-            if (workType == null)
-            {
-                return HttpNotFound();
-            }
-            return View(workType);
+            var workTypes = await Rep.GetWorkTypes();
+            return View(workTypes);
         }
 
         // GET: WorkTypes/Create
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
-            ViewBag.UnitOfMeasureId = new SelectList(db.UnitOfMeasures, "Id", "Name");
+            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name");
             return View();
         }
 
         // POST: WorkTypes/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Description,UnitOfMeasureId")] WorkType workType)
+        public async Task<ActionResult> Create(WorkType workType)
         {
             if (ModelState.IsValid)
             {
-                db.WorkTypes.Add(workType);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                await Rep.AddWorkType(workType);
+                Redirect(Request.UrlReferrer.ToString());
             }
 
-            ViewBag.UnitOfMeasureId = new SelectList(db.UnitOfMeasures, "Id", "Name", workType.UnitOfMeasureId);
+            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
             return View(workType);
         }
 
@@ -66,32 +48,28 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WorkType workType = await db.WorkTypes.FindAsync(id);
+
+            WorkType workType = await Rep.GetWorkType(id.Value);
+
             if (workType == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.UnitOfMeasureId = new SelectList(db.UnitOfMeasures, "Id", "Name", workType.UnitOfMeasureId);
+
+            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
             return View(workType);
         }
 
         // POST: WorkTypes/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Description,UnitOfMeasureId")] WorkType workType)
+        public async Task<ActionResult> Edit(WorkType workType)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(workType).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                await Rep.PutWorkType(workType);
+                Redirect(Request.UrlReferrer.ToString());
             }
-            ViewBag.UnitOfMeasureId = new SelectList(db.UnitOfMeasures, "Id", "Name", workType.UnitOfMeasureId);
+            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
             return View(workType);
         }
 
@@ -99,14 +77,12 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            WorkType workType = await db.WorkTypes.FindAsync(id);
+
+            WorkType workType = await Rep.GetWorkType(id.Value);
+
             if (workType == null)
-            {
                 return HttpNotFound();
-            }
             return View(workType);
         }
 
@@ -115,18 +91,14 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            WorkType workType = await db.WorkTypes.FindAsync(id);
-            db.WorkTypes.Remove(workType);
-            await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            await Rep.DeleteWorkType(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                db.Dispose();
-            }
+                Rep.Dispose();
             base.Dispose(disposing);
         }
     }

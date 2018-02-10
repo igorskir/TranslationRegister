@@ -14,13 +14,9 @@ using TranslationReg.Models;
 namespace TranslationReg.Controllers
 {
     [Authorize]
-    public class ProjectsController : Controller
+    public class ProjectsController : RepositoryController
     {
-        public IRepository Rep { get; set; }
-        public ProjectsController(IRepository repository)
-        {
-            Rep = repository;
-        }
+        public ProjectsController(IRepository repository) : base(repository) { }
 
         // GET: Projects
         public async Task<ActionResult> Index()

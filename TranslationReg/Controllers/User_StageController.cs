@@ -12,13 +12,9 @@ using System.IO;
 
 namespace TranslationReg.Controllers
 {
-    public class User_StageController : Controller
+    public class User_StageController : RepositoryController
     {
-        IRepository Rep;
-        public User_StageController(IRepository Rep)
-        {
-            this.Rep = Rep;
-        }
+        public User_StageController(IRepository repository) : base(repository) { }
 
         // GET: User_Stage
         public async Task<ActionResult> Index()

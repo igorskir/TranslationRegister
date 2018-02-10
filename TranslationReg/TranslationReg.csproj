@@ -180,7 +180,9 @@
     <Compile Include="Controllers\LanguagePairsController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\UnitOfMeasureController.cs" />
     <Compile Include="Controllers\User_StageController.cs" />
+    <Compile Include="Controllers\WorkTypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -299,9 +301,7 @@
     <Content Include="Views\LanguagePairs\Create.cshtml" />
     <Content Include="Views\LanguagePairs\Edit.cshtml" />
     <Content Include="Views\LanguagePairs\List.cshtml" />
-    <Content Include="Views\LanguagePairs\Item.cshtml" />
     <Content Include="Views\Languages\List.cshtml" />
-    <Content Include="Views\Languages\Item.cshtml" />
     <Content Include="Views\LanguagePairs\Delete.cshtml" />
     <Content Include="Views\Projects\DetailsShort.cshtml" />
     <Content Include="Views\DocStages\Create.cshtml" />
@@ -321,6 +321,16 @@
     <Content Include="Views\Projects\Documents.cshtml" />
     <Content Include="Views\Documents\Item.cshtml" />
     <Content Include="Views\Documents\DocAndStages.cshtml" />
+    <Content Include="Views\UnitOfMeasure\Create.cshtml" />
+    <Content Include="Views\UnitOfMeasure\Delete.cshtml" />
+    <Content Include="Views\UnitOfMeasure\Details.cshtml" />
+    <Content Include="Views\UnitOfMeasure\Edit.cshtml" />
+    <Content Include="Views\UnitOfMeasure\Index.cshtml" />
+    <Content Include="Views\WorkTypes\Create.cshtml" />
+    <Content Include="Views\WorkTypes\Delete.cshtml" />
+    <Content Include="Views\WorkTypes\Details.cshtml" />
+    <Content Include="Views\WorkTypes\Edit.cshtml" />
+    <Content Include="Views\WorkTypes\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

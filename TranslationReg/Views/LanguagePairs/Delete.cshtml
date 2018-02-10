@@ -4,46 +4,20 @@
     <div>
         <hr />
         <dl class="dl-horizontal">
-            <dt>
-                @Html.Label("Наименование")
-            </dt>
+            <dt>@Html.Label("Наименование")</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+            <dt> @Html.Label("Язык оригинала")</dt>
+            <dd> @Html.DisplayFor(model => model.OriginalLanguage.Name)</dd>
 
-            <dt>
-                @Html.Label("Язык оригинала")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.OriginalLanguage.Name)
-            </dd>
-
-            <dt>
-                @Html.Label("Язык перевода")
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TranslationLanguage.Name)
-            </dd>
-
+            <dt> @Html.Label("Язык перевода")</dt>
+            <dd> @Html.DisplayFor(model => model.TranslationLanguage.Name)</dd>
         </dl>
 
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
-
             <input type="submit" value="Удалить" class="btn btn-danger"/>
         }
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $(".ui-dialog-titlebar-close").click(function () {
-            $('.ui-dialog-content').dialog('close');
-        });
-    });
-</script>
-

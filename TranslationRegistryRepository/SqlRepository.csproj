@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RepositoryCRUD\SqlRepository_UnitsOfMeasure.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_DocFile.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_User_Stage.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_DocStage.cs" />

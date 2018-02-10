@@ -40,11 +40,11 @@ namespace SqlRepository
 
         public async Task DeleteDocFile(int id)
         {
-            var language = await GetDocFile(id);
-            if (language == null)
+            var docFile = await GetDocFile(id);
+            if (docFile == null)
                 return;
 
-            context.DocFiles.Remove(language);
+            context.DocFiles.Remove(docFile);
             await context.SaveChangesAsync();
         }
     }

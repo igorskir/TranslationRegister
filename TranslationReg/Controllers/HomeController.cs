@@ -9,13 +9,9 @@ using TranslationRegistryModel;
 namespace TranslationReg.Controllers
 {
     [AllowAnonymous]
-    public class HomeController : Controller
+    public class HomeController : RepositoryController
     {
-        public IRepository Rep { get; set; }
-        public HomeController(IRepository repository)
-        {
-            this.Rep = repository;
-        }
+        public HomeController(IRepository repository) : base(repository) { }
 
         public ActionResult Index()
         {

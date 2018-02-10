@@ -12,13 +12,9 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
-    public class DocStagesController : Controller
+    public class DocStagesController : RepositoryController
     {
-        IRepository Rep;
-        public DocStagesController(IRepository Rep)
-        {
-            this.Rep = Rep;
-        }
+        public DocStagesController(IRepository repository) : base(repository) { }
 
         // GET: DocStages
         public async Task<ActionResult> Index()

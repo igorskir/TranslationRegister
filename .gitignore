@@ -267,3 +267,4 @@ __pycache__/
 /TranslationReg/package-lock.json
 TranslationRegistryModel/App.config
 TranslationReg/Web.config
+TranslationRegistryModel/TRegModel.edmx.sql

@@ -82,12 +82,12 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddProject(project);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             ProjectModel model = await ProjectModel.GetModel(Rep);
             model.Project = project;
-            return View(model);
+            return PartialView(model);
         }
 
         // GET: Projects/Edit/5
@@ -101,9 +101,8 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
-            var languages = await Rep.GetLanguages();
-            ViewBag.LanguagePairs = new SelectList(await Rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
-            return View(project);
+            ProjectModel model = await ProjectModel.GetModel(Rep, project);
+            return View(model);
         }
 
         [HttpPost]
@@ -113,11 +112,9 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutProject(project);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
-            var languages = await Rep.GetLanguages();
-            ViewBag.LanguagePair = new SelectList(await Rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId);
             return View(project);
         }
 
@@ -141,15 +138,13 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
             await Rep.DeleteProject(id);
-            return RedirectToAction("Index");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 Rep.Dispose();
-            }
             base.Dispose(disposing);
         }
     }

@@ -47,8 +47,8 @@ namespace SqlRepository.Seeding
 
 
             // ------------------------------------ Единицы измерения -----------------------
-            var UnitOfMeasureName1 = "слова";
-            var UnitOfMeasureName2 = "часы";
+            var UnitOfMeasureName1 = "Слова";
+            var UnitOfMeasureName2 = "Часы";
             List<UnitOfMeasure> units = new List<UnitOfMeasure>() {
                 new UnitOfMeasure(){Name = UnitOfMeasureName1 },
                 new UnitOfMeasure(){Name = UnitOfMeasureName2}};
@@ -85,6 +85,16 @@ namespace SqlRepository.Seeding
                 context.Users.AddRange(users);
             }
             context.SaveChanges();
+            // ------------------------------------------------------------------------------
+
+            // ------------------------------------ Статусы ---------------------------------
+            List<ProjectStatus> statuses = new List<ProjectStatus>()
+                {
+                    new ProjectStatus() { Name = "В работе"},
+                    new ProjectStatus() { Name = "Закрыт"}
+                };
+            context.ProjectStatuses.AddRange(statuses);
+
             // ------------------------------------------------------------------------------
 
 

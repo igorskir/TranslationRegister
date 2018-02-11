@@ -10,15 +10,17 @@ namespace TranslationReg.Models
 {
     public class LanguagePairsModel
     {
-        public List<Language> languages;
-        public List<LanguagePair> languagePairs;
+        public LanguagePair languagePair;
+        public SelectList languageSelectlist;
 
-        public static async Task<LanguagesModel> GetModel(IRepository rep)
+        public static async Task<LanguagePairsModel> GetModel(IRepository Rep, LanguagePair languagePair = null)
         {
-            LanguagesModel model = new LanguagesModel
+            if (languagePair == null)
+                languagePair = new LanguagePair();
+            LanguagePairsModel model = new LanguagePairsModel
             {
-                languages = await rep.GetLanguages(),
-                languagePairs = await rep.GetLanguagePairs()
+                languagePair = languagePair,
+                languageSelectlist = new SelectList(await Rep.GetLanguages(), "Id", "Name")
             };
             return model;
         }

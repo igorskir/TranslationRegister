@@ -283,8 +283,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
@@ -317,9 +315,7 @@
     <Content Include="Views\DocStages\Item.cshtml" />
     <Content Include="Views\User_Stage\Create.cshtml" />
     <Content Include="Views\User_Stage\Delete.cshtml" />
-    <Content Include="Views\User_Stage\Details.cshtml" />
     <Content Include="Views\User_Stage\Edit.cshtml" />
-    <Content Include="Views\User_Stage\Index.cshtml" />
     <Content Include="Views\User_Stage\Item.cshtml" />
     <Content Include="Views\User_Stage\List.cshtml" />
     <Content Include="Views\Projects\TabPages.cshtml" />
@@ -340,6 +336,8 @@
     <Content Include="Style\style.less" />
     <Content Include="Views\WorkTypes\List.cshtml" />
     <Content Include="Views\UnitOfMeasure\List.cshtml" />
+    <Content Include="Views\Projects\List.cshtml" />
+    <Content Include="Views\Documents\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

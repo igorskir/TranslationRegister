@@ -25,10 +25,8 @@ namespace TranslationReg.Controllers
         // GET: LanguagePairs/Create
         public async Task<ActionResult> Create()
         {
-            ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");
-            ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name");
-
-            return PartialView();
+            var model = await Models.LanguagePairsModel.GetModel(Rep);
+            return PartialView(model);
         }
 
         // POST: LanguagePairs/Create
@@ -42,26 +40,23 @@ namespace TranslationReg.Controllers
                 return Redirect(Request.UrlReferrer.ToString());
             }
 
-            ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
-            ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.TranslationLanguageId);
-            return View(languagePair);
+            var model = await Models.LanguagePairsModel.GetModel(Rep, languagePair);
+            return PartialView(model);
         }
 
         // GET: LanguagePairs/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             LanguagePair languagePair = await Rep.GetLanguagePair(id.Value);
+
             if (languagePair == null)
-            {
                 return HttpNotFound();
-            }
-            ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
-            ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.TranslationLanguageId);
-            return PartialView(languagePair);
+
+            var model = await Models.LanguagePairsModel.GetModel(Rep, languagePair);
+            return PartialView(model);
         }
 
         // POST: LanguagePairs/Edit/5
@@ -74,23 +69,22 @@ namespace TranslationReg.Controllers
                 await Rep.PutLanguagePair(languagePair);
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            ViewBag.OriginalLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.OriginalLanguageId);
-            ViewBag.TranslationLanguageId = new SelectList(await Rep.GetLanguages(), "Id", "Name", languagePair.TranslationLanguageId);
-            return View(languagePair);
+
+            var model = await Models.LanguagePairsModel.GetModel(Rep, languagePair);
+            return PartialView(model);
         }
 
         // GET: LanguagePairs/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+
             LanguagePair languagePair = await Rep.GetLanguagePair(id.Value);
+
             if (languagePair == null)
-            {
                 return HttpNotFound();
-            }
+
             return View(languagePair);
         }
 

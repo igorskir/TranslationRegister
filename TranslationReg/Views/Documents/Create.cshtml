@@ -18,7 +18,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Document.ProjectId, "Проект", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => Model.Document.ProjectId, Model.Projects, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => Model.Document.ProjectId, Model.Projects, new { @class = "form-control", requred = "required" })
                     @Html.ValidationMessageFor(model => model.Document.ProjectId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -26,7 +26,7 @@
             <div class="form-group">
                 @Html.Label("Файл оригинала", new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="file" name="originalFile" />
+                    <input type="file" name="originalFile" requred = "required" />
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Добавить" class="btn btn-default" />
+                    <input type="submit" value="Сохранить" class="btn btn-default" />
                 </div>
             </div>
         </div>

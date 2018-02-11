@@ -42,7 +42,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Project.ProjectStatuseId, "Статус", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.Project.ProjectStatuseId, Model.ProjectStatus, new { @class = "form-control" })
+                    @Html.DropDownListFor(model => model.Project.ProjectStatuseId, Model.ProjectStatus, new { @class = "form-control", requred = "required" })
                     @Html.ValidationMessageFor(model => model.Project.ProjectStatuseId, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -55,7 +55,7 @@
 
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Добавить" class="btn btn-default" />
+                    <input type="submit" value="Сохранить" class="btn btn-default" />
                 </div>
             </div>
         </div>

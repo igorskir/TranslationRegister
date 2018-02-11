@@ -1,4 +1,5 @@
 ﻿@model TranslationRegistryModel.User_Stage
+
 <div class="formContainer">
     @using (Html.BeginForm("Create", "User_Stage", null, FormMethod.Post, new { enctype = "multipart/form-data" })) 
     {
@@ -10,7 +11,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Amount,"Количество", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control", required="required", min = "1", max = "100000" } })
                 @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -18,7 +19,8 @@
         <div class="form-group">
             @Html.Label("Прикрепить файл", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <input type="file" name="workFile" />
+                <input type="file" name="workFile" required="required" />
+                @Html.ValidationMessageFor(model => model.DocFileId, "", new { @class = "text-danger"})
             </div>
         </div>
 

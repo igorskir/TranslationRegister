@@ -38,7 +38,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddWorkType(workType);
-                Redirect(Request.UrlReferrer.ToString());
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
@@ -68,7 +68,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutWorkType(workType);
-                Redirect(Request.UrlReferrer.ToString());
+                return Redirect(Request.UrlReferrer.ToString());
             }
             ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
             return View(workType);

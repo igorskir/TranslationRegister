@@ -29,7 +29,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddUnitOfMeasure(unitOfMeasure);
-                Redirect(Request.UrlReferrer.ToString());
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(unitOfMeasure);

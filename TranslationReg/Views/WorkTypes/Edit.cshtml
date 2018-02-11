@@ -11,7 +11,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.Name, "Название", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" }})
                     @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.UnitOfMeasureId, "Единицы измерения", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("UnitOfMeasureId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.DropDownList("UnitOfMeasureId", null, htmlAttributes: new { @class = "form-control", required = "required" })
                     @Html.ValidationMessageFor(model => model.UnitOfMeasureId, "", new { @class = "text-danger" })
                 </div>
             </div>

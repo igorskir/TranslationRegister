@@ -30,6 +30,9 @@
                         @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
                         {
                             @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                        } else
+                        {
+                            <a href="#" class="btn disabled-btn">Скачать готовый</a>
                         }
                     </div>
                     <div class="col-md-3">

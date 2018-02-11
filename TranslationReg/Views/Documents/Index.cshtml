@@ -6,71 +6,66 @@
 
 <h2>Документы</h2>
 
-<div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
-        </ul>
-    </div>
-</div>
-
 <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDoc"
    href="/Documents/Create" class="btn btn-primary createBtn">Добавить</a>
 <div id="addDoc" class="dynamicBlock"></div>
 
-<div class="titles">
-    <div class="col-md-3">@Html.Label("Наименование")</div>
-    <div class="col-md-2">@Html.Label("Создатель")</div>
-    <div class="col-md-2">@Html.Label("Количество слов")</div>
-    <div class="col-md-1">@Html.Label("Оригинал")</div>
-    <div class="col-md-1">@Html.Label("Перевод")</div>
-    <div class="col-md-3">@Html.Label("Команды")</div>
+<div class="container">
+    <ul class="filters">
+        <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
+    </ul>
 </div>
 
-@foreach (var item in Model)
-{
-    <div class="properties">
-        <div class="col-md-3">
-            @Html.DisplayFor(modelItem => item.Name)
-        </div>
-        <div class="col-md-2">
-            @Html.DisplayFor(modelItem => item.Owner.Name)
-        </div>
-
-        <div class="col-md-2">
-            @Html.DisplayFor(modelItem => item.WordsNumber)
-        </div>
-
-        <div class="col-md-1">
-            @if (!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
-            {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
-            }
-        </div>
-        <div class="col-md-1">
-            @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
-            {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
-            }
-        </div>
-        <div class="col-md-3">
-            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Подробно", "DocAndStages", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </div>
+<div class="container">
+    <div class="titles">
+        <div class="col-md-3">@Html.Label("Наименование")</div>
+        <div class="col-md-2">@Html.Label("Создатель")</div>
+        <div class="col-md-2">@Html.Label("Количество слов")</div>
+        <div class="col-md-1">@Html.Label("Оригинал")</div>
+        <div class="col-md-1">@Html.Label("Перевод")</div>
+        <div class="col-md-3">@Html.Label("Команды")</div>
     </div>
-}
+
+    @foreach (var item in Model)
+    {
+        <div class="properties">
+            <div class="col-md-3">
+                @Html.DisplayFor(modelItem => item.Name)
+            </div>
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.Owner.Name)
+            </div>
+
+            <div class="col-md-2">
+                @Html.DisplayFor(modelItem => item.WordsNumber)
+            </div>
+
+            <div class="col-md-1">
+                @if (!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
+                {
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
+                }
+            </div>
+            <div class="col-md-1">
+                @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
+                {
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
+                }
+            </div>
+            <div class="col-md-3">
+                <div class="action-btn">
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Подробно", "DocAndStages", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
 
 @section scripts {
     <script>

@@ -7,7 +7,16 @@
    href="/Projects/Create" class="btn btn-primary createBtn">Добавить</a>
 <div id="addProj" class="dynamicBlock"></div>
 
-<div class="container myForm Pair" id="languageEditor">
+<div class="container">
+    <ul class="filters">
+        <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
+    </ul>
+</div>
+
+<div class="container  Pair">
     <div class="titles">
         <div class="col-md-4">@Html.Label("Название")</div>
         <div class="col-md-4">@Html.Label("Языковая пара")</div>
@@ -19,15 +28,19 @@
         <div class="properties">
             <div class="col-md-4"><a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a></div>
 
-            <div class="col-md-4">@Html.DisplayFor(modelItem => project.LanguagePair.Name)</div>
+            <div class="col-md-4">
+                <p>@Html.DisplayFor(modelItem => project.LanguagePair.Name)</p>
+            </div>
 
             <div class="col-md-4">
-                <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
-                <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
-                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@project.Id"
-                   href="/Projects/DetailsShort/@project.Id" class="btn btn-info detailsBtn">Детали</a>
-                <a data-ajax="true"
-                   href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
+                <div class="action-btn">
+                    <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
+                    <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
+                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@project.Id"
+                       href="/Projects/DetailsShort/@project.Id" class="btn btn-info detailsBtn">Детали</a>
+                    <a data-ajax="true"
+                       href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
+                </div>
             </div>
         </div>
         <div id="@(project.Id)" class="dynamicBlock"></div>

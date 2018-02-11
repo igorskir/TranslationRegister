@@ -339,6 +339,7 @@
     <Content Include="Views\WorkTypes\List.cshtml" />
     <Content Include="Views\UnitOfMeasure\List.cshtml" />
     <Content Include="Views\Projects\List.cshtml" />
+    <Content Include="Views\Documents\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

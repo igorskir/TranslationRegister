@@ -123,7 +123,7 @@ namespace SqlRepository.Seeding
             for (int i = 0; i < dates.Length; i++)
                 dates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 5);
 
-            var uploadsDir = @"C:\Users\Иван\Documents\Visual Studio 2017\Projects\TranslationReg\TranslationReg\Uploads\";
+            var uploadsDir = @"D:\RegTrans\TranslationReg\Uploads";
 
             string[] filepaths = new string[8];
             for (int i = 0; i < filepaths.Length; i++)

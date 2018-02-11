@@ -1,56 +1,24 @@
 ﻿@model TranslationRegistryModel.WorkType
 
-@{
-    Layout = null;
-}
+<div>
+    <h3>Вы уверены, что хотите удалить данную запись?</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.Label("Название")</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
 
-<!DOCTYPE html>
+        <dt>@Html.Label("Описание")</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Delete</title>
-</head>
-<body>
-    <h3>Are you sure you want to delete this?</h3>
-    <div>
-        <h4>WorkType</h4>
-        <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.UnitOfMeasure.Name)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.UnitOfMeasure.Name)
-            </dd>
-    
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
-    </div>
-</body>
-</html>
+        <dt>@Html.Label("Единицы измерения")</dt>
+        <dd>@Html.DisplayFor(model => model.UnitOfMeasure.Name)</dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>

@@ -121,7 +121,6 @@
       <DependentUpon>TRegModel.edmx</DependentUpon>
       <LastGenOutput>TRegModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="TRegModel.edmx.sql" />
     <Content Include="TRegModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>TRegModel.edmx</DependentUpon>

@@ -30,7 +30,8 @@ namespace TranslationReg
             bundles.Add(new StyleBundle("~/Style/css").Include(
                       "~/Style/bootstrap.css",
                       "~/Style/Site.css",
-                      "~/Style/style.css"
+                      "~/Style/style.css",
+                      "~/Style/themes/base/jquery-ui.css"
                       ));
         }
     }

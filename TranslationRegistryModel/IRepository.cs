@@ -30,7 +30,7 @@ namespace TranslationRegistryModel
         Task AddUser(User user);
         //------------------------------------------------------------------------------------------------
 
-        //---------------------------------- Document CRUD ---------------------------------------------------
+        //---------------------------------- Document CRUD -----------------------------------------------
         Task<List<Document>> GetDocuments();
         Task<Document> GetDocument(int id);
         Task PutDocument(Document doc);
@@ -38,7 +38,7 @@ namespace TranslationRegistryModel
         Task AddDocument(Document doc);
         //------------------------------------------------------------------------------------------------
 
-        //---------------------------------- Project CRUD ---------------------------------------------------
+        //---------------------------------- Project CRUD ------------------------------------------------
         Task<List<Project>> GetProjects();
         Task<Project> GetProject(int id);
         Task PutProject(Project doc);
@@ -46,7 +46,7 @@ namespace TranslationRegistryModel
         Task AddProject(Project doc);
         //------------------------------------------------------------------------------------------------
 
-        //---------------------------------- LanguagePair CRUD -----------------------------------------------
+        //---------------------------------- LanguagePair CRUD -------------------------------------------
         Task<List<LanguagePair>> GetLanguagePairs();
         Task<LanguagePair> GetLanguagePair(int id);
         Task PutLanguagePair(LanguagePair languagePair);
@@ -62,12 +62,45 @@ namespace TranslationRegistryModel
         Task AddWorkType(WorkType workType);
         //------------------------------------------------------------------------------------------------
 
-        //---------------------------------- ProjectStatuse CRUD -----------------------------------------------
+        //---------------------------------- ProjectStatuse CRUD -----------------------------------------
         Task<List<ProjectStatus>> GetProjectStatuses();
         Task<ProjectStatus> GetProjectStatus(int id);
         Task PutProjectStatus(ProjectStatus projectStatuse);
         Task DeleteProjectStatus(int id);
         Task AddProjectStatus(ProjectStatus projectStatuse);
+        //-----------------------------------------------------------------------------------------------
+
+        //---------------------------------- DocFile CRUD -----------------------------------------------
+        Task<List<DocFile>> GetDocFiles();
+        Task<DocFile> GetDocFile(int id);
+        Task PutDocFile(DocFile docFile);
+        Task DeleteDocFile(int id);
+        Task AddDocFile(DocFile docFile);
         //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- DocStage CRUD -----------------------------------------------
+        Task<List<DocStage>> GetDocStages();
+        Task<DocStage> GetDocStage(int id);
+        Task PutDocStage(DocStage docStage);
+        Task DeleteDocStage(int id);
+        Task AddDocStage(DocStage docStage);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- User_Stage CRUD ---------------------------------------------
+        Task<List<User_Stage>> GetUser_Stages();
+        Task<User_Stage> GetUser_Stage(int id);
+        Task PutUser_Stage(User_Stage User_Stage);
+        Task DeleteUser_Stage(int id);
+        Task AddUser_Stage(User_Stage User_Stage);
+        //------------------------------------------------------------------------------------------------
+
+        //---------------------------------- UnitOfMeasure CRUD ------------------------------------------
+        Task<List<UnitOfMeasure>> GetUnitsOfMeasure();
+        Task<UnitOfMeasure> GetUnitOfMeasure(int id);
+        Task PutUnitOfMeasure(UnitOfMeasure UnitOfMeasure);
+        Task DeleteUnitOfMeasure(int id);
+        Task AddUnitOfMeasure(UnitOfMeasure UnitOfMeasure);
+        //------------------------------------------------------------------------------------------------
+
     }
 }

@@ -1,0 +1,42 @@
+﻿@model TranslationRegistryModel.DocStage
+
+<div>
+    <h3>Вы уверены что хотите удалить данную запись?</h3>
+    <div>
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.DocFile.Path)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.DocFile.Path)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Document.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Document.Name)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.WorkType.Name)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.WorkType.Name)
+            </dd>
+    
+        </dl>
+    
+        @using (Html.BeginForm()) {
+            @Html.AntiForgeryToken()
+    
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+                @Html.ActionLink("Back to List", "Index")
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model TranslationRegistryModel.Project
+
+<div>
+    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocumentForm"
+       href="/Documents/Create" class="btn btn-primary createBtn" role="button">
+        Добавить
+    </a>
+    <div id="addDocumentForm" class="dynamicBlock"></div>
+
+    <div class="container">
+        <div class="titles">
+            <div class="col-md-3">Документы проекта</div>
+            <div class="col-md-2">Владелец</div>
+            <div class="col-md-7">Команды</div>
+        </div>
+        @foreach (var doc in Model.Documents)
+        {
+            <div class="properties">
+                <div class="col-md-3">
+                    <a class="titleLink" href="/Documents/DocAndStages/@doc.Id">@doc.Name</a>
+                </div>
+                <div class="col-md-2">
+                    @doc.Owner.Name
+                </div>
+                <div class="col-md-7">
+                    <div class="col-md-3">
+                        @Html.ActionLink("Скачать оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                    </div>
+                    <div class="col-md-3">
+                        @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
+                        {
+                            @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                        } else
+                        {
+                            <a href="#" class="btn disabled-btn">Скачать готовый</a>
+                        }
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

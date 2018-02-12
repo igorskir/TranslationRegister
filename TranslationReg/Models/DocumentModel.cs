@@ -10,14 +10,16 @@ namespace TranslationReg.Models
 {
     public class DocumentModel
     {
-        public Document document;
-        public SelectList projects;
+        public Document Document;
+        public SelectList Projects;
 
         public static async Task<DocumentModel> GetModel(IRepository rep)
         {
-            DocumentModel model = new DocumentModel();
-            model.document = new Document();
-            model.projects = new SelectList(await rep.GetProjects(), "Id", "Name");
+            DocumentModel model = new DocumentModel
+            {
+                Document = new Document(),
+                Projects = new SelectList(await rep.GetProjects(), "Id", "Name")
+            };
 
             return model;
         }

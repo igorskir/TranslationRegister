@@ -14,13 +14,17 @@ namespace TranslationReg.Models
         public SelectList LanguagePairs;
         public SelectList ProjectStatus;
 
-        public static async Task<ProjectModel> GetModel(IRepository rep)
+        public static async Task<ProjectModel> GetModel(IRepository rep, Project project = null)
         {
-            ProjectModel model = new ProjectModel();
-            model.Project = new Project();
-            model.LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name");
-            model.ProjectStatus = new SelectList(await rep.GetProjectStatuses(), "Id", "Name");
+            if (project == null)
+                project = new Project();
 
+            ProjectModel model = new ProjectModel
+            {
+                Project = project,
+                LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name"),
+                ProjectStatus = new SelectList(await rep.GetProjectStatuses(), "Id", "Name")
+            };
             return model;
         }
     }

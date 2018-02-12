@@ -6,75 +6,19 @@
 
 <h2>Документы</h2>
 
-<p>
-    @Html.ActionLink("Создать", "Create", null,htmlAttributes: new { @class = "btn btn-success" })
-</p>
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDoc"
+   href="/Documents/Create" class="btn btn-primary createBtn">Добавить</a>
+<div id="addDoc" class="dynamicBlock"></div>
 
 <div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
-            <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
-        </ul>
-    </div>
+    <ul class="filters">
+        <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
+        <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
+    </ul>
 </div>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Имя")
-        </th>
-
-        <th>
-            @Html.Label("Количество слов")
-        </th>
-        <th>
-            @Html.Label("Оригинал")
-        </th>
-        <th>
-            @Html.Label("Перевод")
-        </th>
-        <th>
-
-        </th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WordsNumber)
-        </td>
-        <td>
-            @if(!String.IsNullOrWhiteSpace(item.OriginalPath))
-            {
-                @Html.ActionLink("Скачать оргигинал", "Download", "Documents", new { @filepath = item.OriginalPath }, null)
-            }
-        </td>
-        <td>
-            @if (!String.IsNullOrWhiteSpace(item.OriginalPath))
-            {
-                @Html.ActionLink("Скачать перевод", "Download", "Documents", new { @filepath = item.TranslationPath }, null)
-            }
-        </td>
-        <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
-
-</table>
+<div id="docList">
+    @Html.Partial("List")
+</div>

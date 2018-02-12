@@ -18,8 +18,10 @@ namespace TranslationRegistryModel
         public int Amount { get; set; }
         public int StageId { get; set; }
         public int UserId { get; set; }
+        public int DocFileId { get; set; }
     
-        public virtual Stage Stage { get; set; }
+        public virtual DocStage Stage { get; set; }
         public virtual User User { get; set; }
+        public virtual DocFile DocFile { get; set; }
     }
 }

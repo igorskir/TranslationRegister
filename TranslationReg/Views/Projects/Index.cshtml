@@ -1,41 +1,70 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Project>
-
-@{
-    ViewBag.Title = "Проекты";
-}
+@{ViewBag.Title = "Проекты";}
 
 <h2>Проекты</h2>
 
-<p>
-    @Html.ActionLink("Добавить", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Название")
-        </th>
-        <th>
-            @Html.Label("Языковая пара")
-        </th>
-       
-        <th></th>
-    </tr>
+<div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li>@Html.ActionLink("Все проекты", "Index")</li>
+            <li>@Html.ActionLink("Проекты в работе", "Index")</li>
+            <li>@Html.ActionLink("Мои проекты", "Index")</li>
+            <li>@Html.ActionLink("Другой фильтр", "Index")</li>
+        </ul>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LanguagePair.Name)
-        </td>
-      
-        <td>
-            @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-            @Html.ActionLink("Подробно", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-            @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
+<div id="projectList">
+    @Html.Partial("List")
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".detailsBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                // изначально display:none, описанов MyAppStyles.css
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
 }
-
-</table>

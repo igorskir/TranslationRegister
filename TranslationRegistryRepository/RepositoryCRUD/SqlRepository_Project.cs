@@ -20,8 +20,8 @@ namespace SqlRepository
         public async Task<Project> GetProject(int id)
         {
             return await context.Projects
-                .Include(x => x.Documents)
-                .Include(x => x.LanguagePair)
+                //.Include(x => x.Documents)
+                //.Include(x => x.LanguagePair)
                 .FirstOrDefaultAsync(x=>x.Id == id);
         }
 

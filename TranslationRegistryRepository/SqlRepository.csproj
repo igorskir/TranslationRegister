@@ -95,13 +95,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="RepositoryCRUD\SqlRepository_UnitsOfMeasure.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_DocFile.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_User_Stage.cs" />
+    <Compile Include="RepositoryCRUD\SqlRepository_DocStage.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_ProjectStatuse.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_WorkType.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_LanguagePair.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Project.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Document.cs" />
-    <Compile Include="SqlContext.cs" />
-    <Compile Include="Seeding\SqlRepositorySeeder.cs" />
+    <Compile Include="Seeding\Seeder.cs" />
     <Compile Include="SqlRepository.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_User.cs" />
     <Compile Include="RepositoryCRUD\SqlRepository_Language.cs" />
@@ -112,8 +115,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="TranslationRegistryModel\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
-      <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
+      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
       <Name>Model</Name>
     </ProjectReference>
   </ItemGroup>

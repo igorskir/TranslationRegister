@@ -12,13 +12,9 @@ using System.Web.Security;
 
 namespace TranslationReg.Controllers
 {
-    public class AccountController : Controller
+    public class AccountController : RepositoryController
     {
-        public IRepository rep { get; set; }
-        public AccountController(IRepository repository)
-        {
-            this.rep = repository;
-        }
+        public AccountController(IRepository repository) : base(repository){}
 
         public ActionResult Login()
         {
@@ -32,7 +28,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 // поиск пользователя в бд
-                User user = await rep.GetUser(model.Name, model.Password);
+                User user = await Rep.GetUser(model.Name, model.Password);
                 if (user != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.Name, true);
@@ -58,13 +54,13 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                User user = await rep.GetUser(model.Name, model.Password);
+                User user = await Rep.GetUser(model.Name, model.Password);
                 if (user == null)
                 {
                     // создаем нового пользователя
                     user = new User {Name = model.Name, Password = model.Password };
-                    await rep.AddUser(user);
-                    user = await rep.GetUser(model.Name, model.Password);
+                    await Rep.AddUser(user);
+                    user = await Rep.GetUser(model.Name, model.Password);
                     // если пользователь удачно добавлен в бд
                     if (user != null)
                     {

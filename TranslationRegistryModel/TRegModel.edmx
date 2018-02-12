@@ -7,15 +7,16 @@
     <Schema Namespace="SqlRepository.SqlContextModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="SqlRepositorySqlContextModelStoreContainer">
     <EntitySet Name="Documents" EntityType="SqlRepository.SqlContextModel.Store.Documents" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Files" EntityType="SqlRepository.SqlContextModel.Store.Files" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocFiles" EntityType="SqlRepository.SqlContextModel.Store.DocFiles" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="LanguagePairs" EntityType="SqlRepository.SqlContextModel.Store.LanguagePairs" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Languages" EntityType="SqlRepository.SqlContextModel.Store.Languages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Projects" EntityType="SqlRepository.SqlContextModel.Store.Projects" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProjectStatuses" EntityType="SqlRepository.SqlContextModel.Store.ProjectStatuses" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Stages" EntityType="SqlRepository.SqlContextModel.Store.Stages" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DocStages" EntityType="SqlRepository.SqlContextModel.Store.DocStages" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="User_Stage" EntityType="SqlRepository.SqlContextModel.Store.User_Stage" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Users" EntityType="SqlRepository.SqlContextModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkTypes" EntityType="SqlRepository.SqlContextModel.Store.WorkTypes" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.Store.UnitOfMeasures" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="ProjectUsers" EntityType="SqlRepository.SqlContextModel.Store.ProjectUsers" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Projects_ProjectId">
       <End Role="Projects" EntitySet="Projects" />
@@ -27,11 +28,7 @@
     </AssociationSet>
     <AssociationSet Name="FK_DocumentStage" Association="SqlRepository.SqlContextModel.Store.FK_DocumentStage">
       <End Role="Documents" EntitySet="Documents" />
-      <End Role="Stages" EntitySet="Stages" />
-    </AssociationSet>
-    <AssociationSet Name="FK_StageFile" Association="SqlRepository.SqlContextModel.Store.FK_StageFile">
-      <End Role="Files" EntitySet="Files" />
-      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Stages" EntitySet="DocStages" />
     </AssociationSet>
     <AssociationSet Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
       <End Role="LanguagePairs" EntitySet="LanguagePairs" />
@@ -47,14 +44,10 @@
     </AssociationSet>
     <AssociationSet Name="FK_StageWorkType" Association="SqlRepository.SqlContextModel.Store.FK_StageWorkType">
       <End Role="WorkTypes" EntitySet="WorkTypes" />
-      <End Role="Stages" EntitySet="Stages" />
+      <End Role="Stages" EntitySet="DocStages" />
     </AssociationSet>
     <AssociationSet Name="FK_User_StageStage" Association="SqlRepository.SqlContextModel.Store.FK_User_StageStage">
-      <End Role="Stages" EntitySet="Stages" />
-      <End Role="User_Stage" EntitySet="User_Stage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_User_StageUser" Association="SqlRepository.SqlContextModel.Store.FK_User_StageUser">
-      <End Role="Users" EntitySet="Users" />
+      <End Role="Stages" EntitySet="DocStages" />
       <End Role="User_Stage" EntitySet="User_Stage" />
     </AssociationSet>
     <AssociationSet Name="FK_ProjectUsers_Projects" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUsers_Projects">
@@ -75,11 +68,27 @@
     </AssociationSet>
     <AssociationSet Name="DocumentFile" Association="SqlRepository.SqlContextModel.Store.DocumentFile">
       <End Role="Document" EntitySet="Documents" />
-      <End Role="File" EntitySet="Files" />
+      <End Role="File" EntitySet="DocFiles" />
     </AssociationSet>
-    <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.Store.DocFinalFile">
+    <AssociationSet Name="DocFileStage" Association="SqlRepository.SqlContextModel.Store.DocFileStage">
+      <End Role="DocFile" EntitySet="DocFiles" />
+      <End Role="Stage" EntitySet="DocStages" />
+    </AssociationSet>
+    <AssociationSet Name="UserUser_Stage" Association="SqlRepository.SqlContextModel.Store.UserUser_Stage">
+      <End Role="User" EntitySet="Users" />
+      <End Role="User_Stage" EntitySet="User_Stage" />
+    </AssociationSet>
+    <AssociationSet Name="DocFileUser_Stage" Association="SqlRepository.SqlContextModel.Store.DocFileUser_Stage">
+      <End Role="DocFile" EntitySet="DocFiles" />
+      <End Role="User_Stage" EntitySet="User_Stage" />
+    </AssociationSet>
+    <AssociationSet Name="DocumentDocFile" Association="SqlRepository.SqlContextModel.Store.DocumentDocFile">
       <End Role="Document" EntitySet="Documents" />
-      <End Role="File" EntitySet="Files" />
+      <End Role="DocFile" EntitySet="DocFiles" />
+    </AssociationSet>
+    <AssociationSet Name="UnitOfMeasureWorkType" Association="SqlRepository.SqlContextModel.Store.UnitOfMeasureWorkType">
+      <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
+      <End Role="WorkType" EntitySet="WorkTypes" />
     </AssociationSet>
   </EntityContainer>
   <EntityType Name="Documents">
@@ -92,9 +101,9 @@
     <Property Name="WordsNumber" Type="int" Nullable="false" />
     <Property Name="ProjectId" Type="int" Nullable="true" />
     <Property Name="OriginalFileId" Type="int" Nullable="false" />
-    <Property Name="FinalFileId" Type="int" Nullable="false" />
+    <Property Name="FinalFileId" Type="int" Nullable="true" />
   </EntityType>
-  <EntityType Name="Files">
+  <EntityType Name="DocFiles">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -139,14 +148,14 @@
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
-  <EntityType Name="Stages">
+  <EntityType Name="DocStages">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DocumentId" Type="int" Nullable="false" />
     <Property Name="WorkTypeId" Type="int" Nullable="false" />
-    <Property Name="FileId" Type="int" Nullable="false" />
+    <Property Name="DocFileId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="User_Stage">
     <Key>
@@ -156,6 +165,7 @@
     <Property Name="Amount" Type="int" Nullable="false" />
     <Property Name="StageId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="DocFileId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -166,6 +176,15 @@
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="WorkTypes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="UnitOfMeasureId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UnitOfMeasures">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
@@ -207,25 +226,13 @@
   </Association>
   <Association Name="FK_DocumentStage">
     <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="1" />
-    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Documents">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Stages">
         <PropertyRef Name="DocumentId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_StageFile">
-    <End Role="Files" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
-    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Files">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Stages">
-        <PropertyRef Name="FileId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -267,7 +274,7 @@
   </Association>
   <Association Name="FK_StageWorkType">
     <End Role="WorkTypes" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="1" />
-    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="*" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="WorkTypes">
         <PropertyRef Name="Id" />
@@ -278,7 +285,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_User_StageStage">
-    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.Stages" Multiplicity="1" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="1" />
     <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Stages">
@@ -286,18 +293,6 @@
       </Principal>
       <Dependent Role="User_Stage">
         <PropertyRef Name="StageId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_User_StageUser">
-    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
-    <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="User_Stage">
-        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -327,7 +322,7 @@
   </Association>
   <Association Name="DocumentFile">
     <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
-    <End Role="File" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
+    <End Role="File" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
     <ReferentialConstraint>
       <Principal Role="File">
         <PropertyRef Name="Id" />
@@ -337,15 +332,63 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="DocFinalFile">
-    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
-    <End Role="File" Type="SqlRepository.SqlContextModel.Store.Files" Multiplicity="1" />
+  <Association Name="DocFileStage">
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
+    <End Role="Stage" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="File">
+      <Principal Role="DocFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Stage">
+        <PropertyRef Name="DocFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UserUser_Stage">
+    <End Role="User" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
+    <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User_Stage">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocFileUser_Stage">
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
+    <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DocFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User_Stage">
+        <PropertyRef Name="DocFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocumentDocFile">
+    <End Role="Document" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DocFile">
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Document">
         <PropertyRef Name="FinalFileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="UnitOfMeasureWorkType">
+    <End Role="UnitOfMeasure" Type="SqlRepository.SqlContextModel.Store.UnitOfMeasures" Multiplicity="1" />
+    <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UnitOfMeasure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkType">
+        <PropertyRef Name="UnitOfMeasureId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -387,21 +430,20 @@
           <Property Name="WordsNumber" Type="Int32" Nullable="false" />
           <Property Name="ProjectId" Type="Int32" />
           <NavigationProperty Name="Project" Relationship="Self.FK_dbo_Documents_dbo_Projects_ProjectId" FromRole="Documents" ToRole="Projects" />
-          <NavigationProperty Name="User" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Documents" ToRole="Users" />
+          <NavigationProperty Name="Owner" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Documents" ToRole="Users" />
           <NavigationProperty Name="Stages" Relationship="Self.FK_DocumentStage" FromRole="Documents" ToRole="Stages" />
           <NavigationProperty Name="OriginalFile" Relationship="SqlRepository.SqlContextModel.DocumentFile" FromRole="Document" ToRole="File" />
           <Property Name="OriginalFileId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocFinalFile" FromRole="Document" ToRole="File" />
-          <Property Name="FinalFileId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocumentDocFile" FromRole="Document" ToRole="DocFile" />
+          <Property Name="FinalFileId" Type="Int32" Nullable="true" />
         </EntityType>
-        <EntityType Name="File">
+        <EntityType Name="DocFile">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Stages" Relationship="Self.FK_StageFile" FromRole="Files" ToRole="Stages" />
         </EntityType>
         <EntityType Name="LanguagePair">
           <Key>
@@ -449,18 +491,18 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" FromRole="ProjectStatuses" ToRole="Projects" />
         </EntityType>
-        <EntityType Name="Stage">
+        <EntityType Name="DocStage">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DocumentId" Type="Int32" Nullable="false" />
           <Property Name="WorkTypeId" Type="Int32" Nullable="false" />
-          <Property Name="FileId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Document" Relationship="Self.FK_DocumentStage" FromRole="Stages" ToRole="Documents" />
-          <NavigationProperty Name="File" Relationship="Self.FK_StageFile" FromRole="Stages" ToRole="Files" />
           <NavigationProperty Name="WorkType" Relationship="Self.FK_StageWorkType" FromRole="Stages" ToRole="WorkTypes" />
           <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageStage" FromRole="Stages" ToRole="User_Stage" />
+          <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileStage" FromRole="Stage" ToRole="DocFile" />
+          <Property Name="DocFileId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="User_Stage">
           <Key>
@@ -469,9 +511,11 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Amount" Type="Int32" Nullable="false" />
           <Property Name="StageId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Stage" Relationship="Self.FK_User_StageStage" FromRole="User_Stage" ToRole="Stages" />
-          <NavigationProperty Name="User" Relationship="Self.FK_User_StageUser" FromRole="User_Stage" ToRole="Users" />
+          <NavigationProperty Name="User" Relationship="SqlRepository.SqlContextModel.UserUser_Stage" FromRole="User_Stage" ToRole="User" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileUser_Stage" FromRole="User_Stage" ToRole="DocFile" />
+          <Property Name="DocFileId" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -482,7 +526,6 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Users" ToRole="Documents" />
           <NavigationProperty Name="MyProjects" Relationship="Self.FK_ProjectUser" FromRole="Users" ToRole="Projects" />
-          <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageUser" FromRole="Users" ToRole="User_Stage" />
           <NavigationProperty Name="Projects" Relationship="Self.ProjectUsers" FromRole="Users" ToRole="Projects" />
         </EntityType>
         <EntityType Name="WorkType">
@@ -493,6 +536,8 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Stages" Relationship="Self.FK_StageWorkType" FromRole="WorkTypes" ToRole="Stages" />
+          <NavigationProperty Name="UnitOfMeasure" Relationship="SqlRepository.SqlContextModel.UnitOfMeasureWorkType" FromRole="WorkType" ToRole="UnitOfMeasure" />
+          <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
           <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
@@ -520,25 +565,13 @@
         </Association>
         <Association Name="FK_DocumentStage">
           <End Role="Documents" Type="Self.Document" Multiplicity="1" />
-          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
+          <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Documents">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Stages">
               <PropertyRef Name="DocumentId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StageFile">
-          <End Role="Files" Type="Self.File" Multiplicity="1" />
-          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Files">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stages">
-              <PropertyRef Name="FileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -580,7 +613,7 @@
         </Association>
         <Association Name="FK_StageWorkType">
           <End Role="WorkTypes" Type="Self.WorkType" Multiplicity="1" />
-          <End Role="Stages" Type="Self.Stage" Multiplicity="*" />
+          <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="WorkTypes">
               <PropertyRef Name="Id" />
@@ -591,7 +624,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_StageStage">
-          <End Role="Stages" Type="Self.Stage" Multiplicity="1" />
+          <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="1" />
           <End Role="User_Stage" Type="Self.User_Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stages">
@@ -602,30 +635,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_StageUser">
-          <End Role="Users" Type="Self.User" Multiplicity="1" />
-          <End Role="User_Stage" Type="Self.User_Stage" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Users">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="User_Stage">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="ProjectUsers">
           <End Role="Projects" Type="Self.Project" Multiplicity="*" />
           <End Role="Users" Type="Self.User" Multiplicity="*" />
         </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Documents" EntityType="Self.Document" />
-          <EntitySet Name="Files" EntityType="Self.File" />
+          <EntitySet Name="DocFiles" EntityType="SqlRepository.SqlContextModel.DocFile" />
           <EntitySet Name="LanguagePairs" EntityType="Self.LanguagePair" />
           <EntitySet Name="Languages" EntityType="Self.Language" />
           <EntitySet Name="Projects" EntityType="Self.Project" />
           <EntitySet Name="ProjectStatuses" EntityType="Self.ProjectStatus" />
-          <EntitySet Name="Stages" EntityType="Self.Stage" />
+          <EntitySet Name="DocStages" EntityType="SqlRepository.SqlContextModel.DocStage" />
           <EntitySet Name="User_Stage" EntityType="Self.User_Stage" />
           <EntitySet Name="Users" EntityType="Self.User" />
           <EntitySet Name="WorkTypes" EntityType="Self.WorkType" />
@@ -639,11 +660,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_DocumentStage" Association="Self.FK_DocumentStage">
             <End Role="Documents" EntitySet="Documents" />
-            <End Role="Stages" EntitySet="Stages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StageFile" Association="Self.FK_StageFile">
-            <End Role="Files" EntitySet="Files" />
-            <End Role="Stages" EntitySet="Stages" />
+            <End Role="Stages" EntitySet="DocStages" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" Association="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId">
             <End Role="LanguagePairs" EntitySet="LanguagePairs" />
@@ -659,14 +676,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_StageWorkType" Association="Self.FK_StageWorkType">
             <End Role="WorkTypes" EntitySet="WorkTypes" />
-            <End Role="Stages" EntitySet="Stages" />
+            <End Role="Stages" EntitySet="DocStages" />
           </AssociationSet>
           <AssociationSet Name="FK_User_StageStage" Association="Self.FK_User_StageStage">
-            <End Role="Stages" EntitySet="Stages" />
-            <End Role="User_Stage" EntitySet="User_Stage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_User_StageUser" Association="Self.FK_User_StageUser">
-            <End Role="Users" EntitySet="Users" />
+            <End Role="Stages" EntitySet="DocStages" />
             <End Role="User_Stage" EntitySet="User_Stage" />
           </AssociationSet>
           <AssociationSet Name="ProjectUsers" Association="Self.ProjectUsers">
@@ -683,11 +696,28 @@
           </AssociationSet>
           <AssociationSet Name="DocumentFile" Association="SqlRepository.SqlContextModel.DocumentFile">
             <End Role="Document" EntitySet="Documents" />
-            <End Role="File" EntitySet="Files" />
+            <End Role="File" EntitySet="DocFiles" />
           </AssociationSet>
-          <AssociationSet Name="DocFinalFile" Association="SqlRepository.SqlContextModel.DocFinalFile">
+          <AssociationSet Name="DocFileStage" Association="SqlRepository.SqlContextModel.DocFileStage">
+            <End Role="DocFile" EntitySet="DocFiles" />
+            <End Role="Stage" EntitySet="DocStages" />
+          </AssociationSet>
+          <AssociationSet Name="UserUser_Stage" Association="SqlRepository.SqlContextModel.UserUser_Stage">
+            <End Role="User" EntitySet="Users" />
+            <End Role="User_Stage" EntitySet="User_Stage" />
+          </AssociationSet>
+          <AssociationSet Name="DocFileUser_Stage" Association="SqlRepository.SqlContextModel.DocFileUser_Stage">
+            <End Role="DocFile" EntitySet="DocFiles" />
+            <End Role="User_Stage" EntitySet="User_Stage" />
+          </AssociationSet>
+          <AssociationSet Name="DocumentDocFile" Association="SqlRepository.SqlContextModel.DocumentDocFile">
             <End Role="Document" EntitySet="Documents" />
-            <End Role="File" EntitySet="Files" />
+            <End Role="DocFile" EntitySet="DocFiles" />
+          </AssociationSet>
+          <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.UnitOfMeasure" />
+          <AssociationSet Name="UnitOfMeasureWorkType" Association="SqlRepository.SqlContextModel.UnitOfMeasureWorkType">
+            <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
+            <End Role="WorkType" EntitySet="WorkTypes" />
           </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
@@ -716,7 +746,7 @@
         </Association>
         <Association Name="DocumentFile">
           <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
-          <End Type="SqlRepository.SqlContextModel.File" Role="File" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="File" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="File">
               <PropertyRef Name="Id" />
@@ -726,15 +756,71 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="DocFinalFile">
-          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
-          <End Type="SqlRepository.SqlContextModel.File" Role="File" Multiplicity="1" />
+        <Association Name="DocFileStage">
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <End Type="SqlRepository.SqlContextModel.DocStage" Role="Stage" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="File">
+            <Principal Role="DocFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Stage">
+              <PropertyRef Name="DocFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UserUser_Stage">
+          <End Type="SqlRepository.SqlContextModel.User" Role="User" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.User_Stage" Role="User_Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Stage">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocFileUser_Stage">
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.User_Stage" Role="User_Stage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DocFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User_Stage">
+              <PropertyRef Name="DocFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DocumentDocFile">
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DocFile">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Document">
               <PropertyRef Name="FinalFileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UnitOfMeasure">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
+        </EntityType>
+        <Association Name="UnitOfMeasureWorkType">
+          <End Type="SqlRepository.SqlContextModel.UnitOfMeasure" Role="UnitOfMeasure" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitOfMeasure">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="WorkType">
+              <PropertyRef Name="UnitOfMeasureId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -757,9 +843,9 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Files">
-      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.File)">
-        <MappingFragment StoreEntitySet="Files">
+    <EntitySetMapping Name="DocFiles">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.DocFile)">
+        <MappingFragment StoreEntitySet="DocFiles">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Path" ColumnName="Path" />
           <ScalarProperty Name="Date" ColumnName="Date" />
@@ -807,13 +893,13 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Stages">
-      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Stage)">
-        <MappingFragment StoreEntitySet="Stages">
+    <EntitySetMapping Name="DocStages">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.DocStage)">
+        <MappingFragment StoreEntitySet="DocStages">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
           <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
-          <ScalarProperty Name="FileId" ColumnName="FileId" />
+          <ScalarProperty Name="DocFileId" ColumnName="DocFileId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -824,6 +910,7 @@
           <ScalarProperty Name="Amount" ColumnName="Amount" />
           <ScalarProperty Name="StageId" ColumnName="StageId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="DocFileId" ColumnName="DocFileId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -839,6 +926,16 @@
     <EntitySetMapping Name="WorkTypes">
       <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.WorkType)">
         <MappingFragment StoreEntitySet="WorkTypes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="UnitOfMeasureId" ColumnName="UnitOfMeasureId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UnitOfMeasures">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.UnitOfMeasure)">
+        <MappingFragment StoreEntitySet="UnitOfMeasures">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />

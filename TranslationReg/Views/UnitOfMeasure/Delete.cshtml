@@ -1,0 +1,21 @@
+﻿@model TranslationRegistryModel.UnitOfMeasure
+
+<div>
+    <h3>Вы уверены, что хотите удалить данную запись?</h3>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.Label("Название")</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+        <dt>@Html.Label("Описание")</dt>
+        <dd>@Html.DisplayFor(model => model.Description)</dd>
+
+    </dl>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" />
+        </div>
+    }
+</div>

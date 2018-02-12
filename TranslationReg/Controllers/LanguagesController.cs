@@ -9,27 +9,37 @@ using System.Web;
 using System.Web.Mvc;
 using SqlRepository;
 using TranslationRegistryModel;
+using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
-    public class LanguagesController : Controller
+    [Authorize]
+    public class LanguagesController : RepositoryController
     {
-        public IRepository rep { get; set; }
-        public LanguagesController(IRepository repository)
+        public LanguagesController(IRepository repository) : base(repository) { }
+
+        // GET: Languages & LanguagePairs
+        public async Task<ActionResult> Index()
         {
-            this.rep = repository;
+            return View(await LanguagesModel.GetModel(Rep));
         }
 
         // GET: Languages
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Item(int id)
         {
-            return View(await rep.GetLanguages());
+            return PartialView(await Rep.GetLanguage(id));
+        }
+
+        // GET: Languages
+        public async Task<ActionResult> List()
+        {
+            return PartialView(await Rep.GetLanguages());
         }
 
         // GET: Languages/Create
         public ActionResult Create()
         {
-            return View();
+            return PartialView();
         }
 
         // POST: Languages/Create
@@ -39,8 +49,8 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.AddLanguage(language);
-                return RedirectToAction("Index");
+                await Rep.AddLanguage(language);
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(language);
@@ -52,58 +62,55 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Language language = await rep.GetLanguage(id.Value);
+            Language language = await Rep.GetLanguage(id.Value);
 
             if (language == null)
                 return HttpNotFound();
 
-            return View(language);
+            return PartialView(language);
         }
 
         // POST: Languages/Edit/5
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Language language)
         {
             if (ModelState.IsValid)
             {
-                await rep.PutLanguage(language);
-                return RedirectToAction("Index");
+                await Rep.PutLanguage(language);
+                return Redirect(Request.UrlReferrer.ToString());
             }
-            return View(language);
+            return PartialView(language);
         }
 
         // GET: Languages/Delete/5
-        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Language language = await rep.GetLanguage(id.Value);
+            Language language = await Rep.GetLanguage(id.Value);
 
             if (language == null)
                 return HttpNotFound();
 
-            return View(language);
+            return PartialView(language);
         }
 
         // POST: Languages/Delete/5
-        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await rep.DeleteLanguage(id);
-            return RedirectToAction("Index");
+            await Rep.DeleteLanguage(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                rep.Dispose();
+                Rep.Dispose();
             }
             base.Dispose(disposing);
         }

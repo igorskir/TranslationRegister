@@ -1,0 +1,23 @@
+﻿@model TranslationRegistryModel.LanguagePair
+<div>
+    <h3>Вы уверены, что хотите удалить данную запись?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>@Html.Label("Наименование")</dt>
+            <dd>@Html.DisplayFor(model => model.Name)</dd>
+
+            <dt> @Html.Label("Язык оригинала")</dt>
+            <dd> @Html.DisplayFor(model => model.OriginalLanguage.Name)</dd>
+
+            <dt> @Html.Label("Язык перевода")</dt>
+            <dd> @Html.DisplayFor(model => model.TranslationLanguage.Name)</dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <input type="submit" value="Удалить" class="btn btn-danger"/>
+        }
+    </div>
+</div>

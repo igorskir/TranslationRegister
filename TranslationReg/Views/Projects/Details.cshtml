@@ -1,71 +1,81 @@
-﻿@model TranslationRegistryModel.Project
+﻿<div class="formContainer">
+    @model TranslationRegistryModel.Project
 
-@{
-    ViewBag.Title = "Детали проекта";
-}
+    <div>
+        <h1><b>@Model.Name</b></h1>
 
-<h2>Детали проекта</h2>
-
-<div>
-    <h4>@Model.Name</h4>
-    <hr />
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.LabelFor(model => model.OriginalLanguage.Name,"Язык оригинала")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.OriginalLanguage.Name)
-        </dd>
-        
-        <dt>
-            @Html.LabelFor(model => model.FinalLanguage.Name,"Язык перевода")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FinalLanguage.Name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.WordsNumber, "Количество слов")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WordsNumber)
-        </dd>
-
-    </dl>
+        @Html.Partial("DetailsShort", Model)
 
 
-    <table class="table">
-        <tr>
-            <th>
-                Документы проекта
-            </th>
-            <th>
+        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocForm"
+           href="/Documents/Create" class="btn btn-success createBtn">Добавить документ</a>
+        <div id="addDocForm" class="dynamicBlock"></div>
 
-            </th>
-        </tr>
+        <div class="titles">
+            <div class="col-md-6">Название документа</div>
+            <div class="col-md-6">Команды</div>
+        </div>
 
-        @foreach (var item in Model.Documents)
+        @foreach (var doc in Model.Documents)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
+            <div class="properties">
+                <div class="row">
+                    <div class="col-md-6"><h3>@Html.DisplayFor(modelItem => doc.Name)</h3></div>
+                    <div class="col-md-6">
 
-                <td>
-                    @Html.ActionLink("Скачать", "Download",     "Documents", new { @filepath = item.Path }, htmlAttributes: new { @class = "btn btn-success" })|
-                    @Html.ActionLink("Редактировать", "Edit",   "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                    @Html.ActionLink("Подробно", "Details",     "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                    @Html.ActionLink("Удалить", "Delete",       "Documents", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-                </td>
-            </tr>
+                        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm@(doc.Id)"
+                           href="/DocStages/Create/@doc.Id" class="btn btn-success createBtn">Добавить стадию</a>
+
+                        @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+                        <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
+                        <a class="btn btn-info" href="/Documents/Details/@doc.Id">Подробно</a>
+                        <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id">Удалить</a>
+
+                    </div>
+                    <div id="addDocStageForm@(doc.Id)" class="dynamicBlock"></div>
+                </div>
+
+                <div>
+                    @foreach (var stage in doc.Stages)
+                    {
+                        @Html.Partial("../DocStages/Item", stage)
+                    }
+                </div>
+            </div>
         }
-    </table>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-primary" }) |
-    @Html.ActionLink("Назад к списку", "Index", null, htmlAttributes: new { @class = "btn btn-info" })
-</p>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                $(this).toggleClass('active');
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}

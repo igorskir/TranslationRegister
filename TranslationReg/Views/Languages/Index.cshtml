@@ -1,38 +1,38 @@
-﻿@model IEnumerable<TranslationRegistryModel.Language>
+﻿@model TranslationReg.Models.LanguagesModel
 
-@{
-    ViewBag.Title = "Языки";
+@Html.Partial("../Languages/List", Model.languages)
+@Html.Partial("../LanguagePairs/List", Model.languagePairs)
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                $(this).toggleClass('active');
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
 }
-
-<h2>Языки</h2>
-
-<p>
-    @Html.ActionLink("Добавить", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.Label("Наименование")
-        </th>
-        <th>
-            @Html.Label("Сокращение")
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ShortName)
-        </td>
-        <td>
-            @Html.ActionLink("Редактировать",   "Edit",     new { id=item.Id }, htmlAttributes: new { @class = "btn btn-primary"})
-            @Html.ActionLink("Удалить",         "Delete",   new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
-        </td>
-    </tr>
-}
-
-</table>

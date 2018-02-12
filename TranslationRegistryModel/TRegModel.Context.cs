@@ -26,14 +26,15 @@ namespace TranslationRegistryModel
         }
     
         public virtual DbSet<Document> Documents { get; set; }
-        public virtual DbSet<File> Files { get; set; }
+        public virtual DbSet<DocFile> DocFiles { get; set; }
         public virtual DbSet<LanguagePair> LanguagePairs { get; set; }
         public virtual DbSet<Language> Languages { get; set; }
         public virtual DbSet<Project> Projects { get; set; }
         public virtual DbSet<ProjectStatus> ProjectStatuses { get; set; }
-        public virtual DbSet<Stage> Stages { get; set; }
+        public virtual DbSet<DocStage> DocStages { get; set; }
         public virtual DbSet<User_Stage> User_Stage { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<WorkType> WorkTypes { get; set; }
+        public virtual DbSet<UnitOfMeasure> UnitOfMeasures { get; set; }
     }
 }

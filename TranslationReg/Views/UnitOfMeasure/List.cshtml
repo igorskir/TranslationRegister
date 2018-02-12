@@ -1,0 +1,29 @@
+﻿
+@model List<TranslationRegistryModel.UnitOfMeasure>
+<div>
+    <h2>Единицы измерения</h2>
+
+    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUnitForm"
+       href="/UnitOfMeasure/Create" class="btn btn-primary createBtn">Добавить</a>
+    <div id="addUnitForm" class="dynamicBlock"></div>
+
+    <div class="titles">
+        <div class="col-md-3">@Html.Label("Наименование")</div>
+        <div class="col-md-6">@Html.Label("Описание")</div>
+        <div class="col-md-3">@Html.Label("Команды")</div>
+    </div>
+    @foreach (var unitOfMeasure in Model)
+    {
+        <div class="properties">
+            <div class="col-md-3">@Html.DisplayFor(modelItem => unitOfMeasure.Name)</div>
+            <div class="col-md-6">@Html.DisplayFor(modelItem => unitOfMeasure.Description)</div>
+            <div class="col-md-3">
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"
+                   href="/UnitOfMeasure/Edit/@unitOfMeasure.Id" class="btn btn-primary editBtn">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"
+                   href="/UnitOfMeasure/Delete/@unitOfMeasure.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+            </div>
+        </div>
+        <div id="unit@(unitOfMeasure.Id)" class="dynamicBlock dynamicItem"></div>
+    }
+</div>

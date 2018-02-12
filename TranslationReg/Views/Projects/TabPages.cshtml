@@ -1,0 +1,74 @@
+﻿@model TranslationRegistryModel.Project
+
+<h1>@Model.Name</h1>
+
+<div class="tab-page">
+    <ul class="nav nav-tabs nav-tabs-responsive" role="tablist">
+        <li class="active" role="presentation"><a href="#detailsTab" id="detailsBtn" data-toggle="tab">Детали</a></li>
+        <li class="next" role="presentation"><a href="#docsTab" id="docsBtn" data-toggle="tab">Документы</a></li>
+    </ul>
+
+    <div id="tabs-container" class="tab-content">
+        <div class="tab-pane fade in active" role="tabpanel" id="detailsTab" aria-labelledby="detailsTab-tab">
+            @Html.Partial("../Projects/DetailsShort", Model)
+        </div>
+
+        <div class="tab-pane fade" role="tabpanel" id="docsTab" aria-labelledby="docsTab-tab">
+            @Html.Partial("../Projects/Documents", Model)
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script>
+        $(document).on('show.bs.tab', '.nav-tabs-responsive [data-toggle="tab"]', function (e) {
+            var $target = $(e.target);
+            var $tabs = $target.closest('.nav-tabs-responsive');
+            var $current = $target.closest('li');
+            var $parent = $current.closest('li.dropdown');
+            $current = $parent.length > 0 ? $parent : $current;
+            var $next = $current.next();
+            var $prev = $current.prev();
+            var updateDropdownMenu = function ($el, position) {
+                $el
+                    .find('.dropdown-menu')
+                    .removeClass('pull-xs-left pull-xs-center pull-xs-right')
+                    .addClass('pull-xs-' + position);
+            };
+
+            $tabs.find('>li').removeClass('next prev');
+            $prev.addClass('prev');
+            $next.addClass('next');
+
+            updateDropdownMenu($prev, 'left');
+            updateDropdownMenu($current, 'center');
+            updateDropdownMenu($next, 'right');
+        });
+
+        $(document).ready(function () {
+            $(".createBtn").click(function () {
+                $(this).toggleClass('active');
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(".deleteBtn").on("click", function (e) {
+            e.preventDefault();
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    height: 300,
+                    width: 500,
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    modal: true
+                })
+                .load(this.href);
+        });
+    </script>
+}
+       

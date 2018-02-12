@@ -15,18 +15,14 @@ using TranslationReg.Models;
 namespace TranslationReg.Controllers
 {
     [Authorize]
-    public class DocumentsController : Controller
+    public class DocumentsController : RepositoryController
     {
-        public IRepository rep { get; set; }
-        public DocumentsController(IRepository repository)
-        {
-            this.rep = repository;
-        }
+        public DocumentsController(IRepository repository) : base(repository) { }
 
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return View(await rep.GetDocuments());
+            return View(await Rep.GetDocuments());
         }
 
         // GET: Documents/Details/5
@@ -35,7 +31,7 @@ namespace TranslationReg.Controllers
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
@@ -43,11 +39,54 @@ namespace TranslationReg.Controllers
             return View(document);
         }
 
+        // GET: Documents/DocAndStages/5
+        public async Task<ActionResult> DocAndStages(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document doc = await Rep.GetDocument(id.Value);
+
+            if (doc == null)
+                return HttpNotFound();
+
+            return View(doc);
+        }
+
         // GET: Documents/Create
         public async Task<ActionResult> Create()
         {
-            DocumentModel DocCreateViewModel = await DocumentModel.GetModel(rep);
-            return View(DocCreateViewModel);
+            DocumentModel DocCreateViewModel = await DocumentModel.GetModel(Rep);
+            return PartialView(DocCreateViewModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
+        {
+            document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
+
+            if (originalFile!= null && originalFile.ContentLength != 0)
+            {
+
+                document.OriginalFile = await Helper.SetFile(originalFile,Rep,Server);
+
+                if (finalFile != null && finalFile.ContentLength != 0)
+                    document.FinalFile = await Helper.SetFile(originalFile, Rep, Server);
+
+                if (ModelState.IsValid)
+                {
+                    originalFile.SaveAs(document.OriginalFile.Path);
+
+                    if (document.FinalFile!=null)
+                        finalFile.SaveAs(document.FinalFile.Path);
+
+                    await Rep.AddDocument(document);
+                    return Redirect(Request.UrlReferrer.ToString());
+                }
+            }
+
+            return View(document);
         }
 
         // GET: Documents/Download
@@ -63,48 +102,19 @@ namespace TranslationReg.Controllers
             return HttpNotFound("Файл не найден");
         }
 
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
-        //public async Task<ActionResult> Create([Bind(Include = "Id,Name,Path")] Document document)
-
-        [Authorize]
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( Document document, HttpPostedFileBase file)
-        {
-            //todo переделать получение юзера 
-            document.OwnerId = rep.GetUser(User.Identity.Name).Id;
-
-            if (file!= null && file.ContentLength != 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-                document.OriginalFile.Path = path;
-
-                if (ModelState.IsValid)
-                {
-                    await rep.AddDocument(document);
-                    file.SaveAs(path);
-                    return RedirectToAction("Index");
-                }
-            }
-
-            return View(document);
-        }
-
         // GET: Documents/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
 
             //todo viewmodel
-            ViewBag.ProjectId = new SelectList(await rep.GetLanguages(), "Id", "Name", document.ProjectId);
+            ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
             return View(document);
         }
@@ -118,20 +128,19 @@ namespace TranslationReg.Controllers
         {
             if (ModelState.IsValid)
             {
-                await rep.PutDocument(document);
+                await Rep.PutDocument(document);
                 return RedirectToAction("Index");
             }
             return View(document);
         }
 
         // GET: Documents/Delete/5
-        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
             if (document == null)
                 return HttpNotFound();
@@ -144,16 +153,15 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await rep.DeleteDocument(id);
-            return RedirectToAction("Index");
+            await Rep.DeleteDocument(id);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
-                rep.Dispose();
-            }
+                Rep.Dispose();
+
             base.Dispose(disposing);
         }
     }

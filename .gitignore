@@ -3,8 +3,7 @@
 
 # Связанные с БД файлы
 /TranslationReg/Web.config
-/TranslationRegistryModel/App.config
-*App.config
+TranslationRegistryModel/App.config
 # User-specific files
 *.suo
 *.user

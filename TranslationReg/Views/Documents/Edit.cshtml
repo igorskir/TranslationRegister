@@ -20,9 +20,9 @@
     @Html.HiddenFor(model => model.FinalFileId)
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, "Создатель", htmlAttributes: new { @class = "control-label col-md-2" })
+        @Html.LabelFor(model => model.Owner, "Создатель", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.Label(Model.Owner.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.EditorFor(model => model.Owner.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
         </div>
     </div>
 
@@ -57,10 +57,6 @@
     </div>
 </div>
 }
-
-<div>
-    @Html.ActionLink("Назад к списку", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

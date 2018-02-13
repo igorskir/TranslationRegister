@@ -12,12 +12,23 @@
             <span class="icon-bar"></span>
         </button>
     </div>
-    <div class="navbar-collapse collapse">
-        <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Все проекты", "Index")</li>
-            <li>@Html.ActionLink("Проекты в работе", "Index")</li>
-            <li>@Html.ActionLink("Мои проекты", "Index")</li>
-            <li>@Html.ActionLink("Другой фильтр", "Index")</li>
+    <div class="container">
+        <ul class="filters">
+            <li>
+                <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/All">
+                    Все проекты
+                </a>
+            </li>
+            <li>
+                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/InWork">
+                    Проекты в работе
+                </a>
+            </li>
+            <li>
+                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/My">
+                    Мои проекты
+                </a>
+            </li>
         </ul>
     </div>
 </div>
@@ -31,15 +42,20 @@
         $(document).ready(function () {
             $(".editBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".filter").click(function () {
+                $(".filter").removeClass("filter-active");
+                $(this).addClass("filter-active");
             });
         });
 
         $(document).ready(function () {
             $(".createBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle("fast");
             });
         });
@@ -47,7 +63,6 @@
         $(document).ready(function () {
             $(".detailsBtn").click(function () {
                 updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle("fast");
             });
         });

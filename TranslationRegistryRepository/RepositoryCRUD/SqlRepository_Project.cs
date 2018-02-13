@@ -19,15 +19,31 @@ namespace SqlRepository
 
         public async Task<Project> GetProject(int id)
         {
-            return await context.Projects
-                //.Include(x => x.Documents)
-                //.Include(x => x.LanguagePair)
-                .FirstOrDefaultAsync(x=>x.Id == id);
+            return await context.Projects.FindAsync(id);
         }
 
         public async Task<List<Project>> GetProjects()
         {
-            return await context.Projects.Include(x=>x.LanguagePair).ToListAsync();
+            return await context.Projects.ToListAsync();
+        }
+
+        public async Task<List<Project>> GetMyProjects(string userName)
+        {
+            var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == userName)).Id;
+            return await context.Projects
+                .Where(x => x.CreatorId == userId)
+                .ToListAsync();
+        }
+
+        public async Task<List<Project>> GetProjectsInWork()
+        {
+            var statuse = await context.ProjectStatuses.Where(x => x.Name.Contains("В работе")).FirstOrDefaultAsync();
+            var statuseId = statuse.Id;
+
+            return await context.Projects
+                //.Where(x=>x.ProjectStatus.Name.Contains("В работе", StringComparison.OrdinalIgnoreCase))
+                .Where(x => x.ProjectStatuseId == statuseId)
+                .ToListAsync();
         }
 
         public async Task PutProject(Project doc)
@@ -43,7 +59,7 @@ namespace SqlRepository
 
         public async Task DeleteProject(int id)
         {
-            var doc = context.Projects.SingleOrDefault(m => m.Id == id);
+            var doc = await context.Projects.FindAsync(id);
             if (doc == null)
                 return;
 

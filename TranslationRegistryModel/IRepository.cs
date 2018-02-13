@@ -40,6 +40,8 @@ namespace TranslationRegistryModel
 
         //---------------------------------- Project CRUD ------------------------------------------------
         Task<List<Project>> GetProjects();
+        Task<List<Project>> GetMyProjects(string login);
+        Task<List<Project>> GetProjectsInWork();
         Task<Project> GetProject(int id);
         Task PutProject(Project doc);
         Task DeleteProject(int id);

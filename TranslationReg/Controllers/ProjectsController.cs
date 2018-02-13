@@ -25,6 +25,27 @@ namespace TranslationReg.Controllers
             return View(projects);
         }
 
+        // GET: Projects/All
+        public async Task<ActionResult> All()
+        {
+            var projects = await Rep.GetProjects();
+            return PartialView("List", projects);
+        }
+
+        // GET: Projects/My
+        public async Task<ActionResult> My()
+        {
+            var projects = await Rep.GetMyProjects(User.Identity.Name);
+            return PartialView("List",projects);
+        }
+
+        // GET: Projects/InWork
+        public async Task<ActionResult> InWork()
+        {
+            var projects = await Rep.GetProjectsInWork();
+            return PartialView("List", projects);
+        }
+
         // GET: Projects/Tabpages
         public async Task<ActionResult> Tabpages(int? id)
         {

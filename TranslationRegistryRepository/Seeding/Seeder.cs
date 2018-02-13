@@ -94,7 +94,7 @@ namespace SqlRepository.Seeding
                     new ProjectStatus() { Name = "Закрыт"}
                 };
             context.ProjectStatuses.AddRange(statuses);
-
+            context.SaveChanges();
             // ------------------------------------------------------------------------------
 
 
@@ -112,15 +112,17 @@ namespace SqlRepository.Seeding
             var user2 = context.Users.ToArray()[1];
             var pair1 = context.LanguagePairs.ToArray()[0];
             var pair2 = context.LanguagePairs.ToArray()[1];
+            var statuse1 = context.ProjectStatuses.ToArray()[0];
+            var statuse2 = context.ProjectStatuses.ToArray()[1];
             List<Project> projects = new List<Project>() {
                 new Project { Name = projectName1, CreatorId = user1.Id, LanguagePairId = pair1.Id,
-                    WordsNumber = projectWords1,  Customer = projectCustomer},
+                    WordsNumber = projectWords1,  Customer = projectCustomer, ProjectStatus = statuse1},
                 new Project { Name = projectName2, CreatorId = user2.Id, LanguagePairId = pair2.Id,
-                    WordsNumber = projectWords2,  Customer = projectCustomer},
+                    WordsNumber = projectWords2,  Customer = projectCustomer, ProjectStatus = statuse1},
                 new Project { Name = projectName3, CreatorId = user1.Id, LanguagePairId = pair1.Id,
-                    WordsNumber = projectWords3,  Customer = projectCustomer},
+                    WordsNumber = projectWords3,  Customer = projectCustomer, ProjectStatus = statuse2},
                 new Project { Name = projectName4, CreatorId = user2.Id, LanguagePairId = pair2.Id,
-                    WordsNumber = projectWords4,  Customer = projectCustomer}
+                    WordsNumber = projectWords4,  Customer = projectCustomer, ProjectStatus = statuse2}
             };
             context.Projects.AddRange(projects);
             context.SaveChanges();
@@ -133,7 +135,8 @@ namespace SqlRepository.Seeding
             for (int i = 0; i < dates.Length; i++)
                 dates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 5);
 
-            var uploadsDir = @"D:\RegTrans\TranslationReg\Uploads";
+            var uploadsDir = @"C:\Uploads";
+            Directory.CreateDirectory(uploadsDir);
 
             string[] filepaths = new string[8];
             for (int i = 0; i < filepaths.Length; i++)

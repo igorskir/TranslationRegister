@@ -83,14 +83,14 @@ namespace TranslationReg.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create( Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
+        public async Task<ActionResult> Create(Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
         {
             document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
 
-            if (originalFile!= null && originalFile.ContentLength != 0)
+            if (originalFile != null && originalFile.ContentLength != 0)
             {
 
-                document.OriginalFile = await Helper.SetFile(originalFile,Rep,Server);
+                document.OriginalFile = await Helper.SetFile(originalFile, Rep, Server);
 
                 if (finalFile != null && finalFile.ContentLength != 0)
                     document.FinalFile = await Helper.SetFile(originalFile, Rep, Server);
@@ -99,7 +99,7 @@ namespace TranslationReg.Controllers
                 {
                     originalFile.SaveAs(document.OriginalFile.Path);
 
-                    if (document.FinalFile!=null)
+                    if (document.FinalFile != null)
                         finalFile.SaveAs(document.FinalFile.Path);
 
                     await Rep.AddDocument(document);
@@ -141,14 +141,19 @@ namespace TranslationReg.Controllers
         }
 
         // POST: Documents/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в статье https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(Document document)
+        public async Task<ActionResult> Edit(Document document, [Bind(Include = "newOriginalFile")] HttpPostedFileBase newOriginalFile)
         {
             if (ModelState.IsValid)
             {
+                if (newOriginalFile != null && newOriginalFile.ContentLength != 0)
+                {
+                    var newFile = await Helper.SetFile(newOriginalFile, Rep, Server);
+                    document.OriginalFileId = newFile.Id;
+                    newOriginalFile.SaveAs(newFile.Path);
+                }
+
                 await Rep.PutDocument(document);
                 return RedirectToAction("Index");
             }

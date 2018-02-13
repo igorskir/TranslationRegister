@@ -22,8 +22,8 @@ namespace TranslationReg.Models
             ProjectModel model = new ProjectModel
             {
                 Project = project,
-                LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name"),
-                ProjectStatus = new SelectList(await rep.GetProjectStatuses(), "Id", "Name")
+                LanguagePairs = new SelectList(await rep.GetLanguagePairs(), "Id", "Name", project.LanguagePairId),
+                ProjectStatus = new SelectList(await rep.GetProjectStatuses(), "Id", "Name", project.ProjectStatuseId)
             };
             return model;
         }

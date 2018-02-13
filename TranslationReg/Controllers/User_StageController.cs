@@ -22,6 +22,18 @@ namespace TranslationReg.Controllers
             return View(await Rep.GetUser_Stages());
         }
 
+        public async Task<ActionResult> Finalise(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            user_Stage.Stage.Document.FinalFileId = user_Stage.DocFileId;
+            await Rep.PutDocument(user_Stage.Stage.Document);
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
         // GET: User_Stage/Details/5
         public async Task<ActionResult> Details(int? id)
         {

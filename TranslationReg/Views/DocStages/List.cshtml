@@ -1,0 +1,14 @@
+﻿
+@model List<TranslationRegistryModel.DocStage>
+
+<div class="titles">
+    <div class="col-md-4">@Html.Label("Стадия")</div>
+    <div class="col-md-4">@Html.Label("Добавить работу")</div>
+    <div class="col-md-4">@Html.Label("Удалить стадию")</div>
+</div>
+<div>
+    @foreach (var stage in Model)
+    {
+        @Html.Partial("../DocStages/Item", stage)
+    }
+</div>

@@ -6,7 +6,7 @@
     <div>
         @Html.ActionLink("Скачать", "Download", "Modeluments", new { @filepath = Model.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
         <a class="btn btn-primary" href="/Modeluments/Edit/@Model.Id">Редактировать</a>
-        <a class="btn btn-danger deleteBtn" href="/Modeluments/Delete/@Model.Id">Удалить</a>
+        <a class="btn btn-danger deleteBtn" href="/Modeluments/Delete/@Model.Id" data-dialog-title="Удаление записи">Удалить</a>
         <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addModelStageForm@(Model.Id)"
            href="/ModelStages/Create/@Model.Id" class="btn btn-success createBtn">Добавить стадию</a>
     </div>

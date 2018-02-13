@@ -1,13 +1,17 @@
 ﻿@model TranslationRegistryModel.DocStage
 
-<div class="properties">
-    <div class="col-md-4"><b>@Model.WorkType.Name</b></div>
-    <div class="col-md-4">
-        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUserStageForm@(Model.Id)"
-           href="/User_Stage/Create/@Model.Id" class="btn btn-success createBtn">Добавить работу</a>
+<div class="float-label">
+    <div class="control">
+        <span id="WorkType-name">@Model.WorkType.Name</span>
     </div>
-    <div class="col-md-4">
-        <a class="btn btn-danger deleteBtn" href="/DocStages/Delete/@Model.Id" data-dialog-title="Удаление записи">Удалить стадию</a>
+    <div class="control-buttons">
+        <div class="control small">
+            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUserStageForm@(Model.Id)"
+               href="/User_Stage/Create/@Model.Id" id="addWork" class="btn btn-primary createBtn">Добавить работу</a>
+        </div>
+        <div class="control small">
+            <a class="btn btn-danger deleteBtn" href="/DocStages/Delete/@Model.Id" id="deleteWork" data-dialog-title="Удаление записи">Удалить стадию</a>
+        </div>
     </div>
 </div>
 <div id="addUserStageForm@(Model.Id)" class="dynamicBlock"></div>

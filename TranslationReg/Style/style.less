@@ -4,6 +4,9 @@
 @main-fonts: "Open Sans", Helvetica, Arial, sans-serif;
 @borders: 1px solid darkgray;
 @pcWidth: 768px;
+@float-border: 1px solid #ddd;
+@padding: 10px;
+@label-font-size: 13px;
 
 * {
     padding: 0;
@@ -96,14 +99,14 @@ footer {
 
 .dl-horizontal {
     font-size: 22px;
-    margin-top: 30px;
+    margin-top: 20px;
 
     > dt {
-        width: 200px;
+        width: 220px;
     }
 
     > dd {
-        margin-left: 210px;
+        margin-left: 240px;
     }
 }
 
@@ -141,13 +144,17 @@ footer {
     justify-content: space-between;
     border-bottom: @borders;
 
+    &:hover {
+        background-color: #e6e6e6;
+    }
+
     > div {
         padding: 15px 0;
         text-align: center;
         height: auto;
         font-size: 20px;
         text-align: center;
-        display:flex;
+        display: flex;
 
         &:last-child {
             display: flex;
@@ -163,18 +170,19 @@ footer {
         }
 
         a {
-            margin:auto;
+            margin: auto;
             line-height: 1.2;
         }
 
         span {
-            margin:auto;
+            margin: auto;
         }
     }
 
     .buttons-container {
         margin: auto;
         align-self: center;
+
         > a {
             margin-bottom: 0;
         }
@@ -366,7 +374,7 @@ footer {
     color: white;
     text-transform: capitalize;
     padding: 5px 0px;
-    width: 150px;
+    width: 110px;
     border-radius: 4px;
     overflow: hidden;
     transition: all .2s linear 0s;
@@ -398,6 +406,47 @@ footer {
         &:before {
             right: 0;
             text-indent: 0px;
+        }
+    }
+}
+
+// float label
+.float-label {
+    display: flex;
+    flex-wrap: wrap;
+    width: 450px;
+
+    .control {
+        display: flex;
+        float: left;
+        position: relative;
+        width: 100%;
+        border-bottom: @float-border;
+        // you proably want to replace these with your grid classes
+        &:last-child {
+            border: 0;
+        }
+
+        span {
+            display: block;
+            margin-left: 40px;
+            font-size: 32px;
+        }
+    }
+
+    .control-buttons {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .small {
+            padding: 10px 0;
+            border-bottom: none;
+            a{
+                display: flex;
+                margin: auto;
+            }
         }
     }
 }

@@ -67,13 +67,13 @@ footer {
 }
 .dl-horizontal {
   font-size: 22px;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .dl-horizontal > dt {
-  width: 200px;
+  width: 220px;
 }
 .dl-horizontal > dd {
-  margin-left: 210px;
+  margin-left: 240px;
 }
 .tables {
   padding: 0;
@@ -100,6 +100,9 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   border-bottom: 1px solid darkgray;
+}
+.properties:hover {
+  background-color: #e6e6e6;
 }
 .properties > div {
   padding: 15px 0;
@@ -274,7 +277,7 @@ footer {
   color: white;
   text-transform: capitalize;
   padding: 5px 0px;
-  width: 150px;
+  width: 110px;
   border-radius: 4px;
   overflow: hidden;
   transition: all .2s linear 0s;
@@ -305,4 +308,38 @@ footer {
 .download-Btn:hover:before {
   right: 0;
   text-indent: 0px;
+}
+.float-label {
+  display: flex;
+  flex-wrap: wrap;
+  width: 450px;
+}
+.float-label .control {
+  display: flex;
+  float: left;
+  position: relative;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+}
+.float-label .control:last-child {
+  border: 0;
+}
+.float-label .control span {
+  display: block;
+  margin-left: 40px;
+  font-size: 32px;
+}
+.float-label .control-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+.float-label .control-buttons .small {
+  padding: 10px 0;
+  border-bottom: none;
+}
+.float-label .control-buttons .small a {
+  display: flex;
+  margin: auto;
 }

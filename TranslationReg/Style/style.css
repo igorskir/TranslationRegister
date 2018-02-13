@@ -75,6 +75,9 @@ footer {
 .dl-horizontal > dd {
   margin-left: 210px;
 }
+.tables {
+  padding: 0;
+}
 .titles {
   display: flex;
   flex-direction: row;
@@ -125,11 +128,10 @@ footer {
   margin: 0;
   line-height: 1.2;
 }
-.action-btn {
+.buttons-container {
   margin: auto;
-  width: 400px;
 }
-.action-btn > a {
+.buttons-container > a {
   margin-bottom: 0;
 }
 @media screen and (max-width: 479px) {
@@ -265,5 +267,5 @@ footer {
 }
 .filter-active {
   background: #241717;
-  color: white;
+  color: white !important;
 }

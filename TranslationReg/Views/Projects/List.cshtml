@@ -4,7 +4,7 @@
    href="/Projects/Create" class="btn btn-primary createBtn">Добавить</a>
 <div id="addProj" class="dynamicBlock"></div>
 
-<div class="container myForm Pair" id="languageEditor">
+<div class="" id="languageEditor">
     <div class="titles">
         <div class="col-md-4">@Html.Label("Название")</div>
         <div class="col-md-2">@Html.Label("Пользователь")</div>
@@ -21,12 +21,14 @@
         <div class="col-md-1">@Html.DisplayFor(modelItem => project.LanguagePair.Name)</div>
         <div class="col-md-2">@Html.DisplayFor(modelItem => project.ProjectStatus.Name)</div>
         <div class="col-md-3">
-            <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
-            <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@project.Id"
-               href="/Projects/DetailsShort/@project.Id" class="btn btn-info detailsBtn">Детали</a>
-            <a data-ajax="true"
-               href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
+            <div class="buttons-container">
+                <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
+                <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#@project.Id"
+                   href="/Projects/DetailsShort/@project.Id" class="btn btn-info detailsBtn">Детали</a>
+                <a data-ajax="true"
+                   href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
+            </div>
         </div>
     </div>
         <div id="@(project.Id)" class="dynamicBlock"></div>

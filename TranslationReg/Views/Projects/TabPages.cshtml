@@ -4,17 +4,16 @@
 
 <div class="tab-page">
     <ul class="nav nav-tabs nav-tabs-responsive" role="tablist">
-        <li class="active" role="presentation"><a href="#detailsTab" id="detailsBtn" data-toggle="tab">Детали</a></li>
-        <li class="next" role="presentation"><a href="#docsTab" id="docsBtn" data-toggle="tab">Документы</a></li>
+        <li class="active" role="presentation"><a href="#docsTab" id="docsBtn" data-toggle="tab">Документы</a></li>
+        <li class="next" role="presentation"><a href="#detailsTab" id="detailsBtn" data-toggle="tab">Детали</a></li>
     </ul>
 
     <div id="tabs-container" class="tab-content">
-        <div class="tab-pane fade in active" role="tabpanel" id="detailsTab" aria-labelledby="detailsTab-tab">
-            @Html.Partial("../Projects/DetailsShort", Model)
-        </div>
-
-        <div class="tab-pane fade" role="tabpanel" id="docsTab" aria-labelledby="docsTab-tab">
+        <div class="tab-pane fade in active" role="tabpanel" id="docsTab" aria-labelledby="docsTab-tab">
             @Html.Partial("../Projects/Documents", Model)
+        </div>
+        <div class="tab-pane fade" role="tabpanel" id="detailsTab" aria-labelledby="detailsTab-tab">
+            @Html.Partial("../Projects/DetailsShort", Model)
         </div>
     </div>
 </div>

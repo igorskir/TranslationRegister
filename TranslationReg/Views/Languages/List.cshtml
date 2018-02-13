@@ -6,7 +6,7 @@
        href="/Languages/Create" class="btn btn-primary createBtn">Добавить</a>
     <div id="addLanguageForm" class="dynamicBlock"></div>
 
-    <div class="container">
+    <div>
         <div class="titles">
             <div class="col-md-4">@Html.Label("Наименование")</div>
             <div class="col-md-4">@Html.Label("Сокращение")</div>
@@ -18,7 +18,7 @@
                 <div class="col-md-4">@Html.DisplayFor(modelItem => item.Name)</div>
                 <div class="col-md-4">@Html.DisplayFor(modelItem => item.ShortName)</div>
                 <div class="col-md-4">
-                    <div class="action-btn">
+                    <div class="buttons-container">
                         <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)"
                            href="/Languages/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
                         <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)"

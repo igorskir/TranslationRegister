@@ -1,7 +1,7 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
 }
 html {
   height: 100%;
@@ -83,8 +83,6 @@ footer {
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
-  border: 2px solid darkgray;
-  border-radius: 4px 4px 0 0;
 }
 .titles > div {
   text-align: center;
@@ -92,7 +90,6 @@ footer {
   height: 55px;
   font-size: 18px;
   line-height: 55px;
-  border-right: 2px solid darkgray;
 }
 .titles > div:last-child {
   border-right: none;
@@ -102,15 +99,14 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  border: 2px solid darkgray;
-  border-collapse: collapse;
+  border-bottom: 1px solid darkgray;
 }
 .properties > div {
   padding: 15px 0;
   height: auto;
   font-size: 20px;
-  border-right: 2px solid darkgray;
   text-align: center;
+  display: flex;
 }
 .properties > div:last-child {
   display: flex;
@@ -122,16 +118,17 @@ footer {
   width: 100%;
 }
 .properties > div a {
+  margin: auto;
   line-height: 1.2;
 }
-.properties > div p {
-  margin: 0;
-  line-height: 1.2;
-}
-.buttons-container {
+.properties > div span {
   margin: auto;
 }
-.buttons-container > a {
+.properties .buttons-container {
+  margin: auto;
+  align-self: center;
+}
+.properties .buttons-container > a {
   margin-bottom: 0;
 }
 @media screen and (max-width: 479px) {
@@ -268,4 +265,44 @@ footer {
 .filter-active {
   background: #241717;
   color: white !important;
+}
+.download-Btn {
+  text-align: center;
+  display: inline-block;
+  position: relative;
+  text-decoration: none;
+  color: white;
+  text-transform: capitalize;
+  padding: 5px 0px;
+  width: 150px;
+  border-radius: 4px;
+  overflow: hidden;
+  transition: all .2s linear 0s;
+  background: #F28123;
+  font-size: 16px;
+}
+.download-Btn:before {
+  content: "\f019";
+  font-family: FontAwesome;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  right: -30px;
+  width: 30px;
+  height: 100%;
+  background-color: #F28123;
+  transition: all 0.2s linear 0s;
+  text-align: center;
+}
+.download-Btn:hover {
+  text-indent: -30px;
+  text-decoration: none;
+  color: white;
+}
+.download-Btn:hover:before {
+  right: 0;
+  text-indent: 0px;
 }

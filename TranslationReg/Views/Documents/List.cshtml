@@ -17,26 +17,32 @@
 {
     <div class="properties">
         <div class="col-md-3">
-            @Html.DisplayFor(modelItem => item.Name)
+            <span>
+                @Html.DisplayFor(modelItem => item.Name)
+            </span>
         </div>
         <div class="col-md-2">
-            @Html.DisplayFor(modelItem => item.Owner.Name)
+            <span>
+                @Html.DisplayFor(modelItem => item.Owner.Name)
+            </span>
         </div>
 
         <div class="col-md-2">
-            @Html.DisplayFor(modelItem => item.WordsNumber)
+            <span>
+                @Html.DisplayFor(modelItem => item.WordsNumber)
+            </span>
         </div>
 
         <div class="col-md-1">
             @if (!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="glyphicon glyphicon-download"></a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="download-Btn">Скачать</a>
             }
         </div>
         <div class="col-md-1">
             @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="glyphicon glyphicon-download"></a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="download-Btn">Скачать</a>
             }
         </div>
         <div class="col-md-3">

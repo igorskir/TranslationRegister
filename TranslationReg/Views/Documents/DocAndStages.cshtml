@@ -32,20 +32,7 @@
        href="/DocStages/Create/@Model.Id" class="btn btn-primary createBtn">Добавить стадию</a>
     <div id="addDocStageForm" class="dynamicBlock"></div>
 
-
-    <div class="titles">
-        <div class="col-md-4">@Html.Label("Стадия")</div>
-        <div class="col-md-4">@Html.Label("Добавить работу")</div>
-        <div class="col-md-4">@Html.Label("Удалить стадию")</div>
-    </div>
-    <div>
-        @foreach (var stage in Model.Stages)
-        {
-            @Html.Partial("../DocStages/Item", stage)
-        }
-    </div>
-
-
+    @Html.Partial("../DocStages/List", Model.Stages.ToList());
 </div>
 
 @section scripts {

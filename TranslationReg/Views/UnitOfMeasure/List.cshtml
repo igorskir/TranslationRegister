@@ -15,8 +15,18 @@
     @foreach (var unitOfMeasure in Model)
     {
         <div class="properties">
-            <div class="col-md-3">@Html.DisplayFor(modelItem => unitOfMeasure.Name)</div>
-            <div class="col-md-6">@Html.DisplayFor(modelItem => unitOfMeasure.Description)</div>
+            <div class="col-md-3">
+                <span>
+
+                    @Html.DisplayFor(modelItem => unitOfMeasure.Name)
+                </span>
+            </div>
+            <div class="col-md-6">
+                <span>
+
+                    @Html.DisplayFor(modelItem => unitOfMeasure.Description)
+                </span>
+            </div>
             <div class="col-md-3">
                 <div class="buttons-container">
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"

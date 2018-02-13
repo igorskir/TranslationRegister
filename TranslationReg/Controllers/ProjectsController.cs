@@ -133,7 +133,8 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutProject(project);
-                return Redirect(Request.UrlReferrer.ToString());
+                //return Redirect(Request.UrlReferrer.ToString());
+                return RedirectToAction("Index");
             }
 
             return View(project);

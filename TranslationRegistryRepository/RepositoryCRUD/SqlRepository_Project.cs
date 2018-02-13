@@ -37,11 +37,11 @@ namespace SqlRepository
 
         public async Task<List<Project>> GetProjectsInWork()
         {
+            // todo внедрить константы бд
             var statuse = await context.ProjectStatuses.Where(x => x.Name.Contains("В работе")).FirstOrDefaultAsync();
             var statuseId = statuse.Id;
 
             return await context.Projects
-                //.Where(x=>x.ProjectStatus.Name.Contains("В работе", StringComparison.OrdinalIgnoreCase))
                 .Where(x => x.ProjectStatuseId == statuseId)
                 .ToListAsync();
         }

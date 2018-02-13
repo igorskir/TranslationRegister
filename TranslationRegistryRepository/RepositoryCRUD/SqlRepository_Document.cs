@@ -16,7 +16,18 @@ namespace SqlRepository
             context.Documents.Add(doc);
             await context.SaveChangesAsync();
         }
-
+        public async Task<List<Document>> GetMyDocuments(string login)
+        {
+            var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;
+            return await context.Documents
+                .Where(x => x.Owner.Id == userId)
+                .ToListAsync();
+        }
+        public async Task<List<Document>> GetMyWorkDocuments(string login)
+        {
+            var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;
+            return await context.Documents.Where(x => x.Stages.Any(y => y.User_Stage.Any(z => z.UserId == userId))).ToListAsync();
+        }
         public async Task<Document> GetDocument(int id)
         {
             return await context.Documents.FindAsync(id);

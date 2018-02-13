@@ -32,6 +32,8 @@ namespace TranslationRegistryModel
 
         //---------------------------------- Document CRUD -----------------------------------------------
         Task<List<Document>> GetDocuments();
+        Task<List<Document>> GetMyDocuments(string login);
+        Task<List<Document>> GetMyWorkDocuments(string login);
         Task<Document> GetDocument(int id);
         Task PutDocument(Document doc);
         Task DeleteDocument(int id);

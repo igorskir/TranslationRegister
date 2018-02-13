@@ -8,10 +8,21 @@
 
 <div class="container">
     <ul class="filters">
-        <li>@Html.ActionLink("Все документы", "Index", "Documents")</li>
-        <li>@Html.ActionLink("Документы в работе", "Index", "Documents")</li>
-        <li>@Html.ActionLink("Мои документы", "Index", "Documents")</li>
-        <li>@Html.ActionLink("Другой фильтр", "Index", "Documents")</li>
+            <li>
+                <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/All">
+                    Все документы
+                </a>
+            </li>
+            <li>
+                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/My">
+                    Мои документы
+                </a>
+            </li>
+            <li>
+                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/InWork">
+                    Мои рабочие документы
+                </a>
+            </li>
     </ul>
 </div>
 
@@ -27,6 +38,13 @@
                 updatedBlock = $(this).attr("data-ajax-update");
                 // изначально display:none, описанов MyAppStyles.css
                 $(updatedBlock).toggle("fast");
+            });
+        });
+
+        $(document).ready(function () {
+            $(".filter").click(function () {
+                $(".filter").removeClass("filter-active");
+                $(this).addClass("filter-active");
             });
         });
 

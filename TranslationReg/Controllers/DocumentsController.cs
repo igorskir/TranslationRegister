@@ -25,6 +25,27 @@ namespace TranslationReg.Controllers
             return View(await Rep.GetDocuments());
         }
 
+        // GET: Documents/All
+        public async Task<ActionResult> All()
+        {
+            var documents = await Rep.GetDocuments();
+            return PartialView("List", documents);
+        }
+
+        // GET: Documents/My
+        public async Task<ActionResult> My()
+        {
+            var documents = await Rep.GetMyDocuments(User.Identity.Name);
+            return PartialView("List", documents);
+        }
+
+        // GET: Documents/InWork
+        public async Task<ActionResult> InWork()
+        {
+            var documents = await Rep.GetMyWorkDocuments(User.Identity.Name);
+            return PartialView("List", documents);
+        }
+
         // GET: Documents/Details/5
         public async Task<ActionResult> Details(int? id)
         {

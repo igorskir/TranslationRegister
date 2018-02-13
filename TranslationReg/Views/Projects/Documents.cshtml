@@ -32,7 +32,7 @@
                             @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
                         } else
                         {
-                            <a href="#" class="btn disabled-btn">Скачать готовый</a>
+                            <button class="btn disabled-btn" disabled ="disabled">Скачать готовый</button>
                         }
                     </div>
                     <div class="col-md-3">

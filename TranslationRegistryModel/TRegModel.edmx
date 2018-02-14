@@ -168,6 +168,7 @@
     <Property Name="UserId" Type="int" Nullable="false" />
     <Property Name="DocFileId" Type="int" Nullable="true" />
     <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Comment" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -520,6 +521,7 @@
           <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileUser_Stage" FromRole="User_Stage" ToRole="DocFile" />
           <Property Name="DocFileId" Type="Int32" Nullable="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Comment" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -917,6 +919,7 @@
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="DocFileId" ColumnName="DocFileId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Comment" ColumnName="Comment" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

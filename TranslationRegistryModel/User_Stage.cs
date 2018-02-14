@@ -20,6 +20,7 @@ namespace TranslationRegistryModel
         public int UserId { get; set; }
         public Nullable<int> DocFileId { get; set; }
         public System.DateTime Date { get; set; }
+        public string Comment { get; set; }
     
         public virtual DocStage Stage { get; set; }
         public virtual User User { get; set; }

@@ -7,42 +7,48 @@
 <div class="tablesList" id="languageEditor">
     <div class="titles">
         <div class="col-md-4">@Html.Label("Название")</div>
-        <div class="col-md-2">@Html.Label("Пользователь")</div>
+        <div class="col-md-1">@Html.Label("Статус")</div>
+        <div class="col-md-2">@Html.Label("Создатель")</div>
         <div class="col-md-1">@Html.Label("Перевод")</div>
-        <div class="col-md-2">@Html.Label("Статус")</div>
+        <div class="col-md-1">@Html.Label("Создан")</div>
         <div class="col-md-3">@Html.Label("Команды")</div>
     </div>
 
     @foreach (var project in Model)
     {
-        <div class="properties">
-            <div class="col-md-4">
-                <a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a>
-            </div>
-            <div class="col-md-2">
-                <span>
-                    @Html.DisplayFor(modelItem => project.Creator.Name)
-                </span>
-            </div>
-            <div class="col-md-1">
-                <span>
-                    @Html.DisplayFor(modelItem => project.LanguagePair.Name)
-                </span>
-            </div>
-            <div class="col-md-2">
-                <span>
-                    @Html.DisplayFor(modelItem => project.ProjectStatus.Name)
-                </span>
-            </div>
-            <div class="col-md-3">
-                <div class="buttons-container">
-                    <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
-                    <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
-                    <a data-ajax="true"
-                       href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
-                </div>
+    <div class="properties">
+        <div class="col-md-4">
+            <a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a>
+        </div>
+        <div class="col-md-1">
+            <span>
+                @Html.DisplayFor(modelItem => project.ProjectStatus.Name)
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span>
+                @Html.DisplayFor(modelItem => project.Creator.Name)
+            </span>
+        </div>
+        <div class="col-md-1">
+            <span>
+                @Html.DisplayFor(modelItem => project.LanguagePair.Name)
+            </span>
+        </div>
+        <div class="col-md-1">
+            <span>
+                @Html.DisplayFor(modelItem => project.Date)
+            </span>
+        </div>
+        <div class="col-md-3">
+            <div class="buttons-container">
+                <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
+                <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
+                <a data-ajax="true"
+                   href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
             </div>
         </div>
+    </div>
         <div id="@(project.Id)" class="dynamicBlock"></div>
     }
 </div>

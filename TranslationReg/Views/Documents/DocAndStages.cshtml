@@ -3,29 +3,20 @@
 
     <h2>@Model.Name</h2>
     <dl class="dl-horizontal">
-        <dt>
-            Создатель
-        </dt>
-        <dd>
-            @Model.Owner.Name
-        </dd>
+        <dt>Создатель</dt>
+        <dd>@Model.Owner.Name</dd>
 
-        <dt>
-            Скачать оргигинал
-        </dt>
-        <dd>
-            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="download-Btn">Скачать</a>
-        </dd>
+        <dt>Количество слов</dt>
+        <dd>@Model.WordsNumber</dd>
+
+        <dt>Скачать оргигинал</dt>
+        <dd><a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="download-Btn">Скачать</a></dd>
 
         @if (Model.FinalFile != null)
-        {
-            <dt>
-                Скачать перевод
-            </dt>
-            <dd>
-                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="download-Btn">Скачать</a>
-            </dd>
-        }
+    {
+        <dt>Скачать перевод</dt>
+        <dd><a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="download-Btn">Скачать</a></dd>
+}
     </dl>
 
     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm"

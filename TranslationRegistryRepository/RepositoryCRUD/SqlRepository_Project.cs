@@ -24,7 +24,7 @@ namespace SqlRepository
 
         public async Task<List<Project>> GetProjects()
         {
-            return await context.Projects.ToListAsync();
+            return await context.Projects.OrderByDescending(x=>x.Date).ToListAsync();
         }
 
         public async Task<List<Project>> GetMyProjects(string userName)

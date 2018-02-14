@@ -94,10 +94,34 @@ namespace TranslationReg.Controllers
         {
             document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
             document.Date = DateTime.Now;
+
             if (original != null && original.ContentLength != 0)
             {
                 //здесь и сохранение файла и кортежа DocFile
-                document.OriginalFileId = (await Helper.SetFile(original, Rep, Server)).Id;
+                var originalFile = (await Helper.SetFile(original, Rep, Server));
+
+                var MsWordDocMime = "application/msword";
+                var MsWordDocxMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                if (original.ContentType == MsWordDocMime || original.ContentType == MsWordDocxMime)
+                {
+                    try
+                    {
+                        using (Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(originalFile.Path))
+                        {
+                            doc.UpdateWordCount(false);
+                            int wordCount = doc.BuiltinDocumentProperties.WordCount;
+                            document.WordsNumber = wordCount;
+                        }
+                    }
+                    //todo логи
+                    catch (Exception)
+                    {
+
+                    }
+                   
+                }
+
+                document.OriginalFileId = originalFile.Id;
 
                 if (final != null && final.ContentLength != 0)
                     document.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
@@ -108,6 +132,7 @@ namespace TranslationReg.Controllers
                     return Redirect(Request.UrlReferrer.ToString());
                 }
             }
+
             return View(document);
         }
 

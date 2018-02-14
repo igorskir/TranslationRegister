@@ -58,9 +58,7 @@ namespace TranslationReg.Controllers
             if (docStage == null)
                 return HttpNotFound();
 
-            User_Stage userStage = new User_Stage { StageId = docStage.Id };
-
-            return PartialView(userStage);
+            return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
 
         // POST: User_Stage/Create

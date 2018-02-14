@@ -436,6 +436,7 @@
           <Property Name="OriginalFileId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="FinalFile" Relationship="SqlRepository.SqlContextModel.DocumentDocFile" FromRole="Document" ToRole="DocFile" />
           <Property Name="FinalFileId" Type="Int32" Nullable="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="DocFile">
           <Key>
@@ -471,7 +472,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="WordsNumber" Type="Int32" Nullable="false" />
           <Property Name="Customer" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="LanguagePairId" Type="Int32" />
           <Property Name="ProjectStatuseId" Type="Int32" />
@@ -481,6 +481,7 @@
           <NavigationProperty Name="ProjectStatus" Relationship="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" FromRole="Projects" ToRole="ProjectStatuses" />
           <NavigationProperty Name="Creator" Relationship="Self.FK_ProjectUser" FromRole="Projects" ToRole="Users" />
           <NavigationProperty Name="Workers" Relationship="Self.ProjectUsers" FromRole="Projects" ToRole="Users" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -515,7 +516,8 @@
           <NavigationProperty Name="User" Relationship="SqlRepository.SqlContextModel.UserUser_Stage" FromRole="User_Stage" ToRole="User" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileUser_Stage" FromRole="User_Stage" ToRole="DocFile" />
-          <Property Name="DocFileId" Type="Int32" Nullable="false" />
+          <Property Name="DocFileId" Type="Int32" Nullable="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -781,7 +783,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocFileUser_Stage">
-          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
           <End Type="SqlRepository.SqlContextModel.User_Stage" Role="User_Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocFile">
@@ -876,7 +878,6 @@
         <MappingFragment StoreEntitySet="Projects">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="WordsNumber" ColumnName="WordsNumber" />
           <ScalarProperty Name="Customer" ColumnName="Customer" />
           <ScalarProperty Name="LanguagePairId" ColumnName="LanguagePairId" />
           <ScalarProperty Name="ProjectStatuseId" ColumnName="ProjectStatuseId" />

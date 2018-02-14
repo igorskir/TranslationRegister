@@ -18,7 +18,8 @@ namespace TranslationRegistryModel
         public int Amount { get; set; }
         public int StageId { get; set; }
         public int UserId { get; set; }
-        public int DocFileId { get; set; }
+        public Nullable<int> DocFileId { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual DocStage Stage { get; set; }
         public virtual User User { get; set; }

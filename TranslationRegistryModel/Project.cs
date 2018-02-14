@@ -23,11 +23,11 @@ namespace TranslationRegistryModel
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public int WordsNumber { get; set; }
         public string Customer { get; set; }
         public Nullable<int> LanguagePairId { get; set; }
         public Nullable<int> ProjectStatuseId { get; set; }
         public int CreatorId { get; set; }
+        public System.DateTime Date { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }

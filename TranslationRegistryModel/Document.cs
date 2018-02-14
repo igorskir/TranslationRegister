@@ -27,6 +27,7 @@ namespace TranslationRegistryModel
         public Nullable<int> ProjectId { get; set; }
         public int OriginalFileId { get; set; }
         public Nullable<int> FinalFileId { get; set; }
+        public System.DateTime Date { get; set; }
     
         public virtual Project Project { get; set; }
         public virtual User Owner { get; set; }

@@ -226,7 +226,9 @@
     <Content Include="Style\bootstrap-theme.min.css" />
     <Content Include="Style\bootstrap.css" />
     <Content Include="Style\bootstrap.min.css" />
-    <Content Include="Style\images\logo_tpu.png" />
+    <Content Include="Style\images\logo_tpu.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Style\Site.css" />
     <Content Include="Style\style.css" />
     <Content Include="Style\themes\base\accordion.css" />

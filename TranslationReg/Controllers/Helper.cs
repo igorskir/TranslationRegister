@@ -18,6 +18,8 @@ namespace TranslationReg.Controllers
                 Path = GetValidPath(file, Server)
             };
             await Rep.AddDocFile(docfile);
+            file.SaveAs(docfile.Path);
+
             return docfile;
         }
 

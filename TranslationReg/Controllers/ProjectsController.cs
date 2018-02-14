@@ -99,6 +99,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Project project)
         {
+            project.Date = DateTime.Now;
             project.CreatorId = (await Rep.GetUser(User.Identity.Name)).Id;
             if (ModelState.IsValid)
             {

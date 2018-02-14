@@ -68,6 +68,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(User_Stage user_Stage, [Bind(Include = "workFile")]HttpPostedFileBase workFile)
         {
+            user_Stage.Date = DateTime.Now;
             user_Stage.UserId = (await Rep.GetUser(User.Identity.Name)).Id;
             if (workFile != null && workFile.ContentLength != 0)
             {

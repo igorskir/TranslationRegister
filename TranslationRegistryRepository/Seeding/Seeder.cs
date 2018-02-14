@@ -132,7 +132,6 @@ namespace SqlRepository.Seeding
 
             // ------------------------------------ Файлы -----------------------------------
             DateTime[] fileDates = new DateTime[8];
-            Random r = new Random();
             for (int i = 0; i < fileDates.Length; i++)
                 fileDates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 5);
 
@@ -169,7 +168,6 @@ namespace SqlRepository.Seeding
             };
 
             DateTime[] documentDates = new DateTime[8];
-            Random r = new Random();
             for (int i = 0; i < documentDates.Length; i++)
                 documentDates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 205);
 

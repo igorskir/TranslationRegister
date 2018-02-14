@@ -25,14 +25,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Project.WordsNumber, "Количество слов", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Project.WordsNumber, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
-                @Html.ValidationMessageFor(model => model.Project.WordsNumber, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.Project.Customer, "Заказчик", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Project.Customer, new { htmlAttributes = new { @class = "form-control" } })

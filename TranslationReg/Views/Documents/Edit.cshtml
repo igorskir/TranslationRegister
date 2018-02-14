@@ -18,6 +18,7 @@
     @Html.HiddenFor(model => model.OwnerId)
     @Html.HiddenFor(model => model.OriginalFileId)
     @Html.HiddenFor(model => model.FinalFileId)
+    @Html.HiddenFor(model => model.Date)
     <div class="form-group">
         @Html.LabelFor(model => model.Owner, "Создатель", htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">

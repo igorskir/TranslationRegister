@@ -81,32 +81,33 @@ namespace TranslationReg.Controllers
             return PartialView(DocCreateViewModel);
         }
 
+        // GET: Documents/CreateProjectDoc/1
+        public ActionResult CreateProjectDoc(int Id)
+        {
+            return PartialView(new Document {ProjectId = Id});
+        }
+
+        // POST: Documents/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Document document, [Bind(Include = "originalFile")] HttpPostedFileBase originalFile, [Bind(Include = "finalFile")] HttpPostedFileBase finalFile)
+        public async Task<ActionResult> Create(Document document, [Bind(Include = "original")] HttpPostedFileBase original, [Bind(Include = "final")] HttpPostedFileBase final)
         {
             document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
-
-            if (originalFile != null && originalFile.ContentLength != 0)
+            document.Date = DateTime.Now;
+            if (original != null && original.ContentLength != 0)
             {
+                //здесь и сохранение файла и кортежа DocFile
+                document.OriginalFileId = (await Helper.SetFile(original, Rep, Server)).Id;
 
-                document.OriginalFile = await Helper.SetFile(originalFile, Rep, Server);
-
-                if (finalFile != null && finalFile.ContentLength != 0)
-                    document.FinalFile = await Helper.SetFile(originalFile, Rep, Server);
+                if (final != null && final.ContentLength != 0)
+                    document.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
 
                 if (ModelState.IsValid)
                 {
-                    originalFile.SaveAs(document.OriginalFile.Path);
-
-                    if (document.FinalFile != null)
-                        finalFile.SaveAs(document.FinalFile.Path);
-
                     await Rep.AddDocument(document);
                     return Redirect(Request.UrlReferrer.ToString());
                 }
             }
-
             return View(document);
         }
 

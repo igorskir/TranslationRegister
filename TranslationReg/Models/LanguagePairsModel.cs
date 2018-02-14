@@ -16,14 +16,21 @@ namespace TranslationReg.Models
 
         public static async Task<LanguagePairsModel> GetModel(IRepository Rep, LanguagePair languagePair = null)
         {
-            if (languagePair == null)
-                languagePair = new LanguagePair();
             var languages = await Rep.GetLanguages();
+
+            if (languagePair == null)
+                languagePair = new LanguagePair
+                {
+                    OriginalLanguageId = languages[0].Id,
+                    TranslationLanguageId = languages[1].Id
+
+                };
+
             LanguagePairsModel model = new LanguagePairsModel
             {
                 languagePair = languagePair,
-                originalLanguageSelectlist = new SelectList(languages, "Id", "Name", languagePair.OriginalLanguage.Id),
-                translationLanguageSelectlist = new SelectList(languages, "Id", "Name", languagePair.TranslationLanguage.Id)
+                originalLanguageSelectlist = new SelectList(languages, "Id", "Name", languagePair.OriginalLanguageId),
+                translationLanguageSelectlist = new SelectList(languages, "Id", "Name", languagePair.TranslationLanguageId)
             };
             return model;
         }

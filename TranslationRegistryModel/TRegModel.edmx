@@ -102,6 +102,7 @@
     <Property Name="ProjectId" Type="int" Nullable="true" />
     <Property Name="OriginalFileId" Type="int" Nullable="false" />
     <Property Name="FinalFileId" Type="int" Nullable="true" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="DocFiles">
     <Key>
@@ -134,11 +135,11 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="WordsNumber" Type="int" Nullable="false" />
     <Property Name="Customer" Type="nvarchar(max)" Nullable="true" />
     <Property Name="LanguagePairId" Type="int" Nullable="true" />
     <Property Name="ProjectStatuseId" Type="int" Nullable="true" />
     <Property Name="CreatorId" Type="int" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="ProjectStatuses">
     <Key>
@@ -165,7 +166,8 @@
     <Property Name="Amount" Type="int" Nullable="false" />
     <Property Name="StageId" Type="int" Nullable="false" />
     <Property Name="UserId" Type="int" Nullable="false" />
-    <Property Name="DocFileId" Type="int" Nullable="false" />
+    <Property Name="DocFileId" Type="int" Nullable="true" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <EntityType Name="Users">
     <Key>
@@ -357,7 +359,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="DocFileUser_Stage">
-    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="1" />
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
     <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="DocFile">
@@ -842,6 +844,7 @@
           <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
           <ScalarProperty Name="OriginalFileId" ColumnName="OriginalFileId" />
           <ScalarProperty Name="FinalFileId" ColumnName="FinalFileId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -882,6 +885,7 @@
           <ScalarProperty Name="LanguagePairId" ColumnName="LanguagePairId" />
           <ScalarProperty Name="ProjectStatuseId" ColumnName="ProjectStatuseId" />
           <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -912,6 +916,7 @@
           <ScalarProperty Name="StageId" ColumnName="StageId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="DocFileId" ColumnName="DocFileId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

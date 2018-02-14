@@ -99,14 +99,15 @@ namespace SqlRepository.Seeding
 
 
             // ------------------------------------ Проекты ---------------------------------
+            DateTime[] projectDates = new DateTime[4];
+            Random r = new Random();
+            for (int i = 0; i < projectDates.Length; i++)
+                projectDates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 405);
+
             var projectName1 = "Перевод презентации";
             var projectName2 = "Перевод гранта";
             var projectName3 = "Перевод сообщения";
             var projectName4 = "Перевод научной статьи \"Working with Entity Framework\"";
-            var projectWords1 = 1500;
-            var projectWords2 = 2400;
-            var projectWords3 = 234;
-            var projectWords4 = 963;
             var projectCustomer = "ТПУ";
             var user1 = context.Users.ToArray()[0];
             var user2 = context.Users.ToArray()[1];
@@ -116,13 +117,13 @@ namespace SqlRepository.Seeding
             var statuse2 = context.ProjectStatuses.ToArray()[1];
             List<Project> projects = new List<Project>() {
                 new Project { Name = projectName1, CreatorId = user1.Id, LanguagePairId = pair1.Id,
-                    WordsNumber = projectWords1,  Customer = projectCustomer, ProjectStatus = statuse1},
+                    Customer = projectCustomer, ProjectStatus = statuse1, Date = projectDates[0]},
                 new Project { Name = projectName2, CreatorId = user2.Id, LanguagePairId = pair2.Id,
-                    WordsNumber = projectWords2,  Customer = projectCustomer, ProjectStatus = statuse1},
+                    Customer = projectCustomer, ProjectStatus = statuse1, Date = projectDates[1]},
                 new Project { Name = projectName3, CreatorId = user1.Id, LanguagePairId = pair1.Id,
-                    WordsNumber = projectWords3,  Customer = projectCustomer, ProjectStatus = statuse2},
+                    Customer = projectCustomer, ProjectStatus = statuse2, Date = projectDates[2]},
                 new Project { Name = projectName4, CreatorId = user2.Id, LanguagePairId = pair2.Id,
-                    WordsNumber = projectWords4,  Customer = projectCustomer, ProjectStatus = statuse2}
+                    Customer = projectCustomer, ProjectStatus = statuse2, Date = projectDates[3]}
             };
             context.Projects.AddRange(projects);
             context.SaveChanges();
@@ -130,10 +131,10 @@ namespace SqlRepository.Seeding
 
 
             // ------------------------------------ Файлы -----------------------------------
-            DateTime[] dates = new DateTime[8];
+            DateTime[] fileDates = new DateTime[8];
             Random r = new Random();
-            for (int i = 0; i < dates.Length; i++)
-                dates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 5);
+            for (int i = 0; i < fileDates.Length; i++)
+                fileDates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 5);
 
             var uploadsDir = @"C:\Uploads";
             Directory.CreateDirectory(uploadsDir);
@@ -147,7 +148,7 @@ namespace SqlRepository.Seeding
 
             DocFile[] files = new DocFile[8];
             for (int i = 0; i < files.Length; i++)
-                files[i] = new DocFile() { Date = dates[i], Path = filepaths[i] };
+                files[i] = new DocFile() { Date = fileDates[i], Path = filepaths[i] };
 
             context.DocFiles.AddRange(files);
             context.SaveChanges();
@@ -167,21 +168,21 @@ namespace SqlRepository.Seeding
                 "Текст дополнений"
             };
 
+            DateTime[] documentDates = new DateTime[8];
+            Random r = new Random();
+            for (int i = 0; i < documentDates.Length; i++)
+                documentDates[i] = DateTime.Now - TimeSpan.FromHours(r.NextDouble() * 200 + 205);
 
-            //var projectWords1 = 1500;
-            //var projectWords2 = 2400;
-            //var projectWords3 = 234;
-            //var projectWords4 = 963;
             List<Document> docs = new List<Document>()
             {
-                new Document(){  Name = docNames[0] , OriginalFile = files[0], OwnerId = user1.Id, Project = projects[0],  WordsNumber = 1000 },
-                new Document(){  Name = docNames[1] , OriginalFile = files[1], OwnerId = user1.Id, Project = projects[0],  WordsNumber = 500 },
-                new Document(){  Name = docNames[2] , OriginalFile = files[2], OwnerId = user1.Id, Project = projects[1],  WordsNumber = 1000 },
-                new Document(){  Name = docNames[3] , OriginalFile = files[3], OwnerId = user1.Id, Project = projects[1],  WordsNumber = 1400 },
-                new Document(){  Name = docNames[4] , OriginalFile = files[4], OwnerId = user2.Id, Project = projects[2],  WordsNumber = 100 },
-                new Document(){  Name = docNames[5] , OriginalFile = files[5], OwnerId = user2.Id, Project = projects[2],  WordsNumber = 134 },
-                new Document(){  Name = docNames[6] , OriginalFile = files[6], OwnerId = user2.Id, Project = projects[3],  WordsNumber = 300 },
-                new Document(){  Name = docNames[7] , OriginalFile = files[7], OwnerId = user2.Id, Project = projects[3],  WordsNumber = 663 },
+                new Document(){  Name = docNames[0] , OriginalFile = files[0], OwnerId = user1.Id, Project = projects[0], Date = documentDates[0], WordsNumber = 1000 },
+                new Document(){  Name = docNames[1] , OriginalFile = files[1], OwnerId = user1.Id, Project = projects[0], Date = documentDates[1], WordsNumber = 500 },
+                new Document(){  Name = docNames[2] , OriginalFile = files[2], OwnerId = user1.Id, Project = projects[1], Date = documentDates[2], WordsNumber = 1000 },
+                new Document(){  Name = docNames[3] , OriginalFile = files[3], OwnerId = user1.Id, Project = projects[1], Date = documentDates[3], WordsNumber = 1400 },
+                new Document(){  Name = docNames[4] , OriginalFile = files[4], OwnerId = user2.Id, Project = projects[2], Date = documentDates[4], WordsNumber = 100 },
+                new Document(){  Name = docNames[5] , OriginalFile = files[5], OwnerId = user2.Id, Project = projects[2], Date = documentDates[5], WordsNumber = 134 },
+                new Document(){  Name = docNames[6] , OriginalFile = files[6], OwnerId = user2.Id, Project = projects[3], Date = documentDates[6], WordsNumber = 300 },
+                new Document(){  Name = docNames[7] , OriginalFile = files[7], OwnerId = user2.Id, Project = projects[3], Date = documentDates[7], WordsNumber = 663 },
 
             };
             context.Documents.AddRange(docs);

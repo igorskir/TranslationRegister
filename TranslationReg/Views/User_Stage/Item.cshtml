@@ -9,20 +9,30 @@
         </div>
         <div class="col-md-2">
             <span>
+                @Html.DisplayFor(modelItem => Model.Comment)
+            </span>
+        </div>
+        <div class="col-md-1">
+            <span>
                 @Html.DisplayFor(modelItem => Model.Amount)
             </span>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
+            <span>
+                @Html.DisplayFor(modelItem => Model.Date)
+            </span>
+        </div>
+        <div class="col-md-2">
             <span>
                 @Html.DisplayFor(modelItem => Model.DocFile.Date)
             </span>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-3">
             <div class="buttons-container">
                 @if (Model.DocFile != null && !String.IsNullOrWhiteSpace(Model.DocFile.Path))
-                {
-                    @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-primary" })
-                }
+            {
+                @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-primary" })
+        }
                 <a class="btn btn-info finaliseBtn" href="/User_Stage/Finalise/@Model.Id">Отметить финальным</a>
                 <a class="btn btn-danger deleteBtn" href="/User_Stage/Delete/@Model.Id" data-dialog-title="Удаление записи">Удалить</a>
             </div>

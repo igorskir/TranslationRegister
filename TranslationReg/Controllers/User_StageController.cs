@@ -78,7 +78,6 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddUser_Stage(user_Stage);
-                workFile.SaveAs(user_Stage.DocFile.Path);
                 return Redirect(Request.UrlReferrer.ToString());
             }
 

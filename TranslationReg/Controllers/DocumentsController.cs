@@ -152,7 +152,6 @@ namespace TranslationReg.Controllers
                 {
                     var newFile = await Helper.SetFile(newOriginalFile, Rep, Server);
                     document.OriginalFileId = newFile.Id;
-                    newOriginalFile.SaveAs(newFile.Path);
                 }
 
                 await Rep.PutDocument(document);

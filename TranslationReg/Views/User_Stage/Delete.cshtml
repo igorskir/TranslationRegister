@@ -3,29 +3,17 @@
 <div>
     <dl class="dl-horizontal">
 
-        <dt>
-            @Html.LabelFor(model => model.User.Name, "Исполнитель")
-        </dt>
+        <dt>@Html.LabelFor(model => model.User.Name, "Исполнитель")</dt>
+        <dd>@Html.DisplayFor(model => model.User.Name)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
+        <dt>@Html.LabelFor(model => model.Stage.WorkType.Name, "Тип работы")</dt>
+        <dd>@Html.DisplayFor(model => model.Stage.WorkType.Name)</dd>
 
-        <dt>
-            @Html.LabelFor(model => model.Stage.WorkType.Name, "Тип работы")
-        </dt>
+        <dt>@Html.LabelFor(model => model.Amount, "Количество")</dt>
+        <dd>@Html.DisplayFor(model => model.Amount)</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Stage.WorkType.Name)
-        </dd>
-
-        <dt>
-            @Html.LabelFor(model => model.Amount, "Количество")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Amount)
-        </dd>
+        <dt>@Html.LabelFor(model => model.Comment, "Комментарий")</dt>
+        <dd>@Html.DisplayFor(model => model.Comment)</dd>
     </dl>
 
     @using (Html.BeginForm())

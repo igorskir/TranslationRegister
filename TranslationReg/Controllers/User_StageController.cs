@@ -64,14 +64,13 @@ namespace TranslationReg.Controllers
         // POST: User_Stage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(User_Stage user_Stage, [Bind(Include = "workFile")]HttpPostedFileBase workFile)
+        public async Task<ActionResult> Create(User_Stage user_Stage,[Bind(Include = "workFile")]HttpPostedFileBase workFile)
         {
             user_Stage.Date = DateTime.Now;
-            user_Stage.UserId = (await Rep.GetUser(User.Identity.Name)).Id;
+            if (user_Stage.UserId == 0)
+                user_Stage.UserId = (await Rep.GetUser(User.Identity.Name)).Id;
             if (workFile != null && workFile.ContentLength != 0)
-            {
                 user_Stage.DocFile = await Helper.SetFile(workFile, Rep, Server);
-            }
 
             if (ModelState.IsValid)
             {

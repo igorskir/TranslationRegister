@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using TranslationRegistryModel;
 using System.IO;
+using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
@@ -92,14 +93,18 @@ namespace TranslationReg.Controllers
             if (user_Stage == null)
                 return HttpNotFound();
 
-            return View(user_Stage);
+            User_StageModel model = await User_StageModel.GetModel(Rep, User.Identity.Name, user_Stage.StageId, user_Stage);
+            return PartialView(model);
         }
 
         // POST: User_Stage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Amount,StageId,UserId,DocFileId")] User_Stage user_Stage)
+        public async Task<ActionResult> Edit(User_Stage user_Stage,[Bind(Include = "workFile")] HttpPostedFileBase workFile)
         {
+            if (workFile != null && workFile.ContentLength != 0)
+                user_Stage.DocFileId = (await Helper.SetFile(workFile, Rep, Server)).Id;
+
             if (ModelState.IsValid)
             {
                 await Rep.PutUser_Stage(user_Stage);

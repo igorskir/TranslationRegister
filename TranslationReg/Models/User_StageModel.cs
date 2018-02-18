@@ -12,14 +12,20 @@ namespace TranslationReg.Models
     {
         public SelectList usersSelectList;
         public User_Stage work;
-        public static async Task<User_StageModel> GetModel(IRepository Rep, string login, int stageId)
+        public static async Task<User_StageModel> GetModel(IRepository Rep, string login, int stageId, User_Stage stage = null)
         {
             var users = await Rep.GetUsers();
-            var me = await Rep.GetUser(login);
+            if (stage == null)
+                stage = new User_Stage { StageId = stageId };
+            User user;
+            if (stage.User == null)
+                user = await Rep.GetUser(login);
+            else
+                user = await Rep.GetUser(stage.User.Id);
             User_StageModel model = new User_StageModel
             {
-                work = new User_Stage{ StageId = stageId },
-                usersSelectList = new SelectList(users, "Id", "Name", me.Id)
+                work = stage,
+                usersSelectList = new SelectList(users, "Id", "Name", user.Id)
             };
             return model;
         }

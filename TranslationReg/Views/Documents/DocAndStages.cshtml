@@ -36,6 +36,13 @@
             });
         });
 
+        $(document).ready(function () {
+            $(".editBtn").click(function () {
+                updatedBlock = $(this).attr("data-ajax-update");
+                $(updatedBlock).toggle("fast");
+            });
+        });
+
         $(".deleteBtn").on("click", function (e) {
             e.preventDefault();
             $("<div></div>")

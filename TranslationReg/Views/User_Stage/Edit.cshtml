@@ -1,47 +1,46 @@
-﻿@model TranslationRegistryModel.User_Stage
+﻿@model TranslationReg.Models.User_StageModel
 
 <div class="formContainer">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Edit", "User_Stage", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>User_Stage</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-        @Html.HiddenFor(model => model.UserId)
-        @Html.HiddenFor(model => model.Date)
+        @Html.Hidden("Id", Model.work.Id)
+        @Html.Hidden("Date", Model.work.Date)
+        @Html.Hidden("StageId", Model.work.StageId)
+        @Html.Hidden("DocFileId", Model.work.DocFileId)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.work.UserId, "Пользователь", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                @Html.DropDownList("UserId", Model.usersSelectList, new { htmlAttributes = new { @class = "form-control", required = "required"} })
+                @Html.ValidationMessageFor(model => model.work.UserId, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StageId, "Стадия", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.work.Amount, "Количество", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("StageId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.StageId, "", new { @class = "text-danger" })
+                <input class="form-control" type="number" required="required" min="1" max="100000" name="Amount" value="@Model.work.Amount" />
+                @Html.ValidationMessageFor(model => model.work.Amount, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DocFileId, "DocFileId", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.work.Comment, "Комментарий", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("DocFileId", null, htmlAttributes: new { @class = "form-control", required = "required" })
-                @Html.ValidationMessageFor(model => model.DocFileId, "", new { @class = "text-danger" })
+                <input class="form-control" type="text" name="Comment" value="@Model.work.Comment"/>
+                @Html.ValidationMessageFor(model => model.work.Comment, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Comment,"Комментарий", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.Label("Прикрепить файл", new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Comment, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+                <input type="file" name="workFile" />
+                @Html.ValidationMessageFor(model => model.work.DocFileId, "", new { @class = "text-danger" })
             </div>
         </div>
 

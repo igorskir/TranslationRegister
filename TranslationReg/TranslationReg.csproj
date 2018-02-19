@@ -189,6 +189,7 @@
     <Compile Include="Controllers\LanguagePairsController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
+    <Compile Include="Controllers\ProjectStatuseController.cs" />
     <Compile Include="Controllers\_RepositoryController.cs" />
     <Compile Include="Controllers\UnitOfMeasureController.cs" />
     <Compile Include="Controllers\User_StageController.cs" />
@@ -351,6 +352,10 @@
     <Content Include="Views\Documents\List.cshtml" />
     <Content Include="Views\DocStages\List.cshtml" />
     <Content Include="Views\Documents\CreateProjectDoc.cshtml" />
+    <Content Include="Views\ProjectStatuse\Create.cshtml" />
+    <Content Include="Views\ProjectStatuse\Delete.cshtml" />
+    <Content Include="Views\ProjectStatuse\Edit.cshtml" />
+    <Content Include="Views\ProjectStatuse\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

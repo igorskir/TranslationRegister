@@ -8,67 +8,30 @@
 
 <div class="container">
     <ul class="filters">
-            <li>
-                <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/All">
-                    Все документы
-                </a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/My">
-                    Мои документы
-                </a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/InWork">
-                    Мои рабочие документы
-                </a>
-            </li>
+        <li>
+            <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/All">
+                Все документы
+            </a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/My">
+                Мои документы
+            </a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/InWork">
+                Мои рабочие документы
+            </a>
+        </li>
     </ul>
 </div>
+
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDoc"
+   href="/Documents/Create" class="btn btn-primary createBtn">Добавить</a>
+<div id="addDoc" class="dynamicBlock"></div>
 
 <div id="docList">
     @Html.Partial("List")
 </div>
 
 
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            $(".editBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".filter").click(function () {
-                $(".filter").removeClass("filter-active");
-                $(this).addClass("filter-active");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".createBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(".deleteBtn").on("click", function (e) {
-            e.preventDefault();
-            $("<div></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    height: 300,
-                    width: 500,
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true
-                })
-                .load(this.href);
-        });
-    </script>
-}

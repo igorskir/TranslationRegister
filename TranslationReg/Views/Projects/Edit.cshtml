@@ -10,7 +10,7 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <hr />
+    
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Project.Id)
     @Html.HiddenFor(model => model.Project.CreatorId)

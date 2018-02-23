@@ -52,13 +52,9 @@ footer {
 .navbar {
   background-color: #241717;
 }
-.dynamicBlock {
-  display: none;
-}
 .dynamicItem {
   margin: 0 auto;
   padding-top: 20px;
-  background-color: #EEF1F5;
 }
 .titleLink {
   margin: auto;
@@ -99,6 +95,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   border-bottom: 1px solid darkgray;
 }
 .properties:hover {
@@ -117,7 +114,7 @@ footer {
 }
 .properties > div:first-child a {
   color: black;
-  text-decoration: none;
+  text-decoration: underline;
   width: 100%;
 }
 .properties > div a {
@@ -126,6 +123,9 @@ footer {
 }
 .properties > div span {
   margin: auto;
+}
+.properties .dynamicBlock {
+  display: none;
 }
 .properties .buttons-container {
   margin: auto;

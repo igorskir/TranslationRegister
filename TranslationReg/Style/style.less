@@ -81,14 +81,9 @@ footer {
     background-color: #241717;
 }
 
-.dynamicBlock {
-    display: none;
-}
-
 .dynamicItem {
     margin: 0 auto;
     padding-top: 20px;
-    background-color: @body-color;
 }
 
 .titleLink {
@@ -142,9 +137,10 @@ footer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    flex-wrap: wrap;
     border-bottom: @borders;
 
-    &:hover {
+    &:hover{
         background-color: #e6e6e6;
     }
 
@@ -164,7 +160,7 @@ footer {
         &:first-child {
             a {
                 color: black;
-                text-decoration: none;
+                text-decoration: underline;
                 width: 100%;
             }
         }
@@ -179,6 +175,10 @@ footer {
         }
     }
 
+    .dynamicBlock {
+        display: none;
+    }
+
     .buttons-container {
         margin: auto;
         align-self: center;
@@ -188,7 +188,6 @@ footer {
         }
     }
 }
-
 
 //-----------------------Стили элементов таблиц----------------------------
 

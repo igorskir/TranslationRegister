@@ -147,13 +147,5 @@ namespace TranslationReg.Controllers
             }
             return HttpNotFound("Файл не найден");
         }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                Rep.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }

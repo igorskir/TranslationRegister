@@ -124,12 +124,5 @@ namespace TranslationReg.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-                Rep.Dispose();
-
-            base.Dispose(disposing);
-        }
     }
 }

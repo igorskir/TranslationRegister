@@ -16,7 +16,14 @@ namespace TranslationReg.Controllers
         // GET: Analytics
         public async Task<ActionResult> Index()
         {
-            return View("Filters", await AnaliticsFiltersModel.GetModel(Rep));
+            return View("Report", await ReportModel.GetModel(Rep));
+        }
+
+        // POST: Analytics
+        public async Task<ActionResult> FormReport([Bind(Prefix = "filters")]
+            ChosenFilters filters)
+        {
+            return View("Report", await ReportModel.GetModel(Rep, filters));
         }
     }
 }

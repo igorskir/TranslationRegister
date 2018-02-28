@@ -20,13 +20,12 @@ namespace TranslationReg.Models
         public int ProjectId { get; set; }
         public int UserId { get; set; }
         public int WorkTypeId { get; set; }
-    } 
+    }
     public class ReportModel
     {
         // выбранный элемент списка, который отменяет фильтрацию по полю 
         // и отображается первым, будет иметь этот id 
         static int skipFilterId = -1;
-
 
         [DataType(DataType.Date)]
         public DateTime DateFrom { get; set; }
@@ -38,7 +37,7 @@ namespace TranslationReg.Models
         public SelectList UserList { get; set; }
         public SelectList WorkTypeList { get; set; }
 
-        public List<User_Stage> FilteredWorks { get; set; }
+        public List<IEnumerable<IGrouping<int, User_Stage>>> ReportSections { get; set; }
 
         public static async Task<ReportModel> GetModel(IRepository Rep, ChosenFilters filters = null)
         {
@@ -51,9 +50,12 @@ namespace TranslationReg.Models
             workTypes.Insert(0, new WorkType { Id = skipFilterId, Name = "Все типы работ" });
 
             // выбираю работы по фильтрам
-            var works = new List<User_Stage>();
+            var filteredWorks = new List<User_Stage>();
             if (filters != null)
-                works = await ApplyFiltersToWorksAsync(filters, Rep);
+                filteredWorks = await ApplyFiltersToWorksAsync(filters, Rep);
+
+            // группирую данные для представления
+            var reportData = GroupReportData(filteredWorks.ToList());
 
             return new ReportModel
             {
@@ -62,13 +64,13 @@ namespace TranslationReg.Models
                 ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
                 UserList = new SelectList(users, "Id", "Name", skipFilterId),
                 WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),
-                FilteredWorks = works
+                ReportSections = reportData
             };
         }
 
         private static async Task<List<User_Stage>> ApplyFiltersToWorksAsync(ChosenFilters filters, IRepository Rep)
         {
-            // говнофильтрация по выбранным ограничениям
+            // фильтрация по выбранным ограничениям
             var filteredWorks = (await Rep.GetUser_Stages()).
                 Where(x => filters.ForAllTime ||
                 // но при ограничении даты проверяем нахождение работы в рамках периода
@@ -83,10 +85,66 @@ namespace TranslationReg.Models
                     x.Stage.Document.ProjectId.Value == filters.ProjectId).
                 // любой тип работ
                 Where(x => filters.WorkTypeId == skipFilterId ||
-                // тип по id
+                // тип работ по id
                     x.Stage.WorkTypeId == filters.WorkTypeId);
 
+
             return filteredWorks.ToList();
+        }
+
+        // данные нужно магически сгруппировать чтобы хорошо представить в отчете
+        static List<IEnumerable<IGrouping<int, User_Stage>>> GroupReportData(List<User_Stage> filteredWorks)
+        {
+            if (filteredWorks != null && filteredWorks.Count != 0)
+            {
+                List<IEnumerable<IGrouping<int, User_Stage>>> typedUsersWorks = new List<IEnumerable<IGrouping<int, User_Stage>>>();
+                // работы, сгруппированые по юзерам
+                var usersWorks = filteredWorks.GroupBy(x => x.UserId);
+                // каждый список работ юзера
+                foreach (var userWorks in usersWorks)
+                    //группируем по типу работ
+                    typedUsersWorks.Add(userWorks.GroupBy(x => x.Stage.WorkTypeId));
+
+                return typedUsersWorks;
+            }
+            else
+                return null;
+        }
+
+
+
+        private List<UserSection> FormUserSections(List<User_Stage> works)
+        {
+            List<UserSection> sections = new List<UserSection>();
+
+            if (works != null && works.Count != 0)
+            {
+                works = works.OrderBy(x => x.User.Id).ToList();
+                var curUser = works[0].User;
+                UserSection currentSection = new UserSection(curUser);
+                foreach (var work in works)
+                {
+                    if (work.User.Id == curUser.Id)
+                    {
+                    }
+                }
+
+                return new List<UserSection>();
+            }
+            else
+                return new List<UserSection>();
+        }
+
+        public class UserSection
+        {
+            public User user;
+            public List<List<User_Stage>> typedWorks;
+
+            public UserSection(User user)
+            {
+                this.user = user;
+                typedWorks = new List<List<User_Stage>>();
+            }
         }
     }
 }

@@ -7,16 +7,23 @@
         <div class="form-horizontal">
 
             <div class="form-group">
+                @Html.Label("За все время", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.CheckBox("filters.ForAllTime")
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.Label("Дата от", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="filters.PeriodFrom" value="@Model.DateFrom">
+                    <input type="date" name="filters.PeriodFrom" value="@Model.DateFrom" id="dateFrom">
                 </div>
             </div>
 
             <div class="form-group">
                 @Html.Label("Дата до", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    <input type="date" name="filters.PeriodTo" value="@Model.DateTo">
+                    <input type="date" name="filters.PeriodTo" value="@Model.DateTo" id="dateTo">
                 </div>
             </div>
 
@@ -49,7 +56,3 @@
         </div>
     }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

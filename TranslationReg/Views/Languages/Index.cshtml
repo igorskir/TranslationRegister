@@ -5,18 +5,19 @@
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $(".editBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".createBtn").click(function () {
-                $(this).toggleClass('active');
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
+        $(".ajaxToggleBtn").one('click',function (e) {
+            updatedBlock = $(this).attr("data-ajax-update");
+            $.ajax({
+                type: 'GET',
+                url: e.target.getAttribute("data-href"),
+                success: function (result) {
+                    $(updatedBlock).html(result);
+                    $(updatedBlock).toggle("fast");
+                    $(e.target).on("click", function () {
+                        var updatedBlock = $(this).attr("data-ajax-update");
+                        $(updatedBlock).toggle("fast");
+                    });
+                }
             });
         });
 

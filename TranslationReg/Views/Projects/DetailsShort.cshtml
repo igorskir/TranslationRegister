@@ -1,23 +1,31 @@
 ﻿@model TranslationRegistryModel.Project
 
 <div class="formContainer">
-    <div>
-        <dl class="dl-horizontal">
+    <dl class="dl-horizontal">
 
-            <dt>@Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")</dt>
-            <dd>@Html.DisplayFor(model => model.LanguagePair.Name)</dd>
+        <dt>@Html.LabelFor(model => model.LanguagePair.Name, "Языковая пара")</dt>
+        <dd>
+            <span>@Html.DisplayFor(model => model.LanguagePair.Name)</span>
+        </dd>
 
-            <dt>@Html.LabelFor(model => model.Customer, "Заказчик")</dt>
-            <dd>@Html.DisplayFor(model => model.Customer)</dd>
+        <dt>@Html.LabelFor(model => model.Customer, "Заказчик")</dt>
+        <dd>
+            <span>@Html.DisplayFor(model => model.Customer)</span>
+        </dd>
 
-            <dt>@Html.LabelFor(model => model.Creator.Name, "Создатель")</dt>
-            <dd>@Html.DisplayFor(model => model.Creator.Name)</dd>
+        <dt>@Html.LabelFor(model => model.Creator.Name, "Создатель")</dt>
+        <dd>
+            <span>@Html.DisplayFor(model => model.Creator.Name)</span>
+        </dd>
 
-            <dt>@Html.LabelFor(model => model.Date, "Дата создания")</dt>
-            <dd>@Model.Date.ToString("dd/MM/yyyy")</dd>
+        <dt>@Html.LabelFor(model => model.Date, "Дата создания")</dt>
+        <dd>
+            <span>@Model.Date.ToString("dd/MM/yyyy")</span>
+        </dd>
 
-            <dt>@Html.LabelFor(model => model.ProjectStatus.Name, "Статус")</dt>
-            <dd>@Html.DisplayFor(model => model.ProjectStatus.Name)</dd>
-        </dl>
-    </div>
+        <dt>@Html.LabelFor(model => model.ProjectStatus.Name, "Статус")</dt>
+        <dd>
+            <span>@Html.DisplayFor(model => model.ProjectStatus.Name)</span>
+        </dd>
+    </dl>
 </div>

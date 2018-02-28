@@ -56,20 +56,31 @@ footer {
   margin: 0 auto;
   padding-top: 20px;
 }
-.titleLink {
-  margin: auto;
-  font-size: 26px;
-  text-align: center;
-}
 .dl-horizontal {
   font-size: 22px;
   margin-top: 20px;
 }
 .dl-horizontal > dt {
-  width: 220px;
+  display: block;
+  width: 210px;
+  height: 35px;
+  text-align: left;
+}
+.dl-horizontal > dt :hover {
+  background-color: darkgray;
+  transition: background-color 0.5s;
 }
 .dl-horizontal > dd {
-  margin-left: 240px;
+  margin-left: 210px;
+  height: 35px;
+}
+.dl-horizontal > dd a {
+  display: inline-block;
+}
+.dl-horizontal > dd span {
+  display: inline;
+  line-height: 35px;
+  vertical-align: middle;
 }
 .tables {
   padding: 0;
@@ -114,12 +125,26 @@ footer {
 }
 .properties > div:first-child a {
   color: black;
-  text-decoration: underline;
-  width: 100%;
+  text-decoration: none;
+  width: auto;
+  margin-left: 5px;
+  position: relative;
+  text-align: center;
+  font-size: 26px;
 }
-.properties > div a {
-  margin: auto;
-  line-height: 1.2;
+.properties > div:first-child a:after {
+  height: 3px;
+  width: 100%;
+  background: black;
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  transition: all .3s;
+  transform: scaleX(0);
+}
+.properties > div:first-child a:hover:after {
+  transform: scaleX(1);
 }
 .properties > div span {
   margin: auto;

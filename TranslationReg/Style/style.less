@@ -7,6 +7,7 @@
 @float-border: 1px solid #ddd;
 @padding: 10px;
 @label-font-size: 13px;
+@demensionHeight: 35px;
 
 * {
     padding: 0;
@@ -86,23 +87,34 @@ footer {
     padding-top: 20px;
 }
 
-.titleLink {
-    margin: auto;
-    font-size: 26px;
-    text-align: center;
-}
-
 .dl-horizontal {
     font-size: 22px;
     margin-top: 20px;
 
     > dt {
-        width: 220px;
+        display: block;
+        width: 210px;
+        height: @demensionHeight;
+        text-align: left;
+        :hover{
+            background-color: darkgray;
+            transition: background-color 0.5s ;
+        }
     }
 
     > dd {
-        margin-left: 240px;
+        margin-left: 210px;
+        height: @demensionHeight;
+        a{
+            display: inline-block;
+        }
+        span{
+            display: inline;
+            line-height: @demensionHeight;
+            vertical-align: middle;
+        }
     }
+
 }
 
 //--------------------Стили для таблиц------------------------------------
@@ -160,14 +172,30 @@ footer {
         &:first-child {
             a {
                 color: black;
-                text-decoration: underline;
-                width: 100%;
-            }
-        }
+                text-decoration: none;
+                width: auto;
+                margin-left: 5px;
+                position: relative;
+                text-align: center;
+                font-size: 26px;
 
-        a {
-            margin: auto;
-            line-height: 1.2;
+                &:after{
+                    height: 3px;
+                    width: 100%;
+                    background: black;
+                    content: "";
+                    position: absolute;
+                    left: 0px;
+                    bottom: 0;
+                    transition: all .3s;
+                    transform: scaleX(0);
+                }
+                &:hover{
+                    &:after{
+                        transform: scaleX(1);
+                    }
+                }
+            }
         }
 
         span {

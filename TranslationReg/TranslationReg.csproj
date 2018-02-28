@@ -182,6 +182,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AnalyticsController.cs" />
     <Compile Include="Controllers\DocStagesController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\Helper.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LanguagePairsModel.cs" />
     <Compile Include="Models\User_StageModel.cs" />
@@ -357,6 +359,8 @@
     <Content Include="Views\ProjectStatuse\Delete.cshtml" />
     <Content Include="Views\ProjectStatuse\Edit.cshtml" />
     <Content Include="Views\ProjectStatuse\List.cshtml" />
+    <Content Include="Views\Analytics\Filters.cshtml" />
+    <Content Include="Views\Analytics\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -377,16 +381,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
-      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
-      <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TranslationRegistryRepository\SqlRepository.csproj">
-      <Project>{58f0f26d-7d74-4e75-8231-236e8a331740}</Project>
-      <Name>SqlRepository</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <COMReference Include="VBIDE">
       <Guid>{0002E157-0000-0000-C000-000000000046}</Guid>
       <VersionMajor>5</VersionMajor>
@@ -396,6 +390,16 @@
       <Isolated>False</Isolated>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
+      <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslationRegistryRepository\SqlRepository.csproj">
+      <Project>{58f0f26d-7d74-4e75-8231-236e8a331740}</Project>
+      <Name>SqlRepository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -85,7 +85,7 @@ namespace TranslationReg.Controllers
             if (languagePair == null)
                 return HttpNotFound();
 
-            return View(languagePair);
+            return PartialView(languagePair);
         }
 
         // POST: LanguagePairs/Delete/5
@@ -95,16 +95,6 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteLanguagePair(id);
             return Redirect(Request.UrlReferrer.ToString());
-
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                Rep.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }

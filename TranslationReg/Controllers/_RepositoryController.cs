@@ -14,5 +14,12 @@ namespace TranslationReg.Controllers
         {
             this.Rep = repository;
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+                Rep.Dispose();
+            base.Dispose(disposing);
+        }
     }
 }

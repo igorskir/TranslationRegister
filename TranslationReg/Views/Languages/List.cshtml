@@ -2,8 +2,8 @@
 <div>
     <h2>Языки</h2>
 
-    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addLanguageForm"
-       href="/Languages/Create" class="btn btn-primary createBtn">Добавить</a>
+    <a data-ajax-update="#addLanguageForm" data-href="/Languages/Create" class="btn btn-primary ajaxToggleBtn">
+        Добавить</a>
     <div id="addLanguageForm" class="dynamicBlock"></div>
 
     <div>
@@ -24,19 +24,19 @@
             <div class="col-md-4">
                 <span>
 
-                    @Html.DisplayFor(modelItem => item.ShortName)
-                </span>
-            </div>
-            <div class="col-md-4">
-                <div class="buttons-container">
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)"
-                       href="/Languages/Edit/@item.Id" class="btn btn-primary editBtn">Редактировать</a>
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(item.Id)"
-                       href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+                        @Html.DisplayFor(modelItem => item.ShortName)
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <div class="buttons-container">
+                        <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
+                            Редактировать</a>
+                        <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">
+                            Удалить</a>
+                    </div>
                 </div>
             </div>
             <div id="language@(item.Id)" class="dynamicBlock dynamicItem"></div>
-        </div>
         }
     </div>
 </div>

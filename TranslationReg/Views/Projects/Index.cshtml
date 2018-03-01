@@ -33,53 +33,11 @@
     </div>
 </div>
 
+<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addProj"
+   href="/Projects/Create" class="btn btn-primary createBtn">Добавить</a>
+<div id="addProj" class="dynamicBlock"></div>
+
 <div id="projectList">
     @Html.Partial("List")
 </div>
 
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            $(".editBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".filter").click(function () {
-                $(".filter").removeClass("filter-active");
-                $(this).addClass("filter-active");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".createBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".detailsBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(".deleteBtn").on("click", function (e) {
-            e.preventDefault();
-            $("<div></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    height: 300,
-                    width: 500,
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true
-                })
-                .load(this.href);
-        });
-    </script>
-}

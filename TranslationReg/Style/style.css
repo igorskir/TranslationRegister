@@ -52,28 +52,35 @@ footer {
 .navbar {
   background-color: #241717;
 }
-.dynamicBlock {
-  display: none;
-}
 .dynamicItem {
   margin: 0 auto;
   padding-top: 20px;
-  background-color: #EEF1F5;
-}
-.titleLink {
-  margin: auto;
-  font-size: 26px;
-  text-align: center;
 }
 .dl-horizontal {
   font-size: 22px;
   margin-top: 20px;
 }
 .dl-horizontal > dt {
-  width: 220px;
+  display: block;
+  width: 210px;
+  height: 35px;
+  text-align: left;
+}
+.dl-horizontal > dt :hover {
+  background-color: darkgray;
+  transition: background-color 0.5s;
 }
 .dl-horizontal > dd {
-  margin-left: 240px;
+  margin-left: 210px;
+  height: 35px;
+}
+.dl-horizontal > dd a {
+  display: inline-block;
+}
+.dl-horizontal > dd span {
+  display: inline;
+  line-height: 35px;
+  vertical-align: middle;
 }
 .tables {
   padding: 0;
@@ -99,6 +106,7 @@ footer {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
   border-bottom: 1px solid darkgray;
 }
 .properties:hover {
@@ -118,14 +126,31 @@ footer {
 .properties > div:first-child a {
   color: black;
   text-decoration: none;
-  width: 100%;
+  width: auto;
+  margin-left: 5px;
+  position: relative;
+  text-align: center;
+  font-size: 26px;
 }
-.properties > div a {
-  margin: auto;
-  line-height: 1.2;
+.properties > div:first-child a:after {
+  height: 3px;
+  width: 100%;
+  background: black;
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0;
+  transition: all .3s;
+  transform: scaleX(0);
+}
+.properties > div:first-child a:hover:after {
+  transform: scaleX(1);
 }
 .properties > div span {
   margin: auto;
+}
+.properties .dynamicBlock {
+  display: none;
 }
 .properties .buttons-container {
   margin: auto;

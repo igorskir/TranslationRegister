@@ -3,37 +3,3 @@
 @Html.Partial("../WorkTypes/List", Model.workTypes)
 @Html.Partial("../UnitOfMeasure/List", Model.unitsOfMeasure)
 @Html.Partial("../ProjectStatuse/List", Model.projectStatuses)
-
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            $(".editBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(document).ready(function () {
-            $(".createBtn").click(function () {
-                $(this).toggleClass('active');
-                updatedBlock = $(this).attr("data-ajax-update");
-                $(updatedBlock).toggle("fast");
-            });
-        });
-
-        $(".deleteBtn").on("click", function (e) {
-            e.preventDefault();
-            $("<div></div>")
-                .addClass("dialog")
-                .appendTo("body")
-                .dialog({
-                    height: 300,
-                    width: 500,
-                    title: $(this).attr("data-dialog-title"),
-                    close: function () { $(this).remove() },
-                    modal: true
-                })
-                .load(this.href);
-        });
-    </script>
-}

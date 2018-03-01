@@ -15,35 +15,36 @@
     </div>
     @foreach (var item in Model)
     {
-        <div class="properties">
-            <div class="col-md-3">
-                <span>
+    <div class="properties">
+        <div class="col-md-3">
+            <span>
 
-                    @Html.DisplayFor(modelItem => item.OriginalLanguage.Name)
-                </span>
-            </div>
-            <div class="col-md-3">
-                <span>
+                @Html.DisplayFor(modelItem => item.OriginalLanguage.Name)
+            </span>
+        </div>
+        <div class="col-md-3">
+            <span>
 
-                    @Html.DisplayFor(modelItem => item.TranslationLanguage.Name)
-                </span>
-            </div>
-            <div class="col-md-2">
-                <span>
+                @Html.DisplayFor(modelItem => item.TranslationLanguage.Name)
+            </span>
+        </div>
+        <div class="col-md-2">
+            <span>
 
-                    @Html.DisplayFor(modelItem => item.Name)
-                </span>
-            </div>
-            <div class="col-md-4">
-                <div class="buttons-container">
-                    <a data-ajax-update="#languagePair@(item.Id)" data-href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
-                        Редактировать</a>
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)"
-                       href="/LanguagePairs/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
-                </div>
+                @Html.DisplayFor(modelItem => item.Name)
+            </span>
+        </div>
+        <div class="col-md-4">
+            <div class="buttons-container">
+                <a data-ajax-update="#languagePair@(item.Id)" data-href="/LanguagePairs/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
+                    Редактировать
+                </a>
+                <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#languagePair@(item.Id)"
+                   href="/LanguagePairs/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
             </div>
         </div>
         <div id="languagePair@(item.Id)" class="dynamicBlock dynamicItem"></div>
+    </div>
     }
 </div>
 

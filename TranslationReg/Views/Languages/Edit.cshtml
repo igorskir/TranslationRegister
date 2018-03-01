@@ -1,35 +1,23 @@
-﻿<div class="formContainer">
-    @model TranslationRegistryModel.Language
+﻿@model TranslationRegistryModel.Language
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.Name, "Наименование", htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
-                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, "Наименование", htmlAttributes: new { @class = "control-label col-md-5" })
+        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
+        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+    </div>
 
-            <div class="form-group">
-                @Html.LabelFor(model => model.ShortName, "Сокращение", htmlAttributes: new { @class = "control-label col-md-5" })
-                <div class="col-md-7">
-                    @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
-                    @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
-                </div>
-            </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.ShortName, "Сокращение", htmlAttributes: new { @class = "control-label col-md-5" })
+        @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
+        @Html.ValidationMessageFor(model => model.ShortName, "", new { @class = "text-danger" })
+    </div>
 
-            <div class="form-group">
-                <div class="col-md-offset-5 col-md-10">
-                    <input type="submit" value="Сохранить" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" href="/Languages/Item/@Model.Id" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
-    }
-</div>
+    <input type="submit" value="Сохранить" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" href="/Languages/Item/@Model.Id" class="btn btn-default btn-form" />
+}

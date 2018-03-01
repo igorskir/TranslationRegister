@@ -24,19 +24,22 @@
             <div class="col-md-4">
                 <span>
 
-                        @Html.DisplayFor(modelItem => item.ShortName)
-                    </span>
-                </div>
-                <div class="col-md-4">
-                    <div class="buttons-container">
-                        <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
-                            Редактировать</a>
-                        <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">
-                            Удалить</a>
-                    </div>
+                    @Html.DisplayFor(modelItem => item.ShortName)
+                </span>
+            </div>
+            <div class="col-md-4">
+                <div class="buttons-container">
+                    <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
+                        Редактировать
+                    </a>
+                    <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">
+                        Удалить
+                    </a>
                 </div>
             </div>
             <div id="language@(item.Id)" class="dynamicBlock dynamicItem"></div>
+        </div>
+            
         }
     </div>
 </div>

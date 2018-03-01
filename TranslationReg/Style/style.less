@@ -82,9 +82,8 @@ footer {
     background-color: #241717;
 }
 
-.dynamicItem {
-    margin: 0 auto;
-    padding-top: 20px;
+.dynamicBlock {
+    display: none;
 }
 
 .dl-horizontal {
@@ -116,6 +115,8 @@ footer {
     }
 
 }
+
+
 
 //--------------------Стили для таблиц------------------------------------
 .tables{
@@ -152,7 +153,7 @@ footer {
     flex-wrap: wrap;
     border-bottom: @borders;
 
-    &:hover{
+    &:hover {
         background-color: #e6e6e6;
     }
 
@@ -179,7 +180,7 @@ footer {
                 text-align: center;
                 font-size: 26px;
 
-                &:after{
+                &:after {
                     height: 3px;
                     width: 100%;
                     background: black;
@@ -190,8 +191,9 @@ footer {
                     transition: all .3s;
                     transform: scaleX(0);
                 }
-                &:hover{
-                    &:after{
+
+                &:hover {
+                    &:after {
                         transform: scaleX(1);
                     }
                 }
@@ -203,8 +205,27 @@ footer {
         }
     }
 
-    .dynamicBlock {
-        display: none;
+    .dynamicItem {
+        margin: 0 auto;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+            .btn-form{
+                width: 100px;
+                align-self: center;
+            } 
+            .form-group {
+                display: flex;
+
+                label {
+                    margin: 0 10px 5px 0;
+                    width: 200px;
+                    text-align: left;
+                }
+            }
+        }
     }
 
     .buttons-container {

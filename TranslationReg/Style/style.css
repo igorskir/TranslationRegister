@@ -52,9 +52,8 @@ footer {
 .navbar {
   background-color: #241717;
 }
-.dynamicItem {
-  margin: 0 auto;
-  padding-top: 20px;
+.dynamicBlock {
+  display: none;
 }
 .dl-horizontal {
   font-size: 22px;
@@ -149,8 +148,25 @@ footer {
 .properties > div span {
   margin: auto;
 }
-.properties .dynamicBlock {
-  display: none;
+.properties .dynamicItem {
+  margin: 0 auto;
+}
+.properties .dynamicItem form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+.properties .dynamicItem form .btn-form {
+  width: 100px;
+  align-self: center;
+}
+.properties .dynamicItem form .form-group {
+  display: flex;
+}
+.properties .dynamicItem form .form-group label {
+  margin: 0 10px 5px 0;
+  width: 200px;
+  text-align: left;
 }
 .properties .buttons-container {
   margin: auto;

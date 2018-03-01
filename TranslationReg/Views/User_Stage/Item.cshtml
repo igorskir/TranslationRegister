@@ -32,8 +32,8 @@
         </div>
         <div class="col-md-3">
             <div class="buttons-container">
-                <a class="btn btn-primary editBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#userStage@(Model.Id)"
-                   href="/User_Stage/Edit/@Model.Id">Редактировать</a>
+                <a class="btn btn-primary ajaxToggleBtn" data-ajax-update="#userStage@(Model.Id)"
+                   data-href="/User_Stage/Edit/@Model.Id">Редактировать</a>
                 @if (Model.DocFile != null && !String.IsNullOrWhiteSpace(Model.DocFile.Path))
                 {
                     @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-primary" })

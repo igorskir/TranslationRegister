@@ -5,7 +5,7 @@
 }
 
 <h2>Документы</h2>
-
+<!-- ФИЛЬТРЫ -->
 <div class="container">
     <ul class="filters">
         <li>
@@ -26,10 +26,10 @@
     </ul>
 </div>
 
-<a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDoc"
-   href="/Documents/Create" class="btn btn-primary createBtn">Добавить</a>
+<a data-ajax-update="#addDoc" data-href="/Documents/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
 <div id="addDoc" class="dynamicBlock"></div>
 
+<!-- СПИСОК ДОКУМЕНТОВ -->
 <div id="docList">
     @Html.Partial("List")
 </div>

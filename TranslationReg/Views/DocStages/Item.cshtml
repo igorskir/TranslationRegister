@@ -6,8 +6,7 @@
     </div>
     <div class="control-buttons">
         <div class="control small">
-            <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUserStageForm@(Model.Id)"
-               href="/User_Stage/Create/@Model.Id" id="addWork" class="btn btn-primary createBtn">Добавить работу</a>
+            <a data-ajax-update="#addUserStageForm@(Model.Id)" data-href="/User_Stage/Create/@Model.Id" id="addWork" class="btn btn-primary ajaxToggleBtn">Добавить работу</a>
         </div>
         <div class="control small">
             <a class="btn btn-danger deleteBtn" href="/DocStages/Delete/@Model.Id" id="deleteWork" data-dialog-title="Удаление записи">Удалить стадию</a>
@@ -25,13 +24,6 @@
 
 @section scripts {
     <script>
-        $(document).ready(function () {
-            $(".createBtn").click(function () {
-                updatedBlock = $(this).attr("data-ajax-update");
-                // изначально display:none, описанов MyAppStyles.css
-                $(updatedBlock).toggle("fast");
-            });
-        });
 
         $(".deleteBtn").on("click", function (e) {
             e.preventDefault();

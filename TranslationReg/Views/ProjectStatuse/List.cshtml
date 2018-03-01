@@ -3,8 +3,7 @@
 <div>
     <h2>Статусы проекта</h2>
 
-    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addStatuseForm"
-       href="/ProjectStatuse/Create" class="btn btn-primary createBtn">Добавить</a>
+    <a data-ajax-update="#addStatuseForm" data-href="/ProjectStatuse/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
     <div id="addStatuseForm" class="dynamicBlock"></div>
 
     <div class="titles">
@@ -28,8 +27,7 @@
             </div>
             <div class="col-md-3">
                 <div class="buttons-container">
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#statuse@(statuse.Id)"
-                       href="/ProjectStatuse/Edit/@statuse.Id" class="btn btn-primary editBtn">Редактировать</a>
+                    <a data-ajax-update="#statuse@(statuse.Id)" data-href="/ProjectStatuse/Edit/@statuse.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#statuse@(statuse.Id)"
                        href="/ProjectStatuse/Delete/@statuse.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
                 </div>

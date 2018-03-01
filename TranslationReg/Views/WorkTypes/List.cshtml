@@ -2,8 +2,7 @@
 <div>
     <h2>Типы работ</h2>
 
-    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addWorkTypeForm"
-       href="/WorkTypes/Create" class="btn btn-primary createBtn">Добавить</a>
+    <a data-ajax-update="#addWorkTypeForm" data-href="/WorkTypes/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
     <div id="addWorkTypeForm" class="dynamicBlock"></div>
 
     <div class="titles">
@@ -35,8 +34,7 @@
             </div>
             <div class="col-md-3">
                 <div class="buttons-container">
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#workType@(workType.Id)"
-                       href="/WorkTypes/Edit/@workType.Id" class="btn btn-primary editBtn">Редактировать</a>
+                    <a data-ajax-update="#workType@(workType.Id)" data-href="/WorkTypes/Edit/@workType.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#workType@(workType.Id)"
                        href="/WorkTypes/Delete/@workType.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
                 </div>

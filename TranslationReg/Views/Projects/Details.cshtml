@@ -7,8 +7,7 @@
         @Html.Partial("DetailsShort", Model)
 
 
-        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocForm"
-           href="/Documents/Create" class="btn btn-primary createBtn">Добавить документ</a>
+        <a data-ajax-update="#addDocForm" data-href="/Documents/Create" class="btn btn-primary ajaxToggleBtn">Добавить документ</a>
         <div id="addDocForm" class="dynamicBlock"></div>
 
         <div class="titles">
@@ -23,8 +22,7 @@
                     <div class="col-md-6"><h3>@Html.DisplayFor(modelItem => doc.Name)</h3></div>
                     <div class="col-md-6">
 
-                        <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocStageForm@(doc.Id)"
-                           href="/DocStages/Create/@doc.Id" class="btn btn-success createBtn">Добавить стадию</a>
+                        <a data-ajax-update="#addDocStageForm@(doc.Id)" data-href="/DocStages/Create/@doc.Id" class="btn btn-success ajaxToggleBtn">Добавить стадию</a>
 
                         @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
                         <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>

@@ -72,6 +72,8 @@ namespace TranslationReg.Models
         {
             // фильтрация по выбранным ограничениям
             var filteredWorks = (await Rep.GetUser_Stages()).
+                // для начала нужно брать выполненные работы. по таким закреплен файл, по файлу и выберем
+                Where(x=>x.DocFileId!=null).
                 Where(x => filters.ForAllTime ||
                 // но при ограничении даты проверяем нахождение работы в рамках периода
                    x.Date >= filters.PeriodFrom && x.Date <= filters.PeriodTo).
@@ -111,40 +113,5 @@ namespace TranslationReg.Models
                 return null;
         }
 
-
-
-        private List<UserSection> FormUserSections(List<User_Stage> works)
-        {
-            List<UserSection> sections = new List<UserSection>();
-
-            if (works != null && works.Count != 0)
-            {
-                works = works.OrderBy(x => x.User.Id).ToList();
-                var curUser = works[0].User;
-                UserSection currentSection = new UserSection(curUser);
-                foreach (var work in works)
-                {
-                    if (work.User.Id == curUser.Id)
-                    {
-                    }
-                }
-
-                return new List<UserSection>();
-            }
-            else
-                return new List<UserSection>();
-        }
-
-        public class UserSection
-        {
-            public User user;
-            public List<List<User_Stage>> typedWorks;
-
-            public UserSection(User user)
-            {
-                this.user = user;
-                typedWorks = new List<List<User_Stage>>();
-            }
-        }
     }
 }

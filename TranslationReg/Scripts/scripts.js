@@ -1,22 +1,23 @@
 ﻿(function () {
-    $(".editBtn").click(function () {
+    $(".ajaxToggleBtn").one('click', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
-        $(updatedBlock).toggle("fast");
-    });
-
-    $(".createBtn").on('click', function () {
-        updatedBlock = $(this).attr("data-ajax-update");
-        $(updatedBlock).toggle("fast");
+        $.ajax({
+            type: 'GET',
+            url: e.target.getAttribute("data-href"),
+            success: function (result) {
+                $(updatedBlock).html(result);
+                $(updatedBlock).toggle("fast");
+                $(e.target).on("click", function () {
+                    var updatedBlock = $(this).attr("data-ajax-update");
+                    $(updatedBlock).toggle("fast");
+                });
+            }
+        });
     });
 
     $(".filter").click(function () {
         $(".filter").removeClass("filter-active");
         $(this).addClass("filter-active");
-    });
-
-    $(".detailsBtn").click(function () {
-        updatedBlock = $(this).attr("data-ajax-update");
-        $(updatedBlock).toggle("fast");
     });
 
     $(".deleteBtn").on("click", function (e) {

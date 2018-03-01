@@ -30,9 +30,9 @@
                 <div class="col-md-4">
                     <div class="buttons-container">
                         <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
-                            Редактировать</a>
-                        <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">
-                            Удалить</a>
+                            Редактировать
+                        </a>
+                        <a data-ajax="true" data-ajax-mode="replace" href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
                     </div>
                 </div>
             </div>

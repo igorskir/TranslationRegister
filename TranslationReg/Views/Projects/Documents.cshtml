@@ -1,8 +1,7 @@
 ﻿@model TranslationRegistryModel.Project
 
 <div>
-    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addDocumentForm"
-       href="/Documents/CreateProjectDoc/@Model.Id" class="btn btn-primary createBtn">Добавить</a>
+    <a data-ajax-update="#addDocumentForm" data-href="/Documents/CreateProjectDoc/@Model.Id" class="btn btn-primary ajaxToggleBtn">Добавить</a>
     <div id="addDocumentForm" class="dynamicBlock"></div>
 
     <div class="">
@@ -37,8 +36,6 @@
                         <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
                         <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id" data-dialog-title="Удаление записи">Удалить</a>
                     </div>
-
-
                 </div>
             </div>
         }

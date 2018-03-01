@@ -3,8 +3,7 @@
 <div>
     <h2>Единицы измерения</h2>
 
-    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addUnitForm"
-       href="/UnitOfMeasure/Create" class="btn btn-primary createBtn">Добавить</a>
+    <a data-ajax-update="#addUnitForm" data-href="/UnitOfMeasure/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
     <div id="addUnitForm" class="dynamicBlock"></div>
 
     <div class="titles">
@@ -29,8 +28,7 @@
             </div>
             <div class="col-md-3">
                 <div class="buttons-container">
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"
-                       href="/UnitOfMeasure/Edit/@unitOfMeasure.Id" class="btn btn-primary editBtn">Редактировать</a>
+                    <a data-ajax-update="#unit@(unitOfMeasure.Id)" data-href="/UnitOfMeasure/Edit/@unitOfMeasure.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
                     <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"
                        href="/UnitOfMeasure/Delete/@unitOfMeasure.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
                 </div>

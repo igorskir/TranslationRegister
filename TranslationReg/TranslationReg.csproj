@@ -391,6 +391,16 @@
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </COMReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
+      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TranslationRegistryRepository\SqlRepository.csproj">
+      <Project>{58f0f26d-7d74-4e75-8231-236e8a331740}</Project>
+      <Name>SqlRepository</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

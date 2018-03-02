@@ -52,9 +52,6 @@ footer {
 .navbar {
   background-color: #241717;
 }
-.dynamicBlock {
-  display: none;
-}
 .dl-horizontal {
   font-size: 22px;
   margin-top: 20px;
@@ -100,6 +97,9 @@ footer {
 .titles > div:last-child {
   border-right: none;
 }
+.btn-form {
+  align-self: flex-start;
+}
 .properties {
   width: 100%;
   display: flex;
@@ -128,7 +128,7 @@ footer {
   width: auto;
   margin-left: 5px;
   position: relative;
-  text-align: center;
+  text-align: left;
   font-size: 26px;
 }
 .properties > div:first-child a:after {
@@ -156,10 +156,6 @@ footer {
   flex-direction: column;
   width: 500px;
 }
-.properties .dynamicItem form .btn-form {
-  width: 100px;
-  align-self: center;
-}
 .properties .dynamicItem form .form-group {
   display: flex;
 }
@@ -174,6 +170,9 @@ footer {
 }
 .properties .buttons-container > a {
   margin-bottom: 0;
+}
+.dynamicBlock {
+  display: none;
 }
 @media screen and (max-width: 479px) {
   .nav-tabs-responsive > li {
@@ -303,8 +302,7 @@ footer {
   border-radius: 30px;
 }
 .filters li a:hover {
-  background: #241717;
-  color: white;
+  box-shadow: inset 0 0 0 2px #241717;
 }
 .filter-active {
   background: #241717;
@@ -383,4 +381,50 @@ footer {
 .float-label .control-buttons .small a {
   display: flex;
   margin: auto;
+}
+.details-document h3 {
+  text-decoration: underline;
+}
+.details-document .details-actions-document {
+  display: flex;
+  flex-direction: row;
+  z-index: 10;
+  padding: 5px 5px;
+  transition: all 1s;
+  width: 105px;
+  overflow: hidden;
+}
+.details-document .details-actions-document a {
+  display: flex;
+  align-self: center;
+  margin: 5px;
+}
+.details-document .details-actions-document:hover {
+  width: 668px;
+  border-radius: 10px;
+  background-color: white;
+}
+.dynamic-block-create > form {
+  display: flex;
+  flex-direction: column;
+}
+.dynamic-block-create > form div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.dynamic-block-create > form div label {
+  width: 180px;
+}
+.dynamic-block-add-stage > form {
+  display: flex;
+  flex-direction: column;
+}
+.dynamic-block-add-stage > form div {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.dynamic-block-add-stage > form div label {
+  width: 150px;
 }

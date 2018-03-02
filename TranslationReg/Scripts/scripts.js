@@ -5,7 +5,7 @@
             type: 'GET',
             url: e.target.getAttribute("data-href"),
             success: function (result) {
-                $(updatedBlock).html(result);
+                $(updatedBlock).html(result).hide();
                 $(updatedBlock).toggle("fast");
                 $(e.target).on("click", function () {
                     var updatedBlock = $(this).attr("data-ajax-update");

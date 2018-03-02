@@ -7,44 +7,34 @@
 <h2>Регистрация</h2>
 
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<div class="dynamic-block-create">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => Model.Name, "Логин", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => Model.Name)
-                @Html.ValidationMessageFor(model => Model.Name)
-            </div>
+            @Html.LabelFor(model => Model.Name, "Логин")
+            @Html.EditorFor(model => Model.Name)
+            @Html.ValidationMessageFor(model => Model.Name)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password, "Пароль", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Password)
-                @Html.ValidationMessageFor(model => model.Password)
-            </div>
+            @Html.LabelFor(model => model.Password, "Пароль")
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, "Подтверждение пароля", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ConfirmPassword)
-                @Html.ValidationMessageFor(model => model.ConfirmPassword)
-            </div>
+            @Html.LabelFor(model => model.ConfirmPassword, "Подтверждение пароля")
+            @Html.EditorFor(model => model.ConfirmPassword)
+            @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Зарегистрировать" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
+        <input type="submit" value="Зарегистрировать" class="btn btn-default btn-form" />
+    }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

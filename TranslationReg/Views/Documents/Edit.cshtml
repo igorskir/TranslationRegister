@@ -7,11 +7,11 @@
 <h2>Редактирование документа</h2>
 
 
+<div class="dynamic-block-create">
 @using (Html.BeginForm("Edit", "Documents", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
     
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.Id)
@@ -20,50 +20,37 @@
     @Html.HiddenFor(model => model.FinalFileId)
     @Html.HiddenFor(model => model.Date)
     <div class="form-group">
-        @Html.LabelFor(model => model.Owner, "Создатель", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Owner, "Создатель" )
             @Html.EditorFor(model => model.Owner.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-        </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Name, "Название", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.Name, "Название" )
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-        </div>
     </div>
 
     <div class="form-group">
-        @Html.Label("Файл оригинала", new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.Label("Файл оригинала")
             <input type="file" name="newOriginalFile" />
-        </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.ProjectId, "Проект", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.ProjectId, "Проект" )
             @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control", requred = "required" })
             @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-        </div>
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.WordsNumber, "Количество слов", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
+        @Html.LabelFor(model => model.WordsNumber, "Количество слов" )
             @Html.EditorFor(model => model.WordsNumber, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
             @Html.ValidationMessageFor(model => model.WordsNumber, "", new { @class = "text-danger" })
-        </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Сохранить" class="btn btn-default" />
-        </div>
-    </div>
-</div>
+
+            <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
 }
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

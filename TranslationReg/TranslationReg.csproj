@@ -65,6 +65,15 @@
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FormsAuthenticationExtensions, Version=1.3.0.15, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FormsAuthenticationExtensions.1.3.0.15\lib\net40\FormsAuthenticationExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.4.2.0\lib\net45\ImageResizer.dll</HintPath>
+    </Reference>
+    <Reference Include="ImageResizer.Plugins.SimpleFilters, Version=4.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ImageResizer.Plugins.SimpleFilters.4.2.0\lib\net45\ImageResizer.Plugins.SimpleFilters.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.5.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.5\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -363,7 +372,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\" />
+    <Folder Include="Uploads\UserAvatars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -392,7 +401,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
-      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
+      <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
       <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\TranslationRegistryRepository\SqlRepository.csproj">

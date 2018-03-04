@@ -8,7 +8,7 @@
 
 
 <div class="dynamic-block-create">
-    @using (Html.BeginForm())
+    @using (Html.BeginForm("Register", "Account", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
     {
         @Html.AntiForgeryToken()
 
@@ -30,6 +30,12 @@
             @Html.LabelFor(model => model.ConfirmPassword, "Подтверждение пароля")
             @Html.EditorFor(model => model.ConfirmPassword)
             @Html.ValidationMessageFor(model => model.ConfirmPassword)
+        </div>
+
+
+        <div class="form-group">
+            @Html.Label("Файл аватарки")
+            <input type="file" name="avatar" />
         </div>
 
         <input type="submit" value="Зарегистрировать" class="btn btn-default btn-form" />

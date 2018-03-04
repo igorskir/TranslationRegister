@@ -10,6 +10,9 @@ namespace TranslationReg.Controllers
 {
     public static class Helper
     {
+        public const string uploadDir = "Uploads";
+        public const string avatarsDir = "UserAvatars";
+
         public static async Task<DocFile> SetFile(HttpPostedFileBase file, IRepository Rep, HttpServerUtilityBase Server)
         {
             DocFile docfile = new DocFile
@@ -23,19 +26,33 @@ namespace TranslationReg.Controllers
             return docfile;
         }
 
-        public static string GetValidPath(HttpPostedFileBase file, HttpServerUtilityBase Server)
+        public static string GetValidPath(HttpPostedFileBase file, HttpServerUtilityBase Server, string subDirectories = null)
         {
-            var fileName = Path.GetFileName(file.FileName);
-            var path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
-            if (System.IO.File.Exists(path))
+            try
             {
-                Guid guid = Guid.NewGuid();
-                fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                string extension = Path.GetExtension(file.FileName);
-                fileName += guid.ToString() + extension;
-                path = Path.Combine(Server.MapPath("~/Uploads"), fileName);
+                var fileName = Path.GetFileName(file.FileName);
+                string path;
+                if (subDirectories == null)
+                    path = Path.Combine(Server.MapPath($"~/{uploadDir}"), fileName);
+                else
+                    path = Path.Combine(Server.MapPath($"~/{uploadDir}"), subDirectories, fileName);
+
+                if (File.Exists(path))
+                {
+                    Guid guid = Guid.NewGuid();
+                    fileName = Path.GetFileNameWithoutExtension(file.FileName);
+                    string extension = Path.GetExtension(file.FileName);
+                    fileName += guid.ToString() + extension;
+                    
+                    path = Path.Combine(Path.GetDirectoryName(path), fileName);
+                }
+                return path;
             }
-            return path;
+            catch (Exception)
+            {
+                return null;
+            }
+           
         }
 
     }

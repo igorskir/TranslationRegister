@@ -1,16 +1,33 @@
 ﻿@using Microsoft.AspNet.Identity
+@using FormsAuthenticationExtensions;
+@using System.Web.Security;
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
-    @Html.AntiForgeryToken()
+        @Html.AntiForgeryToken()
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-        </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-    </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                @{
+        var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
+        string avatarPath = null;
+        if (ticketData != null)
+        {
+            avatarPath = ticketData["avatarPath"];
+        }
+                }
+                @if (avatarPath != null)
+    {
+            <img src="@avatarPath"/>
+            <img src="https://z.zr.io/ri/utah2.jpg;width=200;s.invert=true" alt="s.invert=true">
+}
+            </li>
+            <li>
+                @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
+        </ul>
     }
 }
 else

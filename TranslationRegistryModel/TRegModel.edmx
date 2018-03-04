@@ -177,6 +177,7 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="AvatarPath" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="WorkTypes">
     <Key>
@@ -543,6 +544,7 @@
           <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Users" ToRole="Documents" />
           <NavigationProperty Name="MyProjects" Relationship="Self.FK_ProjectUser" FromRole="Users" ToRole="Projects" />
           <NavigationProperty Name="Projects" Relationship="Self.ProjectUsers" FromRole="Users" ToRole="Projects" />
+          <Property Name="AvatarPath" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="WorkType">
           <Key>
@@ -954,6 +956,7 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="AvatarPath" ColumnName="AvatarPath" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

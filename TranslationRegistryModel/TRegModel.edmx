@@ -117,7 +117,7 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Name" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="OriginalLanguageId" Type="int" Nullable="false" />
     <Property Name="TranslationLanguageId" Type="int" Nullable="false" />
   </EntityType>
@@ -204,7 +204,9 @@
     <Property Name="Workers_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
-    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="0..1" />
+    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Projects">
@@ -228,7 +230,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_DocumentStage">
-    <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="1" />
+    <End Role="Documents" Type="SqlRepository.SqlContextModel.Store.Documents" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Documents">
@@ -288,7 +292,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_User_StageStage">
-    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="1" />
+    <End Role="Stages" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="User_Stage" Type="SqlRepository.SqlContextModel.Store.User_Stage" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Stages">
@@ -300,7 +306,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="LanguageLanguagePair">
-    <End Role="Language" Type="SqlRepository.SqlContextModel.Store.Languages" Multiplicity="1" />
+    <End Role="Language" Type="SqlRepository.SqlContextModel.Store.Languages" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="LanguagePair" Type="SqlRepository.SqlContextModel.Store.LanguagePairs" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Language">
@@ -384,7 +392,9 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="UnitOfMeasureWorkType">
-    <End Role="UnitOfMeasure" Type="SqlRepository.SqlContextModel.Store.UnitOfMeasures" Multiplicity="1" />
+    <End Role="UnitOfMeasure" Type="SqlRepository.SqlContextModel.Store.UnitOfMeasures" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="UnitOfMeasure">
@@ -454,7 +464,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" FromRole="LanguagePairs" ToRole="Projects" />
           <NavigationProperty Name="OriginalLanguage" Relationship="SqlRepository.SqlContextModel.LanguageLanguagePair" FromRole="LanguagePair" ToRole="Language" />
           <Property Name="OriginalLanguageId" Type="Int32" Nullable="false" />
@@ -546,7 +556,9 @@
           <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
-          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" />
+          <End Role="Projects" Type="Self.Project" Multiplicity="0..1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Documents" Type="Self.Document" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Projects">
@@ -570,7 +582,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DocumentStage">
-          <End Role="Documents" Type="Self.Document" Multiplicity="1" />
+          <End Role="Documents" Type="Self.Document" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Documents">
@@ -630,7 +644,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_StageStage">
-          <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="1" />
+          <End Role="Stages" Type="SqlRepository.SqlContextModel.DocStage" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="User_Stage" Type="Self.User_Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Stages">
@@ -727,7 +743,9 @@
           </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
-          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="SqlRepository.SqlContextModel.LanguagePair" Role="LanguagePair" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Language">
@@ -739,7 +757,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="LanguageLanguagePair1">
-          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" >
+          </End>
           <End Type="SqlRepository.SqlContextModel.LanguagePair" Role="LanguagePair" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Language">
@@ -751,7 +770,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocumentFile">
-          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" >
+          </End>
           <End Type="SqlRepository.SqlContextModel.DocFile" Role="File" Multiplicity="1" />
           <ReferentialConstraint>
             <Principal Role="File">
@@ -763,7 +783,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocFileStage">
-          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" >
+          </End>
           <End Type="SqlRepository.SqlContextModel.DocStage" Role="Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocFile">
@@ -787,7 +808,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocFileUser_Stage">
-          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" >
+          </End>
           <End Type="SqlRepository.SqlContextModel.User_Stage" Role="User_Stage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DocFile">
@@ -799,7 +821,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="DocumentDocFile">
-          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.Document" Role="Document" Multiplicity="*" >
+          </End>
           <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="DocFile">
@@ -819,7 +842,9 @@
           <Property Name="Description" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="UnitOfMeasureWorkType">
-          <End Type="SqlRepository.SqlContextModel.UnitOfMeasure" Role="UnitOfMeasure" Multiplicity="1" />
+          <End Type="SqlRepository.SqlContextModel.UnitOfMeasure" Role="UnitOfMeasure" Multiplicity="1" >
+            <OnDelete Action="Cascade" />
+          </End>
           <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UnitOfMeasure">

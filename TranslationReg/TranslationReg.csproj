@@ -294,6 +294,7 @@
     <Content Include="Style\themes\base\tabs.css" />
     <Content Include="Style\themes\base\theme.css" />
     <Content Include="Style\themes\base\tooltip.css" />
+    <Content Include="Uploads\UserAvatars\default.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -372,7 +373,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Uploads\UserAvatars\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

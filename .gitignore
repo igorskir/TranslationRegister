@@ -264,8 +264,8 @@ __pycache__/
 *.pyc
 /TranslationRegistryRepository/Migrations
 /TranslationReg/package-lock.json
-TranslationRegistryModel/TRegModel.edmx.sql
+/TranslationRegistryModel/TRegModel.edmx.sql
 
 # ConnStringFiles
-TranslationReg/Web.config
-TranslationRegistryModel/App.config
+/TranslationReg/Web.config
+/TranslationRegistryModel/App.config

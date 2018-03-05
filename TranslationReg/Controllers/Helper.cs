@@ -12,6 +12,7 @@ namespace TranslationReg.Controllers
     {
         public const string uploadDir = "Uploads";
         public const string avatarsDir = "UserAvatars";
+        public const string defaultAvatar = "default.jpg";
 
         public static async Task<DocFile> SetFile(HttpPostedFileBase file, IRepository Rep, HttpServerUtilityBase Server)
         {

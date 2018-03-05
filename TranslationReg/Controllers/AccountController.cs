@@ -24,6 +24,13 @@ namespace TranslationReg.Controllers
             return View();
         }
 
+        private void Authentificate(User user)
+        {
+            // дополнительные данные задавать здесь - в ticketData
+            var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
+            new FormsAuthentication().SetAuthCookie(user.Name, true, ticketData);
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginModel model)
@@ -34,9 +41,7 @@ namespace TranslationReg.Controllers
                 User user = await Rep.GetUser(model.Name, model.Password);
                 if (user != null)
                 {
-                    // дополнительные данные задавать здесь
-                    var ticketData = new NameValueCollection{{ "avatarPath", user.AvatarPath }};
-                    new FormsAuthentication().SetAuthCookie(model.Name, true, ticketData);
+                    Authentificate(user);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -65,13 +70,15 @@ namespace TranslationReg.Controllers
                     user = new User { Name = model.Name, Password = model.Password };
                     await Rep.AddUser(user);
                     user = await Rep.GetUser(model.Name, model.Password);
-                    // если пользователь удачно добавлен в бд - добавляем авку, аутентифицируем, 
+                    // если пользователь удачно добавлен в бд - добавляем авку, аутентифицируем
                     if (user != null)
                     {
-                        await SaveSmallAvatar(avatar, user);
-                        // дополнительные данные задавать здесь
-                        var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
-                        new FormsAuthentication().SetAuthCookie(model.Name, true, ticketData);
+                        if (avatar != null && avatar.ContentLength != 0)
+                            await SaveSmallAvatar(avatar, user);
+                        else
+                            user.AvatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
+
+                        Authentificate(user);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -89,29 +96,33 @@ namespace TranslationReg.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 70, int height = 70)
+        public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 48, int height = 48)
         {
             try
             {
+
                 var filePath = Helper.GetValidPath(file, Server, Helper.avatarsDir);
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+
+                // сохранение оригинала
                 file.SaveAs(filePath);
 
                 var relativePath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Path.GetFileName(filePath));
 
                 // свойства аватарки
-                // todo фон задать
                 Instructions instructions = new Instructions() {
-                    Width = 50,
-                    Height = 50,
+                    Width = width,
+                    Height = height,
                     Format = "png",
-                    RoundCorners = new double[] { 50.0 },
+                    RoundCorners = new double[] {55.0 },
                     BackgroundColor = "Default",
-
+                    Mode = FitMode.Stretch
                 };
+                // построение авки и сохранение
                 ImageJob imageJob = new ImageJob(filePath, filePath, instructions, true, false);
                 imageJob.Build();
 
+                // сохранение в бд
                 user.AvatarPath = relativePath;
                 await Rep.PutUser(user);
             }
@@ -119,7 +130,6 @@ namespace TranslationReg.Controllers
             {
 
             }
-
         }
     }
 }

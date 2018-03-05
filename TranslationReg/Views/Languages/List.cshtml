@@ -32,7 +32,7 @@
                     <a data-ajax-update="#language@(item.Id)" data-href="/Languages/Edit/@item.Id" class="btn btn-primary ajaxToggleBtn">
                         Редактировать
                     </a>
-                    <a data-ajax-mode="replace" href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+                    <a href="/Languages/Delete/@item.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление языка">Удалить</a>
                 </div>
             </div>
             <div id="language@(item.Id)" class="dynamicBlock dynamicItem"></div>

@@ -1,44 +1,20 @@
 ﻿@model TranslationRegistryModel.Document
 
-@{
-    ViewBag.Title = "Удаление документа";
-}
-
-<h2>Удаление документа</h2>
-
 <h3>Вы уверены что хотите удалить данный документ?</h3>
 <div>
-    
     <dl class="dl-horizontal">
+        <dt>@Html.Label("Наименование документа")</dt>
+        <dd>@Html.DisplayFor(model => model.Name)</dd>
 
-        <dt>
-            @Html.Label("Наименование документа")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-        <dt>
-            @Html.Label("Язык в документе")
-        </dt>
-
-        <dt>
-            @Html.Label("Проект")
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Project.Name)
-        </dd>
-
+        <dt>@Html.Label("Проект")</dt>
+        <dd>@Html.DisplayFor(model => model.Project.Name)</dd>
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("Назад к списку", "Index")
+            <input type="submit" value="Удалить" class="btn btn-danger" /> 
         </div>
     }
 </div>

@@ -35,8 +35,7 @@
             <div class="col-md-3">
                 <div class="buttons-container">
                     <a data-ajax-update="#workType@(workType.Id)" data-href="/WorkTypes/Edit/@workType.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#workType@(workType.Id)"
-                       href="/WorkTypes/Delete/@workType.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+                    <a href="/WorkTypes/Delete/@workType.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление типа работ">Удалить</a>
                 </div>
             </div>
             <div id="workType@(workType.Id)" class="dynamicBlock dynamicItem"></div>

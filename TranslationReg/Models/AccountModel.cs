@@ -9,9 +9,11 @@ namespace TranslationReg.Models
     public class LoginModel
     {
         [Required]
+        [Display(Name = "\"Пароль\"")]
         public string Name { get; set; }
 
         [Required]
+        [Display(Name = "\"Пароль\"")]
         [DataType(DataType.Password)]
         public string Password { get; set; }
     }

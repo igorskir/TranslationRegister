@@ -22,7 +22,7 @@
             @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
             <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
             <a class="btn btn-info" href="/Documents/Details/@doc.Id">Подробно</a>
-            <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id" data-dialog-title="Удаление записи">Удалить</a>
+            <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id" data-dialog-title="Удаление документа">Удалить</a>
         </div>
 
         <div id="addDocStageForm@(doc.Id)" class="dynamicBlock"></div>

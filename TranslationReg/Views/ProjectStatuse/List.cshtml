@@ -28,8 +28,7 @@
             <div class="col-md-3">
                 <div class="buttons-container">
                     <a data-ajax-update="#statuse@(statuse.Id)" data-href="/ProjectStatuse/Edit/@statuse.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#statuse@(statuse.Id)"
-                       href="/ProjectStatuse/Delete/@statuse.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+                    <a class="btn btn-danger deleteBtn" href="/ProjectStatuse/Delete/@statuse.Id" data-dialog-title="Удаление статуса проектов">Удалить</a>
                 </div>
             </div>
             <div id="statuse@(statuse.Id)" class="dynamicBlock dynamicItem"></div>

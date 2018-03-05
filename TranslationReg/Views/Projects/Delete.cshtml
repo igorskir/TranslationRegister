@@ -1,35 +1,21 @@
-﻿@model TranslationRegistryModel.Project
+﻿@using TranslationRegistryModel
+@model TranslationRegistryModel.Project
 <div>
-
-    @{
-        ViewBag.Title = "Delete";
-    }
+    <!-- todo привести к нормальному виду-->>
     <h3>Вы уверены, что хотите удалить данную запись?</h3>
     <div>
-        
-        <dl class="dl-horizontal">
-            <dt>
-                Название
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+            <p>Название</p>
+            <p>@Html.DisplayFor(model => model.Name)</p>
 
-            <dt>
-                Язык оригинала
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LanguagePair.OriginalLanguage.Name)
-            </dd>
+            <p>Заказчик</p>
+            <p>@Html.DisplayFor(model => model.Customer)</p>
 
-            <dt>
-                Язык перевода
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.LanguagePair.TranslationLanguage.Name)
-            </dd>
-
-        </dl>
+            <p>Документы</p>
+            @{List<Document> docs = Model.Documents.ToList();}
+            @for (int i = 0; i < Model.Documents.Count && i < 3; i++)
+            {
+                <p>@docs[i].Name</p>
+            }
 
         @using (Html.BeginForm())
         {

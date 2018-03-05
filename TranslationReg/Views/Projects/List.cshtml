@@ -40,8 +40,7 @@
             <div class="buttons-container">
                 <a href="/Projects/Details/@project.Id" class="btn btn-info">Открыть</a>
                 <a href="/Projects/Edit/@project.Id" class="btn btn-primary">Редактировать</a>
-                <a data-ajax="true"
-                   href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn">Удалить</a>
+                <a href="/Projects/Delete/@project.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление проекта и содержимого">Удалить</a>
             </div>
         </div>
         <div id="@(project.Id)" class="dynamicBlock dynamicBlock-prop"></div>

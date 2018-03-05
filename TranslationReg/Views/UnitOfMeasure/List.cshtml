@@ -29,8 +29,7 @@
             <div class="col-md-3">
                 <div class="buttons-container">
                     <a data-ajax-update="#unit@(unitOfMeasure.Id)" data-href="/UnitOfMeasure/Edit/@unitOfMeasure.Id" class="btn btn-primary ajaxToggleBtn">Редактировать</a>
-                    <a data-ajax="true" data-ajax-mode="replace" data-ajax-update="#unit@(unitOfMeasure.Id)"
-                       href="/UnitOfMeasure/Delete/@unitOfMeasure.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление записи">Удалить</a>
+                    <a class="btn btn-danger deleteBtn" href="/UnitOfMeasure/Delete/@unitOfMeasure.Id" data-dialog-title="Удаление единицы измерений">Удалить</a>
                 </div>
             </div>
             <div id="unit@(unitOfMeasure.Id)" class="dynamicBlock dynamicItem"></div>

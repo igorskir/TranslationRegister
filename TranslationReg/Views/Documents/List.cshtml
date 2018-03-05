@@ -10,50 +10,50 @@
     <div class="col-md-3">@Html.Label("Команды")</div>
 </div>
 
-@foreach (var item in Model)
+@foreach (var document in Model)
 {
     <div class="properties">
         <div class="col-md-3">
             <span>
-                @Html.DisplayFor(modelItem => item.Name)
+                @Html.DisplayFor(modelItem => document.Name)
             </span>
         </div>
         <div class="col-md-2">
             <span>
-                @Html.DisplayFor(modelItem => item.Owner.Name)
+                @Html.DisplayFor(modelItem => document.Owner.Name)
             </span>
         </div>
 
 
         <div class="col-md-1">
             <span>
-                @item.Date.ToString("dd/MM/yyyy")
+                @document.Date.ToString("dd/MM/yyyy")
             </span>
         </div>
 
         <div class="col-md-1">
             <span>
-                @Html.DisplayFor(modelItem => item.WordsNumber)
+                @Html.DisplayFor(modelItem => document.WordsNumber)
             </span>
         </div>
 
         <div class="col-md-1">
-            @if (!String.IsNullOrWhiteSpace(item.OriginalFile.Path))
+            @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.OriginalFile.Path })" class="download-Btn">Скачать</a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="download-Btn">Скачать</a>
             }
         </div>
         <div class="col-md-1">
-            @if (item.FinalFile != null && !String.IsNullOrWhiteSpace(item.FinalFile.Path))
+            @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = item.FinalFile.Path })" class="download-Btn">Скачать</a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="download-Btn">Скачать</a>
             }
         </div>
         <div class="col-md-3">
             <div class="buttons-container">
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                @Html.ActionLink("Подробно", "DocAndStages", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-info" })
-                @Html.ActionLink("Удалить", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-danger" })
+                @Html.ActionLink("Редактировать", "Edit", new { id = document.Id }, htmlAttributes: new { @class = "btn btn-primary" })
+                @Html.ActionLink("Подробно", "DocAndStages", new { id = document.Id }, htmlAttributes: new { @class = "btn btn-info" })
+                <a href="/Documents/Delete/@document.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление документа и работ">Удалить</a>
             </div>
         </div>
     </div>

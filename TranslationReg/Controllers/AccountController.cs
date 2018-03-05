@@ -35,10 +35,7 @@ namespace TranslationReg.Controllers
                 if (user != null)
                 {
                     // дополнительные данные задавать здесь
-                    var ticketData = new NameValueCollection
-                        {
-                            { "avatarPath", user.AvatarPath }
-                        };
+                    var ticketData = new NameValueCollection{{ "avatarPath", user.AvatarPath }};
                     new FormsAuthentication().SetAuthCookie(model.Name, true, ticketData);
                     return RedirectToAction("Index", "Home");
                 }
@@ -72,7 +69,9 @@ namespace TranslationReg.Controllers
                     if (user != null)
                     {
                         await SaveSmallAvatar(avatar, user);
-                        FormsAuthentication.SetAuthCookie(model.Name, true);
+                        // дополнительные данные задавать здесь
+                        var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
+                        new FormsAuthentication().SetAuthCookie(model.Name, true, ticketData);
                         return RedirectToAction("Index", "Home");
                     }
                 }
@@ -98,12 +97,18 @@ namespace TranslationReg.Controllers
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
                 file.SaveAs(filePath);
 
-
                 var relativePath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Path.GetFileName(filePath));
 
                 // свойства аватарки
                 // todo фон задать
-                Instructions instructions = new Instructions(){Width = 50, Height = 50, Format = "jpeg", RoundCorners = new double[] {50.0} };
+                Instructions instructions = new Instructions() {
+                    Width = 50,
+                    Height = 50,
+                    Format = "png",
+                    RoundCorners = new double[] { 50.0 },
+                    BackgroundColor = "Default",
+
+                };
                 ImageJob imageJob = new ImageJob(filePath, filePath, instructions, true, false);
                 imageJob.Build();
 

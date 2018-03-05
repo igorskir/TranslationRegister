@@ -10,18 +10,18 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @{
-        var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
-        string avatarPath = null;
-        if (ticketData != null)
-        {
-            avatarPath = ticketData["avatarPath"];
-        }
+                    var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
+                    string avatarPath = null;
+                    if (ticketData != null)
+                    {
+                        avatarPath = ticketData["avatarPath"];
+                    }
                 }
+
                 @if (avatarPath != null)
-    {
-            <img src="@avatarPath"/>
-            <img src="https://z.zr.io/ri/utah2.jpg;width=200;s.invert=true" alt="s.invert=true">
-}
+                {
+                    <img src="@avatarPath" />
+                }
             </li>
             <li>
                 @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })

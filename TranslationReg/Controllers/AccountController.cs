@@ -3,15 +3,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using TranslationReg.Models;
-using TranslationRegistryModel;
 using System.Web.Security;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.Collections.Specialized;
 using FormsAuthenticationExtensions;
 using ImageResizer;
-using ImageResizer.Resizing;
+using TranslationRegistryModel;
+using System.IO;
 
 namespace TranslationReg.Controllers
 {
@@ -98,10 +95,10 @@ namespace TranslationReg.Controllers
 
         public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 48, int height = 48)
         {
+            var filePath = Helper.GetValidPath(file, Server, Helper.avatarsDir);
+
             try
             {
-
-                var filePath = Helper.GetValidPath(file, Server, Helper.avatarsDir);
                 Directory.CreateDirectory(Path.GetDirectoryName(filePath));
 
                 // сохранение оригинала
@@ -128,7 +125,12 @@ namespace TranslationReg.Controllers
             }
             catch (Exception)
             {
+                // удаление неудачно-загруженного файла
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
 
+                user.AvatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
+                await Rep.PutUser(user);
             }
         }
     }

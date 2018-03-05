@@ -21,7 +21,7 @@ namespace TranslationReg.Models
         [Required]
         [Display(Name = "\"Логин\"")]
         [StringLength(100, ErrorMessage = "Логин должен включать менее 100 символов")]
-        [RegularExpression(@"^[a-zA-Zа-яА-Я0-9 _]+$", ErrorMessage = "Пожалуйста, используйте только буквы")]
+        [RegularExpression(@"^[a-zA-Zа-яА-Я0-9 _]+$", ErrorMessage = "Допустимы буквы, цифры, пробел и символ подчеркивания")]
         public string Name { get; set; }
 
         [Required]

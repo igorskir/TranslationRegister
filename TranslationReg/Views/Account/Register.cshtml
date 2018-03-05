@@ -4,7 +4,7 @@
     ViewBag.Title = "Регистрация";
 }
 
-<h2>Регистрация</h2>
+<h1>Регистрация</h1>
 
 
 <div class="dynamic-block-create">
@@ -15,19 +15,19 @@
         @Html.ValidationSummary(true)
 
         <div class="form-group">
-            @Html.LabelFor(model => Model.Name, "Логин")
+            @Html.LabelFor(model => Model.Name, "Логин *")
             @Html.EditorFor(model => Model.Name)
             @Html.ValidationMessageFor(model => Model.Name)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password, "Пароль")
+            @Html.LabelFor(model => model.Password, "Пароль *")
             @Html.EditorFor(model => model.Password)
             @Html.ValidationMessageFor(model => model.Password)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.ConfirmPassword, "Подтверждение пароля")
+            @Html.LabelFor(model => model.ConfirmPassword, "Подтверждение пароля *")
             @Html.EditorFor(model => model.ConfirmPassword)
             @Html.ValidationMessageFor(model => model.ConfirmPassword)
         </div>

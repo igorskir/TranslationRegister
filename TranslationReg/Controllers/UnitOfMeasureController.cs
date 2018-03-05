@@ -11,6 +11,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class UnitOfMeasureController : RepositoryController
     {
         public UnitOfMeasureController(IRepository repository) : base(repository) { }

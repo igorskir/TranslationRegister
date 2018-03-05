@@ -12,6 +12,7 @@ using System.IO;
 
 namespace TranslationReg.Controllers
 {
+    [AllowAnonymous]
     public class AccountController : RepositoryController
     {
         public AccountController(IRepository repository) : base(repository) { }

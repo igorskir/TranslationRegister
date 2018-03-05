@@ -9,6 +9,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class AnalyticsController : RepositoryController
     {
         public AnalyticsController(IRepository repository) : base(repository) { }

@@ -11,6 +11,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class ProjectStatuseController : RepositoryController
     {
         public ProjectStatuseController(IRepository repository): base (repository){}

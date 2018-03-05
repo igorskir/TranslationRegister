@@ -12,6 +12,7 @@ using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class WorkTypesController : RepositoryController
     {
         public WorkTypesController(IRepository repository) : base(repository) { }

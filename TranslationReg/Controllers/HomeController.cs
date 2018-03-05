@@ -8,25 +8,21 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
-    [AllowAnonymous]
+    
     public class HomeController : RepositoryController
     {
         public HomeController(IRepository repository) : base(repository) { }
 
+        [Authorize]
         public ActionResult Index()
         {
             return RedirectToAction("Index","Projects");
         }
 
+        [AllowAnonymous]
         public ActionResult About()
         {
             ViewBag.Message = "Реестр переводов";
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Контакты";
             return View();
         }
     }

@@ -13,6 +13,7 @@ using TranslationReg.Models;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class User_StageController : RepositoryController
     {
         public User_StageController(IRepository repository) : base(repository) { }

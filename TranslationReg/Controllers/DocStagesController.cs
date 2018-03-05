@@ -12,6 +12,7 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    [Authorize]
     public class DocStagesController : RepositoryController
     {
         public DocStagesController(IRepository repository) : base(repository) { }

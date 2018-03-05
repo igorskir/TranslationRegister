@@ -6,7 +6,6 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-
         <ul class="nav navbar-nav navbar-right">
             <li>
                 @{
@@ -17,10 +16,9 @@
                         avatarPath = ticketData["avatarPath"];
                     }
                 }
-
                 @if (avatarPath != null)
                 {
-                    <img src="@avatarPath" style="padding-top:2px" />
+                    <img src="@Url.Content("~/"+ avatarPath)" style="padding-top:2px" />
                 }
             </li>
             <li>

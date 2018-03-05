@@ -23,15 +23,15 @@
                 </div>
                 <div class="col-md-7">
                     <div class="buttons-container">
-                        @Html.ActionLink("Скачать оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                        @Html.ActionLink("Оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "download-Btn" })
 
                         @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
                         {
-                            @Html.ActionLink("Скачать готовый", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-info" })
+                            @Html.ActionLink("Перевод", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "download-Btn" })
                         }
                         else
                         {
-                            <a href="#" class="btn disabled-btn" disabled="disabled">Скачать готовый</a>
+                            <a href="#" class="btn disabled-btn" disabled="disabled">Перевод</a>
                         }
                         <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
                         <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id" data-dialog-title="Удаление документа и работ">Удалить</a>

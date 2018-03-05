@@ -283,7 +283,7 @@ footer {
 .disabled-btn {
   background: lightgrey;
   border-color: grey;
-  color: white;
+  color: black;
 }
 .filters {
   list-style: none;

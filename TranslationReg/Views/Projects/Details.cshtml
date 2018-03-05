@@ -19,7 +19,7 @@
             <a class="btn btn-default">Команды</a>
             <a data-ajax-update="#addDocStageForm@(doc.Id)" data-href="/DocStages/Create/@doc.Id" class="btn btn-success ajaxToggleBtn">Добавить стадию</a>
 
-            @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-success" })
+            @Html.ActionLink("Скачать", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "download-Btn" })
             <a class="btn btn-primary" href="/Documents/Edit/@doc.Id">Редактировать</a>
             <a class="btn btn-info" href="/Documents/Details/@doc.Id">Подробно</a>
             <a class="btn btn-danger deleteBtn" href="/Documents/Delete/@doc.Id" data-dialog-title="Удаление документа">Удалить</a>

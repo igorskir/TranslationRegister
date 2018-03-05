@@ -36,7 +36,7 @@
                    data-href="/User_Stage/Edit/@Model.Id">Редактировать</a>
                 @if (Model.DocFile != null && !String.IsNullOrWhiteSpace(Model.DocFile.Path))
                 {
-                    @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Скачать", "Download", "User_Stage", new { @filepath = Model.DocFile.Path }, htmlAttributes: new { @class = "download-Btn" })
                     <a class="btn btn-info finaliseBtn" href="/User_Stage/Finalise/@Model.Id">Финализировать</a>
                 }
                 <a class="btn btn-danger deleteBtn" href="/User_Stage/Delete/@Model.Id" data-dialog-title="Удаление работы">Удалить</a>

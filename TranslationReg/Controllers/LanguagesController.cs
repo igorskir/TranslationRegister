@@ -24,6 +24,12 @@ namespace TranslationReg.Controllers
             return View(await LanguagesModel.GetModel(Rep));
         }
 
+        // GET: Languages & LanguagePairs
+        public async Task<ActionResult> Tiles()
+        {
+            return View(await LanguagesModel.GetModel(Rep));
+        }
+
         // GET: Languages
         public async Task<ActionResult> Item(int id)
         {

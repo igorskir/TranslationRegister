@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNet.Identity
 @using FormsAuthenticationExtensions;
 @using System.Web.Security;
+@using TranslationReg.Controllers
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -14,6 +15,10 @@
                     if (ticketData != null)
                     {
                         avatarPath = ticketData["avatarPath"];
+                    }
+                    if(string.IsNullOrEmpty(avatarPath))
+                    {
+                        avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
                     }
                 }
                 @if (avatarPath != null)

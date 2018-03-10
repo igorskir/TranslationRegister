@@ -1,7 +1,7 @@
 ﻿@model TranslationReg.Models.LanguagePairsModel
 
 
-@using (Html.BeginForm(Html.BeginForm("Edit", "LanguagePairs")))
+@using (Html.BeginForm(Html.BeginForm("Create", "LanguagePairs")))
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.languagePair.Id)
@@ -9,7 +9,7 @@
     <div class="card card-langPair">
 
         <div class="card-header pair-header">
-            <p>Редактировать языковую пару</p>
+            <p>Добавить яз. пару</p>
             <div>
                 <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Languages/Cards"></a>
             </div>

@@ -54,6 +54,12 @@ namespace TranslationReg.Controllers
             return PartialView();
         }
 
+        // GET: Languages/AddCard
+        public ActionResult AddCard()
+        {
+            return PartialView();
+        }
+
         // POST: Languages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

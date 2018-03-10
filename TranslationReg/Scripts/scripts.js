@@ -1,9 +1,10 @@
 ﻿(function () {
     $(".ajaxToggleBtn").one('click', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
+        myurl = $(this).attr("data-href");
         $.ajax({
             type: 'GET',
-            url: e.target.getAttribute("data-href"),
+            url: myurl,
             success: function (result) {
                 $(updatedBlock).html(result).hide();
                 $(updatedBlock).toggle("fast");

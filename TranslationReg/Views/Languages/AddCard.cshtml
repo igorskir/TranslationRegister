@@ -1,14 +1,12 @@
 ﻿@model TranslationRegistryModel.Language
 
-@using (Html.BeginForm("Edit", "Languages"))
+@using (Html.BeginForm("Create", "Languages"))
 {
     @Html.AntiForgeryToken()
-    @Html.HiddenFor(model => model.Id)
-
     <div class="card card-language">
 
         <div class="card-header lang-header">
-            <p>Ред. язык</p>
+            <p>Добавить язык</p>
             <div>
                 <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Languages/Cards"></a>
             </div>
@@ -17,14 +15,14 @@
         <div class="card-content">
 
             <div class="card-row-edit">
-                <div class="card-property-edit col-md-4"><p>Назв.:</p></div>
+                <div class="card-property-edit col-md-4"><p>Name:</p></div>
                 <div class="card-value-edit col-md-8">
                     @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
                 </div>
             </div>
 
             <div class="card-row-edit">
-                <div class="card-property-edit col-md-4"><p>Сокр.:</p></div>
+                <div class="card-property-edit col-md-4"><p>Abbr.:</p></div>
                 <div class="card-value-edit col-md-8">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
                 </div>
@@ -32,7 +30,7 @@
 
             <div class="card-row-edit">
                 <div class="card-value-edit col-md-8 col-md-offset-4">
-                    <input type="submit" value="Сохранить" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" href="/Languages/Item/@Model.Id" class="btn btn-default btn-form" />
+                    <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
                 </div>
             </div>
 

@@ -15,14 +15,14 @@
         <div class="card-content">
 
             <div class="card-row-edit">
-                <div class="card-property-edit col-md-4"><p>Name:</p></div>
+                <div class="card-property-edit col-md-4"><p>Назв.:</p></div>
                 <div class="card-value-edit col-md-8">
                     @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
                 </div>
             </div>
 
             <div class="card-row-edit">
-                <div class="card-property-edit col-md-4"><p>Abbr.:</p></div>
+                <div class="card-property-edit col-md-4"><p>Сокр.:</p></div>
                 <div class="card-value-edit col-md-8">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", requred = "required" } })
                 </div>

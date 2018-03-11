@@ -21,6 +21,7 @@ footer {
   padding: 15px;
   color: white;
   background: #241717;
+  z-index: 999;
 }
 .navbar-brand {
   width: 50px;

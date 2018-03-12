@@ -1,0 +1,44 @@
+﻿@model TranslationReg.Models.LanguagePairsModel
+
+
+@using (Html.BeginForm(Html.BeginForm("Edit", "LanguagePairs")))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.languagePair.Id)
+
+    <div class="card card-langPair">
+
+        <div class="card-header pair-header">
+            <p>Ред. языковую пару</p>
+            <div>
+                <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Languages/Cards"></a>
+            </div>
+        </div>
+
+        <div class="card-content">
+            <div class="card-row-edit">
+                <div class="card-property-edit col-md-5"><p>Название:</p></div>
+                <div class="card-value-edit col-md-7">
+                    @Html.EditorFor(model => model.languagePair.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                </div>
+            </div>
+            <div class="card-row-edit">
+                <div class="card-property-edit col-md-5"><p>Оригинал:</p></div>
+                <div class="card-value-edit col-md-7">
+                    @Html.DropDownListFor(model => model.languagePair.OriginalLanguageId, Model.originalLanguageSelectlist, null, htmlAttributes: new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="card-row-edit">
+                <div class="card-property-edit col-md-5"><p>Перевод:</p></div>
+                <div class="card-value-edit col-md-7">
+                    @Html.DropDownListFor(model => model.languagePair.TranslationLanguageId, Model.translationLanguageSelectlist, null, htmlAttributes: new { @class = "form-control", required = "required" })
+                </div>
+            </div>
+            <div class="card-row-edit">
+                <div class="card-value-edit col-md-7 col-md-offset-5">
+                    <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
+                </div>
+            </div>
+        </div>
+    </div>
+}

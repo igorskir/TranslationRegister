@@ -25,9 +25,15 @@ namespace TranslationReg.Controllers
         }
 
         // GET: Languages & LanguagePairs
-        public async Task<ActionResult> Tiles()
+        public async Task<ActionResult> Cards()
         {
             return View(await LanguagesModel.GetModel(Rep));
+        }
+
+        // GET: Languages/Card
+        public async Task<ActionResult> Card(int id)
+        {
+            return PartialView(await Rep.GetLanguage(id));
         }
 
         // GET: Languages
@@ -48,6 +54,12 @@ namespace TranslationReg.Controllers
             return PartialView();
         }
 
+        // GET: Languages/AddCard
+        public ActionResult AddCard()
+        {
+            return PartialView();
+        }
+
         // POST: Languages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -64,6 +76,20 @@ namespace TranslationReg.Controllers
 
         // GET: Languages/Edit/5
         public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Language language = await Rep.GetLanguage(id.Value);
+
+            if (language == null)
+                return HttpNotFound();
+
+            return PartialView(language);
+        }
+
+        // GET: Languages/Edit/5
+        public async Task<ActionResult> EditCard(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

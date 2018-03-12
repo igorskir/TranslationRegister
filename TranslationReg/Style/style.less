@@ -35,6 +35,7 @@ footer {
     padding: 15px;
     color: white;
     background: @dark-color;
+    z-index:999;
 }
 
 .navbar-brand {
@@ -449,16 +450,29 @@ footer {
         transition: all 0.2s linear 0s;
         text-align: center;
     }
+}
 
-    &:hover {
-        text-indent: -30px;
-        text-decoration: none;
-        color: white;
+.costum-btn {
+    text-align: center;
+    display: inline-block;
+    position: relative;
+    text-decoration: none;
+    color: white;
+    text-transform: capitalize;
+    padding: 5px 0px;
+    width: 110px;
+    border-radius: 4px;
+    background: #F28123;
+    font-size: 16px;
 
-        &:before {
-            right: 0;
-            text-indent: 0px;
-        }
+    &_edit::before {
+        content: "\f040";
+        font-family: FontAwesome;
+        font-size: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
     }
 }
 

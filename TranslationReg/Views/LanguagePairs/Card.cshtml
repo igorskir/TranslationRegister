@@ -1,0 +1,30 @@
+﻿@model TranslationRegistryModel.LanguagePair
+<div class="card card-langPair">
+    <div class="card-header pair-header">
+        <p>Языковая пара</p>
+        <div>
+            <a class="fa fa-edit card-btn ajaxToggleCard" data-href="/LanguagePairs/EditCard/@Model.Id" style="font-size:36px" data-ajax-update="#languagePair@(Model.Id)"></a>
+            <a class="fa fa-times card-btn deleteBtn" href="/LanguagePairs/Delete/@Model.Id" data-dialog-title="Удаление языковой пары"  style="font-size:36px"></a>
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="card-row">
+            <div class="card-property col-md-5"><p>Название:</p></div>
+            <div class="card-value col-md-7">
+                <p>@Model.Name</p>
+            </div>
+        </div>
+        <div class="card-row">
+            <div class="card-property col-md-5"><p>Оригинал:</p></div>
+            <div class="card-value col-md-7">
+                <p>@Model.OriginalLanguage.Name<p>
+            </div>
+        </div>
+        <div class="card-row">
+            <div class="card-property col-md-5"><p>Перевод:</p></div>
+            <div class="card-value col-md-7">
+                <p>@Model.TranslationLanguage.Name<p>
+            </div>
+        </div>
+    </div>
+</div>

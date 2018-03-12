@@ -1,51 +1,161 @@
-﻿@model TranslationRegistryModel.Project
+﻿@model IEnumerable<TranslationRegistryModel.Project>
 
 <h1>Проекты</h1>
-<div class="col-md-3 col-md-offset-2 card-container">
-    <div class="project-card">
-        <div>
-            <h1 class="main-title">@Model.Name длинное название</h1>
-        </div>
-        <!-- Thumbnail-->
-        <div class="thumbnail">
-            <div class="date">
-                <div class="day">@Model.Date.Day</div>
-                <div class="month">@Model.Date.ToString("MMM")</div>
-            </div><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/photo-1429043794791-eb8f26f44081.jpeg" />
-        </div>
-        <!-- Post Content-->
-        <div class="card-content">
-            <div class="category">Открыть</div>
-            <h1 class="sub-title">Документы проекта</h1>
-            <p class="description">
-                New York, the largest city in the U.S., is an architectural marvel with plenty of historic monuments, magnificent buildings and countless dazzling skyscrapers.
-            </p>
-            <div class="card-meta">
-                <span class="timestamp">
-                    <i class="fa fa-clock-o"></i>6 mins ago
-                </span>
-                <span class="comments">
-                    <i class="fa fa-comments"></i>
-                    <a href="#"> 39 comments</a>
-                </span>
-            </div>
-        </div>
-    </div>
-</div>
+<ul class="cards-list">
+    @foreach (var project in Model)
+    {
+        <li class="cards-list-item">
+            <div class="card-container">
+                <div class="project-card">
+                    <div class="card-name">
+                        <h1 class="main-title">@project.Name <span class="card-status-light"></span></h1>
+                        <div class="date">
+                            <div class="day">@project.Date.Day</div>
+                            <div class="month">@project.Date.ToString("MMM")</div>
+                        </div>
+                    </div>
 
+                    <!-- Post Content-->
+                    <div class="card-content">
+                        <div class="card-info">
+                            <h1 class="sub-title">Создатель: @project.Creator.Name</h1>
+                            <h1 class="sub-title">@project.LanguagePair.Name</h1>
+                        </div>
+                        <p class="description">
+                            New York, the largest city in the U.S.
+                        </p>
+                        <div class="card-users">
+                            <a class="category" href="/Projects/TabPages/@(project.Id)">Открыть</a>
+                            @{
+                                var usersData = project.Documents.SelectMany
+                                    (x => x.Stages.SelectMany
+                                    (y => y.User_Stage.Select
+                                    (z => new { z.User.AvatarPath, z.User.Name }))).Distinct();
+                                if (usersData.Count() > 4)
+                                {
+
+                                    <div class="avatar-list-block">
+                                        <i class="fas fa-ellipsis-h fa-lg"></i>
+                                        <ul class="avatar-list">
+                                            @foreach (var data in usersData)
+                                            {
+                                                <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <ul class="avatar-list">
+                                        @foreach (var data in usersData)
+                                        {
+                                            <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                        }
+                                    </ul>
+                                }
+                            }
+                        </div>
+                        <div class="card-meta">
+                            <div class="documents">
+                                @if (@project.Documents.Count == 0 || @project.Documents.Count == 1)
+                                {
+                                    <span><i class="fa fa-list"></i> @project.Documents.Count document</span>
+                                }
+                                else
+                                {
+                                    <span><i class="fa fa-list"></i> @project.Documents.Count documents</span>
+                                    <div class="documents-list">
+                                        <ul>
+                                            @foreach (var document in project.Documents)
+                                            {
+                                                <li><a href="/Documents/DocAndStages/@document.Id">@document.Name</a></li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    }
+</ul>
 <style>
+    .cards-list {
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        flex-wrap: wrap;
+    }
+
+    .cards-list-item {
+        display: flex; /* 1 */
+        flex-direction: column; /* 1 */
+        flex: 0 0 325px; /* 2 */
+        margin: 10px; /* 3 */
+    }
+
     .card-container {
         margin-top: 40px;
-        margin-left: 40px;
+        margin-left: 5px !important;
+        z-index: 0;
+    }
+
+    .card-name {
+        display: flex;
+        padding: 20px 0 0 20px;
+    }
+
+    .card-users {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .avatar-list-block {
+        position: relative;
+        font-size: 2em;
+    }
+
+    .avatar-list {
+        display: none;
+        list-style: none;
+        margin: 0;
+        padding: 10px;
+        position: absolute;
+        width: 178px;
+        left: -135px;
+        top: 25px;
+        font-size: 18px;
+        background-color: white;
+        box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    }
+
+        .avatar-list li {
+            display: inline-block;
+            font-size: 25px;
+        }
+
+            .avatar-list li img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: 1px solid lightgray;
+            }
+
+    .avatar-list-block:hover .avatar-list {
+        display: inline-block;
     }
 
     .project-card {
         position: relative;
         z-index: 1;
-        display: block;
+        display: flex;
+        flex-direction: column;
         background: #FFFFFF;
-        min-width: 270px;
-        height: 490px;
+        min-width: 325px;
         -webkit-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
         -moz-box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
         box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.15);
@@ -61,56 +171,43 @@
         box-shadow: 0px 1px 15px 0px rgba(0, 0, 0, 0.3);
     }
 
-        .project-card .thumbnail img {
-            height: 300px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+        .project-card .card-name .main-title .card-status-light {
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: greenyellow;
         }
 
-        .project-card .thumbnail {
-            height: 400px;
-            overflow: hidden;
-            border: none
+        .project-card .card-name .date {
+            align-self: center;
+            margin-left: 10px;
+            z-index: 1;
+            background: #e74c3c;
+            width: 55px;
+            height: 55px;
+            padding: 5px 0;
+            -webkit-border-radius: 100%;
+            -moz-border-radius: 100%;
+            border-radius: 100%;
+            color: #FFFFFF;
+            font-weight: 700;
+            text-align: center;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
         }
 
-            .project-card .thumbnail .date {
-                position: absolute;
-                top: 72px;
-                right: 3px;
-                z-index: 1;
-                background: #e74c3c;
-                width: 55px;
-                height: 55px;
-                padding: 5px 0;
-                -webkit-border-radius: 100%;
-                -moz-border-radius: 100%;
-                border-radius: 100%;
-                color: #FFFFFF;
-                font-weight: 700;
-                text-align: center;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-            }
+        .project-card .date .day {
+            font-size: 16px;
+        }
 
-                .project-card .thumbnail .date .day {
-                    font-size: 16px;
-                }
-
-                .project-card .thumbnail .date .month {
-                    font-size: 14px;
-                    text-transform: uppercase;
-                }
-
-            .project-card .thumbnail img {
-                display: block;
-                width: 120%;
-                -webkit-transition: all 0.3s linear 0s;
-                -moz-transition: all 0.3s linear 0s;
-                -o-transition: all 0.3s linear 0s;
-                transition: all 0.3s linear 0s;
-            }
+        .project-card .date .month {
+            font-size: 14px;
+            text-transform: uppercase;
+        }
 
         .project-card .card-content {
-            position: absolute;
+            position: relative;
             bottom: 0;
             background: #FFFFFF;
             width: 100%;
@@ -120,20 +217,23 @@
         }
 
             .project-card .card-content .category {
-                position: absolute;
-                top: -30px;
-                left: 0;
+                display: inline-block;
+                width: 100px;
+                height: 40px;
                 background: #e74c3c;
                 padding: 10px 15px;
                 color: #FFFFFF;
                 font-size: 14px;
                 font-weight: 600;
                 text-transform: uppercase;
+                color: white;
+                text-decoration: none;
             }
 
         .project-card .main-title {
+            align-self: center;
             margin: 0;
-            padding: 20px;
+            width: 75%;
             color: #333333;
             font-size: 26px;
             font-weight: 700;
@@ -147,6 +247,15 @@
             font-weight: 700;
         }
 
+        .project-card .card-content .card-info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+            .project-card .card-content .card-info h1:last-child {
+                text-transform: uppercase;
+            }
+
         .project-card .card-content .description {
             display: none;
             color: #666666;
@@ -155,9 +264,41 @@
         }
 
         .project-card .card-content .card-meta {
-            margin: 30px 0 0;
+            margin: 10px 0 0;
             color: #999999;
         }
+
+            .project-card .card-content .card-meta .documents {
+                display: inline-block;
+                position: relative;
+            }
+
+                .project-card .card-content .card-meta .documents .documents-list {
+                    display: none;
+                    position: absolute;
+                    width: 150px;
+                    padding: 10px;
+                    background-color: white;
+                    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+                }
+
+                .project-card .card-content .card-meta .documents:hover .documents-list {
+                    display: inline-block;
+                }
+
+                .project-card .card-content .card-meta .documents .documents-list ul {
+                    list-style: none;
+                    margin: 0;
+                    padding: 0;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                }
+
+                    .project-card .card-content .card-meta .documents .documents-list ul li {
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        white-space: nowrap;
+                    }
 
             .project-card .card-content .card-meta .timestamp {
                 margin: 0 16px 0 0;
@@ -187,5 +328,10 @@
         -moz-box-sizing: border-box;
         box-sizing: border-box;
         float: left;
+    }
+
+    .documents-list ul li {
+        text-decoration: underline;
+        color: black;
     }
 </style>

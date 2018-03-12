@@ -25,10 +25,10 @@ namespace TranslationReg.Controllers
             return View(projects);
         }
 
-        // GET: Projects
+        // GET: Projects/GetCard
         public async Task<ActionResult> GetCard()
         {
-            var project = (await Rep.GetProjects()).First();
+            var project = await Rep.GetProjects();
             return View("Card", project);
         }
 

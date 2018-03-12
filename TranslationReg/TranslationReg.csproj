@@ -378,6 +378,9 @@
     <Content Include="Views\LanguagePairs\EditCard.cshtml" />
     <Content Include="Views\LanguagePairs\AddCard.cshtml" />
     <Content Include="Views\Languages\AddCard.cshtml" />
+    <Content Include="Views\WorkTypes\Cards.cshtml" />
+    <Content Include="Views\WorkTypes\AddCard.cshtml" />
+    <Content Include="Views\WorkTypes\Card.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

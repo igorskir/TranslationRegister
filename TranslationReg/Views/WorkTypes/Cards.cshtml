@@ -1,57 +1,34 @@
-﻿@model TranslationReg.Models.LanguagesModel
-
+﻿@model TranslationReg.Models.WorkTypesModel
 <div>
-    <!-- карточки языков -->
+    <!-- карточки типов работ -->
     <div class="col-md-6 cardset-container languages-cardset">
 
         <!-- карточка добавления -->
-        <div id="addLanguage">
-            <div class="card card-language">
-                <div class="card-header lang-header">
-                    <p>Добавить язык</p>
+        <div id="addWorktype">
+            <div class="card card-worktype">
+                <div class="card-header worktype-header">
+                    <p>Добавить тип работ</p>
                 </div>
-                <div class="add-card-content ajaxToggleCard" data-href="/Languages/AddCard" data-ajax-update="#addLanguage" >
-                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px; float:left; padding:10px;" ></i>
-                    <p style="float:right; margin: 0;padding: 10px;color: #3e5983;font-weight: bold;text-align: center;font-size: 24px; align-self: center;" >
+                <div class="add-card-content ajaxToggleCard" data-href="/WorkTypes/AddCard" data-ajax-update="#addWorktype">
+                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px; float:left; padding:10px;"></i>
+                    <p style="float:right; margin: 0;padding: 10px;color: #3e5983;font-weight: bold;text-align: center;font-size: 24px; align-self: center;">
                         Нажмите чтобы добавить
                     </p>
                 </div>
             </div>
         </div>
-        <!-- языки -->
-        @foreach (var language in Model.languages)
+        <!-- типы работ -->
+        @foreach (var workType in Model.workTypes)
         {
-            <div id="language@(language.Id)">
-                @Html.Partial("../Languages/Card", language)
+            <div id="workType@(workType.Id)">
+                @Html.Partial("../Worktypes/Card", workType)
             </div>
         }
     </div>
 
-    <!-- карточки языковых пар -->
-    <div class="col-md-6 cardset-container languagePairs-cardset">
-
-        <!-- карточка добавления -->
-        <div id="addLanguagePair">
-            <div class="card card-langPair">
-                <div class="card-header pair-header">
-                    <p>Добавить языковую пару</p>
-                </div>
-                <div class="add-card-content ajaxToggleCard" data-href="/LanguagePairs/AddCard" data-ajax-update="#addLanguagePair">
-                    <i class="fa fa-plus-circle addCardIcon" style="font-size:160px; float:left; padding:10px;"></i>
-                    <p style="float:right; margin: 0;padding: 20px 20px;color: #3e5983; font-weight: bold;text-align: center;font-size: 24px; align-self: center;">
-                        Нажмите чтобы добавить
-                    </p>
-                </div>
-            </div>
-        </div>
-        <!-- языковые пары -->
-        @foreach (var languagePair in Model.languagePairs)
-        {
-            <div id="languagePair@(languagePair.Id)">
-                @Html.Partial("../LanguagePairs/Card", languagePair)
-            </div>
-        }
-    </div>
+    <!-- карточки статусов проекта -->
+    
+    
 </div>
 
 <style>

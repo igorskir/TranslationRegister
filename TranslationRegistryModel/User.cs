@@ -19,7 +19,6 @@ namespace TranslationRegistryModel
         {
             this.Documents = new HashSet<Document>();
             this.MyProjects = new HashSet<Project>();
-            this.Projects = new HashSet<Project>();
         }
     
         public int Id { get; set; }
@@ -31,7 +30,5 @@ namespace TranslationRegistryModel
         public virtual ICollection<Document> Documents { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Project> MyProjects { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Project> Projects { get; set; }
     }
 }

@@ -1,14 +1,14 @@
-﻿@model TranslationRegistryModel.Language
+﻿@model TranslationReg.Models.WorkTypeModel
 
-@using (Html.BeginForm("Create", "Languages"))
+@using (Html.BeginForm("Create", "WorkTypes"))
 {
     @Html.AntiForgeryToken()
-    <div class="card card-language">
+    <div class="card card-worktype">
 
         <div class="card-header lang-header">
-            <p>Добавить язык</p>
+            <p>Добавить тип работ</p>
             <div>
-                <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Languages/Cards"></a>
+                <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Worktypes/Cards"></a>
             </div>
         </div>
 
@@ -17,14 +17,14 @@
             <div class="card-row-edit">
                 <div class="card-property-edit col-md-4"><p>Назв.:</p></div>
                 <div class="card-value-edit col-md-8">
-                    @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.EditorFor(model => model.workType.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                 </div>
             </div>
 
             <div class="card-row-edit">
                 <div class="card-property-edit col-md-4"><p>Сокр.:</p></div>
                 <div class="card-value-edit col-md-8">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.DropDownListFor(model => model.workType.UnitOfMeasureId, Model.unitsOfMeasure, null, htmlAttributes: new { @class = "form-control", required = "required" })
                 </div>
             </div>
 

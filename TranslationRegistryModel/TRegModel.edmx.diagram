@@ -23,7 +23,6 @@
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_ProjectUser" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_StageWorkType" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.FK_User_StageStage" ManuallyRouted="false" />
-        <AssociationConnector Association="SqlRepository.SqlContextModel.ProjectUsers" ManuallyRouted="false" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.LanguageLanguagePair1" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentFile" />

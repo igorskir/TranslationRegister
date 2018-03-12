@@ -18,7 +18,6 @@ namespace TranslationRegistryModel
         public Project()
         {
             this.Documents = new HashSet<Document>();
-            this.Workers = new HashSet<User>();
         }
     
         public int Id { get; set; }
@@ -28,13 +27,12 @@ namespace TranslationRegistryModel
         public Nullable<int> ProjectStatuseId { get; set; }
         public int CreatorId { get; set; }
         public System.DateTime Date { get; set; }
+        public string Description { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }
         public virtual LanguagePair LanguagePair { get; set; }
         public virtual ProjectStatus ProjectStatus { get; set; }
         public virtual User Creator { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> Workers { get; set; }
     }
 }

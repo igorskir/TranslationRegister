@@ -11,6 +11,7 @@ namespace TranslationReg.Controllers
     public static class Helper
     {
         public const string uploadDir = "Uploads";
+        public const string reports = "Reports";
         public const string avatarsDir = "UserAvatars";
         public const string defaultAvatar = "default.jpg";
 

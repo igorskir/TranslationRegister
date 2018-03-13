@@ -25,7 +25,7 @@ namespace TranslationReg.Models
     {
         // выбранный элемент списка, который отменяет фильтрацию по полю 
         // и отображается первым, будет иметь этот id 
-        static int skipFilterId = -1;
+        public const int skipFilterId = -1;
 
         [DataType(DataType.Date)]
         public DateTime DateFrom { get; set; }
@@ -52,7 +52,7 @@ namespace TranslationReg.Models
             // выбираю работы по фильтрам
             var filteredWorks = new List<User_Stage>();
             if (filters != null)
-                filteredWorks = await ApplyFiltersToWorksAsync(filters, Rep);
+                filteredWorks = await ApplyFiltersToWorksAsync(Rep, filters );
 
             // группирую данные для представления
             var reportData = GroupReportData(filteredWorks.ToList());
@@ -68,7 +68,7 @@ namespace TranslationReg.Models
             };
         }
 
-        private static async Task<List<User_Stage>> ApplyFiltersToWorksAsync(ChosenFilters filters, IRepository Rep)
+        public static async Task<List<User_Stage>> ApplyFiltersToWorksAsync(IRepository Rep, ChosenFilters filters)
         {
             // фильтрация по выбранным ограничениям
             var filteredWorks = (await Rep.GetUser_Stages()).
@@ -95,7 +95,7 @@ namespace TranslationReg.Models
         }
 
         // данные нужно магически сгруппировать чтобы хорошо представить в отчете
-        static List<IEnumerable<IGrouping<int, User_Stage>>> GroupReportData(List<User_Stage> filteredWorks)
+        public static List<IEnumerable<IGrouping<int, User_Stage>>> GroupReportData(List<User_Stage> filteredWorks)
         {
             if (filteredWorks != null && filteredWorks.Count != 0)
             {

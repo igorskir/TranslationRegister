@@ -24,6 +24,35 @@ namespace TranslationReg.Controllers
             return View(workTypesModel);
         }
 
+        // GET: WorkTypes/Cards
+        public async Task<ActionResult> Cards()
+        {
+            var workTypesModel = await WorkTypesModel.GetModel(Rep);
+            return View(workTypesModel);
+        }
+
+        // GET: WorkTypes/AddCard
+        public async Task<ActionResult> AddCard()
+        {
+            var workTypeModel = await WorkTypeModel.GetModel(Rep);
+            return View(workTypeModel);
+        }
+
+        // GET: WorkTypes/EditCard
+        public async Task<ActionResult> EditCard(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            WorkType workType = await Rep.GetWorkType(id.Value);
+
+            if (workType == null)
+                return HttpNotFound();
+
+            var workTypeModel = await WorkTypeModel.GetModel(Rep, workType);
+            return View(workTypeModel);
+        }
+
         // GET: WorkTypes/Create
         public async Task<ActionResult> Create()
         {

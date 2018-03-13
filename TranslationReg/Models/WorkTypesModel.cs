@@ -8,6 +8,30 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Models
 {
+    public class WorkTypeModel
+    {
+        public WorkType workType;
+        public SelectList unitsOfMeasure;
+
+        public static async Task<WorkTypeModel> GetModel(IRepository Rep, WorkType workType = null)
+        {
+            var units = await Rep.GetUnitsOfMeasure();
+
+            if (workType == null)
+                workType = new WorkType
+                {
+                    UnitOfMeasureId = units[1].Id
+                };
+
+            WorkTypeModel model = new WorkTypeModel
+            {
+                workType = workType,
+                unitsOfMeasure = new SelectList(units, "Id", "Name", workType.UnitOfMeasureId)
+            };
+            return model;
+        }
+    }
+
     public class WorkTypesModel
     {
         public List<WorkType> workTypes;

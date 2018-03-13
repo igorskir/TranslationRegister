@@ -269,3 +269,6 @@ __pycache__/
 # ConnStringFiles
 /TranslationReg/Web.config
 /TranslationRegistryModel/App.config
+TranslationRegistryModel/connectionStrings.config
+TranslationReg/connectionStrings.config
+TranslationRegistryModel/TRegModel.Designer.cs

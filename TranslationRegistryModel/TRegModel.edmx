@@ -17,7 +17,6 @@
     <EntitySet Name="Users" EntityType="SqlRepository.SqlContextModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkTypes" EntityType="SqlRepository.SqlContextModel.Store.WorkTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.Store.UnitOfMeasures" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="ProjectUsers" EntityType="SqlRepository.SqlContextModel.Store.ProjectUsers" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Projects_ProjectId">
       <End Role="Projects" EntitySet="Projects" />
       <End Role="Documents" EntitySet="Documents" />
@@ -49,14 +48,6 @@
     <AssociationSet Name="FK_User_StageStage" Association="SqlRepository.SqlContextModel.Store.FK_User_StageStage">
       <End Role="Stages" EntitySet="DocStages" />
       <End Role="User_Stage" EntitySet="User_Stage" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProjectUsers_Projects" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUsers_Projects">
-      <End Role="Projects" EntitySet="Projects" />
-      <End Role="ProjectUsers" EntitySet="ProjectUsers" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProjectUsers_Users" Association="SqlRepository.SqlContextModel.Store.FK_ProjectUsers_Users">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="ProjectUsers" EntitySet="ProjectUsers" />
     </AssociationSet>
     <AssociationSet Name="LanguageLanguagePair" Association="SqlRepository.SqlContextModel.Store.LanguageLanguagePair">
       <End Role="Language" EntitySet="Languages" />
@@ -140,6 +131,7 @@
     <Property Name="ProjectStatuseId" Type="int" Nullable="true" />
     <Property Name="CreatorId" Type="int" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectStatuses">
     <Key>
@@ -185,7 +177,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
     <Property Name="UnitOfMeasureId" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="UnitOfMeasures">
@@ -194,15 +185,6 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
-  </EntityType>
-  <EntityType Name="ProjectUsers">
-    <Key>
-      <PropertyRef Name="Projects_Id" />
-      <PropertyRef Name="Workers_Id" />
-    </Key>
-    <Property Name="Projects_Id" Type="int" Nullable="false" />
-    <Property Name="Workers_Id" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
     <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="0..1">
@@ -406,30 +388,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProjectUsers_Projects">
-    <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="1" />
-    <End Role="ProjectUsers" Type="SqlRepository.SqlContextModel.Store.ProjectUsers" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Projects">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProjectUsers">
-        <PropertyRef Name="Projects_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_ProjectUsers_Users">
-    <End Role="ProjectUsers" Type="SqlRepository.SqlContextModel.Store.ProjectUsers" Multiplicity="*" />
-    <End Role="Users" Type="SqlRepository.SqlContextModel.Store.Users" Multiplicity="1" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProjectUsers">
-        <PropertyRef Name="Workers_Id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -494,8 +452,8 @@
           <NavigationProperty Name="LanguagePair" Relationship="Self.FK_dbo_Projects_dbo_LanguagePairs_LanguagePairId" FromRole="Projects" ToRole="LanguagePairs" />
           <NavigationProperty Name="ProjectStatus" Relationship="Self.FK_dbo_Projects_dbo_ProjectStatuses_ProjectStatuseId" FromRole="Projects" ToRole="ProjectStatuses" />
           <NavigationProperty Name="Creator" Relationship="Self.FK_ProjectUser" FromRole="Projects" ToRole="Users" />
-          <NavigationProperty Name="Workers" Relationship="Self.ProjectUsers" FromRole="Projects" ToRole="Users" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -543,7 +501,6 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Documents" Relationship="Self.FK_dbo_Documents_dbo_Users_UserId" FromRole="Users" ToRole="Documents" />
           <NavigationProperty Name="MyProjects" Relationship="Self.FK_ProjectUser" FromRole="Users" ToRole="Projects" />
-          <NavigationProperty Name="Projects" Relationship="Self.ProjectUsers" FromRole="Users" ToRole="Projects" />
           <Property Name="AvatarPath" Type="String" Nullable="true" />
         </EntityType>
         <EntityType Name="WorkType">
@@ -552,7 +509,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Stages" Relationship="Self.FK_StageWorkType" FromRole="WorkTypes" ToRole="Stages" />
           <NavigationProperty Name="UnitOfMeasure" Relationship="SqlRepository.SqlContextModel.UnitOfMeasureWorkType" FromRole="WorkType" ToRole="UnitOfMeasure" />
           <Property Name="UnitOfMeasureId" Type="Int32" Nullable="false" />
@@ -659,10 +615,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="ProjectUsers">
-          <End Role="Projects" Type="Self.Project" Multiplicity="*" />
-          <End Role="Users" Type="Self.User" Multiplicity="*" />
-        </Association>
         <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Documents" EntityType="Self.Document" />
           <EntitySet Name="DocFiles" EntityType="SqlRepository.SqlContextModel.DocFile" />
@@ -705,10 +657,6 @@
           <AssociationSet Name="FK_User_StageStage" Association="Self.FK_User_StageStage">
             <End Role="Stages" EntitySet="DocStages" />
             <End Role="User_Stage" EntitySet="User_Stage" />
-          </AssociationSet>
-          <AssociationSet Name="ProjectUsers" Association="Self.ProjectUsers">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="Users" EntitySet="Users" />
           </AssociationSet>
           <AssociationSet Name="LanguageLanguagePair" Association="SqlRepository.SqlContextModel.LanguageLanguagePair">
             <End Role="Language" EntitySet="Languages" />
@@ -841,7 +789,6 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" />
-          <Property Name="Description" Type="String" Nullable="true" />
         </EntityType>
         <Association Name="UnitOfMeasureWorkType">
           <End Type="SqlRepository.SqlContextModel.UnitOfMeasure" Role="UnitOfMeasure" Multiplicity="1" >
@@ -915,6 +862,7 @@
           <ScalarProperty Name="ProjectStatuseId" ColumnName="ProjectStatuseId" />
           <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -965,7 +913,6 @@
         <MappingFragment StoreEntitySet="WorkTypes">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="UnitOfMeasureId" ColumnName="UnitOfMeasureId" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -975,18 +922,9 @@
         <MappingFragment StoreEntitySet="UnitOfMeasures">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="Description" ColumnName="Description" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <AssociationSetMapping Name="ProjectUsers" TypeName="SqlRepository.SqlContextModel.ProjectUsers" StoreEntitySet="ProjectUsers">
-      <EndProperty Name="Projects">
-        <ScalarProperty Name="Id" ColumnName="Projects_Id" />
-      </EndProperty>
-      <EndProperty Name="Users">
-        <ScalarProperty Name="Id" ColumnName="Workers_Id" />
-      </EndProperty>
-    </AssociationSetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

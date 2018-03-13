@@ -1,0 +1,26 @@
+﻿@model TranslationRegistryModel.WorkType
+<!-- карточка типа работ -->
+<div class="card card-worktype">
+    <div class="card-header worktype-header">
+        <p>Тип работ</p>
+        <div>
+            <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#worktype@(Model.Id)" data-href="/Worktypes/EditCard/@Model.Id" style="font-size:36px"></a>
+            <a class="fa fa-times card-btn deleteBtn" href="/Worktypes/Delete/@Model.Id" data-dialog-title="Удаление типа работ" style="font-size:36px"></a>
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="card-row">
+            <div class="card-property col-md-4"><p>Назв.:</p></div>
+            <div class="card-value col-md-8">
+                <p>@Model.Name</p>
+            </div>
+        </div>
+
+        <div class="card-row">
+            <div class="card-property col-md-4"><p>Сокр.:</p></div>
+            <div class="card-value col-md-8">
+                <p>@Model.UnitOfMeasure.Name<p>
+            </div>
+        </div>
+    </div>
+</div>

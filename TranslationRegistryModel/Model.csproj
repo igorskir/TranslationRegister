@@ -107,7 +107,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="connectionStrings.config" />
     <None Include="packages.config" />
     <EntityDeploy Include="TRegModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

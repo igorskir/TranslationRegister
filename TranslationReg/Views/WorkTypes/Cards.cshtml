@@ -1,17 +1,17 @@
 ﻿@model TranslationReg.Models.WorkTypesModel
 <div>
     <!-- карточки типов работ -->
-    <div class="col-md-6 cardset-container languages-cardset">
+    <div class="cardset-container" style="border-bottom: 1px solid lightgray">
 
         <!-- карточка добавления -->
         <div id="addWorktype">
-            <div class="card card-worktype">
-                <div class="card-header worktype-header">
+            <div class="card card-300-180 card-orange">
+                <div class="card-header">
                     <p>Добавить тип работ</p>
                 </div>
                 <div class="add-card-content ajaxToggleCard" data-href="/WorkTypes/AddCard" data-ajax-update="#addWorktype">
-                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px; float:left; padding:10px;"></i>
-                    <p style="float:right; margin: 0;padding: 10px;color: #3e5983;font-weight: bold;text-align: center;font-size: 24px; align-self: center;">
+                    <i class="fa fa-plus-circle"></i>
+                    <p>
                         Нажмите чтобы добавить
                     </p>
                 </div>
@@ -27,8 +27,31 @@
     </div>
 
     <!-- карточки статусов проекта -->
-    
-    
+    <div class="cardset-container" style="border-bottom: 1px solid lightgray">
+
+        <!-- карточка добавления -->
+        <div id="addProjectStatuse">
+            <div class="card card-300-180 card-blue">
+                <div class="card-header">
+                    <p>Доб. статус проекта</p>
+                </div>
+                <div class="add-card-content ajaxToggleCard" data-href="/ProjectStatuse/AddCard" data-ajax-update="#addProjectStatuse">
+                    <i class="fa fa-plus-circle"></i>
+                    <p>
+                        Нажмите чтобы добавить
+                    </p>
+                </div>
+            </div>
+        </div>
+        <!-- типы работ -->
+        @foreach (var projectStatuse in Model.projectStatuses)
+        {
+            <div id="workType@(projectStatuse.Id)">
+                @Html.Partial("../ProjectStatuse/Card", projectStatuse)
+            </div>
+        }
+    </div>
+
 </div>
 
 <style>
@@ -44,13 +67,6 @@
         margin-top: 40px;
     }
 
-    /* конкретные контейнеры списков карт */
-    .languages-cardset {
-    }
-
-    .languagePairs-cardset {
-        border-left: 2px solid #e4e4e4;
-    }
     /*--------------------------------------------------------------------------------*/
 
     .card {
@@ -63,18 +79,58 @@
         overflow: hidden;
     }
 
-    .card-language {
+    .card-300-180 {
         width: 300px;
         height: 180px;
+    }
+
+        .card-300-180 .add-card-content > i {
+            font-size: 100px;
+        }
+
+    .card-360-240 {
+        width: 360px;
+        height: 240px;
+    }
+
+    .card-orange {
         background-color: #fffefc;
     }
 
-    .card-langPair {
-        width: 360px;
-        height: 240px;
-        background-color: #fcfcff;
-        border-radius: 10px;
+        .card-orange .card-header {
+            background-color: #e5cdbc;
+            border-bottom: solid 2px #b12323;
+        }
+
+        .card-orange:hover .card-header {
+            transition: 0.3s;
+            background-color: #fbab72;
+            border-bottom: solid 2px #b12323;
+        }
+
+        .card-orange:hover .addCardIcon {
+            transition: 0.3s;
+            color: #ff6a00;
+        }
+
+    .card-blue {
+        background-color: #fffefc;
     }
+        .card-blue .card-header {
+            background-color: #bccee5;
+            border-bottom: solid 2px #4f7a9a;
+        }
+
+        .card-blue:hover .card-header {
+            transition: 0.3s;
+            background-color: #979eef;
+            border-bottom: solid 2px #b12323;
+        }
+
+        .card-blue:hover .addCardIcon {
+            transition: 0.3s;
+            color: #1265f8;
+        }
 
     .card-content {
         padding: 0 5px;
@@ -111,11 +167,11 @@
         .card-value > p, .card-property > p {
             margin: 0;
             overflow: hidden;
-            white-space: nowrap;
             align-self: center;
         }
 
         .card-value > p {
+            white-space: nowrap;
             text-overflow: ellipsis;
         }
 
@@ -130,47 +186,29 @@
         display: flex;
     }
 
-    .addCardIcon {
-        color: lightgray;
-    }
-    /*----------------------------------- ХОВЕР НА КАРТУ -----------------------------------*/
+        .add-card-content > i {
+            float: left;
+            padding: 10px;
+            color: lightgray;
+        }
+
+        .add-card-content > p {
+            float: right;
+            margin: 0;
+            padding: 10px;
+            color: #3e5983;
+            font-weight: bold;
+            text-align: center;
+            font-size: 24px;
+            align-self: center;
+        }
+
     .card:hover {
         box-shadow: -13px 11px 25px 1px rgba(0, 0, 0, 0.55);
         transition: 0.3s;
     }
 
-        .card:hover .lang-header {
-            transition: 0.3s;
-            background-color: #fbab72;
-            border-bottom: solid 2px #b12323;
-        }
-
-        .card:hover .pair-header {
-            transition: 0.3s;
-            background-color: #979eef;
-        }
-
-        .card:hover .card-content {
-            transition: 0.3s;
-            background-color: #ffffff;
-        }
-
-    .card-language:hover .addCardIcon {
-        transition: 0.3s;
-        color: #ff6a00;
-    }
-
-    .card-langPair:hover .addCardIcon {
-        transition: 0.3s;
-        color: #1265f8;
-    }
-
-    /*------------------------------------------------------------------------------------*/
-
-
-
     /*----------------------------------- ХЕДЕРЫ КАРТОЧЕК -----------------------------------*/
-
     .card-header {
         display: flex;
         justify-content: space-between;
@@ -187,28 +225,17 @@
             vertical-align: middle;
         }
 
-    .pair-header {
-        background-color: #bccee5;
-        border-bottom: solid 2px #4f7a9a;
-    }
-
-    .lang-header {
-        background-color: #e5cdbc;
-        border-bottom: solid 2px #b12323;
-    }
-
-    .card-header > div {
-        display: flex;
-    }
-
-        .card-header > div a {
-            padding: 0;
-            color: #333333;
-            margin-right: 10px;
-            align-self: center;
-            text-decoration: none;
+        .card-header > div {
+            display: flex;
         }
 
+            .card-header > div a {
+                padding: 0;
+                color: #333333;
+                margin-right: 10px;
+                align-self: center;
+                text-decoration: none;
+            }
     /*------------------------------------------------------------------------------------------*/
 
     .card-btn {

@@ -1,8 +1,8 @@
-﻿@model TranslationRegistryModel.WorkType
+﻿@model TranslationRegistryModel.ProjectStatus
 <!-- карточка типа работ -->
-<div class="card card-orange card-300-180">
+<div class="card card-blue card-300-180">
     <div class="card-header">
-        <p>Тип работ</p>
+        <p>Статус проекта</p>
         <div>
             <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#worktype@(Model.Id)" data-href="/Worktypes/EditCard/@Model.Id" style="font-size:36px"></a>
             <a class="fa fa-times card-btn deleteBtn" href="/Worktypes/Delete/@Model.Id" data-dialog-title="Удаление типа работ" style="font-size:36px"></a>
@@ -10,16 +10,16 @@
     </div>
     <div class="card-content">
         <div class="card-row">
-            <div class="card-property col-md-4"><p>Назв.:</p></div>
+            <div class="card-property col-md-4"><p>Название:</p></div>
             <div class="card-value col-md-8">
                 <p>@Model.Name</p>
             </div>
         </div>
 
         <div class="card-row">
-            <div class="card-property col-md-4"><p>Ед.изм.:</p></div>
+            <div class="card-property col-md-4"><p>Описание:</p></div>
             <div class="card-value col-md-8">
-                <p>@Model.UnitOfMeasure.Name<p>
+                <p>@Model.Description<p>
             </div>
         </div>
     </div>

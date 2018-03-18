@@ -50,7 +50,7 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             var workTypeModel = await WorkTypeModel.GetModel(Rep, workType);
-            return View(workTypeModel);
+            return PartialView(workTypeModel);
         }
 
         // GET: WorkTypes/Create
@@ -100,7 +100,6 @@ namespace TranslationReg.Controllers
                 await Rep.PutWorkType(workType);
                 return Redirect(Request.UrlReferrer.ToString());
             }
-            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
             return View(workType);
         }
 

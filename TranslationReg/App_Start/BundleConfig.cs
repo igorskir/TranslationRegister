@@ -34,6 +34,9 @@ namespace TranslationReg
                       "~/Style/bootstrap.css",
                       "~/Style/Site.css",
                       "~/Style/style.css",
+                      "~/Style/addCard.css",
+                      "~/Style/deleteModal.css",
+                      "~/Style/card.css",
                       "~/Style/themes/base/jquery-ui.css"
                       ));
         }

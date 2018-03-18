@@ -1,22 +1,38 @@
 ﻿@model TranslationRegistryModel.Language
-<div>
-    <h3>Вы уверены, что хотите удалить данную запись?</h3>
-    
-    <div>
-        <dl class="dl-horizontal">
-            <dt>@Html.Label("Язык")</dt>
-            <dd>@Html.DisplayFor(model => model.Name)</dd>
+<div class="modal-dialog">
+    <div class="modal-content">
 
-            <dt>@Html.Label("Сокращение")</dt>
-            <dd>@Html.DisplayFor(model => model.ShortName)</dd>
-        </dl>
-        
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <input type="submit" value="Удалить" class="btn btn-danger" />
-        }
+        <!-- Хедер -->
+        <div class="modal-header">
+            <h4 class="modal-title">Удаление языка "@Model.Name"</h4>
+            <p type="button" class="close" data-dismiss="modal">&times;</p>
+        </div>
+
+        <!-- Тело -->
+        <div class="modal-body">
+            <h3>Вы уверены, что хотите удалить данную запись?</h3>
+            <div class="del-row">
+                <div class="del-property"><p>Название:</p></div>
+                <div class="del-value">
+                    <p>@Model.Name</p>
+                </div>
+            </div>
+            <div class="del-row">
+                <div class="del-property"><p>Сокращение:</p></div>
+                <div class="del-value">
+                    <p>@Model.ShortName<p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подтверждение\отмена -->
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
+            }
+            <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+        </div>
     </div>
 </div>
-
-

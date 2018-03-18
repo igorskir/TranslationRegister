@@ -1,22 +1,39 @@
 ﻿@model TranslationRegistryModel.ProjectStatus
 
-<div class="formContainer">
-    <h3>Вы уверены, что хотите удалить данную запись?</h3>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>@Html.LabelFor(model => model.Name, "Название")</dt>
-            <dd>@Html.DisplayFor(model => model.Name)</dd>
+<div class="modal-dialog">
+    <div class="modal-content">
 
-            <dt>@Html.LabelFor(model => model.Description, "Описание")</dt>
-            <dd>@Html.DisplayFor(model => model.Description)</dd>
-        </dl>
+        <!-- Хедер -->
+        <div class="modal-header">
+            <h4 class="modal-title">Удаление статуса проекта "@Model.Name"</h4>
+            <p type="button" class="close" data-dismiss="modal">&times;</p>
+        </div>
 
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            <div class="form-actions no-color">
-                <input type="submit" value="Удалить" class="btn btn-danger" />
+        <!-- Тело -->
+        <div class="modal-body">
+            <h3>Вы уверены, что хотите удалить данную запись?</h3>
+            <div class="del-row">
+                <div class="del-property"><p>Название:</p></div>
+                <div class="del-value">
+                    <p>@Model.Name</p>
+                </div>
             </div>
-        }
+            <div class="del-row">
+                <div class="del-property"><p>Описание:</p></div>
+                <div class="del-value">
+                    <p>@Model.Description<p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подтверждение\отмена -->
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
+            }
+            <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+        </div>
     </div>
 </div>

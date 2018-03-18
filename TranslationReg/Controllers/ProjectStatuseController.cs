@@ -36,6 +36,28 @@ namespace TranslationReg.Controllers
             return View(projectStatus);
         }
 
+
+        // GET: ProjectStatuse/AddCard
+        public ActionResult AddCard()
+        {
+            return PartialView();
+        }
+
+        // GET: ProjectStatuse/EditCard
+        public async Task<ActionResult> EditCard(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            ProjectStatus projectStatus = await Rep.GetProjectStatus(id.Value);
+
+            if (projectStatus == null)
+                return HttpNotFound();
+
+            return PartialView(projectStatus);
+        }
+
+
         // GET: ProjectStatuse/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {

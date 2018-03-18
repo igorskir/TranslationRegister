@@ -1,11 +1,12 @@
 ﻿@model TranslationReg.Models.WorkTypeModel
 
-@using (Html.BeginForm("Create", "WorkTypes"))
+@using (Html.BeginForm("Edit", "WorkTypes"))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.workType.Id)
     <div class="card card-orange medium-card">
 
-        <div class="card-header">
+        <div class="card-header orange-header">
             <p>Доб. тип работ</p>
             <div>
                 <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Worktypes/Cards"></a>

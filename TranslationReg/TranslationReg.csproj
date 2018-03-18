@@ -249,14 +249,17 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Style\addCard.css" />
     <Content Include="Style\bootstrap-theme.css" />
     <Content Include="Style\bootstrap-theme.min.css" />
     <Content Include="Style\bootstrap.css" />
     <Content Include="Style\bootstrap.min.css" />
+    <Content Include="Style\card.css" />
     <Content Include="Style\images\logo_tpu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\Site.css" />
+    <Content Include="Style\deleteModal.css" />
     <Content Include="Style\style.css" />
     <Content Include="Style\themes\base\accordion.css" />
     <Content Include="Style\themes\base\all.css" />
@@ -387,6 +390,9 @@
     <Content Include="Views\WorkTypes\AddCard.cshtml" />
     <Content Include="Views\WorkTypes\Card.cshtml" />
     <Content Include="Views\ProjectStatuse\Card.cshtml" />
+    <Content Include="Views\WorkTypes\EditCard.cshtml" />
+    <Content Include="Views\ProjectStatuse\AddCard.cshtml" />
+    <Content Include="Views\ProjectStatuse\EditCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -427,7 +433,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
-      <Project>{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}</Project>
+      <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>
       <Name>Model</Name>
     </ProjectReference>
     <ProjectReference Include="..\TranslationRegistryRepository\SqlRepository.csproj">

@@ -18,7 +18,7 @@ namespace SqlRepository
 
         public async Task<List<Language>> GetLanguages()
         {
-            return await context.Languages.ToListAsync();
+            return await context.Languages.OrderBy(x=>x.Name).ToListAsync();
         }
 
         public async Task PutLanguage(Language language)

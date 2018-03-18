@@ -5,15 +5,13 @@
 
         <!-- карточка добавления -->
         <div id="addWorktype">
-            <div class="card card-300-180 card-orange">
+            <div class="card card-orange small-card">
                 <div class="card-header">
                     <p>Добавить тип работ</p>
                 </div>
                 <div class="add-card-content ajaxToggleCard" data-href="/WorkTypes/AddCard" data-ajax-update="#addWorktype">
                     <i class="fa fa-plus-circle"></i>
-                    <p>
-                        Нажмите чтобы добавить
-                    </p>
+                    <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
         </div>
@@ -31,263 +29,23 @@
 
         <!-- карточка добавления -->
         <div id="addProjectStatuse">
-            <div class="card card-300-180 card-blue">
+            <div class="card card-blue medium-card">
                 <div class="card-header">
                     <p>Доб. статус проекта</p>
                 </div>
                 <div class="add-card-content ajaxToggleCard" data-href="/ProjectStatuse/AddCard" data-ajax-update="#addProjectStatuse">
                     <i class="fa fa-plus-circle"></i>
-                    <p>
-                        Нажмите чтобы добавить
-                    </p>
+                    <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
         </div>
         <!-- типы работ -->
         @foreach (var projectStatuse in Model.projectStatuses)
         {
-            <div id="workType@(projectStatuse.Id)">
+            <div id="projectStatuse@(projectStatuse.Id)">
                 @Html.Partial("../ProjectStatuse/Card", projectStatuse)
             </div>
         }
     </div>
 
 </div>
-
-<style>
-    /*-------------------------- контейнеры карт --------------------------*/
-
-    /* контейнер списка карт */
-    .cardset-container {
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        flex-direction: row;
-        flex-wrap: wrap;
-        margin-top: 40px;
-    }
-
-    /*--------------------------------------------------------------------------------*/
-
-    .card {
-        padding: 0px;
-        margin: 0 5px 30px 5px;
-        font-family: "Open Sans", Helvetica, Arial, sans-serif;
-        box-shadow: -6px 5px 12px 1px rgba(0, 0, 0, 0.25);
-        border-radius: 10px;
-        border: 1px solid lightgray;
-        overflow: hidden;
-    }
-
-    .card-300-180 {
-        width: 300px;
-        height: 180px;
-    }
-
-        .card-300-180 .add-card-content > i {
-            font-size: 100px;
-        }
-
-    .card-360-240 {
-        width: 360px;
-        height: 240px;
-    }
-
-    .card-orange {
-        background-color: #fffefc;
-    }
-
-        .card-orange .card-header {
-            background-color: #e5cdbc;
-            border-bottom: solid 2px #b12323;
-        }
-
-        .card-orange:hover .card-header {
-            transition: 0.3s;
-            background-color: #fbab72;
-            border-bottom: solid 2px #b12323;
-        }
-
-        .card-orange:hover .addCardIcon {
-            transition: 0.3s;
-            color: #ff6a00;
-        }
-
-    .card-blue {
-        background-color: #fffefc;
-    }
-        .card-blue .card-header {
-            background-color: #bccee5;
-            border-bottom: solid 2px #4f7a9a;
-        }
-
-        .card-blue:hover .card-header {
-            transition: 0.3s;
-            background-color: #979eef;
-            border-bottom: solid 2px #b12323;
-        }
-
-        .card-blue:hover .addCardIcon {
-            transition: 0.3s;
-            color: #1265f8;
-        }
-
-    .card-content {
-        padding: 0 5px;
-        overflow: hidden;
-    }
-
-    .card-row {
-        display: flex;
-        border-bottom: 1px solid #e4e4e4;
-        height: 60px;
-    }
-
-        .card-row:last-of-type {
-            border: none;
-        }
-
-    .card-property {
-        font-size: 24px;
-        color: #626262;
-        text-align: left;
-        display: flex;
-        padding: 10px;
-    }
-
-    .card-value {
-        font-weight: bold;
-        font-size: 24px;
-        color: #333333;
-        text-align: left;
-        display: flex;
-        padding: 10px;
-    }
-
-        .card-value > p, .card-property > p {
-            margin: 0;
-            overflow: hidden;
-            align-self: center;
-        }
-
-        .card-value > p {
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
-    .card-property > p {
-        white-space: nowrap;
-        align-self: center;
-    }
-
-    .add-card-content {
-        padding: 0 10px;
-        overflow: hidden;
-        display: flex;
-    }
-
-        .add-card-content > i {
-            float: left;
-            padding: 10px;
-            color: lightgray;
-        }
-
-        .add-card-content > p {
-            float: right;
-            margin: 0;
-            padding: 10px;
-            color: #3e5983;
-            font-weight: bold;
-            text-align: center;
-            font-size: 24px;
-            align-self: center;
-        }
-
-    .card:hover {
-        box-shadow: -13px 11px 25px 1px rgba(0, 0, 0, 0.55);
-        transition: 0.3s;
-    }
-
-    /*----------------------------------- ХЕДЕРЫ КАРТОЧЕК -----------------------------------*/
-    .card-header {
-        display: flex;
-        justify-content: space-between;
-        border-radius: 10px 10px 0 0;
-    }
-
-        .card-header > p {
-            margin: 0;
-            padding: 10px 15px;
-            color: #333333;
-            font-weight: bold;
-            text-align: left;
-            font-size: 24px;
-            vertical-align: middle;
-        }
-
-        .card-header > div {
-            display: flex;
-        }
-
-            .card-header > div a {
-                padding: 0;
-                color: #333333;
-                margin-right: 10px;
-                align-self: center;
-                text-decoration: none;
-            }
-    /*------------------------------------------------------------------------------------------*/
-
-    .card-btn {
-        float: right;
-        margin-right: 10px;
-        text-shadow: none;
-        transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-        color: #333333;
-        vertical-align: middle;
-        align-self: center;
-    }
-
-        .card-btn:hover {
-            color: #000000;
-            text-shadow: 2px 2px 4px #427388;
-        }
-
-
-    .card-property-edit {
-        font-size: 20px;
-        color: #626262;
-        text-align: left;
-        display: flex;
-    }
-
-    .card-value-edit {
-        font-weight: bold;
-        font-size: 20px;
-        color: black;
-        text-align: left;
-        display: flex;
-        padding: 0px;
-    }
-
-    .card-row-edit {
-        display: flex;
-        height: 40px;
-    }
-
-    .card-property-edit > p {
-        margin: 0;
-        overflow: hidden;
-        white-space: nowrap;
-        align-self: center;
-        padding: 5px;
-    }
-
-    .card-value-edit > input, select {
-        margin: 5px !important;
-        overflow: hidden;
-        white-space: nowrap;
-        align-self: center;
-        padding: 5px;
-    }
-</style>

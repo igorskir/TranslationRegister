@@ -12,7 +12,7 @@
 
         <div class="form-group">
             @Html.LabelFor(model => model.WorkTypeId, "WorkTypeId")
-            @Html.DropDownList("WorkTypeId", null, htmlAttributes: new { @class = "form-control", requred = "required" })
+            @Html.DropDownList("WorkTypeId", null, htmlAttributes: new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(model => model.WorkTypeId, "", new { @class = "text-danger" })
         </div>
 

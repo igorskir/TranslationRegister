@@ -1,0 +1,36 @@
+.card-property-edit {
+    font-size: 20px;
+    color: #626262;
+    text-align: left;
+    display: flex;
+}
+
+.card-value-edit {
+    font-weight: bold;
+    font-size: 20px;
+    color: black;
+    text-align: left;
+    display: flex;
+    padding: 0px;
+}
+
+.card-row-edit {
+    display: flex;
+    height: 40px;
+}
+
+.card-property-edit > p {
+    margin: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    align-self: center;
+    padding: 5px;
+}
+
+.card-value-edit > input {
+    margin: 5px !important;
+    overflow: hidden;
+    white-space: nowrap;
+    align-self: center;
+    padding: 5px;
+}

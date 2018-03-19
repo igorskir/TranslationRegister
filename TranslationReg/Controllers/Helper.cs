@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Mvc;
 using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
@@ -11,7 +12,7 @@ namespace TranslationReg.Controllers
     public static class Helper
     {
         public const string uploadDir = "Uploads";
-        public const string reports = "Reports";
+        public const string reportsDir = "Reports";
         public const string avatarsDir = "UserAvatars";
         public const string defaultAvatar = "default.jpg";
 
@@ -56,6 +57,5 @@ namespace TranslationReg.Controllers
             }
            
         }
-
     }
 }

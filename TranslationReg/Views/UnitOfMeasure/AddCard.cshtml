@@ -1,11 +1,11 @@
-﻿@model TranslationRegistryModel.ProjectStatus
-@using (Html.BeginForm("Create", "ProjectStatuse"))
+﻿@model TranslationRegistryModel.UnitOfMeasure
+@using (Html.BeginForm("Create", "UnitOfMeasure"))
 {
     @Html.AntiForgeryToken()
-    <div class="card card-blue small-card">
+    <div class="card card-aqua medium-card">
 
         <div class="card-header">
-            <p>Добавить статус</p>
+            <p>Добавить единицу измерения</p>
             <div>
                 <a class="fa fa-arrow-circle-left card-btn" href="/Worktypes/Cards"></a>
             </div>
@@ -17,13 +17,6 @@
                 <div class="card-property"><p>Название:</p></div>
                 <div class="card-value">
                     @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", autofocus = "autofocus" } })
-                </div>
-            </div>
-
-            <div class="card-row">
-                <div class="card-property"><p>Описание:</p></div>
-                <div class="card-value">
-                    @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
                 </div>
             </div>
 

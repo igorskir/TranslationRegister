@@ -22,6 +22,26 @@ namespace TranslationReg.Controllers
             return PartialView();
         }
 
+
+        // GET: UnitOfMeasure/AddCard
+        public ActionResult AddCard()
+        {
+            return PartialView();
+        }
+        // GET: UnitOfMeasure/EditCard/5
+        public async Task<ActionResult> EditCard(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            UnitOfMeasure unitOfMeasure = await Rep.GetUnitOfMeasure(id.Value);
+
+            if (unitOfMeasure == null)
+                return HttpNotFound();
+
+            return PartialView(unitOfMeasure);
+        }
+
         // POST: UnitOfMeasure/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

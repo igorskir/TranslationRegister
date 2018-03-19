@@ -7,7 +7,6 @@ html {
   height: 100%;
 }
 body {
-  min-height: 100%;
   position: relative;
   background-color: #EEF1F5;
   margin-bottom: 50px;

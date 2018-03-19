@@ -88,7 +88,7 @@ namespace TranslationReg.Controllers
             return PartialView(language);
         }
 
-        // GET: Languages/Edit/5
+        // GET: Languages/EditCard/5
         public async Task<ActionResult> EditCard(int? id)
         {
             if (id == null)

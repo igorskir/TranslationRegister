@@ -1,24 +1,56 @@
 ﻿@model TranslationRegistryModel.DocStage
+<div class="modal-dialog">
+    <div class="modal-content">
 
-<div>
-    <h3>Вы уверены что хотите удалить данную запись?</h3>
-    <div>
-        <dl class="dl-horizontal">
-            <dt>@Html.Label("Документ")</dt>
-    
-            <dd>@Html.DisplayFor(model => model.Document.Name)</dd>
-    
-            <dt>@Html.Label("Тип работы")</dt>
-    
-            <dd>@Html.DisplayFor(model => model.WorkType.Name)</dd>
-        </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Удалить" class="btn btn-danger" />
+        <!-- Хедер -->
+        <div class="modal-header">
+            <h4 class="modal-title">Удаление стадии "@Model.WorkType.Name"</h4>
+            <p type="button" class="close" data-dismiss="modal">&times;</p>
+        </div>
+
+        <!-- Тело -->
+        <div class="modal-body">
+            <h3>Вы уверены, что хотите удалить данную запись?</h3>
+            <div class="del-row">
+                <div class="del-property"><p>Тип работ:</p></div>
+                <div class="del-value">
+                    <p>@Model.WorkType.Name</p>
+                </div>
             </div>
-        }
+            <div class="del-row">
+                <div class="del-property"><p>Документ:</p></div>
+                <div class="del-value">
+                    <p>@Model.Document.Name<p>
+                </div>
+            </div>
+            @{
+                var stages = Model.User_Stage.ToList();
+                <div class="del-row">
+                    <div class="del-property">
+                        <p>Количество работ:</p>
+                    </div>
+                    <div class="del-value">
+                        @if (stages.Count > 0)
+                        {
+                            <p>@stages.Count</p>
+                        }
+                        else
+                        {
+                            <p>Нет работ</p>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Подтверждение\отмена -->
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
+            }
+            <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+        </div>
     </div>
 </div>

@@ -39,7 +39,7 @@
         max-width: 220px;
     }
     .small-card .card-property {
-        width: 100px;
+        width: 110px;
     }
 
 .medium-card {
@@ -53,11 +53,12 @@
         width: 110px;
     }
 
-.add-lang-card {
-    width: 258px;
+.add-small-card {
+    max-width: 258px;
 }
-.add-langpair-card {
-    width: 298px;
+
+.add-medium-card {
+    max-width: 298px;
 }
 /*--------------------------------------*/
 
@@ -96,10 +97,25 @@
         transition: 0.3s;
         color: #1265f8;
     }
+
+.card-aqua {
+    background-color: #fcffff;
+}
+    .card-aqua .card-header {
+        background-color: #b9d4ce;
+        border-bottom: solid 2px #4f7a9a;
+    }
+    .card-aqua:hover .card-header {
+        transition: 0.3s;
+        background-color: #a3e6d8;
+        border-bottom: solid 2px #335b78;
+    }
+    .card-aqua:hover .addCardIcon {
+        transition: 0.3s;
+        color: #26dfe0;
+    }
+
 /*--------------------------------------*/
-
-
-
 /*----------- хедер карточек -----------*/
 .card-header {
     display: flex;
@@ -132,6 +148,7 @@
     color: #333333;
     vertical-align: middle;
     align-self: center;
+    font-size: 32px !important;
 }
     .card-btn:hover {
         color: #000000;
@@ -167,11 +184,11 @@
     }
 
 .card-property {
-    font-size: 18px;
+    font-size: 16px;
     color: #626262;
     text-align: left;
     display: flex;
-    padding: 10px;
+    padding: 5px;
 }
     .card-property > p {
         margin: 0;
@@ -186,6 +203,7 @@
     display: flex;
 }
     .card-value > p {
+        padding: 5px;
         margin: 0;
         overflow: hidden;
         align-self: center;

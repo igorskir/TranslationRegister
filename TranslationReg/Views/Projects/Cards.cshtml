@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Project>
-
+@using TranslationReg.Controllers
 <h1>Проекты</h1>
 <ul class="cards-list">
     @foreach (var project in Model)
@@ -38,7 +38,15 @@
                                         <ul class="avatar-list">
                                             @foreach (var data in usersData)
                                             {
-                                                <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                                if (string.IsNullOrEmpty(data.AvatarPath))
+                                                {
+                                                    <li><img src="@Url.Content("~/"+Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar))" title="@data.Name" /></li>
+
+                                                }
+                                                else
+                                                {
+                                                    <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                                }
                                             }
                                         </ul>
                                     </div>
@@ -48,7 +56,15 @@
                                     <ul class="list-display">
                                         @foreach (var data in usersData)
                                         {
-                                            <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                            if (string.IsNullOrEmpty(data.AvatarPath))
+                                            {
+                                                <li><img src="@Url.Content("~/"+Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar))" title="@data.Name" /></li>
+
+                                            }
+                                            else
+                                            {
+                                                <li><img src="@Url.Content("~/"+data.AvatarPath)" title="@data.Name" /></li>
+                                            }
                                         }
                                     </ul>
                                 }
@@ -146,17 +162,17 @@
         box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     }
 
-    .avatar-list li {
-        display: inline-block;
-        font-size: 25px;
-    }
-
-        .avatar-list li img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 1px solid lightgray;
+        .avatar-list li {
+            display: inline-block;
+            font-size: 25px;
         }
+
+            .avatar-list li img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: 1px solid lightgray;
+            }
 
     .avatar-list-block:hover .avatar-list {
         display: inline-block;
@@ -174,16 +190,16 @@
         max-width: 178px;
     }
 
-    .list-display li {
-        display: inline-block;
-    }
-
-        .list-display li img {
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            border: 1px solid lightgray;
+        .list-display li {
+            display: inline-block;
         }
+
+            .list-display li img {
+                width: 35px;
+                height: 35px;
+                border-radius: 50%;
+                border: 1px solid lightgray;
+            }
 
     .project-card {
         position: relative;

@@ -1,23 +1,55 @@
 ﻿@model TranslationRegistryModel.User_Stage
 
-<div>
-    <dl class="dl-horizontal">
-        <dt>@Html.LabelFor(model => model.User.Name, "Исполнитель")</dt>
-        <dd>@Html.DisplayFor(model => model.User.Name)</dd>
 
-        <dt>@Html.LabelFor(model => model.Stage.WorkType.Name, "Тип работы")</dt>
-        <dd>@Html.DisplayFor(model => model.Stage.WorkType.Name)</dd>
+<dt>@Html.LabelFor(model => model.Comment, "Комментарий")</dt>
+<dd>@Html.DisplayFor(model => model.Comment)</dd>
 
-        <dt>@Html.LabelFor(model => model.Amount, "Количество")</dt>
-        <dd>@Html.DisplayFor(model => model.Amount)</dd>
+<div class="modal-dialog">
+    <div class="modal-content">
 
-        <dt>@Html.LabelFor(model => model.Comment, "Комментарий")</dt>
-        <dd>@Html.DisplayFor(model => model.Comment)</dd>
-    </dl>
+        <!-- Хедер -->
+        <div class="modal-header">
+            <h4 class="modal-title">Удаление работы</h4>
+            <p type="button" class="close" data-dismiss="modal">&times;</p>
+        </div>
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        <input type="submit" value="Удалить" class="btn btn-danger" />
-}
+        <!-- Тело -->
+        <div class="modal-body">
+            <h3>Вы уверены, что хотите удалить данную запись?</h3>
+            <div class="del-row">
+                <div class="del-property"><p>Исполнитель:</p></div>
+                <div class="del-value">
+                    <p>@Model.User.Name</p>
+                </div>
+            </div>
+            <div class="del-row">
+                <div class="del-property"><p>Тип работы:</p></div>
+                <div class="del-value">
+                    <p>@Model.Stage.WorkType.Name</p>
+                </div>
+            </div>
+            <div class="del-row">
+                <div class="del-property"><p>Количество:</p></div>
+                <div class="del-value">
+                    <p>@Model.Amount (@(Model.Stage.WorkType.UnitOfMeasure.Name))</p>
+                </div>
+            </div>
+            <div class="del-row">
+                <div class="del-property"><p>Комментарий:</p></div>
+                <div class="del-value">
+                    <p>@Model.Comment</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Подтверждение\отмена -->
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
+            }
+            <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+        </div>
+    </div>
 </div>

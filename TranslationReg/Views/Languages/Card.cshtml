@@ -4,20 +4,20 @@
     <div class="card-header">
         <p>Язык</p>
         <div>
-            <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#language@(Model.Id)" data-href="/Languages/EditCard/@Model.Id" style="font-size:36px"></a>
-            <a class="fa fa-times card-btn deleteBtn" href="/Languages/Delete/@Model.Id" data-dialog-title="Удаление языка" style="font-size:36px"></a>
+            <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#language@(Model.Id)" data-href="/Languages/EditCard/@Model.Id"></a>
+            <a class="fa fa-times card-btn deleteBtn" href="/Languages/Delete/@Model.Id" data-dialog-title="Удаление языка"></a>
         </div>
     </div>
     <div class="card-content">
         <div class="card-row">
-            <div class="card-property"><p>Назв.:</p></div>
+            <div class="card-property"><p>Название:</p></div>
             <div class="card-value">
                 <p>@Model.Name</p>
             </div>
         </div>
 
         <div class="card-row">
-            <div class="card-property"><p>Сокр.:</p></div>
+            <div class="card-property"><p>Сокращение:</p></div>
             <div class="card-value">
                 <p>@Model.ShortName<p>
             </div>

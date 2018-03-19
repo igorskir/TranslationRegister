@@ -28,6 +28,7 @@ namespace TranslationReg.Controllers
         {
             var filteredWorks = await ReportModel.ApplyFiltersToWorksAsync(Rep, filters);
             var groupedWorks = ReportModel.GroupReportData(filteredWorks);
+            if (groupedWorks == null) return null; //todo EXCEPTION
             string filepath = await ComFileGeneration(filters, groupedWorks);
 
             FileInfo file = new FileInfo(filepath);

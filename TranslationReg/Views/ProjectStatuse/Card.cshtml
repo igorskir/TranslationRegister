@@ -1,11 +1,11 @@
 ﻿@model TranslationRegistryModel.ProjectStatus
 <!-- карточка типа работ -->
-<div class="card card-blue medium-card">
+<div class="card card-blue small-card">
     <div class="card-header">
         <p>Статус проекта</p>
         <div>
-            <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#projectStatuse@(Model.Id)" data-href="/ProjectStatuse/EditCard/@Model.Id" style="font-size:36px"></a>
-            <a class="fa fa-times card-btn deleteBtn" href="/ProjectStatuse/Delete/@Model.Id" data-dialog-title="Удаление типа работ" style="font-size:36px"></a>
+            <a class="fa fa-edit card-btn ajaxToggleCard" data-ajax-update="#projectStatuse@(Model.Id)" data-href="/ProjectStatuse/EditCard/@Model.Id"></a>
+            <a class="fa fa-times card-btn deleteBtn" href="/ProjectStatuse/Delete/@Model.Id" data-dialog-title="Удаление типа работ"></a>
         </div>
     </div>
     <div class="card-content">

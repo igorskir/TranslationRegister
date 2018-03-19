@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TranslationReg", "TranslationReg\TranslationReg.csproj", "{EE2170F9-5923-43C5-ABD1-7C820522B05F}"
-	ProjectSection(ProjectDependencies) = postProject
-		{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC} = {706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "TranslationRegistryModel\Model.csproj", "{706117CE-49C8-4F02-9FCD-ABD0A37FE2DC}"
 EndProject

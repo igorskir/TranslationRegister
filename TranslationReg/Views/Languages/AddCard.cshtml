@@ -8,23 +8,23 @@
         <div class="card-header">
             <p>Добавить язык</p>
             <div>
-                <a class="fa fa-arrow-circle-left card-btn" style="font-size:36px" href="/Languages/Cards"></a>
+                <a class="fa fa-arrow-circle-left card-btn" href="/Languages/Cards"></a>
             </div>
         </div>
 
         <div class="card-content">
 
             <div class="card-row">
-                <div class="card-property"><p>Назв.:</p></div>
+                <div class="card-property"><p>Название:</p></div>
                 <div class="card-value">
-                    @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required", autofocus = "autofocus"}})
                 </div>
             </div>
 
             <div class="card-row">
-                <div class="card-property"><p>Сокр.:</p></div>
+                <div class="card-property"><p>Сокращение:</p></div>
                 <div class="card-value">
-                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                    @Html.EditorFor(model => model.ShortName, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                 </div>
             </div>
 

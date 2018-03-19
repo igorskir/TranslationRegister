@@ -14,12 +14,6 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Description, "Описание" )
-            @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.UnitOfMeasureId, "Единицы измерения" )
             @Html.DropDownList("UnitOfMeasureId", null, htmlAttributes: new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(model => model.UnitOfMeasureId, "", new { @class = "text-danger" })

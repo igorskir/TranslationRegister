@@ -196,7 +196,7 @@ namespace TranslationReg.Controllers
             if (document == null)
                 return HttpNotFound();
 
-            return View(document);
+            return PartialView(document);
         }
 
         // POST: Documents/Delete/5

@@ -1,16 +1,16 @@
 ﻿@model TranslationReg.Models.WorkTypesModel
 <div>
     <!-- карточки типов работ -->
+    <h2 style="text-align:center">Типы работ</h2>
     <div class="cardset-container" style="border-bottom: 1px solid lightgray">
-
         <!-- карточка добавления -->
         <div id="addWorktype">
-            <div class="card card-orange small-card">
+            <div class="card card-orange add-small-card">
                 <div class="card-header">
                     <p>Добавить тип работ</p>
                 </div>
                 <div class="add-card-content ajaxToggleCard" data-href="/WorkTypes/AddCard" data-ajax-update="#addWorktype">
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px"></i>
                     <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
@@ -24,17 +24,18 @@
         }
     </div>
 
+    <h2 style="text-align:center">Статусы проектов</h2>
     <!-- карточки статусов проекта -->
     <div class="cardset-container" style="border-bottom: 1px solid lightgray">
 
         <!-- карточка добавления -->
         <div id="addProjectStatuse">
-            <div class="card card-blue medium-card">
+            <div class="card card-blue add-small-card">
                 <div class="card-header">
-                    <p>Доб. статус проекта</p>
+                    <p>Добавить статус проекта</p>
                 </div>
                 <div class="add-card-content ajaxToggleCard" data-href="/ProjectStatuse/AddCard" data-ajax-update="#addProjectStatuse">
-                    <i class="fa fa-plus-circle"></i>
+                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px"></i>
                     <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
@@ -48,4 +49,27 @@
         }
     </div>
 
+    <h2 style="text-align:center">Единицы измерения</h2>
+    <!-- карточки статусов проекта -->
+    <div class="cardset-container" style="border-bottom: 1px solid lightgray">
+        <!-- карточка добавления -->
+        <div id="addUnitOfMeasure">
+            <div class="card card-aqua add-small-card">
+                <div class="card-header">
+                    <p>Добавить ед. измерения</p>
+                </div>
+                <div class="add-card-content ajaxToggleCard" data-href="/UnitOfMeasure/AddCard" data-ajax-update="#addUnitOfMeasure">
+                    <i class="fa fa-plus-circle addCardIcon" style="font-size:100px"></i>
+                    <p>Нажмите чтобы добавить</p>
+                </div>
+            </div>
+        </div>
+        <!-- типы работ -->
+        @foreach (var unitOfMeasure in Model.unitsOfMeasure)
+        {
+            <div id="unitOfMeasure@(unitOfMeasure.Id)">
+                @Html.Partial("../UnitOfMeasure/Card", unitOfMeasure)
+            </div>
+        }
+    </div>
 </div>

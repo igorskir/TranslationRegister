@@ -11,6 +11,10 @@ namespace SqlRepository.Seeding
 {
     public static class Seeder
     {
+        public const int InWorkStatuseId = 1;
+        public const int DoneStatuseId = 2;
+
+
         public static void Seed(Entities context)
         {
             // ------------------------------------ Языки ------------------------------------
@@ -90,8 +94,8 @@ namespace SqlRepository.Seeding
             // ------------------------------------ Статусы ---------------------------------
             List<ProjectStatus> statuses = new List<ProjectStatus>()
                 {
-                    new ProjectStatus() { Name = "В работе"},
-                    new ProjectStatus() { Name = "Закрыт"}
+                    new ProjectStatus() { Id = InWorkStatuseId, Name = "В работе"},
+                    new ProjectStatus() { Id = DoneStatuseId, Name = "Закрыт"}
                 };
             context.ProjectStatuses.AddRange(statuses);
             context.SaveChanges();

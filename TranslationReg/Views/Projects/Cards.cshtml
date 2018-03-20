@@ -16,7 +16,7 @@
                     </div>
 
                     <!-- Post Content-->
-                    <div class="card-content">
+                    <div class="proj-card-content">
                         <div class="card-info">
                             <h1 class="sub-title">Создатель: @project.Creator.Name</h1>
                             <h1 class="sub-title">@project.LanguagePair.Name</h1>
@@ -41,7 +41,6 @@
                                                 if (string.IsNullOrEmpty(data.AvatarPath))
                                                 {
                                                     <li><img src="@Url.Content("~/"+Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar))" title="@data.Name" /></li>
-
                                                 }
                                                 else
                                                 {
@@ -258,7 +257,7 @@
             text-transform: uppercase;
         }
 
-        .project-card .card-content {
+        .project-card .proj-card-content {
             position: relative;
             bottom: 0;
             background: #FFFFFF;
@@ -268,7 +267,7 @@
             box-sizing: border-box;
         }
 
-            .project-card .card-content .category {
+            .project-card .proj-card-content .category {
                 display: inline-block;
                 width: 100px;
                 height: 40px;
@@ -299,33 +298,33 @@
             font-weight: 700;
         }
 
-        .project-card .card-content .card-info {
+        .project-card .proj-card-content .card-info {
             display: flex;
             justify-content: space-between;
         }
 
-            .project-card .card-content .card-info h1:last-child {
+            .project-card .proj-card-content .card-info h1:last-child {
                 text-transform: uppercase;
             }
 
-        .project-card .card-content .description {
+        .project-card .proj-card-content .description {
             display: none;
             color: #666666;
             font-size: 14px;
             line-height: 1.8em;
         }
 
-        .project-card .card-content .card-meta {
+        .project-card .proj-card-content .card-meta {
             margin: 10px 0 0;
             color: #999999;
         }
 
-            .project-card .card-content .card-meta .documents {
+            .project-card .proj-card-content .card-meta .documents {
                 display: inline-block;
                 position: relative;
             }
 
-                .project-card .card-content .card-meta .documents .documents-list {
+                .project-card .proj-card-content .card-meta .documents .documents-list {
                     display: none;
                     position: absolute;
                     width: 150px;
@@ -334,11 +333,11 @@
                     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
                 }
 
-                .project-card .card-content .card-meta .documents:hover .documents-list {
+                .project-card .proj-card-content .card-meta .documents:hover .documents-list {
                     display: inline-block;
                 }
 
-                .project-card .card-content .card-meta .documents .documents-list ul {
+                .project-card .proj-card-content .card-meta .documents .documents-list ul {
                     list-style: none;
                     margin: 0;
                     padding: 0;
@@ -346,22 +345,22 @@
                     overflow: hidden;
                 }
 
-                    .project-card .card-content .card-meta .documents .documents-list ul li {
+                    .project-card .proj-card-content .card-meta .documents .documents-list ul li {
                         text-overflow: ellipsis;
                         overflow: hidden;
                         white-space: nowrap;
                     }
 
-            .project-card .card-content .card-meta .timestamp {
+            .project-card .proj-card-content .card-meta .timestamp {
                 margin: 0 16px 0 0;
             }
 
-            .project-card .card-content .card-meta a {
+            .project-card .proj-card-content .card-meta a {
                 color: #999999;
                 text-decoration: none;
             }
 
-    .card-content .description {
+    .proj-card-content .description {
         display: block !important;
         height: auto !important;
         opacity: 1 !important;

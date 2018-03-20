@@ -54,17 +54,20 @@ namespace TranslationReg.Controllers
                     Word.Range headerRange = section.Headers[Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
                     headerRange.Fields.Add(headerRange, Word.WdFieldType.wdFieldPage);
                     headerRange.ParagraphFormat.Alignment = Word.WdParagraphAlignment.wdAlignParagraphCenter;
-                    headerRange.Font.ColorIndex = Word.WdColorIndex.wdBlue;
+                    headerRange.Font.ColorIndex = Word.WdColorIndex.wdAuto;
                     headerRange.Font.Size = 10;
                     headerRange.Text = "Отчет сформирован " + DateTime.Now.ToString();
                 }
 
                 // Вывод фильтров
                 doc.Content.SetRange(0, 0);
-                doc.Content.Text = "Отчет c " + filters.PeriodFrom.ToString() + " по " + filters.PeriodTo.ToString() + Environment.NewLine;
+                if (!filters.ForAllTime)
+                    doc.Content.Text = "Отчет c " + filters.PeriodFrom.ToString() + " по " + filters.PeriodTo.ToString() + Environment.NewLine;
+                else
+                    doc.Content.Text = "Отчет за все время" + Environment.NewLine;
 
                 Word.Paragraph para1 = doc.Content.Paragraphs.Add(ref missing);
-                para1.Range.Text = "Таблица:";
+                para1.Range.Text = "Таблица работ:";
                 para1.Range.InsertParagraphAfter();
 
                 //Вывод таблицы
@@ -73,18 +76,21 @@ namespace TranslationReg.Controllers
                 ReportTable.Rows[1].Cells[2].Range.Text = "Тип работ";
                 ReportTable.Rows[1].Cells[3].Range.Text = "Сумма";
 
-                foreach (var userWorks in groupedWorks)
+                if (groupedWorks != null && groupedWorks.Count != 0)
                 {
-                    var userName = userWorks.First().First().User.Name;
-                    foreach (var typedWorks in userWorks)
+                    foreach (var userWorks in groupedWorks)
                     {
-                        ReportTable.Borders.Enable = 1;
-                        var type = typedWorks.First().Stage.WorkType.Name;
-                        var summ = typedWorks.Sum(x => x.Amount);
-                        var row = ReportTable.Rows.Add();
-                        row.Cells[1].Range.Text = userName;
-                        row.Cells[2].Range.Text = type;
-                        row.Cells[3].Range.Text = summ.ToString();
+                        var userName = userWorks.First().First().User.Name;
+                        foreach (var typedWorks in userWorks)
+                        {
+                            ReportTable.Borders.Enable = 1;
+                            var type = typedWorks.First().Stage.WorkType.Name;
+                            var summ = typedWorks.Sum(x => x.Amount);
+                            var row = ReportTable.Rows.Add();
+                            row.Cells[1].Range.Text = userName;
+                            row.Cells[2].Range.Text = type;
+                            row.Cells[3].Range.Text = summ.ToString();
+                        }
                     }
                 }
 

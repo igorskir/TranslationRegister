@@ -441,3 +441,9 @@ footer {
 .dynamic-block-add-stage > form div label {
   width: 150px;
 }
+
+.titleLink{
+    text-align:left !important;
+    color:#006186 !important;
+    padding:0 10px 0 10px;
+}

@@ -23,11 +23,11 @@
                 </div>
                 <div class="col-md-7">
                     <div class="buttons-container">
-                        @Html.ActionLink("Оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "download-Btn" })
+                        @Html.ActionLink("Оригинал", "Download", "Documents", new { @filepath = doc.OriginalFile.Path }, htmlAttributes: new { @class = "btn btn-default" })
 
                         @if (doc.FinalFile != null && !String.IsNullOrWhiteSpace(doc.FinalFile.Path))
                         {
-                            @Html.ActionLink("Перевод", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "download-Btn" })
+                            @Html.ActionLink("Перевод", "Download", "Documents", new { @filepath = doc.FinalFile.Path }, htmlAttributes: new { @class = "btn btn-default" })
                         }
                         else
                         {

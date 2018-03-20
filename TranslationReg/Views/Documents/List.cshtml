@@ -14,9 +14,7 @@
 {
     <div class="properties">
         <div class="col-md-3">
-            <span>
-                @Html.DisplayFor(modelItem => document.Name)
-            </span>
+            <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
         </div>
         <div class="col-md-2">
             <span>
@@ -40,13 +38,17 @@
         <div class="col-md-1">
             @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="download-Btn">Скачать</a>
+                <div class="buttons-container">
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="btn btn-default">Скачать</a>
+                </div>
             }
         </div>
         <div class="col-md-1">
             @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
             {
-                <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="download-Btn">Скачать</a>
+                <div class="buttons-container">
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="btn btn-default">Скачать</a>
+                </div>
             }
         </div>
         <div class="col-md-3">

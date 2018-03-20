@@ -59,8 +59,6 @@ namespace TranslationReg.Models
 
             return new ReportModel
             {
-                DateFrom = DateTime.Now - TimeSpan.FromDays(30),
-                DateTo = DateTime.Now,
                 ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
                 UserList = new SelectList(users, "Id", "Name", skipFilterId),
                 WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),
@@ -70,6 +68,10 @@ namespace TranslationReg.Models
 
         public static async Task<List<User_Stage>> ApplyFiltersToWorksAsync(IRepository Rep, ChosenFilters filters)
         {
+            //период выбираю включительно относительно выбранного дня от N числа 00:00:00 + 24 часа)
+            if (!filters.ForAllTime)
+                filters.PeriodTo += TimeSpan.FromDays(1);
+
             // фильтрация по выбранным ограничениям
             var filteredWorks = (await Rep.GetUser_Stages()).
                 // для начала нужно брать выполненные работы. по таким закреплен файл, по файлу и выберем

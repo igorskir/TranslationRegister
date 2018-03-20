@@ -59,8 +59,6 @@ namespace TranslationReg.Models
 
             return new ReportModel
             {
-                DateFrom = DateTime.Now - TimeSpan.FromDays(30),
-                DateTo = DateTime.Now,
                 ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
                 UserList = new SelectList(users, "Id", "Name", skipFilterId),
                 WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),

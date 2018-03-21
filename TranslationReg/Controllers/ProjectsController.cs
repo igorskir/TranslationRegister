@@ -21,7 +21,7 @@ namespace TranslationReg.Controllers
         // GET: Projects
         public async Task<ActionResult> Index()
         {
-            var projects = await Rep.GetMyProjects(User.Identity.Name);
+            var projects = await Rep.GetProjectsInWork();
             return View(projects);
         }
 

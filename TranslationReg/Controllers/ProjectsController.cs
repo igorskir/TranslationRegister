@@ -21,7 +21,7 @@ namespace TranslationReg.Controllers
         // GET: Projects
         public async Task<ActionResult> Index()
         {
-            var projects = await Rep.GetProjects();
+            var projects = await Rep.GetProjectsInWork();
             return View(projects);
         }
 
@@ -51,6 +51,13 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> InWork()
         {
             var projects = await Rep.GetProjectsInWork();
+            return PartialView("List", projects);
+        }
+
+        // GET: Projects/Done
+        public async Task<ActionResult> Done()
+        {
+            var projects = await Rep.GetDoneProjects();
             return PartialView("List", projects);
         }
 

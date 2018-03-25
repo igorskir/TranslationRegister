@@ -1,16 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
-using System.Web.Mvc;
 using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Статический вспомогательный класс. содержит методы для работы с ФАЙЛАМИ И ПУТЯМИ к ним
     public static class Helper
     {
+        // Константы именования директорий и файлов
         public const string uploadDir = "Uploads";
         public const string reportsDir = "Reports";
         public const string avatarsDir = "UserAvatars";
@@ -55,7 +54,6 @@ namespace TranslationReg.Controllers
             {
                 return null;
             }
-           
         }
     }
 }

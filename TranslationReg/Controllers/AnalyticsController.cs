@@ -1,27 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
 using TranslationReg.Models;
 using TranslationRegistryModel;
 using Word = Microsoft.Office.Interop.Word;
-using System.IO;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер для ВЕДЕНИЯ АНАЛИТИКИ - генерации отчетов
     [Authorize]
     public class AnalyticsController : RepositoryController
     {
-        public AnalyticsController(IRepository repository) : base(repository) { }
+        public AnalyticsController(IRepository repository) : base(repository) { } // Конструктор
 
         // GET: Analytics
         public async Task<ActionResult> Index()
         {
             return View("Report", await ReportModel.GetModel(Rep));
         }
-
         // POST: Analytics
         public async Task<FileResult> FormReport([Bind(Prefix = "filters")]
             ChosenFilters filters)

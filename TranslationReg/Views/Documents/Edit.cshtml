@@ -1,57 +1,49 @@
 ﻿@model TranslationRegistryModel.Document
 
-@{
-    ViewBag.Title = "Редактирование документа";
-}
+@{ViewBag.Title = "Редактирование документа";}
 
 <h2>Редактирование документа</h2>
 
-
 <div class="dynamic-block-create">
-@using (Html.BeginForm("Edit", "Documents", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-{
-    @Html.AntiForgeryToken()
+    @using (Html.BeginForm("Edit", "Documents", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
 
-    
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Id)
-    @Html.HiddenFor(model => model.OwnerId)
-    @Html.HiddenFor(model => model.OriginalFileId)
-    @Html.HiddenFor(model => model.FinalFileId)
-    @Html.HiddenFor(model => model.Date)
-    <div class="form-group">
-        @Html.LabelFor(model => model.Owner, "Создатель" )
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+        @Html.HiddenFor(model => model.OwnerId)
+        @Html.HiddenFor(model => model.OriginalFileId)
+        @Html.HiddenFor(model => model.FinalFileId)
+        @Html.HiddenFor(model => model.Date)
+        <div class="form-group">
+            @Html.LabelFor(model => model.Owner, "Создатель")
             @Html.EditorFor(model => model.Owner.Name, new { htmlAttributes = new { @class = "form-control", disabled = "disabled" } })
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Name, "Название" )
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, "Название")
             @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
             @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.Label("Файл оригинала")
+        <div class="form-group">
+            @Html.Label("Файл оригинала")
             <input type="file" name="newOriginalFile" />
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.ProjectId, "Проект" )
+        <div class="form-group">
+            @Html.LabelFor(model => model.ProjectId, "Проект")
             @Html.DropDownList("ProjectId", null, htmlAttributes: new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(model => model.ProjectId, "", new { @class = "text-danger" })
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.WordsNumber, "Количество слов" )
+        <div class="form-group">
+            @Html.LabelFor(model => model.WordsNumber, "Количество слов")
             @Html.EditorFor(model => model.WordsNumber, new { htmlAttributes = new { @class = "form-control", required = "required" } })
             @Html.ValidationMessageFor(model => model.WordsNumber, "", new { @class = "text-danger" })
-    </div>
+        </div>
 
-
-            <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
-}
+        <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
+    }
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

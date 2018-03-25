@@ -1,9 +1,8 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Document>
 
 <div class="titles">
-    <div class="col-md-3">@Html.Label("Наименование")</div>
-    <div class="col-md-2">@Html.Label("Создатель")</div>
-    <div class="col-md-1">@Html.Label("Дата")</div>
+    <div class="col-md-4">@Html.Label("Наименование")</div>
+    <div class="col-md-2">@Html.Label("Дата")</div>
     <div class="col-md-1">@Html.Label("Слова")</div>
     <div class="col-md-1">@Html.Label("Оригинал")</div>
     <div class="col-md-1">@Html.Label("Перевод")</div>
@@ -13,17 +12,11 @@
 @foreach (var document in Model)
 {
     <div class="properties">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
         </div>
+
         <div class="col-md-2">
-            <span>
-                @Html.DisplayFor(modelItem => document.Owner.Name)
-            </span>
-        </div>
-
-
-        <div class="col-md-1">
             <span>
                 @document.Date.ToString("dd/MM/yyyy")
             </span>
@@ -54,7 +47,6 @@
         <div class="col-md-3">
             <div class="buttons-container">
                 @Html.ActionLink("Редактировать", "Edit", new { id = document.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                @Html.ActionLink("Подробно", "DocAndStages", new { id = document.Id }, htmlAttributes: new { @class = "btn btn-info" })
                 <a href="/Documents/Delete/@document.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление документа и работ">Удалить</a>
             </div>
         </div>

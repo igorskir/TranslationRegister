@@ -13,10 +13,10 @@
         <dd><a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })" class="btn btn-default">Скачать</a></dd>
 
         @if (Model.FinalFile != null)
-    {
-        <dt>Скачать перевод</dt>
-        <dd><a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="btn btn-default">Скачать</a></dd>
-}
+        {
+            <dt>Скачать перевод</dt>
+            <dd><a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })" class="btn btn-default">Скачать</a></dd>
+        }
     </dl>
 
     <a data-ajax-update="#addDocStageForm" data-href="/DocStages/Create/@Model.Id" class="btn btn-primary ajaxToggleBtn">Добавить стадию</a>

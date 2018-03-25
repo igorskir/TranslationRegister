@@ -108,6 +108,10 @@ footer {
     flex-wrap: wrap;
     border-bottom: 1px solid darkgray;
 }
+.properties:last-of-type{
+    border-bottom: none;
+}
+
 .properties:hover {
   background-color: #e6e6e6;
 }

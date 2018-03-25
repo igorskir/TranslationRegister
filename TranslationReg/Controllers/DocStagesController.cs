@@ -1,44 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using TranslationReg.Models;
 using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки СТАДИЙ (этапов работ) внутри документа
     [Authorize]
     public class DocStagesController : RepositoryController
     {
-        public DocStagesController(IRepository repository) : base(repository) { }
-
-        // GET: DocStages
-        public async Task<ActionResult> Index()
-        {
-            return View(await Rep.GetDocStages());
-        }
-
-        // GET: DocStages/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            DocStage docStage = await Rep.GetDocStage(id.Value);
-
-            if (docStage == null)
-                return HttpNotFound();
-
-            return View(docStage);
-        }
+        public DocStagesController(IRepository repository) : base(repository) { } // Конструктор
 
         // GET: DocStages/Create
-        // принимает id документа для которого создается
+        // Принимает id документа для которого создается
         public async Task<ActionResult> Create(int? id)
         {
             //проверка привязки к документу
@@ -59,7 +36,7 @@ namespace TranslationReg.Controllers
             DocStage stage = new DocStage() { DocumentId = parentDoc.Id };
             return PartialView(stage);
         }
-
+        // POST: DocStages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(DocStage docStage)
@@ -88,7 +65,7 @@ namespace TranslationReg.Controllers
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
             return View(docStage);
         }
-
+        // POST: DocStages/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(DocStage docStage)
@@ -115,7 +92,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(docStage);
         }
-
         // POST: DocStages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -124,6 +100,5 @@ namespace TranslationReg.Controllers
             await Rep.DeleteDocStage(id);
             return Redirect(Request.UrlReferrer.ToString());
         }
-
     }
 }

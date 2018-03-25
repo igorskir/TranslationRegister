@@ -1,30 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Net;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using SqlRepository;
-using TranslationRegistryModel;
 using TranslationReg.Models;
+using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки ЯЗЫКОВ
     [Authorize]
     public class LanguagesController : RepositoryController
     {
-        public LanguagesController(IRepository repository) : base(repository) { }
+        public LanguagesController(IRepository repository) : base(repository) { } // Конструктор
 
-        // GET: Languages & LanguagePairs
-        public async Task<ActionResult> Index()
-        {
-            return View(await LanguagesModel.GetModel(Rep));
-        }
-
-        // GET: Languages & LanguagePairs
+        // GET: Languages/Cards            списки карточек языков и языковых пар
         public async Task<ActionResult> Cards()
         {
             return View(await LanguagesModel.GetModel(Rep));
@@ -36,30 +24,11 @@ namespace TranslationReg.Controllers
             return PartialView(await Rep.GetLanguage(id));
         }
 
-        // GET: Languages
-        public async Task<ActionResult> Item(int id)
-        {
-            return PartialView(await Rep.GetLanguage(id));
-        }
-
-        // GET: Languages
-        public async Task<ActionResult> List()
-        {
-            return PartialView(await Rep.GetLanguages());
-        }
-
-        // GET: Languages/Create
-        public ActionResult Create()
-        {
-            return PartialView();
-        }
-
         // GET: Languages/AddCard
         public ActionResult AddCard()
         {
             return PartialView();
         }
-
         // POST: Languages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -72,20 +41,6 @@ namespace TranslationReg.Controllers
             }
 
             return View(language);
-        }
-
-        // GET: Languages/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            Language language = await Rep.GetLanguage(id.Value);
-
-            if (language == null)
-                return HttpNotFound();
-
-            return PartialView(language);
         }
 
         // GET: Languages/EditCard/5
@@ -101,7 +56,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(language);
         }
-
         // POST: Languages/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,7 +82,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(language);
         }
-
         // POST: Languages/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -137,6 +90,5 @@ namespace TranslationReg.Controllers
             await Rep.DeleteLanguage(id);
             return Redirect(Request.UrlReferrer.ToString());
         }
-
     }
 }

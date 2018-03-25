@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Net;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using TranslationRegistryModel;
 using TranslationReg.Models;
+using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки ТИПОВ РАБОТ
     [Authorize]
     public class WorkTypesController : RepositoryController
     {
-        public WorkTypesController(IRepository repository) : base(repository) { }
+        public WorkTypesController(IRepository repository) : base(repository) { } // Конструктор
 
-        // GET: WorkTypes
+        // GET: WorkTypes           списки карточек типов работ, статусов проектов, ед. измерения
         public async Task<ActionResult> Index()
         {
             var workTypesModel = await WorkTypesModel.GetModel(Rep);
@@ -37,29 +32,6 @@ namespace TranslationReg.Controllers
             var workTypeModel = await WorkTypeModel.GetModel(Rep);
             return PartialView(workTypeModel);
         }
-
-        // GET: WorkTypes/EditCard
-        public async Task<ActionResult> EditCard(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            WorkType workType = await Rep.GetWorkType(id.Value);
-
-            if (workType == null)
-                return HttpNotFound();
-
-            var workTypeModel = await WorkTypeModel.GetModel(Rep, workType);
-            return PartialView(workTypeModel);
-        }
-
-        // GET: WorkTypes/Create
-        public async Task<ActionResult> Create()
-        {
-            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name");
-            return PartialView();
-        }
-
         // POST: WorkTypes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -75,8 +47,8 @@ namespace TranslationReg.Controllers
             return View(workType);
         }
 
-        // GET: WorkTypes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        // GET: WorkTypes/EditCard/5
+        public async Task<ActionResult> EditCard(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -86,10 +58,9 @@ namespace TranslationReg.Controllers
             if (workType == null)
                 return HttpNotFound();
 
-            ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
-            return PartialView(workType);
+            var workTypeModel = await WorkTypeModel.GetModel(Rep, workType);
+            return PartialView(workTypeModel);
         }
-
         // POST: WorkTypes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -115,7 +86,6 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
             return PartialView(workType);
         }
-
         // POST: WorkTypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

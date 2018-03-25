@@ -1,54 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using TranslationRegistryModel;
-using System.IO;
 using TranslationReg.Models;
+using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки ЗАДАЧ исполнителей
     [Authorize]
     public class User_StageController : RepositoryController
     {
-        public User_StageController(IRepository repository) : base(repository) { }
-
-        // GET: User_Stage
-        public async Task<ActionResult> Index()
-        {
-            return View(await Rep.GetUser_Stages());
-        }
-
-        public async Task<ActionResult> Finalise(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
-
-            user_Stage.Stage.Document.FinalFileId = user_Stage.DocFileId;
-            await Rep.PutDocument(user_Stage.Stage.Document);
-            return Redirect(Request.UrlReferrer.ToString());
-        }
-
-        // GET: User_Stage/Details/5
-        public async Task<ActionResult> Details(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
-
-            if (user_Stage == null)
-                return HttpNotFound();
-
-            return View(user_Stage);
-        }
+        public User_StageController(IRepository repository) : base(repository) { } // Конструктор
 
         // GET: User_Stage/Create
         // принимает id стадии
@@ -62,7 +27,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
-
         // POST: User_Stage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -97,7 +61,6 @@ namespace TranslationReg.Controllers
             User_StageModel model = await User_StageModel.GetModel(Rep, User.Identity.Name, user_Stage.StageId, user_Stage);
             return PartialView(model);
         }
-
         // POST: User_Stage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -126,7 +89,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(user_Stage);
         }
-
         // POST: User_Stage/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -147,6 +109,18 @@ namespace TranslationReg.Controllers
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
             return HttpNotFound("Файл не найден");
+        }
+
+        public async Task<ActionResult> Finalise(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            user_Stage.Stage.Document.FinalFileId = user_Stage.DocFileId;
+            await Rep.PutDocument(user_Stage.Stage.Document);
+            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

@@ -1,44 +1,39 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
+using System.IO;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using SqlRepository;
-using TranslationRegistryModel;
-using System.IO;
 using TranslationReg.Models;
+using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки ДОКУМЕНТОВ
     [Authorize]
     public class DocumentsController : RepositoryController
     {
-        public DocumentsController(IRepository repository) : base(repository) { }
+        public DocumentsController(IRepository repository) : base(repository) { } // Конструктор
 
         // GET: Documents
         public async Task<ActionResult> Index()
         {
             return View(await Rep.GetDocuments());
         }
-
+        
+        //                                          ФИЛЬТРЫ
         // GET: Documents/All
         public async Task<ActionResult> All()
         {
             var documents = await Rep.GetDocuments();
             return PartialView("List", documents);
         }
-
         // GET: Documents/My
         public async Task<ActionResult> My()
         {
             var documents = await Rep.GetMyDocuments(User.Identity.Name);
             return PartialView("List", documents);
         }
-
         // GET: Documents/InWork
         public async Task<ActionResult> InWork()
         {
@@ -80,13 +75,11 @@ namespace TranslationReg.Controllers
             DocumentModel DocCreateViewModel = await DocumentModel.GetModel(Rep);
             return PartialView(DocCreateViewModel);
         }
-
         // GET: Documents/CreateProjectDoc/1
         public ActionResult CreateProjectDoc(int Id)
         {
-            return PartialView(new Document {ProjectId = Id});
+            return PartialView(new Document { ProjectId = Id });
         }
-
         // POST: Documents/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -135,7 +128,7 @@ namespace TranslationReg.Controllers
 
             return View(document);
         }
-
+       
         // GET: Documents/Download
         public ActionResult Download(string filepath)
         {
@@ -165,7 +158,6 @@ namespace TranslationReg.Controllers
 
             return View(document);
         }
-
         // POST: Documents/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -198,7 +190,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(document);
         }
-
         // POST: Documents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

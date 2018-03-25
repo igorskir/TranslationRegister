@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Net;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using TranslationRegistryModel;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер обработки СТАТУСОВ ПРОЕКТА
     [Authorize]
     public class ProjectStatuseController : RepositoryController
     {
-        public ProjectStatuseController(IRepository repository): base (repository){}
+        public ProjectStatuseController(IRepository repository): base (repository){ } // Конструктор
 
-        // GET: ProjectStatuse/Create
-        public ActionResult Create()
+        // GET: ProjectStatuse/AddCard
+        public ActionResult AddCard()
         {
             return PartialView();
         }
-
         // POST: ProjectStatuse/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -34,13 +28,6 @@ namespace TranslationReg.Controllers
             }
 
             return View(projectStatus);
-        }
-
-
-        // GET: ProjectStatuse/AddCard
-        public ActionResult AddCard()
-        {
-            return PartialView();
         }
 
         // GET: ProjectStatuse/EditCard
@@ -56,22 +43,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(projectStatus);
         }
-
-
-        // GET: ProjectStatuse/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            ProjectStatus projectStatus = await Rep.GetProjectStatus(id.Value);
-
-            if (projectStatus == null)
-                return HttpNotFound();
-
-            return PartialView(projectStatus);
-        }
-
         // POST: ProjectStatuse/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -98,7 +69,6 @@ namespace TranslationReg.Controllers
 
             return PartialView(projectStatus);
         }
-
         // POST: ProjectStatuse/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]

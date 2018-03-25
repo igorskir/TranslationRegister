@@ -1,32 +1,31 @@
-﻿using System;
+﻿using FormsAuthenticationExtensions;
+using ImageResizer;
+using System;
+using System.Collections.Specialized;
+using System.IO;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using TranslationReg.Models;
 using System.Web.Security;
-using System.Collections.Specialized;
-using FormsAuthenticationExtensions;
-using ImageResizer;
+using TranslationReg.Models;
 using TranslationRegistryModel;
-using System.IO;
 
 namespace TranslationReg.Controllers
 {
+    // Контроллер УЧЕТНЫХ ЗАПИСЕЙ пользователей
     [AllowAnonymous]
     public class AccountController : RepositoryController
     {
-        public AccountController(IRepository repository) : base(repository) { }
+        public AccountController(IRepository repository) : base(repository) { } // Конструктор
 
         public ActionResult Login()
         {
             return View();
         }
-
-        private void Authentificate(User user)
+        public ActionResult Logoff()
         {
-            // дополнительные данные задавать здесь - в ticketData
-            var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
-            new FormsAuthentication().SetAuthCookie(user.Name, true, ticketData);
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpPost]
@@ -88,12 +87,13 @@ namespace TranslationReg.Controllers
 
             return View(model);
         }
-        public ActionResult Logoff()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
-        }
 
+        private void Authentificate(User user)
+        {
+            // дополнительные данные задавать здесь - в ticketData
+            var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
+            new FormsAuthentication().SetAuthCookie(user.Name, true, ticketData);
+        }
         public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 48, int height = 48)
         {
             var filePath = Helper.GetValidPath(file, Server, Helper.avatarsDir);

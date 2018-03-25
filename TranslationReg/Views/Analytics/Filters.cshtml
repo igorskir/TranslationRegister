@@ -10,6 +10,16 @@
             @Html.CheckBox("filters.ForAllTime")
         </div>
 
+        <div class="btn-group">
+            <button type="button" class="btn btn-default" onclick="MonthBTN()">Текущий месяц</button>
+            <button type="button" class="btn btn-default" onclick="BefMonthBTN()">Прошлый месяц</button>
+            <button type="button" class="btn btn-default" onclick="HalfYearBTN()">Полугодовой</button>
+            <button type="button" class="btn btn-default" onclick="YearBTN()">Годовой</button>
+
+
+        </div>
+
+
         <div class="form-group">
             @Html.Label("Дата от")
             <input type="date" name="filters.PeriodFrom" value="@((DateTime.Now - TimeSpan.FromDays(30)).ToString("yyyy-MM-dd"))" id="dateFrom">
@@ -38,3 +48,75 @@
         <input type="submit" value="Сформировать отчет" class="btn btn-default btn-form" />
     }
 </div>
+<script>
+    @functions {
+        public DateTime[] YearPeriod()
+        {
+            DateTime[] period = new DateTime[2];
+            int year = DateTime.Now.Year;
+            period[0] = new DateTime(year, 1, 1);
+            period[1] = new DateTime(year, 12, 31);
+            return period;
+        }
+        public DateTime[] HalfYearPeriod()
+        {
+            DateTime[] period = new DateTime[2];
+            int year = DateTime.Now.Year;
+            if(DateTime.Now.Month <= 6)
+            {
+                period[0] = new DateTime(year, 1, 1);
+                period[1] = new DateTime(year, 6, 30);
+            }
+            else
+            {
+                period[0] = new DateTime(year, 7, 1);
+                period[1] = new DateTime(year, 12, 31);
+            }
+
+            return period;
+        }
+        public DateTime[] MonthPeriod()
+        {
+            DateTime[] period = new DateTime[2];
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month;
+            int lastDay = DateTime.DaysInMonth(year, month);
+            period[0] = new DateTime(year, month, 1);
+            period[1] = new DateTime(year, month, lastDay);
+            return period;
+        }
+        public DateTime[] BefMonthPeriod()
+        {
+            DateTime[] period = new DateTime[2];
+            int year = DateTime.Now.Year;
+            int month = DateTime.Now.Month - 1;
+            int lastDay = DateTime.DaysInMonth(year, month);
+            period[0] = new DateTime(year, month, 1);
+            period[1] = new DateTime(year, month, lastDay);
+            return period;
+        }
+        }
+
+        function YearBTN()
+        {
+            document.getElementById("dateFrom").value = "@(YearPeriod()[0].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value  =  "@(YearPeriod()[1].ToString("yyyy-MM-dd"))";
+        }
+
+        function HalfYearBTN()
+        {
+            document.getElementById("dateFrom").value = "@(HalfYearPeriod()[0].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value  =  "@(HalfYearPeriod()[1].ToString("yyyy-MM-dd"))";
+        }
+        function MonthBTN()
+        {
+            document.getElementById("dateFrom").value = "@(MonthPeriod()[0].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value  =  "@(MonthPeriod()[1].ToString("yyyy-MM-dd"))";
+
+        }
+     function BefMonthBTN()
+        {
+            document.getElementById("dateFrom").value = "@(BefMonthPeriod()[0].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value  =  "@(BefMonthPeriod()[1].ToString("yyyy-MM-dd"))";
+        }
+</script>

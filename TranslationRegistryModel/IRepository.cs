@@ -32,6 +32,7 @@ namespace TranslationRegistryModel
 
         //---------------------------------- Document CRUD -----------------------------------------------
         Task<List<Document>> GetDocuments();
+        Task<List<Document>> GetDocumentsByStr(string searchToken);
         Task<List<Document>> GetMyDocuments(string login);
         Task<List<Document>> GetMyWorkDocuments(string login);
         Task<Document> GetDocument(int id);
@@ -42,6 +43,7 @@ namespace TranslationRegistryModel
 
         //---------------------------------- Project CRUD ------------------------------------------------
         Task<List<Project>> GetProjects();
+        Task<List<Project>> GetProjectsByStr(string searchToken);
         Task<List<Project>> GetMyProjects(string login);
         Task<List<Project>> GetProjectsInWork();
         Task<List<Project>> GetDoneProjects();

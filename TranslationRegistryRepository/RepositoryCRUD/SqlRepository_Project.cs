@@ -27,6 +27,17 @@ namespace SqlRepository
             return await context.Projects.OrderByDescending(x=>x.Date).ToListAsync();
         }
 
+        public async Task<List<Project>> GetProjectsByStr(string searchToken)
+        {
+            return await context.Projects.
+                OrderBy(x=>x.ProjectStatuseId).
+                ThenByDescending(x => x.Date).
+                Where(x=> x.Name.Contains(searchToken) || 
+                    x.Customer.Contains(searchToken) ||
+                    x.Description.Contains(searchToken)).
+                ToListAsync();
+        }
+
         public async Task<List<Project>> GetMyProjects(string userName)
         {
             var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == userName)).Id;

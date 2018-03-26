@@ -30,6 +30,7 @@ namespace TranslationReg
                       "~/Style/style.css",
                       "~/Style/cards/card.css",
                       "~/Style/cards/addCard.css",
+                      "~/Style/search/search.css",
                       "~/Style/modal/deleteModal.css"
                       ));
         }

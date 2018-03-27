@@ -199,6 +199,7 @@
     <Compile Include="Controllers\DocStagesController.cs" />
     <Compile Include="Controllers\DocumentsController.cs" />
     <Compile Include="Controllers\Helper.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LanguagePairsController.cs" />
     <Compile Include="Controllers\LanguagesController.cs" />
@@ -211,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LanguagePairsModel.cs" />
@@ -258,7 +260,7 @@
     <Content Include="Style\images\logo_tpu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Style\SideBar.css" />
+    <Content Include="Style\search\search.css" />
     <Content Include="Style\Site.css" />
     <Content Include="Style\modal\deleteModal.css" />
     <Content Include="Style\style.css" />
@@ -346,7 +348,6 @@
     <Content Include="Views\Documents\DocAndStages.cshtml" />
     <Content Include="Views\UnitOfMeasure\Delete.cshtml" />
     <Content Include="Views\WorkTypes\Delete.cshtml" />
-    <Content Include="Views\WorkTypes\Index.cshtml" />
     <Content Include="Style\bootstrap-theme.css.map" />
     <Content Include="Style\bootstrap-theme.min.css.map" />
     <Content Include="Style\bootstrap.css.map" />
@@ -376,6 +377,7 @@
     <Content Include="Views\UnitOfMeasure\AddCard.cshtml" />
     <Content Include="Views\UnitOfMeasure\Card.cshtml" />
     <Content Include="Views\UnitOfMeasure\EditCard.cshtml" />
+    <Content Include="Views\Search\SearchResults.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Style\tables\" />

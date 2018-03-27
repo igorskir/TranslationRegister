@@ -23,6 +23,18 @@ namespace SqlRepository
                 .Where(x => x.Owner.Id == userId)
                 .ToListAsync();
         }
+
+        public async Task<List<Document>> GetDocumentsByStr(string searchToken)
+        {
+            return await context.Documents.
+                OrderBy(x => x.Project.ProjectStatuseId).
+                ThenByDescending(x => x.Date).
+                Where(x => x.Name.Contains(searchToken) ||
+                    // todo заменить на формат
+                    x.OriginalFile.Path.Contains(searchToken)).
+                ToListAsync();
+        }
+
         public async Task<List<Document>> GetMyWorkDocuments(string login)
         {
             var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;

@@ -258,6 +258,7 @@
     <Content Include="Style\images\logo_tpu.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Style\SideBar.css" />
     <Content Include="Style\Site.css" />
     <Content Include="Style\modal\deleteModal.css" />
     <Content Include="Style\style.css" />

@@ -32,8 +32,8 @@ footer {
     width: 100%;
   }
   .navbar-right {
-    display: block;
-    padding-right: 15px;
+    display: inline;
+    padding-right: 6px;
   }
   .navbar-right > li a:hover {
     background: #505b69;
@@ -425,7 +425,13 @@ footer {
   display: flex;
   flex-direction: row;
   align-items: center;
+  font-size: 17px;
+
 }
+    .dynamic-block-create > form div option {
+        
+        font-size: 16px;
+    }
 .dynamic-block-create > form div label {
   width: 180px;
 }

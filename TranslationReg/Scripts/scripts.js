@@ -1,5 +1,21 @@
-﻿(function ()
-{
+﻿(function () {
+    $(".ajaxToggleBtn").one('click', function (e) {
+        updatedBlock = $(this).attr("data-ajax-update");
+        myurl = $(this).attr("data-href");
+        $.ajax({
+            type: 'GET',
+            url: myurl,
+            success: function (result) {
+                $(updatedBlock).html(result).hide();
+                $(updatedBlock).toggle("fast");
+                $(e.target).on("click", function () {
+                    var updatedBlock = $(this).attr("data-ajax-update");
+                    $(updatedBlock).toggle("fast");
+                });
+            }
+        });
+    });
+
     $(".ajaxToggleCard").on('click', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
         myurl = $(this).attr("data-href");

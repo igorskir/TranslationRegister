@@ -1,54 +1,59 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Document>
+<div class="tableMaterial">
+    <div class="titles">
+        <div class="col-md-4">@Html.Label("Наименование")</div>
+        <div class="col-md-2">@Html.Label("Дата")</div>
+        <div class="col-md-1">@Html.Label("Слова")</div>
+        <div class="col-md-1">@Html.Label("Оригинал")</div>
+        <div class="col-md-1">@Html.Label("Перевод")</div>
+        <div class="col-md-3">@Html.Label("Команды")</div>
+    </div>
 
-<div class="titles">
-    <div class="col-md-4">@Html.Label("Наименование")</div>
-    <div class="col-md-2">@Html.Label("Дата")</div>
-    <div class="col-md-1">@Html.Label("Слова")</div>
-    <div class="col-md-1">@Html.Label("Оригинал")</div>
-    <div class="col-md-1">@Html.Label("Перевод")</div>
-    <div class="col-md-3">@Html.Label("Команды")</div>
-</div>
+    @foreach (var document in Model)
+    {
+        <div class="properties">
+            <div class="col-md-4">
+                <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
+            </div>
 
-@foreach (var document in Model)
-{
-    <div class="properties">
-        <div class="col-md-4">
-            <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
-        </div>
+            <div class="col-md-2">
+                <span>
+                    @document.Date.ToString("dd/MM/yyyy")
+                </span>
+            </div>
 
-        <div class="col-md-2">
-            <span>
-                @document.Date.ToString("dd/MM/yyyy")
-            </span>
-        </div>
+            <div class="col-md-1">
+                <span>
+                    @Html.DisplayFor(modelItem => document.WordsNumber)
+                </span>
+            </div>
 
-        <div class="col-md-1">
-            <span>
-                @Html.DisplayFor(modelItem => document.WordsNumber)
-            </span>
-        </div>
-
-        <div class="col-md-1">
-            @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
-            {
+            <div class="col-md-1">
+                @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
+                {
+                    <div class="buttons-container">
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="btn btn-default">Скачать</a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-1">
+                @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
+                {
+                    <div class="buttons-container">
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="btn btn-default">Скачать</a>
+                    </div>
+                }
+            </div>
+            <div class="col-md-3">
                 <div class="buttons-container">
-                    <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="btn btn-default">Скачать</a>
+                    <a href="/Documents/Edit/@document.Id" class="listIcon">
+                        <i class="material-icons">mode_edit</i>
+                    </a>
+                    <a data-href="/Documents/Delete/@document.Id" class="deleteBtn listIcon" data-dialog-title="Удаление документа и работ">
+                        <i class="material-icons">delete</i>
+                    </a>
                 </div>
-            }
-        </div>
-        <div class="col-md-1">
-            @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
-            {
-                <div class="buttons-container">
-                    <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="btn btn-default">Скачать</a>
-                </div>
-            }
-        </div>
-        <div class="col-md-3">
-            <div class="buttons-container">
-                @Html.ActionLink("Редактировать", "Edit", new { id = document.Id }, htmlAttributes: new { @class = "btn btn-primary" })
-                <a href="/Documents/Delete/@document.Id" class="btn btn-danger deleteBtn" data-dialog-title="Удаление документа и работ">Удалить</a>
             </div>
         </div>
-    </div>
-}
+    }
+</div>

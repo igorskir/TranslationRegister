@@ -8,74 +8,53 @@
     @Styles.Render("~/Style/css")
     @Styles.Render("~/Style/SideBar.css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
 <body>
-    @*<div class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
+    <div class="content-container">
+        <div class="left-menu">
+            <div class="menu">
+                <div class="menu-header">
+                    @Html.Partial("_LoginPartial")
                 </div>
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav main-menu">
+                <div class="menu-content">
+                    <!-- ПОИСК -->
+                    <div class="search-container">
+                        <div class="search-form-wrapper">
+                            <input type="text" placeholder="Запрос..." required id="searchToken" minlength="3">
+                            <button id="searchBtn" type="submit" data-href="Search/SearchByName" data-ajax-update="#projectList">Поиск</button>
+                        </div>
+                    </div>
+                    <ul>
                         <li>@Html.ActionLink("Проекты", "Index", "Projects")</li>
+                        <li>@Html.ActionLink("Мои задачи", "About", "Home")</li>
                         <li>@Html.ActionLink("Документы", "Index", "Documents")</li>
                         <li>@Html.ActionLink("Отчеты", "Index", "Analytics")</li>
-                        <li>@Html.ActionLink("О программе", "About", "Home")</li>
                         <li>@Html.ActionLink("Языки", "Cards", "Languages")</li>
                         <li>@Html.ActionLink("Типы работ", "Cards", "WorkTypes")</li>
+                        <li>@Html.ActionLink("О программе", "About", "Home")</li>
                     </ul>
-                    @Html.Partial("_LoginPartial")
+                </div>
+                <div class="menu-footer">
+                    <div class="footer">
+                        <p>&copy; @DateTime.Now.Year – НИИ ТПУ</p>
+                    </div>
                 </div>
             </div>
         </div>
-         <div class="container body-content">
-                @RenderBody()
-
-            </div>*@
-    
-
-    <div id="wrapper" class="toggled">
-            <!-- Sidebar -->
-            <div id="sidebar-wrapper">
-
-                <ul class="sidebar-nav">
-                    <li class="sidebar-brand">@Html.Partial("_LoginPartial")</li>
-                    <li>@Html.ActionLink("Проекты", "Index", "Projects")</li>
-                    <li>@Html.ActionLink("Документы", "Index", "Documents")</li>
-                    <li>@Html.ActionLink("Отчеты", "Index", "Analytics")</li>
-                    <li>@Html.ActionLink("О программе", "About", "Home")</li>
-                    <li>@Html.ActionLink("Языки", "Cards", "Languages")</li>
-                    <li>@Html.ActionLink("Типы работ", "Cards", "WorkTypes")</li>
-                </ul>
-            </div>
-            <!-- /#sidebar-wrapper -->
+        <div class="right-partial">
             <!-- Page Content -->
             <div id="page-content-wrapper">
 
-                <div class="container body-content">
+                <div class="container body-content" id="partialContent">
                     @RenderBody()
 
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
         </div>
-        <!-- /#wrapper -->
-
-
-
-
-
-    <footer>
-        <p>&copy; @DateTime.Now.Year – НИИ ТПУ</p>
-    </footer>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
@@ -83,3 +62,111 @@
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+<style>
+
+    .listIcon {
+        color: #3d5279;
+    }
+
+        .listIcon:hover {
+            color: #d41955;
+        }
+
+        .listIcon i {
+            font-size: 30px;
+            margin: 0 10px;
+        }
+
+            .listIcon i:hover {
+                transition: 0.3s;
+            }
+
+    .titleAndIcon {
+        display: flex;
+    }
+
+        .titleAndIcon h2 {
+            float: left;
+        }
+
+        .titleAndIcon i {
+            font-size: 40px;
+            color: #3d5279;
+            align-self: center;
+            float: left;
+        }
+
+            .titleAndIcon i:hover {
+                color: #d41955;
+                transition: 0.3s;
+            }
+
+    .content-container {
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+    }
+
+        .content-container .left-menu {
+            width: 300px;
+            height: 100%;
+            display: block;
+            float: left;
+            background-color: #241717;
+            overflow: hidden;
+            border-right: 1px solid #000000;
+            background-image: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/JrbItQz/videoblocks-chaotic-black-low-poly-surface-waving-loopable-3d-animation-4k-uhd-3840x2160_rzqprzplz_thumbnail-full01.png);
+            background-color: #3d5279;
+            background-size: cover;
+            box-shadow: 5px 1px 6px 1px rgba(0, 0, 0, 0.4);
+        }
+
+        .content-container .right-partial {
+            width: auto;
+            height: 100%;
+            display: block;
+            overflow: hidden;
+        }
+
+        .content-container .menu {
+            float: none;
+        }
+
+    .menu {
+        height: 100%;
+    }
+
+        .menu .menu-header {
+            height: 20%;
+        }
+
+        .menu .menu-content {
+            height: 60%;
+        }
+
+        .menu .menu-footer {
+            height: 20%;
+        }
+
+    .menu-content > ul > li {
+        height: 60px;
+        padding: 10px;
+        font-size: 20px;
+    }
+
+    .menu-content > ul > li {
+        display: flex;
+        padding-left: 50px;
+    }
+
+        .menu-content > ul > li > a {
+            color: white;
+            text-decoration: none;
+            align-self: center;
+        }
+
+        .menu-content > ul > li:hover {
+            background-color: #c42d5b;
+        }
+</style>

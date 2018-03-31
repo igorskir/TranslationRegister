@@ -1,6 +1,11 @@
+.delModal {
+}
+
 .modal-content {
     overflow: hidden;
-    font-size: 18px;
+    font-size: 16px;
+    border:none;
+    border-radius:0;
 }
 
 .modal-header {
@@ -70,7 +75,7 @@
     margin:0;
     padding:6px;
     align-self:center;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .del-row {
@@ -97,7 +102,7 @@
 
 .del-value {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     display: flex;
     overflow:hidden;

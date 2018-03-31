@@ -4,7 +4,11 @@
     ViewBag.Title = "Документы";
 }
 
-<h2>Документы</h2>
+<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
+<div class="titleAndIcon">
+    <h2>Документы</h2>
+    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addDoc" data-href="/Documents/Create">add_circle</i>
+</div>
 <!-- ФИЛЬТРЫ -->
 <div class="container">
     <ul class="filters">
@@ -26,12 +30,11 @@
     </ul>
 </div>
 
-<a data-ajax-update="#addDoc" data-href="/Documents/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
+<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ ДОКУМЕНТОВ -->
 <div id="addDoc" class="dynamicBlock dynamic-block-create"></div>
+
 
 <!-- СПИСОК ДОКУМЕНТОВ -->
 <div id="docList">
     @Html.Partial("List")
 </div>
-
-

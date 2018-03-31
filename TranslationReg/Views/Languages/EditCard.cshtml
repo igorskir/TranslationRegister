@@ -9,7 +9,7 @@
         <div class="card-header">
             <p>Редактировать язык</p>
             <div>
-                <a class="fa fa-arrow-circle-left card-btn" href="/Languages/Cards"></a>
+                <a href="/Languages/Cards" style="display:flex; text-decoration:none"><i class="material-icons card-btn">undo</i></a>
             </div>
         </div>
 
@@ -32,7 +32,7 @@
             <div class="card-row">
                 <div class="card-property"></div>
                 <div class="card-value">
-                    <input type="submit" value="Сохранить" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)" 
+                    <input type="submit" value="Сохранить" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#language@(Model.Id)"
                            href="/Languages/Item/@Model.Id" class="btn btn-default btn-form form-control" />
                 </div>
             </div>

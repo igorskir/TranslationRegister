@@ -1,9 +1,5 @@
 /* конкретные контейнеры списков карт */
 
-.languagePairs-cardset {
-    border-left: 2px solid #e4e4e4;
-}
-
 .cardset-container {
     height: 100%;
     display: flex;
@@ -11,6 +7,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-top: 40px;
+    opacity:0.9;
 }
 
 /* границы карты, тени */
@@ -18,39 +15,39 @@
     padding: 0;
     margin: 0 5px 30px 5px;
     font-family: "Open Sans", Helvetica, Arial, sans-serif;
-    box-shadow: -6px 5px 12px 1px rgba(0, 0, 0, 0.25);
-    border-radius: 8px;
-    border: 1px solid lightgray;
+    box-shadow: 6px 5px 12px 1px rgba(0, 0, 0, 0.3);
+    /*border-radius: 8px;*/
+    /*border: 1px solid lightgray;*/
     overflow: hidden;
     color: #333333;
 }
     .card:hover {
-        box-shadow: -13px 11px 25px 1px rgba(0, 0, 0, 0.55);
+        box-shadow: 13px 11px 25px 1px rgba(0, 0, 0, 0.55);
         transition: 0.3s;
     }
 
 
 /*----------- размеры карточек -----------*/
-.small-card {
+    .small-card {
     max-width: 320px;
-    min-width: 260px;
+    min-width: 240px;
 }
     .small-card .card-value {
         max-width: 220px;
     }
     .small-card .card-property {
-        width: 110px;
+        width: 100px;
     }
 
 .medium-card {
     max-width: 400px;
-    min-width: 300px;
+    min-width: 280px;
 }
     .medium-card .card-value {
         max-width: 280px;
     }
     .medium-card .card-property {
-        width: 110px;
+        width: 100px;
     }
 
 .add-small-card {
@@ -66,53 +63,44 @@
 /*----------- цвета карточек -----------*/
 .card-orange {
     background-color: #fffefc;
+    transition: 0.3s;
 }
     .card-orange .card-header {
-        background-color: #e5cdbc;
-        border-bottom: solid 2px #b12323;
+        background-color: #6c3d77;
     }
     .card-orange:hover .card-header {
-        transition: 0.3s;
-        background-color: #fbab72;
-        border-bottom: solid 2px #b12323;
+        background-color: #9b45af;
     }
     .card-orange:hover .addCardIcon {
-        transition: 0.3s;
-        color: #ff6a00;
+        color: #9b45af;
     }
 
 .card-blue {
     background-color: #fffefc;
+    transition: 0.3s;
 }
     .card-blue .card-header {
-        background-color: #bccee5;
-        border-bottom: solid 2px #4f7a9a;
+        background-color: #4b5e81;
     }
     .card-blue:hover .card-header {
-        transition: 0.3s;
-        background-color: #979eef;
-        border-bottom: solid 2px #b12323;
+        background-color: #4e78c3;
     }
     .card-blue:hover .addCardIcon {
-        transition: 0.3s;
-        color: #1265f8;
+        color: #4e78c3;
     }
 
 .card-aqua {
     background-color: #fcffff;
+    transition: 0.3s;
 }
     .card-aqua .card-header {
-        background-color: #b9d4ce;
-        border-bottom: solid 2px #4f7a9a;
+        background-color: #498184;
     }
     .card-aqua:hover .card-header {
-        transition: 0.3s;
-        background-color: #a3e6d8;
-        border-bottom: solid 2px #335b78;
+        background-color: #18afb7;
     }
     .card-aqua:hover .addCardIcon {
-        transition: 0.3s;
-        color: #26dfe0;
+        color: #18afb7;
     }
 
 /*--------------------------------------*/
@@ -120,39 +108,38 @@
 .card-header {
     display: flex;
     justify-content: space-between;
-    border-radius: 6px 6px 0 0;
-    min-height: 36px;
+    /*border-radius: 6px 6px 0 0;*/
+    min-height: 32px;
+    color:white;
 }
     .card-header > p {
         margin: 0;
         font-weight: 600;
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
         padding: 0 10px 0 10px;
         align-self:center;
     }
     .card-header > div {
         display: flex;
     }
-        .card-header > div a {
+        .card-header > div p {
             padding: 0;
             margin-right: 10px;
-            text-decoration: none;
         }
 
 .card-btn {
     float: right;
-    margin-right: 10px;
+    margin-right: 5px;
     text-shadow: none;
     transition: all 1250ms cubic-bezier(0.19, 1, 0.22, 1);
-    color: #333333;
+    color: white;
     vertical-align: middle;
     align-self: center;
-    font-size: 32px !important;
+    font-size: 24px !important;
     cursor: pointer;
 }
     .card-btn:hover {
-        color: #000000;
         transform: scale(1.1);
         transition: 0.3s;
     }
@@ -169,7 +156,7 @@
 .card-row {
     display: flex;
     border-bottom: 1px solid #e4e4e4;
-    height: 50px;
+    height: 40px;
 }
     .card-row:last-of-type {
         border: none;
@@ -185,7 +172,7 @@
     }
 
 .card-property {
-    font-size: 16px;
+    font-size: 14px;
     color: #626262;
     text-align: left;
     display: flex;
@@ -199,7 +186,7 @@
 
 .card-value {
     font-weight: 600;
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     display: flex;
 }

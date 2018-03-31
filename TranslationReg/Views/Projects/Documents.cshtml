@@ -1,7 +1,11 @@
 ﻿@model TranslationRegistryModel.Project
 
+
 <div>
     <a data-ajax-update="#addDocumentForm" data-href="/Documents/CreateProjectDoc/@Model.Id" class="btn btn-primary ajaxToggleBtn">Добавить</a>
+
+    <a class="btn btn-primary addBtn" href="/Documents/AddProjectDocs/" data-dialog-title="Добавить задачи">Добавить задачи</a>
+
     <div id="addDocumentForm" class="dynamicBlock"></div>
 
     <div class="">

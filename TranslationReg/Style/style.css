@@ -457,3 +457,19 @@ footer {
     color:#006186 !important;
     padding:0 10px 0 10px;
 }
+
+#dropArea {
+    background: #b5b5b5;
+    border: black dashed 1px;
+    height: 70px;
+    text-align: center;
+    color: #fff;
+    padding-top: 0px;
+}
+
+.active-drop {
+    background: #77bafa !important;
+    border: solid 2px blue !important;
+    opacity: .5;
+    color: black !important;
+}

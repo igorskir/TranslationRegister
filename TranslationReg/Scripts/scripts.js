@@ -66,6 +66,21 @@
         });
     });
 
+    $(".addBtn").on("click", function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: 'GET',
+            url: this.href,
+            success: function (result) {
+                if (!$('modal#addModal').length) {
+                    $("<div class=\"modal fade addModal\" id=\"addModal\" role=\"dialog\"></div>").appendTo("body");
+                }
+                $("#addModal").html(result);
+                $('#addModal').modal({ show: true });
+            }
+        });
+    });
+
     $("#searchBtn").on("click", function (e) {
         e.preventDefault();
         updatedBlock = $(this).attr("data-ajax-update");

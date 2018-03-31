@@ -1,17 +1,30 @@
 ﻿(function () {
-    $(".ajaxToggleBtn").one('click', function (e) {
+    //$(".ajaxToggleBtn").one('click', function (e) {
+    //    updatedBlock = $(this).attr("data-ajax-update");
+    //    myurl = $(this).attr("data-href");
+    //    $.ajax({
+    //        type: 'GET',
+    //        url: myurl,
+    //        success: function (result) {
+    //            $(updatedBlock).html(result).hide();
+    //            $(updatedBlock).toggle("fast");
+    //            $(e.target).on("click", function () {
+    //                var updatedBlock = $(this).attr("data-ajax-update");
+    //                $(updatedBlock).toggle("fast");
+    //            });
+    //        }
+    //    });
+    //});
+
+    $(".ajaxToggleBtn").on('click', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
         myurl = $(this).attr("data-href");
         $.ajax({
             type: 'GET',
             url: myurl,
             success: function (result) {
-                $(updatedBlock).html(result).hide();
+                $(updatedBlock).html(result);
                 $(updatedBlock).toggle("fast");
-                $(e.target).on("click", function () {
-                    var updatedBlock = $(this).attr("data-ajax-update");
-                    $(updatedBlock).toggle("fast");
-                });
             }
         });
     });
@@ -29,23 +42,6 @@
         });
     });
 
-    $(".ajaxToggleBtn").one('click', function (e) {
-        updatedBlock = $(this).attr("data-ajax-update");
-        myurl = $(this).attr("data-href");
-        $.ajax({
-            type: 'GET',
-            url: myurl,
-            success: function (result) {
-                $(updatedBlock).html(result).hide();
-                $(updatedBlock).toggle("fast");
-                $(e.target).on("click", function () {
-                    var updatedBlock = $(this).attr("data-ajax-update");
-                    $(updatedBlock).toggle("fast");
-                });
-            }
-        });
-    });
-
     $(".filter").click(function () {
         $(".filter").removeClass("filter-active");
         $(this).addClass("filter-active");
@@ -53,9 +49,10 @@
 
     $(".deleteBtn").on("click", function (e) {
         e.preventDefault();
+        myurl = $(this).attr("data-href");
         $.ajax({
             type: 'GET',
-            url: this.href,
+            url: myurl,
             success: function (result) {
                 if (!$('modal#delModal').length) {
                     $("<div class=\"modal fade delModal\" id=\"delModal\" role=\"dialog\"></div>").appendTo("body");
@@ -81,8 +78,7 @@
                 }
             });
         }
-        else
-        {
+        else {
             alert("Сначала введите поисковой запрос!");
             $("#searchToken").focus();
         }

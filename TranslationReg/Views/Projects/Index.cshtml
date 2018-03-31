@@ -1,13 +1,14 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Project>
 @{ViewBag.Title = "Проекты";}
 
-<h2>Проекты</h2>
 
-<form class="search-form-wrapper cf">
-    <input type="text" placeholder="Search here..." required id="searchToken">
-    <button id="searchBtn" type="submit" data-href="Search/SearchByName" data-ajax-update="#projectList">Поиск</button>
-</form>
+<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
+<div class="titleAndIcon">
+    <h2>Проекты</h2>
+    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addProj" data-href="/Projects/Create">add_circle</i>
+</div>
 
+<!-- ФИЛЬТРЫ -->
 <div class="container">
     <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -32,9 +33,10 @@
     </div>
 </div>
 
-<a data-ajax-update="#addProj" data-href="/Projects/Create" class="btn btn-primary ajaxToggleBtn">Добавить</a>
+<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ ПРОЕКТОВ -->
 <div id="addProj" class="dynamicBlock dynamic-block-create"></div>
 
+<!-- СПИСОК ПРОЕКТОВ -->
 <div id="projectList">
     @Html.Partial("List")
 </div>

@@ -31,7 +31,8 @@ namespace TranslationReg
                       "~/Style/cards/card.css",
                       "~/Style/cards/addCard.css",
                       "~/Style/search/search.css",
-                      "~/Style/modal/deleteModal.css"
+                      "~/Style/modal/deleteModal.css",
+                      "~/Style/material/materialButtons.css"
                       ));
         }
     }

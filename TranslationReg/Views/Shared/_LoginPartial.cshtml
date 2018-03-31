@@ -2,41 +2,57 @@
 @using FormsAuthenticationExtensions;
 @using System.Web.Security;
 @using TranslationReg.Controllers
+
+@{
+    // получение данных об аватарке
+    var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
+    string avatarPath = null;
+    if (ticketData != null)
+    {
+        avatarPath = ticketData["avatarPath"];
+    }
+    // не получили - дефолтная аватарка
+    if (string.IsNullOrEmpty(avatarPath))
+    {
+        avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
+    }
+}
+
+@if (avatarPath != null)
+{
+    <div class="avatar-container">
+        <img src="@Url.Content("~/"+ avatarPath)"/>
+    </div>
+}
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
         @Html.AntiForgeryToken()
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                @{
-                    var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
-                    string avatarPath = null;
-                    if (ticketData != null)
-                    {
-                        avatarPath = ticketData["avatarPath"];
-                    }
-                    if(string.IsNullOrEmpty(avatarPath))
-                    {
-                        avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                    }
-                }
-                @if (avatarPath != null)
-                {
-                    <img src="@Url.Content("~/"+ avatarPath)" style="padding-top:2px" />
-                }
-            </li>
-            <li>
-                @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
-            </li>
-            <li><a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a></li>
-        </ul>
+        <div>
+            @Html.ActionLink("Здравствуйте, " + User.Identity.GetUserName() + "!", "Login", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </div>
+        <div>
+            <a href="javascript:document.getElementById('logoutForm').submit()">Выйти</a>
+        </div>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+    <div class="login-commands">@Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</div>
+    <div class="login-commands">@Html.ActionLink("Выполнить вход", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</div>
 }
+
+<style>
+    .avatar-container {
+        height: 60px;
+        padding: 10px;
+        width: 100%;
+    }
+        .avatar-container > img {
+            align-self: center;
+            display: block;
+            margin: auto;
+        }
+</style>

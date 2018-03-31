@@ -1,53 +1,50 @@
 ﻿@model TranslationReg.Models.LanguagesModel
 <div>
     <!-- карточки языков -->
-    <div class="col-md-6">
-        <h2 style="text-align:center">Языки</h2>
-        <div class="cardset-container languages-cardset">
-            <!-- карточка добавления -->
-            <div id="addLanguage">
-                <div class="card card-orange add-small-card">
-                    <div class="card-header">
-                        <p>Добавить язык</p>
-                    </div>
-                    <div class="add-card-content ajaxToggleCard" data-href="/Languages/AddCard" data-ajax-update="#addLanguage">
-                        <i class="fa fa-plus-circle addCardIcon" style="font-size:100px"></i>
-                        <p>Нажмите чтобы добавить</p>
-                    </div>
+    <h2 style="text-align:center">Языки</h2>
+    <div class="cardset-container languages-cardset">
+        <!-- карточка добавления -->
+        <div id="addLanguage">
+            <div class="card card-orange add-small-card">
+                <div class="card-header">
+                    <p>Добавить язык</p>
+                </div>
+                <div class="add-card-content ajaxToggleCard" data-href="/Languages/AddCard" data-ajax-update="#addLanguage">
+                    <i class="material-icons addCardIcon" style="font-size:100px">add_circle</i>
+                    <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
-            <!-- языки -->
-            @foreach (var language in Model.languages)
-            {
-                <div id="language@(language.Id)">
-                    @Html.Partial("../Languages/Card", language)
-                </div>
-            }
         </div>
+        <!-- языки -->
+        @foreach (var language in Model.languages)
+        {
+            <div id="language@(language.Id)">
+                @Html.Partial("../Languages/Card", language)
+            </div>
+        }
     </div>
-    <div class="col-md-6 languagePairs-cardset">
-        <!-- карточки языковых пар -->
-        <h2 style="text-align:center">Языковые пары</h2>
-        <div class="cardset-container ">
-            <!-- карточка добавления -->
-            <div id="addLanguagePair">
-                <div class="card card-blue add-medium-card">
-                    <div class="card-header">
-                        <p>Добавить языковую пару</p>
-                    </div>
-                    <div class="add-card-content ajaxToggleCard" data-href="/LanguagePairs/AddCard" data-ajax-update="#addLanguagePair">
-                        <i class="fa fa-plus-circle addCardIcon" style="font-size:150px"></i>
-                        <p>Нажмите чтобы добавить</p>
-                    </div>
+    <!-- карточки языковых пар -->
+    <h2 style="text-align:center">Языковые пары</h2>
+    <div class="cardset-container ">
+        <!-- карточка добавления -->
+        <div id="addLanguagePair">
+            <div class="card card-blue add-medium-card">
+                <div class="card-header">
+                    <p>Добавить языковую пару</p>
+                </div>
+                <div class="add-card-content ajaxToggleCard" data-href="/LanguagePairs/AddCard" data-ajax-update="#addLanguagePair">
+                    <i class="fa fa-plus-circle addCardIcon" style="font-size:150px"></i>
+                    <i class="material-icons addCardIcon" style="font-size:150px">add_circle</i>
+                    <p>Нажмите чтобы добавить</p>
                 </div>
             </div>
-            <!-- языковые пары -->
-            @foreach (var languagePair in Model.languagePairs)
-            {
-                <div id="languagePair@(languagePair.Id)">
-                    @Html.Partial("../LanguagePairs/Card", languagePair)
-                </div>
-            }
         </div>
+        <!-- языковые пары -->
+        @foreach (var languagePair in Model.languagePairs)
+        {
+            <div id="languagePair@(languagePair.Id)">
+                @Html.Partial("../LanguagePairs/Card", languagePair)
+            </div>
+        }
     </div>
 </div>

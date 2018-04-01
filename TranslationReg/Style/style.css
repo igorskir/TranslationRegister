@@ -10,6 +10,11 @@ h2 {
     margin: 20px;
 }
 
+.padding-container {
+    padding-top: 20px;
+    padding-left: 50px;
+}
+
 html {
     height: 100%;
 }

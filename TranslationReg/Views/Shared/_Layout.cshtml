@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Style/css")
-    @Styles.Render("~/Style/SideBar.css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
@@ -17,13 +16,6 @@
             <div class="menu">
                 <div class="menu-header">
                     @Html.Partial("_LoginPartial")
-                    @if (Request.IsAuthenticated)
-                    {
-                                @Html.AntiForgeryToken()
-                                <div class="hello">
-                                    Здравствуйте,   @User.Identity.Name!
-                                </div>
-                    }
                 </div>
                 <div class="menu-content">
                     <!-- ПОИСК -->
@@ -55,6 +47,13 @@
                         <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Home/About">
                             <p>О программе</p>
                         </li>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <li class="logOffBtn" onclick="return location.href = '/Account/LogOff'">
+                                <p>Выйти</p>
+                            </li>
+                        }
+
                     </ul>
                 </div>
                 <div class="menu-footer">
@@ -83,18 +82,6 @@
 </html>
 
 <style>
-    .hello {
-        font-size: 20px;
-        padding-top:10px;
-        text-align: center;
-        display: block;
-        margin: auto;
-        color: white;
-    }
-    .logout {
-        margin-top: 30px !important;
-        font-size: 16px !important;
-    }
     .listIcon {
         color: #3d5279;
     }
@@ -142,8 +129,7 @@
             float: left;
             background-color: #241717;
             overflow: hidden;
-            border-right: 1px solid #000000;
-            background-color: #3d5279;
+            background-color: #0b2046ad;
             background-size: cover;
             box-shadow: 5px 1px 6px 1px rgba(0, 0, 0, 0.4);
         }

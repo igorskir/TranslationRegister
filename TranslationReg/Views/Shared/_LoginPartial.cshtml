@@ -5,11 +5,14 @@
 
 @{
     // получение данных об аватарке
-    var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
     string avatarPath = null;
-    if (ticketData != null)
+    if (User.Identity is FormsIdentity)
     {
-        avatarPath = ticketData["avatarPath"];
+        var ticketData = ((FormsIdentity)User.Identity).Ticket.GetStructuredUserData();
+        if (ticketData != null)
+        {
+            avatarPath = ticketData["avatarPath"];
+        }
     }
     // не получили - дефолтная аватарка
     if (string.IsNullOrEmpty(avatarPath))

@@ -95,6 +95,7 @@ namespace TranslationRegistryModel
 
         //---------------------------------- User_Stage CRUD ---------------------------------------------
         Task<List<User_Stage>> GetUser_Stages();
+        Task<List<User_Stage>> GetMyTasks(string login);
         Task<User_Stage> GetUser_Stage(int id);
         Task PutUser_Stage(User_Stage User_Stage);
         Task DeleteUser_Stage(int id);

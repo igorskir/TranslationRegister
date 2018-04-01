@@ -18,7 +18,7 @@ namespace TranslationReg.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return View(await Rep.GetDocuments());
+            return PartialView(await Rep.GetDocuments());
         }
         
         //                                          ФИЛЬТРЫ

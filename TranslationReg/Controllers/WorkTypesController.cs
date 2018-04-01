@@ -23,7 +23,7 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Cards()
         {
             var workTypesModel = await WorkTypesModel.GetModel(Rep);
-            return View(workTypesModel);
+            return PartialView(workTypesModel);
         }
 
         // GET: WorkTypes/AddCard

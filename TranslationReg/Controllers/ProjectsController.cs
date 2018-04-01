@@ -19,7 +19,13 @@ namespace TranslationReg.Controllers
             var projects = await Rep.GetProjectsInWork();
             return View(projects);
         }
-        
+
+        // GET: Projects
+        public async Task<ActionResult> Projects()
+        {
+            var projects = await Rep.GetProjectsInWork();
+            return PartialView("Index",projects);
+        }
         //                                          ФИЛЬТРЫ
         // GET: Projects/All
         public async Task<ActionResult> All()

@@ -1,18 +1,18 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Document>
 <div class="tableMaterial">
     <div class="titles">
-        <div class="col-md-4">@Html.Label("Наименование")</div>
+        <div class="col-md-3">@Html.Label("Наименование")</div>
         <div class="col-md-2">@Html.Label("Дата")</div>
         <div class="col-md-1">@Html.Label("Слова")</div>
-        <div class="col-md-1">@Html.Label("Оригинал")</div>
-        <div class="col-md-1">@Html.Label("Перевод")</div>
-        <div class="col-md-3">@Html.Label("Команды")</div>
+        <div class="col-md-2">@Html.Label("Оригинал")</div>
+        <div class="col-md-2">@Html.Label("Перевод")</div>
+        <div class="col-md-2">@Html.Label("Команды")</div>
     </div>
 
     @foreach (var document in Model)
     {
         <div class="properties">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
             </div>
 
@@ -28,7 +28,7 @@
                 </span>
             </div>
 
-            <div class="col-md-1">
+            <div class="col-md-2">
                 @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
                 {
                     <div class="buttons-container">
@@ -36,7 +36,7 @@
                     </div>
                 }
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
                 {
                     <div class="buttons-container">
@@ -44,7 +44,7 @@
                     </div>
                 }
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="buttons-container">
                     <a href="/Documents/Edit/@document.Id" class="listIcon">
                         <i class="material-icons">mode_edit</i>

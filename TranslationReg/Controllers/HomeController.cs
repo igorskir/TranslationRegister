@@ -9,8 +9,7 @@ namespace TranslationReg.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
-            ViewBag.Message = "Реестр переводов";
-            return View();
+            return PartialView();
         }
 
     }

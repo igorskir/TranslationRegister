@@ -2,18 +2,18 @@
 
 <div class="tableMaterial">
     <div class="titles">
-        <div class="col-md-4">@Html.Label("Название")</div>
+        <div class="col-md-3">@Html.Label("Название")</div>
         <div class="col-md-1">@Html.Label("Статус")</div>
         <div class="col-md-2">@Html.Label("Создатель")</div>
-        <div class="col-md-1">@Html.Label("Перевод")</div>
-        <div class="col-md-1">@Html.Label("Создан")</div>
-        <div class="col-md-3">@Html.Label("Команды")</div>
+        <div class="col-md-2">@Html.Label("Перевод")</div>
+        <div class="col-md-2">@Html.Label("Создан")</div>
+        <div class="col-md-2">@Html.Label("Команды")</div>
     </div>
 
     @foreach (var project in Model)
     {
         <div class="properties">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a>
             </div>
             <div class="col-md-1">
@@ -26,17 +26,17 @@
                     @Html.DisplayFor(modelItem => project.Creator.Name)
                 </span>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <span>
                     @Html.DisplayFor(modelItem => project.LanguagePair.Name)
                 </span>
             </div>
-            <div class="col-md-1">
+            <div class="col-md-2">
                 <span>
                     @project.Date.ToString("dd/MM/yyyy")
                 </span>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-2">
                 <div class="buttons-container">
                     <a href="/Projects/Edit/@project.Id" class="listIcon">
                         <i class="material-icons">mode_edit</i>

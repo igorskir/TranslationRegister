@@ -19,7 +19,7 @@ namespace TranslationReg.Controllers
         // GET: Analytics
         public async Task<ActionResult> Index()
         {
-            return View("Report", await ReportModel.GetModel(Rep));
+            return PartialView("Report", await ReportModel.GetModel(Rep));
         }
         // POST: Analytics
         public async Task<FileResult> FormReport([Bind(Prefix = "filters")]

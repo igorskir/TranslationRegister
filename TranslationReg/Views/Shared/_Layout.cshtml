@@ -27,13 +27,27 @@
                         </div>
                     </div>
                     <ul>
-                        <li>@Html.ActionLink("Проекты", "Index", "Projects")</li>
-                        <li>@Html.ActionLink("Мои задачи", "About", "Home")</li>
-                        <li>@Html.ActionLink("Документы", "Index", "Documents")</li>
-                        <li>@Html.ActionLink("Отчеты", "Index", "Analytics")</li>
-                        <li>@Html.ActionLink("Языки", "Cards", "Languages")</li>
-                        <li>@Html.ActionLink("Типы работ", "Cards", "WorkTypes")</li>
-                        <li>@Html.ActionLink("О программе", "About", "Home")</li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Projects/Projects">
+                            <p>Проекты</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/User_Stage/MyTasks">
+                            <p>Мои задачи</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Documents/Index">
+                            <p>Документы</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Analytics/Index">
+                            <p>Отчеты</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Languages/Cards">
+                            <p>Языки</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/WorkTypes/Cards">
+                            <p>Типы работ</p>
+                        </li>
+                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Home/About">
+                            <p>О программе</p>
+                        </li>
                     </ul>
                 </div>
                 <div class="menu-footer">
@@ -46,10 +60,8 @@
         <div class="right-partial">
             <!-- Page Content -->
             <div id="page-content-wrapper">
-
-                <div class="container body-content" id="partialContent">
+                <div class="container body-content" id="partialContent" style="s">
                     @RenderBody()
-
                 </div>
             </div>
             <!-- /#page-content-wrapper -->
@@ -86,10 +98,6 @@
         display: flex;
     }
 
-        .titleAndIcon h2 {
-            float: left;
-        }
-
         .titleAndIcon i {
             font-size: 40px;
             color: #3d5279;
@@ -106,6 +114,7 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
+        scroll-behavior: smooth;
     }
 
         .content-container .left-menu {
@@ -126,7 +135,8 @@
             width: auto;
             height: 100%;
             display: block;
-            overflow: hidden;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
 
         .content-container .menu {
@@ -158,15 +168,19 @@
     .menu-content > ul > li {
         display: flex;
         padding-left: 50px;
+        cursor: pointer;
     }
 
-        .menu-content > ul > li > a {
-            color: white;
-            text-decoration: none;
-            align-self: center;
-        }
+    .menu-content li > p {
+        color: white;
+        text-decoration: none;
+        align-self: center;
+        cursor: pointer;
+        font-weight: 500;
+        margin: 0;
+    }
 
-        .menu-content > ul > li:hover {
-            background-color: #c42d5b;
-        }
+    .menu-content > ul > li:hover {
+        background-color: #c42d5b;
+    }
 </style>

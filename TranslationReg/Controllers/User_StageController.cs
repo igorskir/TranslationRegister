@@ -27,10 +27,19 @@ namespace TranslationReg.Controllers
 
             return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
+
+        // GET: User_Stage/My
+        // принимает id стадии
+        public async Task<ActionResult> MyTasks()
+        {
+            var tasks = await Rep.GetMyTasks(User.Identity.Name);
+            return PartialView(tasks);
+        }
+
         // POST: User_Stage/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(User_Stage user_Stage,[Bind(Include = "workFile")]HttpPostedFileBase workFile)
+        public async Task<ActionResult> Create(User_Stage user_Stage, [Bind(Include = "workFile")]HttpPostedFileBase workFile)
         {
             user_Stage.Date = DateTime.Now;
             if (user_Stage.UserId == 0)
@@ -64,7 +73,7 @@ namespace TranslationReg.Controllers
         // POST: User_Stage/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(User_Stage user_Stage,[Bind(Include = "workFile")] HttpPostedFileBase workFile)
+        public async Task<ActionResult> Edit(User_Stage user_Stage, [Bind(Include = "workFile")] HttpPostedFileBase workFile)
         {
             if (workFile != null && workFile.ContentLength != 0)
                 user_Stage.DocFileId = (await Helper.SetFile(workFile, Rep, Server)).Id;

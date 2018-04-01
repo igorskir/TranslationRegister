@@ -17,4 +17,36 @@
         </div>
     </div>
 </div>
-       
+
+@section scripts{
+    <script src="~/Scripts/jquery.filedrop.js"></script>
+    <script type="text/javascript">
+            $(function () {
+                $('#dropArea').filedrop({
+                    url: '@Url.Action("UploadFiles")',
+                    allowedfiletypes: [],
+                    allowedfileextensions: [],
+                    paramname: 'files',
+                    maxfiles: 20,
+                    maxfilesize: 500, // in MB
+                    dragOver: function () {
+                        $('#dropArea').addClass('active-drop');
+                    },
+                    dragLeave: function () {
+                        $('#dropArea').removeClass('active-drop');
+                    },
+                    drop: function () {
+                        $('#dropArea').removeClass('active-drop');
+                    },
+                    afterAll: function (e) {
+                        $('#dropArea').html('file(s) uploaded successfully');
+                    },
+                    uploadFinished: function (i, file, response, time) {
+                        $('#uploadList').append('<li class="list-group-item">' + file.name + '</li>')
+                    }
+
+                })
+
+            })
+    </script>
+}       

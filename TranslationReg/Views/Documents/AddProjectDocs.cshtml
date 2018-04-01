@@ -1,0 +1,34 @@
+﻿
+<div class="modal-dialog">
+    <div class="modal-content">
+
+        <!-- Хедер -->
+        <div class="modal-header">
+            <h4 class="modal-title">Добавление документов</h4>
+            <p type="button" class="close" data-dismiss="modal">&times;</p>
+        </div>
+
+        <!-- Тело -->
+
+        <div id="dropArea">
+            Перенесите файлы сюда
+        </div>
+        <h4>Загруженные файлы : </h4>
+        <ul class="list-group" id="uploadList"></ul>
+
+        <!-- Подтверждение\отмена -->
+        <div class="modal-footer">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                <input type="submit" value="Добавить" class="btn btn-modal" />
+            }
+            <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+        </div>
+    </div>
+</div>
+
+
+
+
+

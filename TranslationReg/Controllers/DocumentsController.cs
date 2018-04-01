@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -80,6 +81,24 @@ namespace TranslationReg.Controllers
         {
             return PartialView(new Document { ProjectId = Id });
         }
+
+        public ActionResult AddProjectDocs()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public ActionResult UploadFiles(IEnumerable<HttpPostedFileBase> files)
+        {
+            foreach (var file in files)
+            {
+                //string filePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
+                //file.SaveAs(Path.Combine(Server.MapPath("~/UploadedFiles"), filePath));
+                
+            }
+            return Json("file uploaded successfully");
+        }
+
         // POST: Documents/Create
         [HttpPost]
         [ValidateAntiForgeryToken]

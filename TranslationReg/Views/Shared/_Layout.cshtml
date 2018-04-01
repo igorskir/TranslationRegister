@@ -17,6 +17,13 @@
             <div class="menu">
                 <div class="menu-header">
                     @Html.Partial("_LoginPartial")
+                    @if (Request.IsAuthenticated)
+                    {
+                                @Html.AntiForgeryToken()
+                                <div class="hello">
+                                    Здравствуйте,   @User.Identity.Name!
+                                </div>
+                    }
                 </div>
                 <div class="menu-content">
                     <!-- ПОИСК -->
@@ -76,7 +83,18 @@
 </html>
 
 <style>
-
+    .hello {
+        font-size: 20px;
+        padding-top:10px;
+        text-align: center;
+        display: block;
+        margin: auto;
+        color: white;
+    }
+    .logout {
+        margin-top: 30px !important;
+        font-size: 16px !important;
+    }
     .listIcon {
         color: #3d5279;
     }
@@ -125,7 +143,6 @@
             background-color: #241717;
             overflow: hidden;
             border-right: 1px solid #000000;
-            background-image: url(https://d2v9y0dukr6mq2.cloudfront.net/video/thumbnail/JrbItQz/videoblocks-chaotic-black-low-poly-surface-waving-loopable-3d-animation-4k-uhd-3840x2160_rzqprzplz_thumbnail-full01.png);
             background-color: #3d5279;
             background-size: cover;
             box-shadow: 5px 1px 6px 1px rgba(0, 0, 0, 0.4);

@@ -22,34 +22,50 @@
                     <div class="search-container">
                         <div class="search-form-wrapper">
                             <input type="text" placeholder="Запрос..." required id="searchToken" minlength="3">
-                            <button id="searchBtn" type="submit" data-href="Search/SearchByName" data-ajax-update="#projectList">Поиск</button>
+                            <button id="searchBtn" type="submit" data-href="Search/SearchByName" data-ajax-update="#partialContent">Поиск</button>
                         </div>
                     </div>
                     <ul>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Projects/Projects">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Projects/Projects">
+                            <div class="menuSelection currentMenuSelection"></div>
+                            <i class="material-icons">folder</i>
                             <p>Проекты</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/User_Stage/MyTasks">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/User_Stage/MyTasks">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">event</i>
                             <p>Мои задачи</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Documents/Index">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Documents/Index">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">description</i>
                             <p>Документы</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Analytics/Index">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Analytics/Index">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">trending_up</i>
                             <p>Отчеты</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Languages/Cards">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Languages/Cards">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">translate</i>
                             <p>Языки</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/WorkTypes/Cards">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/WorkTypes/Cards">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">assignment</i>
                             <p>Типы работ</p>
                         </li>
-                        <li class="ajaxBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Home/About">
+                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Home/About">
+                            <div class="menuSelection"></div>
+                            <i class="material-icons">help_outline</i>
                             <p>О программе</p>
                         </li>
                         @if (Request.IsAuthenticated)
                         {
                             <li class="logOffBtn" onclick="return location.href = '/Account/LogOff'">
+                                <div class="menuSelection"></div>
+                                <i class="material-icons">exit_to_app</i>
                                 <p>Выйти</p>
                             </li>
                         }
@@ -82,6 +98,18 @@
 </html>
 
 <style>
+    .menuSelection {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 6px;
+        height: 100%;
+    }
+
+    .currentMenuSelection {
+        background-color: #c42d5b;
+    }
+
     .listIcon {
         color: #3d5279;
     }
@@ -123,7 +151,7 @@
     }
 
         .content-container .left-menu {
-            width: 300px;
+            width: 280px;
             height: 100%;
             display: block;
             float: left;
@@ -155,26 +183,34 @@
         }
 
         .menu .menu-content {
-            height: 60%;
+            height: 70%;
         }
 
         .menu .menu-footer {
-            height: 20%;
+            height: 10%;
         }
 
-    .menu-content > ul > li {
-        height: 60px;
-        padding: 10px;
-        font-size: 20px;
+    .menu-content > ul {
+        margin-top: 30px;
     }
 
-    .menu-content > ul > li {
-        display: flex;
-        padding-left: 50px;
-        cursor: pointer;
-    }
+        .menu-content > ul > li {
+            height: 50px;
+            padding: 10px;
+            font-size: 18px;
+            border-top: 1px solid #27395abf;
+            position:relative;
+        }
 
-    .menu-content li > p {
+        .menu-content > ul > li {
+            display: flex;
+            padding-left: 50px;
+            cursor: pointer;
+        }
+
+    .menu-content li > p,
+    .menu-content li > i {
+        padding-right: 15px;
         color: white;
         text-decoration: none;
         align-self: center;

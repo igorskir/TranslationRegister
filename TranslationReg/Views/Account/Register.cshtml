@@ -45,9 +45,10 @@
                 @Html.Label("Файл аватарки")
                 <input type="file" name="avatar" accept="image/*" />
             </div>
-
-            <input type="submit" value="Зарегистрироваться" class="btn btn-default btn-form" />
-            <a href="/Account/Login" class="btn btn-default btn-form">К авторизации</a>
+            <div>
+                <input type="submit" value="Зарегистрироваться" class="btn btn-default btn-form" />
+                <a href="/Account/Login" class="btn btn-default btn-form" style="float:left; margin-left:100px;">К авторизации</a>
+            </div>
         }
     </div>
     @Scripts.Render("~/bundles/jquery")

@@ -39,17 +39,18 @@ body {
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0px;
-    height: 50px;
-    padding: 15px;
     color: white;
     z-index: 999;
+    height: 100%;
+    position: relative;
 }
 
     .footer > p {
+        position: absolute;
         text-align: center;
+        font-size: 14px;
+        bottom: 0;
+        width:100%;
     }
 
 .tableMaterial {

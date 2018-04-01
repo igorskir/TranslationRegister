@@ -42,6 +42,13 @@
         $(this).addClass("filter-active");
     });
 
+    $(document).on('click', '.menuBtn', function () {
+        var selecton = $(this).find("div");
+
+        $(".menuSelection").removeClass("currentMenuSelection");
+        selecton.addClass("currentMenuSelection");
+    });
+
     $(document).on('click', '.deleteBtn', function (e) {
         e.preventDefault();
         myurl = $(this).attr("data-href");

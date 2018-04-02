@@ -11,6 +11,12 @@ namespace TranslationReg.Controllers
     {
         public UnitOfMeasureController(IRepository repository) : base(repository) { } // Конструктор
 
+        // GET: UnitOfMeasure/Card
+        public async Task<ActionResult> Card(int id)
+        {
+            return PartialView(await Rep.GetUnitOfMeasure(id));
+        }
+
         // GET: UnitOfMeasure/AddCard
         public ActionResult AddCard()
         {

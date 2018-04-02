@@ -11,6 +11,11 @@ namespace TranslationReg.Controllers
     {
         public ProjectStatuseController(IRepository repository): base (repository){ } // Конструктор
 
+        // GET: ProjectStatuse/Card
+        public async Task<ActionResult> Card(int id)
+        {
+            return PartialView(await Rep.GetProjectStatus(id));
+        }
         // GET: ProjectStatuse/AddCard
         public ActionResult AddCard()
         {

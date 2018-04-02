@@ -32,7 +32,9 @@
                 @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
                 {
                     <div class="buttons-container">
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="btn btn-default">Скачать</a>
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })" class="listIcon">
+                            <i class="material-icons">file_download</i>
+                        </a>
                     </div>
                 }
             </div>
@@ -40,7 +42,9 @@
                 @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
                 {
                     <div class="buttons-container">
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="btn btn-default">Скачать</a>
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })" class="listIcon">
+                            <i class="material-icons">file_download</i>
+                        </a>
                     </div>
                 }
             </div>

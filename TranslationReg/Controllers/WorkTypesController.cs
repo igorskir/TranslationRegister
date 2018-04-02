@@ -19,6 +19,11 @@ namespace TranslationReg.Controllers
             return View(workTypesModel);
         }
 
+        // GET: WorkTypes/Card
+        public async Task<ActionResult> Card(int id)
+        {
+            return PartialView(await Rep.GetWorkType(id));
+        }
         // GET: WorkTypes/Cards
         public async Task<ActionResult> Cards()
         {

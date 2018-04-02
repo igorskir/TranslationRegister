@@ -354,7 +354,6 @@
     <Content Include="Style\bootstrap-theme.min.css.map" />
     <Content Include="Style\bootstrap.css.map" />
     <Content Include="Style\bootstrap.min.css.map" />
-    <Content Include="Style\style.less" />
     <Content Include="Views\Projects\List.cshtml" />
     <Content Include="Views\Documents\List.cshtml" />
     <Content Include="Views\DocStages\List.cshtml" />

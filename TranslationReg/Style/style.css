@@ -7,7 +7,7 @@
 h2 {
     color: #282828;
     align-self: center;
-    margin: 20px;
+    margin: 18px;
 }
 
 .padding-container {
@@ -138,8 +138,9 @@ body {
         text-align: center;
         background-color: #3d5279;
         height: 55px;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 55px;
+        font-weight: 500;
     }
 
         .titles > div:last-child {
@@ -151,7 +152,7 @@ body {
 }
 
 .titleLink {
-    font-size: 18px;
+    font-size: 16px;
     text-align: left;
     color: #006186;
     margin-left: 15px;
@@ -183,7 +184,7 @@ body {
     }
 
 .titleLink-small {
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .properties {

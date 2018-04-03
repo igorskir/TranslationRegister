@@ -1,22 +1,5 @@
 ﻿(function () {
-    //$(".ajaxToggleBtn").one('click', function (e) {
-    //    updatedBlock = $(this).attr("data-ajax-update");
-    //    myurl = $(this).attr("data-href");
-    //    $.ajax({
-    //        type: 'GET',
-    //        url: myurl,
-    //        success: function (result) {
-    //            $(updatedBlock).html(result).hide();
-    //            $(updatedBlock).toggle("fast");
-    //            $(e.target).on("click", function () {
-    //                var updatedBlock = $(this).attr("data-ajax-update");
-    //                $(updatedBlock).toggle("fast");
-    //            });
-    //        }
-    //    });
-    //});
-
-    $(".ajaxToggleBtn").on('click', function (e) {
+    $(document).on('click', '.ajaxToggleBtn', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
         myurl = $(this).attr("data-href");
         $.ajax({
@@ -29,7 +12,19 @@
         });
     });
 
-    $(".ajaxToggleCard").on('click', function (e) {
+    $(document).on('click', '.ajaxBtn', function (e) {
+        updatedBlock = $(this).attr("data-ajax-update");
+        myurl = $(this).attr("data-href");
+        $.ajax({
+            type: 'GET',
+            url: myurl,
+            success: function (result) {
+                $(updatedBlock).html(result);
+            }
+        });
+    });
+
+    $(document).on('click', '.ajaxToggleCard', function (e) {
         updatedBlock = $(this).attr("data-ajax-update");
         myurl = $(this).attr("data-href");
         $.ajax({
@@ -42,12 +37,19 @@
         });
     });
 
-    $(".filter").click(function () {
+    $(document).on('click', '.filter', function () {
         $(".filter").removeClass("filter-active");
         $(this).addClass("filter-active");
     });
 
-    $(".deleteBtn").on("click", function (e) {
+    $(document).on('click', '.menuBtn', function () {
+        var selecton = $(this).find("div");
+
+        $(".menuSelection").removeClass("currentMenuSelection");
+        selecton.addClass("currentMenuSelection");
+    });
+
+    $(document).on('click', '.deleteBtn', function (e) {
         e.preventDefault();
         myurl = $(this).attr("data-href");
         $.ajax({
@@ -78,7 +80,7 @@
         });
     });
 
-    $("#searchBtn").on("click", function (e) {
+    $(document).on('click', '#searchBtn', function (e) {
         e.preventDefault();
         updatedBlock = $(this).attr("data-ajax-update");
         var token = $("#searchToken").val();

@@ -32,6 +32,8 @@
         <AssociationConnector Association="SqlRepository.SqlContextModel.DocumentDocFile" />
         <EntityTypeShape EntityType="SqlRepository.SqlContextModel.UnitOfMeasure" Width="1.5" PointX="7.5" PointY="0.75" />
         <AssociationConnector Association="SqlRepository.SqlContextModel.UnitOfMeasureWorkType" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.DocStageDocFile" />
+        <AssociationConnector Association="SqlRepository.SqlContextModel.ProjectWorkType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

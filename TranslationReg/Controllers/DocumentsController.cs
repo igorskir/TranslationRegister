@@ -19,7 +19,7 @@ namespace TranslationReg.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return View(await Rep.GetDocuments());
+            return PartialView(await Rep.GetDocuments());
         }
         
         //                                          ФИЛЬТРЫ
@@ -149,7 +149,7 @@ namespace TranslationReg.Controllers
                 if (ModelState.IsValid)
                 {
                     await Rep.AddDocument(document);
-                    return Redirect(Request.UrlReferrer.ToString());
+                    return Redirect("InWork");
                 }
             }
 

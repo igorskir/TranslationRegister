@@ -1,8 +1,5 @@
 ﻿@model IEnumerable<TranslationRegistryModel.Document>
-
-@{
-    ViewBag.Title = "Документы";
-}
+@{ViewBag.Title = "Документы";}
 
 <!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
 <div class="titleAndIcon">
@@ -38,3 +35,7 @@
 <div id="docList">
     @Html.Partial("List")
 </div>
+
+<script type="text/javascript">
+    document.title = '@ViewBag.Title';
+</script>

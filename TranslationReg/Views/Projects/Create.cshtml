@@ -1,33 +1,50 @@
 ﻿@model TranslationReg.Models.ProjectModel
-@using (Html.BeginForm())
+@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "projectList" }))
 {
     @Html.AntiForgeryToken()
 
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
     <div class="form-group">
-        @Html.LabelFor(model => model, "Название" )
+        @Html.LabelFor(model => model, "Название")
         @Html.EditorFor(model => model.Project.Name, new { htmlAttributes = new { @class = "form-control", required = "required" } })
         @Html.ValidationMessageFor(model => model.Project.Name, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Project.LanguagePairId, "Языковая пара" )
-        @Html.DropDownListFor(model => model.Project.LanguagePairId, Model.LanguagePairs, new { @class = "form-control", required = "required" })
-        @Html.ValidationMessageFor(model => model.Project.LanguagePairId, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Project.Customer, "Заказчик" )
+        @Html.LabelFor(model => model.Project.Customer, "Заказчик")
         @Html.EditorFor(model => model.Project.Customer, new { htmlAttributes = new { @class = "form-control" } })
         @Html.ValidationMessageFor(model => model.Project.Customer, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Project.ProjectStatuseId, "Статус" )
+        @Html.LabelFor(model => model.Project.LanguagePairId, "Языковая пара")
+        @Html.DropDownListFor(model => model.Project.LanguagePairId, Model.LanguagePairs, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.Project.LanguagePairId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Project.Deadline, "Дедлайн")
+        @Html.EditorFor(model => model.Project.Deadline, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Project.Deadline, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Project.WorkTypeId, "Начальная стадия")
+        @Html.DropDownListFor(model => model.Project.WorkTypeId, Model.Worktypes, new { @class = "form-control", required = "required" })
+        @Html.ValidationMessageFor(model => model.Project.WorkTypeId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Project.Description, "Описание")
+        @Html.EditorFor(model => model.Project.Description, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Project.Description, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Project.ProjectStatuseId, "Статус")
         @Html.DropDownListFor(model => model.Project.ProjectStatuseId, Model.ProjectStatus, new { @class = "form-control", required = "required" })
         @Html.ValidationMessageFor(model => model.Project.ProjectStatuseId, "", new { @class = "text-danger" })
     </div>
-
     <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
 }

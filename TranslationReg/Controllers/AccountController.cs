@@ -22,10 +22,11 @@ namespace TranslationReg.Controllers
         {
             return View();
         }
+
         public ActionResult Logoff()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login");
         }
 
         [HttpPost]
@@ -39,7 +40,7 @@ namespace TranslationReg.Controllers
                 if (user != null)
                 {
                     Authentificate(user);
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Projects");
                 }
                 else
                 {
@@ -76,7 +77,7 @@ namespace TranslationReg.Controllers
                             user.AvatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
 
                         Authentificate(user);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Projects");
                     }
                 }
                 else

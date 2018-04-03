@@ -7,7 +7,12 @@
 h2 {
     color: #282828;
     align-self: center;
-    margin: 20px;
+    margin: 18px;
+}
+
+.padding-container {
+    padding-top: 20px;
+    padding-left: 50px;
 }
 
 html {
@@ -34,17 +39,18 @@ body {
 }
 
 .footer {
-    position: fixed;
-    left: 0;
-    bottom: 0px;
-    height: 50px;
-    padding: 15px;
     color: white;
     z-index: 999;
+    height: 100%;
+    position: relative;
 }
 
     .footer > p {
+        position: absolute;
         text-align: center;
+        font-size: 14px;
+        bottom: 0;
+        width:100%;
     }
 
 .tableMaterial {
@@ -77,18 +83,6 @@ body {
 
         .navbar-right > li a:hover {
             background: #505b69;
-        }
-
-    .main-menu > li > a {
-        display: block;
-        font-weight: 500;
-        color: white;
-        margin-right: 7px;
-    }
-
-        .main-menu > li > a:hover,
-        .main-menu > li > a:focus {
-            background-color: #505b69;
         }
 }
 
@@ -144,8 +138,9 @@ body {
         text-align: center;
         background-color: #3d5279;
         height: 55px;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 55px;
+        font-weight: 500;
     }
 
         .titles > div:last-child {
@@ -154,6 +149,42 @@ body {
 
 .btn-form {
     align-self: flex-start;
+}
+
+.titleLink {
+    font-size: 16px;
+    text-align: left;
+    color: #006186;
+    margin-left: 15px;
+    text-decoration: none;
+    width: auto;
+    position: relative;
+    text-align: left;
+    align-self: center;
+}
+
+    .titleLink:after {
+        height: 3px;
+        width: 100%;
+        background: #d41955;
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: all .3s;
+        transform: scaleX(0);
+    }
+
+    .titleLink:hover:after {
+        transform: scaleX(1);
+    }
+
+    .titleLink:hover {
+        color: #d41955 !important;
+    }
+
+.titleLink-small {
+    font-size: 14px;
 }
 
 .properties {
@@ -170,7 +201,7 @@ body {
     }
 
     .properties:hover {
-        background-color: #e6e6e6;
+        background-color: #ffffff63;
     }
 
     .properties > div {
@@ -186,32 +217,7 @@ body {
             border-right: none;
         }
 
-        .properties > div:first-child a {
-            color: black;
-            text-decoration: none;
-            width: auto;
-            margin-left: 5px;
-            position: relative;
-            text-align: left;
-            font-size: 20px;
-            align-self: center;
-        }
 
-            .properties > div:first-child a:after {
-                height: 3px;
-                width: 100%;
-                background: #d41955;
-                content: "";
-                position: absolute;
-                left: 0px;
-                bottom: 0;
-                transition: all .3s;
-                transform: scaleX(0);
-            }
-
-            .properties > div:first-child a:hover:after {
-                transform: scaleX(1);
-            }
 
         .properties > div span {
             margin: auto;
@@ -543,12 +549,6 @@ body {
         .dynamic-block-add-stage > form div label {
             width: 150px;
         }
-
-.titleLink{
-    text-align:left !important;
-    color:#006186 !important;
-    padding:0 10px 0 10px;
-}
 
 #dropArea {
     background: #b5b5b5;

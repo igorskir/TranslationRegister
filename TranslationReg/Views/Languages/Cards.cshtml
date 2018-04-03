@@ -1,4 +1,5 @@
 ﻿@model TranslationReg.Models.LanguagesModel
+@{ViewBag.Title = "Языки";}
 <div>
     <!-- карточки языков -->
     <h2 style="text-align:center">Языки</h2>
@@ -48,3 +49,7 @@
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    document.title = '@ViewBag.Title';
+</script>

@@ -56,7 +56,7 @@
     text-shadow: 0 -1px 0 rgba(0, 0,0, .3);
 }
     .search-form-wrapper button:hover {
-        background: #101010;
+        background: #c42d5b;
     }
 
     .search-form-wrapper button:before {
@@ -66,18 +66,18 @@
         border-style: solid solid solid none;
         border-color: transparent #282828 transparent;
         top: 8px;
-        left: -6px;
+        left: -5px;
     }
     .search-form-wrapper button:active,
     .search-form-wrapper button:focus {
         transition: 0.2s;
-        background: #101010;
+        background: #c42d5b;
     }
     .search-form-wrapper button:hover:before {
-        border-right-color: #101010;
+        border-right-color: #c42d5b;
     }
     .search-form-wrapper button:focus:before {
-        border-right-color: #101010;
+        border-right-color: #c42d5b;
     }
     .search-form-wrapper button::-moz-focus-inner {
         border: 0;

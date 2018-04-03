@@ -81,6 +81,14 @@
       <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
       <End Role="WorkType" EntitySet="WorkTypes" />
     </AssociationSet>
+    <AssociationSet Name="DocStageDocFile" Association="SqlRepository.SqlContextModel.Store.DocStageDocFile">
+      <End Role="DocStage" EntitySet="DocStages" />
+      <End Role="DocFile" EntitySet="DocFiles" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectWorkType" Association="SqlRepository.SqlContextModel.Store.ProjectWorkType">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="WorkType" EntitySet="WorkTypes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Documents">
     <Key>
@@ -132,6 +140,8 @@
     <Property Name="CreatorId" Type="int" Nullable="false" />
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
+    <Property Name="Deadline" Type="datetime" Nullable="true" />
+    <Property Name="WorkTypeId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectStatuses">
     <Key>
@@ -148,7 +158,9 @@
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="DocumentId" Type="int" Nullable="false" />
     <Property Name="WorkTypeId" Type="int" Nullable="false" />
-    <Property Name="DocFileId" Type="int" Nullable="true" />
+    <Property Name="OriginalId" Type="int" Nullable="true" />
+    <Property Name="ResultId" Type="int" Nullable="true" />
+    <Property Name="Deadline" Type="datetime" Nullable="true" />
   </EntityType>
   <EntityType Name="User_Stage">
     <Key>
@@ -334,7 +346,7 @@
         <PropertyRef Name="Id" />
       </Principal>
       <Dependent Role="Stage">
-        <PropertyRef Name="DocFileId" />
+        <PropertyRef Name="OriginalId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -385,6 +397,30 @@
       </Principal>
       <Dependent Role="WorkType">
         <PropertyRef Name="UnitOfMeasureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DocStageDocFile">
+    <End Role="DocStage" Type="SqlRepository.SqlContextModel.Store.DocStages" Multiplicity="*" />
+    <End Role="DocFile" Type="SqlRepository.SqlContextModel.Store.DocFiles" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="DocFile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="DocStage">
+        <PropertyRef Name="ResultId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectWorkType">
+    <End Role="Project" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="*" />
+    <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="WorkTypeId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -454,6 +490,9 @@
           <NavigationProperty Name="Creator" Relationship="Self.FK_ProjectUser" FromRole="Projects" ToRole="Users" />
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="true" />
+          <Property Name="Deadline" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="InitialStage" Relationship="SqlRepository.SqlContextModel.ProjectWorkType" FromRole="Project" ToRole="WorkType" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -474,8 +513,11 @@
           <NavigationProperty Name="Document" Relationship="Self.FK_DocumentStage" FromRole="Stages" ToRole="Documents" />
           <NavigationProperty Name="WorkType" Relationship="Self.FK_StageWorkType" FromRole="Stages" ToRole="WorkTypes" />
           <NavigationProperty Name="User_Stage" Relationship="Self.FK_User_StageStage" FromRole="Stages" ToRole="User_Stage" />
-          <NavigationProperty Name="DocFile" Relationship="SqlRepository.SqlContextModel.DocFileStage" FromRole="Stage" ToRole="DocFile" />
-          <Property Name="DocFileId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Original" Relationship="SqlRepository.SqlContextModel.DocFileStage" FromRole="Stage" ToRole="DocFile" />
+          <Property Name="OriginalId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Result" Relationship="SqlRepository.SqlContextModel.DocStageDocFile" FromRole="DocStage" ToRole="DocFile" />
+          <Property Name="ResultId" Type="Int32" Nullable="true" />
+          <Property Name="Deadline" Type="DateTime" Nullable="true" />
         </EntityType>
         <EntityType Name="User_Stage">
           <Key>
@@ -691,6 +733,14 @@
             <End Role="UnitOfMeasure" EntitySet="UnitOfMeasures" />
             <End Role="WorkType" EntitySet="WorkTypes" />
           </AssociationSet>
+          <AssociationSet Name="DocStageDocFile" Association="SqlRepository.SqlContextModel.DocStageDocFile">
+            <End Role="DocStage" EntitySet="DocStages" />
+            <End Role="DocFile" EntitySet="DocFiles" />
+          </AssociationSet>
+          <AssociationSet Name="ProjectWorkType" Association="SqlRepository.SqlContextModel.ProjectWorkType">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="WorkType" EntitySet="WorkTypes" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
           <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" >
@@ -741,7 +791,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Stage">
-              <PropertyRef Name="DocFileId" />
+              <PropertyRef Name="OriginalId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -804,6 +854,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="DocStageDocFile">
+          <End Type="SqlRepository.SqlContextModel.DocStage" Role="DocStage" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.DocFile" Role="DocFile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="DocFile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DocStage">
+              <PropertyRef Name="ResultId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="ProjectWorkType">
+          <End Type="SqlRepository.SqlContextModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -863,6 +937,8 @@
           <ScalarProperty Name="CreatorId" ColumnName="CreatorId" />
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -881,7 +957,9 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="DocumentId" ColumnName="DocumentId" />
           <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
-          <ScalarProperty Name="DocFileId" ColumnName="DocFileId" />
+          <ScalarProperty Name="OriginalId" ColumnName="OriginalId" />
+          <ScalarProperty Name="ResultId" ColumnName="ResultId" />
+          <ScalarProperty Name="Deadline" ColumnName="Deadline" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

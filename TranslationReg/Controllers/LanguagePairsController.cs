@@ -32,6 +32,12 @@ namespace TranslationReg.Controllers
             return PartialView(model);
         }
 
+        // GET: LanguagePairs/Card
+        public async Task<ActionResult> Card(int id)
+        {
+            return PartialView(await Rep.GetLanguagePair(id));
+        }
+
         // GET: LanguagePairs/EditCard/5
         public async Task<ActionResult> EditCard(int? id)
         {

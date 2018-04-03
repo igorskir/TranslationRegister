@@ -21,6 +21,14 @@ namespace SqlRepository
             return await context.User_Stage.ToListAsync();
         }
 
+        public async Task<List<User_Stage>> GetMyTasks(string login)
+        {
+            var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;
+            return await context.User_Stage.
+                Where(x => x.UserId == userId).
+                ToListAsync();
+        }
+
         public async Task PutUser_Stage(User_Stage User_Stage)
         {
             context.Entry(User_Stage).State = EntityState.Modified;

@@ -1,4 +1,5 @@
 ﻿@model TranslationReg.Models.WorkTypesModel
+@{ViewBag.Title = "Типы работ";}
 <div>
     <!-- карточки типов работ -->
     <h2 style="text-align:center">Типы работ</h2>
@@ -73,3 +74,7 @@
         }
     </div>
 </div>
+
+<script type="text/javascript">
+    document.title = '@ViewBag.Title';
+</script>

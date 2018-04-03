@@ -1,5 +1,5 @@
 ﻿
-<div class="modal-dialog">
+<div class="modal-dialog" style="width: 60% !important">
     <div class="modal-content">
 
         <!-- Хедер -->
@@ -15,6 +15,54 @@
         </div>
         <h4>Загруженные файлы : </h4>
         <ul class="list-group" id="uploadList"></ul>
+        <div class="tableMaterial">
+            <div class="titles">
+                <div class="col-md-2">@Html.Label("Файл")</div>
+                <div class="col-md-2">@Html.Label("Исполнитель")</div>
+                <div class="col-md-2">@Html.Label("Создатель")</div>
+                <div class="col-md-4">@Html.Label("Комментирий")</div>
+                <div class="col-md-2">@Html.Label("Дедлайн")</div>
+
+            </div>
+
+            @*@if (Model != null)
+            {
+                foreach (var project in Model)
+                {
+                    <div class="properties">
+                        <div class="col-md-2">
+                            <a class="titleLink">@project.FileName</a>
+                        </div>
+                        <div class="col-md-2">
+                            <span>
+                                @Html.DropDownList("filters.userId", project.UserList, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span>
+                                @Html.DisplayFor(modelItem => User.Identity.Name)
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <span>
+                                @Html.DisplayFor(modelItem => project.Comment)
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span>
+                                @project.DeadLine.ToString("dd/MM/yyyy")
+                            </span>
+                        </div>
+
+                        <div id="@(project.id)" class="dynamicBlock dynamicBlock-prop"></div>
+                    </div>
+
+                }
+            }*@
+
+
+        </div>
+
 
         <!-- Подтверждение\отмена -->
         <div class="modal-footer">
@@ -28,7 +76,42 @@
     </div>
 </div>
 
+<script type="text/javascript">
+            $(function () {
+                $('#dropArea').filedrop({
+                    url: '@Url.Action("UploadFiles/")',
+                    allowedfiletypes: [],
+                    allowedfileextensions: [],
+                    paramname: 'files',
+                    maxfiles: 20,
+                    maxfilesize: 500, // in MB
+                    dragOver: function () {
+                        $('#dropArea').addClass('active-drop');
+                    },
+                    dragLeave: function () {
+                        $('#dropArea').removeClass('active-drop');
+                    },
+                    drop: function () {
+                        $('#dropArea').removeClass('active-drop');
+                    },
+                    afterAll: function (e) {
+                        $('#dropArea').html('Файлы успешно загружены');
+                    },
+                    uploadFinished: function (i, file, response, time) {
+                        $('#uploadList').append('<li class="list-group-item">' + file.name + '</li>')
+                        
+                    }
+                    
 
+                })
 
+            })
+</script>
+@functions{
+    public void LoadFile(HttpPostedFileBase a)
+    {
+
+    }
+}
 
 

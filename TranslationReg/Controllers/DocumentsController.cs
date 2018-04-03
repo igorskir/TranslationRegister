@@ -90,14 +90,22 @@ namespace TranslationReg.Controllers
         [HttpPost]
         public ActionResult UploadFiles(IEnumerable<HttpPostedFileBase> files)
         {
+            
+            
             foreach (var file in files)
             {
-                //string filePath = Guid.NewGuid() + Path.GetExtension(file.FileName);
-                //file.SaveAs(Path.Combine(Server.MapPath("~/UploadedFiles"), filePath));
+                string Name = file.FileName;
+                
+                string fileName = Path.GetFileName(file.FileName);
+                // сохраняем файл в папку Files в проекте
+                string filePath = Server.MapPath("~/Uploads/" + fileName);
+                file.SaveAs(filePath);
                 
             }
             return Json("file uploaded successfully");
         }
+     
+
 
         // POST: Documents/Create
         [HttpPost]

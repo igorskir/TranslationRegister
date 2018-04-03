@@ -262,6 +262,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Style\material\materialButtons.css" />
+    <Content Include="Style\modal\addModal.css" />
     <Content Include="Style\search\search.css" />
     <Content Include="Style\Site.css" />
     <Content Include="Style\modal\deleteModal.css" />
@@ -380,6 +381,7 @@
     <Content Include="Views\UnitOfMeasure\Card.cshtml" />
     <Content Include="Views\UnitOfMeasure\EditCard.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
+    <Content Include="Views\Documents\AddProjectDocs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Style\tables\" />

@@ -382,6 +382,8 @@
     <Content Include="Views\UnitOfMeasure\EditCard.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
+    <Content Include="Views\Projects\Project.cshtml" />
+    <Content Include="Views\User_Stage\MyTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Style\tables\" />

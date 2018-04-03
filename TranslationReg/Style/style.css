@@ -381,6 +381,10 @@ body {
     margin-bottom: 10px;
 }
 
+addFormContainer {
+    margin: 18px;
+}
+
 .createBtn {
     margin-bottom: 10px;
 }

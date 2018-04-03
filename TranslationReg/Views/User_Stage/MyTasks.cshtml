@@ -1,34 +1,21 @@
 ﻿@model List<TranslationRegistryModel.User_Stage>
 @{ViewBag.Title = "Мои задачи";}
 <!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
-<div class="titleAndIcon">
-    <h2>Мои задачи</h2>
-    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addProj" data-href="/Projects/Create">add_circle</i>
-</div>
+<h2>Мои задачи</h2>
 
 <!-- ФИЛЬТРЫ -->
-<div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="container">
-        <ul class="filters">
-            <li>
-                <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/InWork">Задачи в работе</a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/All">Все задачи</a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Done">Выполненные задачи</a>
-            </li>
-        </ul>
-    </div>
+<div class="filterContainer">
+    <ul class="filters">
+        <li>
+            <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/InWork">Задачи в работе</a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/All">Все задачи</a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Done">Выполненные задачи</a>
+        </li>
+    </ul>
 </div>
 
 <div class="tableMaterial">

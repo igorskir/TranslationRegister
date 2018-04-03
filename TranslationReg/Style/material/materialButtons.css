@@ -66,3 +66,7 @@
     background: #3d5279 !important;
     color: white !important;
 }
+
+.filterContainer{
+    padding-left:30px;
+}

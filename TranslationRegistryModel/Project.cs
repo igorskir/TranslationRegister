@@ -29,11 +29,13 @@ namespace TranslationRegistryModel
         public System.DateTime Date { get; set; }
         public string Description { get; set; }
         public Nullable<System.DateTime> Deadline { get; set; }
+        public Nullable<int> WorkTypeId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Document> Documents { get; set; }
         public virtual LanguagePair LanguagePair { get; set; }
         public virtual ProjectStatus ProjectStatus { get; set; }
         public virtual User Creator { get; set; }
+        public virtual WorkType InitialStage { get; set; }
     }
 }

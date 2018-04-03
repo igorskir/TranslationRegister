@@ -1,0 +1,76 @@
+﻿@model TranslationRegistryModel.Project
+
+<h2>Проект: @Model.Name</h2>
+<div class="tableMaterial">
+    <div class="titles">
+        <div class="col-md-2">Стадия</div>
+        <div class="col-md-2">Документ</div>
+        <div class="col-md-2">Исполнитель</div>
+        <div class="col-md-1">Количество</div>
+        <div class="col-md-1">Дедлайн</div>
+        <div class="col-md-2">Комментарий</div>
+        <div class="col-md-2">Комманды</div>
+    </div>
+    @{
+        // все работы
+        var works = Model.Documents.SelectMany(x => x.Stages).SelectMany(x => x.User_Stage);
+        if (works != null && works.Count() != 0)
+        {
+            // работы разбиты по стадиям
+            var stepsWorks = works.GroupBy(x => x.Stage.WorkTypeId);
+            foreach (var stepWorks in stepsWorks)
+            {
+                var currentWorkType = stepWorks.First().Stage.WorkType.Name;
+
+                // а потом еще и по документам
+                var docsWorks = stepWorks.GroupBy(x => x.Stage.DocumentId);
+                foreach (var docWorks in docsWorks)
+                {
+                    var currentDoc = docWorks.First().Stage.Document.Name;
+                    // получили одну работу
+                    foreach (var work in docWorks)
+                    {
+                        <div class="properties">
+                            <div class="col-md-2">
+                                <span>
+                                    @currentWorkType
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>
+                                    @currentDoc
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>
+                                    @work.User.Name
+                                </span>
+                            </div>
+                            <div class="col-md-1">
+                                <span>
+                                    @work.Amount
+                                </span>
+                            </div>
+                            <div class="col-md-1">
+                                <span>
+                                    @work.Stage.Deadline
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>
+                                    @work.Comment
+                                </span>
+                            </div>
+                            <div class="col-md-2">
+                                <span>
+                                    Кнопки
+                                </span>
+                            </div>
+                        </div>
+                    }
+                }
+            }
+        }
+
+    }
+</div>

@@ -141,7 +141,7 @@ namespace TranslationReg.Controllers
                 if (ModelState.IsValid)
                 {
                     await Rep.AddDocument(document);
-                    return Redirect(Request.UrlReferrer.ToString());
+                    return Redirect("InWork");
                 }
             }
 

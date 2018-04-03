@@ -19,7 +19,7 @@
         }
     </dl>
 
-    <a data-ajax-update="#addDocStageForm" data-href="/DocStages/Create/@Model.Id" class="btn btn-primary ajaxToggleBtn">Добавить стадию</a>
+    <p data-ajax-update="#addDocStageForm" data-href="/DocStages/Create/@Model.Id" class="btn btn-primary ajaxToggleBtn">Добавить стадию</p>
     <div id="addDocStageForm" class="dynamicBlock"></div>
 
     @Html.Partial("../DocStages/List", Model.Stages.ToList())

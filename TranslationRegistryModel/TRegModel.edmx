@@ -85,6 +85,10 @@
       <End Role="DocStage" EntitySet="DocStages" />
       <End Role="DocFile" EntitySet="DocFiles" />
     </AssociationSet>
+    <AssociationSet Name="ProjectWorkType" Association="SqlRepository.SqlContextModel.Store.ProjectWorkType">
+      <End Role="Project" EntitySet="Projects" />
+      <End Role="WorkType" EntitySet="WorkTypes" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Documents">
     <Key>
@@ -137,6 +141,7 @@
     <Property Name="Date" Type="datetime" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" Nullable="true" />
     <Property Name="Deadline" Type="datetime" Nullable="true" />
+    <Property Name="WorkTypeId" Type="int" Nullable="true" />
   </EntityType>
   <EntityType Name="ProjectStatuses">
     <Key>
@@ -407,6 +412,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="ProjectWorkType">
+    <End Role="Project" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="*" />
+    <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="WorkTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -474,6 +491,8 @@
           <Property Name="Date" Type="DateTime" Nullable="false" />
           <Property Name="Description" Type="String" Nullable="true" />
           <Property Name="Deadline" Type="DateTime" Nullable="true" />
+          <NavigationProperty Name="InitialStage" Relationship="SqlRepository.SqlContextModel.ProjectWorkType" FromRole="Project" ToRole="WorkType" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="true" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -718,6 +737,10 @@
             <End Role="DocStage" EntitySet="DocStages" />
             <End Role="DocFile" EntitySet="DocFiles" />
           </AssociationSet>
+          <AssociationSet Name="ProjectWorkType" Association="SqlRepository.SqlContextModel.ProjectWorkType">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="WorkType" EntitySet="WorkTypes" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
           <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" >
@@ -843,6 +866,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ProjectWorkType">
+          <End Type="SqlRepository.SqlContextModel.Project" Role="Project" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Project">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -903,6 +938,7 @@
           <ScalarProperty Name="Date" ColumnName="Date" />
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+          <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

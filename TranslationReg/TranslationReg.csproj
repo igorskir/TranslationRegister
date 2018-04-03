@@ -379,6 +379,7 @@
     <Content Include="Views\UnitOfMeasure\Card.cshtml" />
     <Content Include="Views\UnitOfMeasure\EditCard.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
+    <Content Include="Views\Projects\Project.cshtml" />
     <None Include="Views\User_Stage\MyTasks.cshtml" />
   </ItemGroup>
   <ItemGroup>

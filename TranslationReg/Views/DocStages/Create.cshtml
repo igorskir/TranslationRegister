@@ -8,7 +8,7 @@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.DocumentId)
-        @Html.HiddenFor(model => model.DocFileId)
+        @Html.HiddenFor(model => model.OriginalId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.WorkTypeId, "Тип работ" )

@@ -20,6 +20,20 @@ namespace TranslationReg.Controllers
             return View(projects);
         }
 
+        // GET: Project
+        public async Task<ActionResult> Project(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            return View(project);
+        }
+
         // GET: Projects
         public async Task<ActionResult> Projects()
         {
@@ -96,7 +110,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddProject(project);
-                return Redirect(Request.UrlReferrer.ToString());
+                return RedirectToAction("InWork");
             }
 
             ProjectModel model = await ProjectModel.GetModel(Rep);

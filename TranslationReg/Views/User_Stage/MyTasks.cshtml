@@ -33,11 +33,12 @@
 
 <div class="tableMaterial">
     <div class="titles">
-        <div class="col-md-2">Проект</div>
+        <div class="col-md-3">Комментарий</div>
         <div class="col-md-2">Документ</div>
-        <div class="col-md-1">Дедлайн</div>
+        <div class="col-md-1">Результат</div>
+        <div class="col-md-2">Проект</div>
         <div class="col-md-1">Объем</div>
-        <div class="col-md-4">Комментарий</div>
+        <div class="col-md-1">Дедлайн</div>
         <div class="col-md-2">Команды</div>
     </div>
 
@@ -45,26 +46,40 @@
         @foreach (var userStage in Model)
         {
             <div class="properties">
+                <!-- Комментарий -->
+                <div class="col-md-3">
+                    <span>
+                        @Html.DisplayFor(modelItem => userStage.Comment)
+                    </span>
+                </div>
+
+                <!-- Документ -->
+                <div class="col-md-2">
+                    <div class="buttons-container">
+                        <span>
+                            @userStage.Stage.Document.Name
+                        </span>
+                        <a href="@Url.Action("Download", "Documents"/*, new { @filepath = userStage.Stage.Original.Path }*/)" class="listIcon">
+                            <i class="material-icons">file_download</i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Результат -->
+                <div class="col-md-1">
+                    <div class="buttons-container">
+                        <a class="listIcon">
+                            <i class="material-icons">file_upload</i>
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Проект -->
                 <div class="col-md-2">
                     <span>
-                        <a class="titleLink titleLink-small" href="/Projects/Tabpages/@userStage.Stage.Document.Project.Id">
+                        <a class="titleLink">
                             @userStage.Stage.Document.Project.Name
                         </a>
-                    </span>
-                </div>
-                <!-- Документ -->
-                <div class="col-md-2">
-                    <span>
-                        <a class="titleLink titleLink-small" href="/Documents/DocAndStages/@userStage.Stage.Document.Id">
-                            @userStage.Stage.Document.Name
-                        </a>
-                    </span>
-                </div>
-                <!-- Дедлайн -->
-                <div class="col-md-1">
-                    <span>
-                        Мулька
                     </span>
                 </div>
                 <!-- Объем -->
@@ -73,25 +88,22 @@
                         @Html.DisplayFor(modelItem => userStage.Amount)
                     </span>
                 </div>
-                <!-- Комментарий -->
-                <div class="col-md-4">
+                <!-- Дедлайн -->
+                <div class="col-md-1">
                     <span>
-                        @Html.DisplayFor(modelItem => userStage.Comment)
+                        @userStage.Stage.Deadline
                     </span>
                 </div>
+
                 <!-- Команды -->
                 <div class="col-md-2">
                     <div class="buttons-container">
-                        <a class="listIcon">
-                            <i class="material-icons">file_upload</i>
-                        </a>
                         <a href="/User_Stage/Edit/@userStage.Id" class="listIcon">
                             <i class="material-icons">mode_edit</i>
                         </a>
-                        <a class="deleteBtn listIcon">
+                        <a class="deleteBtn listIcon" data-href="/User_Stage/Delete/@userStage.Id">
                             <i class="material-icons">delete</i>
                         </a>
-
                     </div>
                 </div>
             </div>

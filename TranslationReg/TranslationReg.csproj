@@ -217,6 +217,7 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LanguagePairsModel.cs" />
     <Compile Include="Models\User_StageModel.cs" />
+    <Compile Include="Models\DocStageModel.cs" />
     <Compile Include="Models\WorkTypesModel.cs" />
     <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
@@ -384,6 +385,7 @@
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
     <Content Include="Views\Projects\Project.cshtml" />
     <Content Include="Views\User_Stage\MyTasks.cshtml" />
+    <Content Include="Views\DocStages\ChooseForProject.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Style\tables\" />

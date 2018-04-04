@@ -1,76 +1,162 @@
 ﻿@model TranslationRegistryModel.Project
-
 <h2>Проект: @Model.Name</h2>
-<div class="tableMaterial">
-    <div class="titles">
-        <div class="col-md-2">Стадия</div>
-        <div class="col-md-2">Документ</div>
-        <div class="col-md-2">Исполнитель</div>
-        <div class="col-md-1">Количество</div>
-        <div class="col-md-1">Дедлайн</div>
-        <div class="col-md-2">Комментарий</div>
-        <div class="col-md-2">Комманды</div>
-    </div>
-    @{
-        // все работы
-        var works = Model.Documents.SelectMany(x => x.Stages).SelectMany(x => x.User_Stage);
-        if (works != null && works.Count() != 0)
-        {
-            // работы разбиты по стадиям
-            var stepsWorks = works.GroupBy(x => x.Stage.WorkTypeId);
-            foreach (var stepWorks in stepsWorks)
-            {
-                var currentWorkType = stepWorks.First().Stage.WorkType.Name;
 
-                // а потом еще и по документам
-                var docsWorks = stepWorks.GroupBy(x => x.Stage.DocumentId);
-                foreach (var docWorks in docsWorks)
+<!-- Добавление доков -->
+<div class="titleAndIcon">
+    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addDoc" data-href="/Documents/CreateProjectDoc/@Model.Id">add_circle</i>
+    <h3>Документы</h3>
+</div>
+<!-- Область добавления документов -->
+<div id="addDoc" class="dynamicBlock dynamic-block-create"></div>
+
+<!-- Добавление стадий -->
+<div class="titleAndIcon">
+    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addStage" data-href="/DocStages/ChooseForProject/@Model.Id">add_circle</i>
+    <h3>Стадии</h3>
+</div>
+<!-- Область добавления стадий -->
+<div id="addStage" class="dynamicBlock dynamic-block-create"></div>
+
+@{
+    // все стадии
+    var stages = Model.Documents.SelectMany(x => x.Stages);
+    //если есть хоть одна стадия
+    if (stages != null && stages.Count() != 0)
+    {
+        var typedStages = stages.GroupBy(x => x.WorkTypeId);
+        // работы по типам
+        foreach (var oneTypeStages in typedStages)
+        {
+            var currentWorkType = oneTypeStages.First().WorkType;
+
+
+            <h3>@currentWorkType.Name</h3>
+            <hr />
+
+            var docedStages = oneTypeStages.GroupBy(x => x.DocumentId);
+            // работы по документам
+            foreach (var oneDocStages in docedStages)
+            {
+                var currentDoc = oneDocStages.First().Document;
+
+                <div style="background: blue; height:400px; width:200px;">@currentDoc.Name</div>
+
+                // работы по доку в стадии
+                var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
+
+                <div class="tableMaterial">
+                    <div class="titles">
+                        <div class="col-md-3">Исполнитель</div>
+                        <div class="col-md-5">Комментарий</div>
+                        <div class="col-md-2">Количество</div>
+                        <div class="col-md-2">Комманды</div>
+                    </div>
+                </div>
+
+                foreach (var work in typedDocWorks)
                 {
-                    var currentDoc = docWorks.First().Stage.Document.Name;
-                    // получили одну работу
-                    foreach (var work in docWorks)
-                    {
-                        <div class="properties">
-                            <div class="col-md-2">
-                                <span>
-                                    @currentWorkType
-                                </span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>
-                                    @currentDoc
-                                </span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>
-                                    @work.User.Name
-                                </span>
-                            </div>
-                            <div class="col-md-1">
-                                <span>
-                                    @work.Amount
-                                </span>
-                            </div>
-                            <div class="col-md-1">
-                                <span>
-                                    @work.Stage.Deadline
-                                </span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>
-                                    @work.Comment
-                                </span>
-                            </div>
-                            <div class="col-md-2">
-                                <span>
-                                    Кнопки
-                                </span>
-                            </div>
+                    <div class="properties">
+                        <div class="col-md-3">
+                            <span>
+                                @work.User.Name
+                            </span>
                         </div>
-                    }
+                        <div class="col-md-5">
+                            <span>
+                                @work.Comment
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span>
+                                @work.Amount
+                            </span>
+                        </div>
+                        <div class="col-md-2">
+                            <span>
+                                Кнопки
+                            </span>
+                        </div>
+                    </div>
                 }
             }
         }
-
     }
-</div>
+
+
+
+
+
+    <h2>Полная картина</h2>
+    // все работы
+    var works = Model.Documents.SelectMany(x => x.Stages).SelectMany(x => x.User_Stage);
+    if (works != null && works.Count() != 0)
+    {
+        <div class="tableMaterial">
+            <div class="titles">
+                <div class="col-md-2">Стадия</div>
+                <div class="col-md-2">Документ</div>
+                <div class="col-md-2">Исполнитель</div>
+                <div class="col-md-1">Количество</div>
+                <div class="col-md-1">Дедлайн</div>
+                <div class="col-md-2">Комментарий</div>
+                <div class="col-md-2">Комманды</div>
+            </div>
+            @{
+                // работы разбиты по стадиям
+                var stepsWorks = works.GroupBy(x => x.Stage.WorkTypeId);
+                foreach (var stepWorks in stepsWorks)
+                {
+                    var currentWorkType = stepWorks.First().Stage.WorkType.Name;
+
+                    // а потом еще и по документам
+                    var docsWorks = stepWorks.GroupBy(x => x.Stage.DocumentId);
+                    foreach (var docWorks in docsWorks)
+                    {
+                        var currentDoc = docWorks.First().Stage.Document.Name;
+                        // получили одну работу
+                        foreach (var work in docWorks)
+                        {
+                            <div class="properties">
+                                <div class="col-md-2">
+                                    <span>
+                                        @currentWorkType
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>
+                                        @currentDoc
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>
+                                        @work.User.Name
+                                    </span>
+                                </div>
+                                <div class="col-md-1">
+                                    <span>
+                                        @work.Amount
+                                    </span>
+                                </div>
+                                <div class="col-md-1">
+                                    <span>
+                                        @work.Stage.Deadline
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>
+                                        @work.Comment
+                                    </span>
+                                </div>
+                                <div class="col-md-2">
+                                    <span>
+                                        Кнопки
+                                    </span>
+                                </div>
+                            </div>
+                        }
+                    }
+                }
+            }
+        </div>
+    }
+}

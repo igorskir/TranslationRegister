@@ -1,5 +1,5 @@
 ﻿@model TranslationReg.Models.ProjectModel
-@using (Ajax.BeginForm("Create","Project", new AjaxOptions { UpdateTargetId = "projectList", HttpMethod = "Post" }, null, new { @class = "addFormContainer" }))
+@using (Ajax.BeginForm("Create","Projects", new AjaxOptions { UpdateTargetId = "projectList", HttpMethod = "Post"}))
 {
     @Html.AntiForgeryToken()
 

@@ -1,162 +1,350 @@
 ﻿@model TranslationRegistryModel.Project
-<h2>Проект: @Model.Name</h2>
-
-<!-- Добавление доков -->
+@using TranslationReg.Controllers
+<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
 <div class="titleAndIcon">
-    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addDoc" data-href="/Documents/CreateProjectDoc/@Model.Id">add_circle</i>
-    <h3>Документы</h3>
+    <h2>@Model.Name</h2>
+    <a href="/Projects/Edit/@Model.Id">
+        <i class="material-icons">edit</i>
+    </a>
 </div>
-<!-- Область добавления документов -->
-<div id="addDoc" class="dynamicBlock dynamic-block-create"></div>
 
-<!-- Добавление стадий -->
-<div class="titleAndIcon">
-    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addStage" data-href="/DocStages/ChooseForProject/@Model.Id">add_circle</i>
-    <h3>Стадии</h3>
+
+<!-- ФИЛЬТРЫ -->
+<div class="filterContainer">
+    <ul class="buttons">
+        <li>
+            <div class="btn-wrapper ajaxToggleBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
+                <i class="material-icons">add_circle</i>
+                <span> Документ</span>
+            </div>
+        </li>
+        <li>
+            <div class="btn-wrapper ajaxToggleBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addArea" data-href="/DocStages/ChooseForProject/@Model.Id">
+                <i class="material-icons">add_circle</i>
+                <span> Стадия</span>
+            </div>
+        </li>
+        <li>
+            <div class="btn-wrapper" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Finalise/@Model.Id">
+                <i class="material-icons">done_all</i>
+                <span> Финализировать</span>
+            </div>
+        </li>
+    </ul>
 </div>
-<!-- Область добавления стадий -->
-<div id="addStage" class="dynamicBlock dynamic-block-create"></div>
 
+<!-- Область добавления -->
+<div id="addArea" class="dynamicBlock dynamic-block-create"></div>
+
+<!-- Основная область -->
 @{
     // все стадии
     var stages = Model.Documents.SelectMany(x => x.Stages);
-    //если есть хоть одна стадия
     if (stages != null && stages.Count() != 0)
     {
         var typedStages = stages.GroupBy(x => x.WorkTypeId);
         // работы по типам
         foreach (var oneTypeStages in typedStages)
         {
+            //--------------------------------------------- Отображение этапов -----------------------------------------
             var currentWorkType = oneTypeStages.First().WorkType;
-
-
-            <h3>@currentWorkType.Name</h3>
-            <hr />
-
-            var docedStages = oneTypeStages.GroupBy(x => x.DocumentId);
-            // работы по документам
-            foreach (var oneDocStages in docedStages)
-            {
-                var currentDoc = oneDocStages.First().Document;
-
-                <div style="background: blue; height:400px; width:200px;">@currentDoc.Name</div>
-
-                // работы по доку в стадии
-                var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
-
-                <div class="tableMaterial">
-                    <div class="titles">
-                        <div class="col-md-3">Исполнитель</div>
-                        <div class="col-md-5">Комментарий</div>
-                        <div class="col-md-2">Количество</div>
-                        <div class="col-md-2">Комманды</div>
+            <div class="worktype-container">
+                <div class="worktype-header">
+                    <div class="tableMaterial">
+                        <div class="titles">
+                            <div class="worktype-name">
+                                @currentWorkType.Name
+                            </div>
+                            <div class="dropdown-btn" toggleid="stageToggle@(currentWorkType.Id)" iconid="toggleIcon@(currentWorkType.Id)">
+                                <i class="material-icons" id="toggleIcon@(currentWorkType.Id)">expand_more</i>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="worktype-content" id="stageToggle@(currentWorkType.Id)">
+                    @{
+                        //----------------------------------------------------------------------------------------------------------
 
-                foreach (var work in typedDocWorks)
-                {
-                    <div class="properties">
-                        <div class="col-md-3">
-                            <span>
-                                @work.User.Name
-                            </span>
-                        </div>
-                        <div class="col-md-5">
-                            <span>
-                                @work.Comment
-                            </span>
-                        </div>
-                        <div class="col-md-2">
-                            <span>
-                                @work.Amount
-                            </span>
-                        </div>
-                        <div class="col-md-2">
-                            <span>
-                                Кнопки
-                            </span>
-                        </div>
-                    </div>
-                }
-            }
+
+                        var docedStages = oneTypeStages.GroupBy(x => x.DocumentId);
+                        // работы по документам
+                        foreach (var oneDocStages in docedStages)
+                        {
+                            <div class="docworks-container">
+                                @{
+
+                                    //--------------------------------------------- Отображение доков ------------------------------------------
+                                    var currentDoc = oneDocStages.First().Document;
+                                    <div class="doc-container">
+                                        <img src="~/Uploads/DocIcons/Word.png" width="180" height="180" />
+                                        <p>@currentDoc.Name</p>
+                                        <hr />
+                                        <div class="buttons-container">
+                                            @if (currentDoc.FinalFileId != null)
+                                            {
+                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
+                                            }
+                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
+                                            <a class="listIcon"><i class="material-icons">edit</i></a>
+                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                        </div>
+                                    </div>
+                                    //----------------------------------------------------------------------------------------------------------
+
+
+                                    //--------------------------------------------- Отображение работ ------------------------------------------
+                                    // работы по доку в стадии
+                                    var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
+                                    <div class="works-table">
+                                        <div class="tableMaterial">
+                                            <div class="work-titles">
+                                                <div class="col-md-2" style="display:flex;">
+                                                    <i class="material-icons" style="margin-right: 50px">add_circle</i>
+                                                    <span style="text-align: center; align-self: center; margin: auto;">
+                                                        Исполнитель
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-5">Комментарий</div>
+                                                <div class="col-md-2">Количество</div>
+                                                <div class="col-md-3">Комманды</div>
+                                            </div>
+                                        </div>
+                                        <div class="inner-padding">
+                                            @foreach (var work in typedDocWorks)
+                                            {
+                                                <div class="properties">
+                                                    <div class="col-md-2">
+                                                        @if (work.User.AvatarPath == null)
+                                                        {
+                                                            string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
+                                                            <img src="@Url.Content("~/"+ avatarPath)" height="48" width="48" />
+                                                        }
+                                                        else
+                                                        {
+                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" height="48" width="48" />
+                                                        }
+
+                                                        <span>
+                                                            @work.User.Name
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <span>
+                                                            @work.Comment
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <span>
+                                                            @work.Amount
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="buttons-container">
+                                                            @if (work.DocFileId != null)
+                                                            {
+                                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
+                                                            }
+                                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
+                                                            <a class="listIcon"><i class="material-icons">edit</i></a>
+                                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                            //----------------------------------------------------------------------------------------------------------
+                        }
+                    }
+                </div>
+            </div>
+            <div style="clear:both"></div>
         }
     }
 
 
+}
 
-
-
-    <h2>Полная картина</h2>
-    // все работы
-    var works = Model.Documents.SelectMany(x => x.Stages).SelectMany(x => x.User_Stage);
-    if (works != null && works.Count() != 0)
-    {
-        <div class="tableMaterial">
-            <div class="titles">
-                <div class="col-md-2">Стадия</div>
-                <div class="col-md-2">Документ</div>
-                <div class="col-md-2">Исполнитель</div>
-                <div class="col-md-1">Количество</div>
-                <div class="col-md-1">Дедлайн</div>
-                <div class="col-md-2">Комментарий</div>
-                <div class="col-md-2">Комманды</div>
-            </div>
-            @{
-                // работы разбиты по стадиям
-                var stepsWorks = works.GroupBy(x => x.Stage.WorkTypeId);
-                foreach (var stepWorks in stepsWorks)
-                {
-                    var currentWorkType = stepWorks.First().Stage.WorkType.Name;
-
-                    // а потом еще и по документам
-                    var docsWorks = stepWorks.GroupBy(x => x.Stage.DocumentId);
-                    foreach (var docWorks in docsWorks)
-                    {
-                        var currentDoc = docWorks.First().Stage.Document.Name;
-                        // получили одну работу
-                        foreach (var work in docWorks)
-                        {
-                            <div class="properties">
-                                <div class="col-md-2">
-                                    <span>
-                                        @currentWorkType
-                                    </span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span>
-                                        @currentDoc
-                                    </span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span>
-                                        @work.User.Name
-                                    </span>
-                                </div>
-                                <div class="col-md-1">
-                                    <span>
-                                        @work.Amount
-                                    </span>
-                                </div>
-                                <div class="col-md-1">
-                                    <span>
-                                        @work.Stage.Deadline
-                                    </span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span>
-                                        @work.Comment
-                                    </span>
-                                </div>
-                                <div class="col-md-2">
-                                    <span>
-                                        Кнопки
-                                    </span>
-                                </div>
-                            </div>
-                        }
-                    }
-                }
-            }
-        </div>
+<style>
+    .worktype-container {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        width: 100%;
+        height: 100%;
+        clear: left;
     }
+
+    .docworks-container:first-child {
+        margin-top: 20px;
+    }
+
+    .docworks-container {
+        margin-top: 60px;
+    }
+
+    .works-table .inner-padding {
+        margin: 0 6px 6px 6px;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        overflow: hidden;
+        box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
+    }
+
+        .works-table .inner-padding .properties {
+            padding: 0 5px 0 5px;
+            background-color: #ffffff85;
+        }
+
+            .works-table .inner-padding .properties:last-child {
+                border-bottom-left-radius: 6px;
+                border-bottom-right-radius: 6px;
+                overflow: hidden;
+            }
+
+    .work-titles {
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #45295fed;
+        color: white;
+    }
+
+        .work-titles > div {
+            text-align: center;
+        }
+
+
+    .worktype-content {
+        padding: 10px 0 0 20px;
+        margin: 0 15px 0px 15px;
+        background: #ffffff57;
+        box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3);
+        min-height: 320px;
+        overflow: hidden;
+    }
+
+        .worktype-content .doc-container {
+            height: 300px;
+            width: 200px;
+            background-color: #ffffff85;
+            float: left;
+            padding: 0 10px 0 10px;
+            text-align: center;
+            vertical-align: top;
+            border-radius: 6px;
+            overflow:hidden;
+        }
+
+            .worktype-content .doc-container p {
+                font-size: 16px;
+            }
+
+        .worktype-content .works-table {
+            width: auto;
+            overflow: hidden;
+            padding-left: 40px;
+            padding-right: 10px;
+            min-height: 310px;
+        }
+
+            .worktype-content .works-table > .tableMaterial {
+                box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3)
+            }
+
+    .worktype-name {
+        width: 100%;
+        overflow: hidden;
+        text-align: left !important;
+        padding-left: 20px;
+        font-size: 18px !important;
+    }
+
+    .dropdown-btn {
+        float: right;
+        width: 100px;
+        border-left: 1px solid #2a3a65;
+    }
+
+        .dropdown-btn > i {
+            font-size: 42px;
+            color: white;
+            vertical-align: middle;
+        }
+
+        .dropdown-btn:hover > i {
+            color: #c42d5b;
+        }
+
+    .btn-wrapper {
+        vertical-align: middle;
+        display: flex;
+        text-align: center;
+    }
+
+        .btn-wrapper > span {
+            padding-left: 10px;
+            align-self: center;
+            vertical-align: middle;
+        }
+
+    .buttons {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 15px;
+    }
+
+        .buttons li {
+            display: inline-block;
+        }
+
+            .buttons li div {
+                display: flex;
+                padding: 8px 10px;
+                text-decoration: none;
+                transition: 0.3s;
+                background: #3d5279 !important;
+                color: white !important;
+                opacity: 0.9;
+                box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+                margin: 5px;
+            }
+
+                .buttons li div:hover {
+                    color: #d41955 !important;
+                    background-color: white;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+                }
+</style>
+@section scripts {
+    <script>
+
+        $(document).ready(function () {
+            $('.worktype-content').hide();
+            var btn = $(".dropdown-btn").last();
+            var iconId = '#' + $(btn).attr("iconid");
+            var icon = $(iconId);
+            icon.html("expand_less");
+            var activeWorktypeId = '#' + btn.attr("toggleid");
+            $(activeWorktypeId).show();
+        });
+
+        $('.dropdown-btn').click(function (e) {
+            var btn = $(this);
+            var toogleId = '#' + btn.attr("toggleid");
+            var toggleBlock = $(toogleId);
+            var iconId = '#' + btn.attr("iconid");
+            var icon = $(iconId);
+            toggleBlock.toggle();
+
+            if (toggleBlock.is(":visible")) {
+                $(icon).html("expand_less");
+            } else {
+                $(icon).html("expand_more");
+            }
+
+        });
+    </script>
 }

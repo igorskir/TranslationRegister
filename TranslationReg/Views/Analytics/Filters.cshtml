@@ -1,12 +1,12 @@
 ﻿@model TranslationReg.Models.ReportModel
 @{ViewBag.Title = "Отчеты";}
 <div class="dynamic-block-create">
-    @using (Html.BeginForm("FormReport", "Analytics", FormMethod.Post))
+    @using (Html.BeginForm("Report", "Analytics", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
 
 
-       
+
 
         <div class="btn-group">
             <button type="button" class="btn btn-default" onclick="MonthBTN()">Текущий месяц</button>
@@ -20,12 +20,12 @@
 
         <div class="form-group">
             @Html.Label("Дата от")
-            <input type="date" name="filters.PeriodFrom" value="@((DateTime.Now - TimeSpan.FromDays(30)).ToString("yyyy-MM-dd"))" id="dateFrom">
+            <input type="date" name="filters.PeriodFrom" value="@Model.DateFrom.ToString("yyyy-MM-dd")" id="dateFrom">
         </div>
 
         <div class="form-group">
             @Html.Label("Дата до")
-            <input type="date" name="filters.PeriodTo" value="@DateTime.Now.ToString("yyyy-MM-dd")" id="dateTo">
+            <input type="date" name="filters.PeriodTo" value="@Model.DateTo.ToString("yyyy-MM-dd")" id="dateTo">
         </div>
 
         <div class="form-group">
@@ -44,6 +44,7 @@
         </div>
 
         <input type="submit" value="Сформировать отчет" class="btn btn-default btn-form" />
+        
     }
 </div>
 <script>

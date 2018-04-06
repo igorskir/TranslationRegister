@@ -2,38 +2,62 @@
 
 
 <h2>Выберите необходимые фильтры</h2>
-@Html.Partial("..//Analytics//Filters", Model)
 
-@if (Model.ReportSections != null && Model.ReportSections.Count != 0)
-{
-    <h2>Отчет по фильтрам</h2>
-    <div id="report">
-        @foreach (var userWorks in Model.ReportSections)
+@Html.Partial("..//Analytics//Filters")
+
+
+
+<div class="ReportTable">
+
+    @if (ViewBag.list != null)
+    {
+        <div class="dates">@ViewBag.dates</div>
+        <div class="titles">
+            <div class="col-md-4">Пользователь</div>
+            <div class="col-md-4">Тип работы</div>
+            <div class="col-md-4">Итого</div>
+        </div>
+        foreach (var userWorks in ViewBag.list)
         {
-            <div>Пользователь @userWorks.First().First().User.Name</div>
-            foreach (var typedWorks in userWorks)
-            {
-                <div>Тип работ @typedWorks.First().Stage.WorkType.Name</div>
-                foreach (var work in typedWorks)
-                {
-                    <div>@work.Amount</div>
-                }
-                <div>Сумма: @typedWorks.Sum(x => x.Amount)</div>
-            }
-        }
-    </div>
-}
-else
-{
-}
 
-@section scripts {
-    <script>
-        $(document).ready(function () {
-            $("#filters_ForAllTime").change(function () {
-                $("#dateTo").prop('disabled', this.checked);
-                $("#dateFrom").prop('disabled', this.checked);
-            });
-        });
-    </script>
-}
+            <div class="properties">
+                <div class="col-md-4">
+                    <span>
+                        @userWorks.User
+                        <span>
+</div>
+                <div class="col-md-4">
+                    <span>
+                        @userWorks.Work
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    <span>
+                        @userWorks.Count
+                    </span>
+                </div>
+            </div>
+
+        }
+    }
+    else
+    {
+        if (ViewBag.nodata != null)
+        {
+            <a>@ViewBag.nodata</a>
+        }
+
+    }
+</div>
+
+<style>
+    .ReportTable{
+        margin-top:3%;
+        width:70%;
+        position:center;
+    }
+    .dates{
+        font-size:16px;
+    }
+    
+</style>

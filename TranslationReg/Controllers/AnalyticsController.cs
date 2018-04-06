@@ -21,21 +21,57 @@ namespace TranslationReg.Controllers
         {
             return PartialView("Report", await ReportModel.GetModel(Rep));
         }
-        // POST: Analytics
-        public async Task<FileResult> FormReport([Bind(Prefix = "filters")]
+        public async Task<ActionResult> Filters()
+        {
+            return PartialView("Report", await ReportModel.GetModel(Rep));
+        }
+        public async Task<ActionResult> Report([Bind(Prefix = "filters")]
             ChosenFilters filters)
         {
             var filteredWorks = await ReportModel.ApplyFiltersToWorksAsync(Rep, filters);
             var groupedWorks = ReportModel.GroupReportData(filteredWorks);
-            if (groupedWorks == null) return null; //todo EXCEPTION
-            string filepath = await ComFileGeneration(filters, groupedWorks);
+            if (groupedWorks == null)
+            {
+                ViewBag.nodata = "Нет данных по указанным фильтрам";
+                return View("Report", await ReportModel.GetModel(Rep));  //todo EXCEPTION
+            }
+            List<WebReportModel> a = new List<WebReportModel>();
 
-            FileInfo file = new FileInfo(filepath);
-            byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-            string fileName = file.Name;
-            System.IO.File.Delete(filepath);
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            if (groupedWorks != null && groupedWorks.Count != 0)
+            {
+                foreach (var userWorks in groupedWorks)
+                {
+                    var userName = userWorks.First().First().User.Name;
+                    foreach (var typedWorks in userWorks)
+                    {    
+                        a.Add(
+                            new WebReportModel {
+                                User = userName,
+                                Work = typedWorks.First().Stage.WorkType.Name,
+                                Count = typedWorks.Sum(x => x.Amount) });                
+                    }
+                }
+            }
+            ViewBag.list = a;
+            ViewBag.dates = "Отчетный период с " + filters.PeriodFrom.ToString("dd/MM/yyyy") + " по " + (filters.PeriodTo - TimeSpan.FromDays(1)).ToString("dd/MM/yyyy");
+            return View("Report", await ReportModel.GetModel(Rep, filters));
         }
+
+        // POST: Analytics
+        //public async Task<FileResult> FormReport([Bind(Prefix = "filters")]
+        //    ChosenFilters filters)
+        //{
+        //    var filteredWorks = await ReportModel.ApplyFiltersToWorksAsync(Rep, filters);
+        //    var groupedWorks = ReportModel.GroupReportData(filteredWorks);
+        //    if (groupedWorks == null) return null; //todo EXCEPTION
+        //    string filepath = await ComFileGeneration(filters, groupedWorks);
+
+        //    FileInfo file = new FileInfo(filepath);
+        //    byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+        //    string fileName = file.Name;
+        //    System.IO.File.Delete(filepath);
+        //    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        //}
 
         //COM 
         public Task<string> ComFileGeneration(ChosenFilters filters, List<IEnumerable<IGrouping<int, User_Stage>>> groupedWorks)

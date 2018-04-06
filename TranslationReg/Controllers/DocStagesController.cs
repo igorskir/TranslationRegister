@@ -14,6 +14,55 @@ namespace TranslationReg.Controllers
     {
         public DocStagesController(IRepository repository) : base(repository) { } // Конструктор
 
+
+        // GET: DocStages/ChooseForProject
+        // Принимает id проекта
+        public async Task<ActionResult> ChooseForProject(int? id)
+        {
+            //проверка привязки к документу
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Project project = await Rep.GetProject(id.Value);
+
+            var model = await Models.StageForProjModel.GetModel(Rep, project);
+
+            return PartialView(model);
+        }
+        // POST: DocStages/AddToProject
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddToProject(int? worktypeId, int? projectId)
+        {
+            if (worktypeId == null || projectId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(projectId.Value);
+            WorkType workType = await Rep.GetWorkType(worktypeId.Value);
+
+            if (project == null || workType == null)
+                return HttpNotFound();
+
+            foreach (var doc in project.Documents)
+            {
+                if (!doc.Stages.Select(x=>x.WorkType.Id).Contains(workType.Id))
+                {
+                    // todo транзакция
+                    DocStage addedStage = new DocStage
+                    {
+                        OriginalId = doc.OriginalFileId,
+                        DocumentId = doc.Id,
+                        WorkTypeId = workType.Id,
+                    };
+                    await Rep.AddDocStage(addedStage);
+                }
+            }
+
+         
+
+            return RedirectToAction("Project", "Projects", project.Id);
+        }
+
+
         // GET: DocStages/Create
         // Принимает id документа для которого создается
         public async Task<ActionResult> Create(int? id)
@@ -48,7 +97,7 @@ namespace TranslationReg.Controllers
             }
 
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
-            return RedirectToAction("Details","",docStage);
+            return RedirectToAction("Details", "", docStage);
         }
 
         // GET: DocStages/Edit/5

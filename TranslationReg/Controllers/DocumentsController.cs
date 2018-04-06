@@ -112,14 +112,19 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Document document, [Bind(Include = "original")] HttpPostedFileBase original, [Bind(Include = "final")] HttpPostedFileBase final)
         {
+            // дополняем информацию о владельце и дате
             document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
             document.Date = DateTime.Now;
+
 
             if (original != null && original.ContentLength != 0)
             {
                 //здесь и сохранение файла и кортежа DocFile
                 var originalFile = (await Helper.SetFile(original, Rep, Server));
+                // дополняем информацию об оригинале
+                document.OriginalFileId = originalFile.Id;
 
+                // определение числа слов автоматом
                 var MsWordDocMime = "application/msword";
                 var MsWordDocxMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
                 if (original.ContentType == MsWordDocMime || original.ContentType == MsWordDocxMime)
@@ -133,26 +138,32 @@ namespace TranslationReg.Controllers
                             document.WordsNumber = wordCount;
                         }
                     }
-                    //todo логи
-                    catch (Exception)
-                    {
-
-                    }
-                   
+                    catch (Exception){}
                 }
-
-                document.OriginalFileId = originalFile.Id;
-
+           
+                // если прикрепили сразу перевод, добавляем в базу
                 if (final != null && final.ContentLength != 0)
                     document.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
 
                 if (ModelState.IsValid)
                 {
+                    // сохраняем док
                     await Rep.AddDocument(document);
+
+                    // добавляем стадию автоматом. Id дока обновился после сохранения
+                    var project = await Rep.GetProject(document.ProjectId.Value);
+                    DocStage initialStage = new DocStage {
+                        OriginalId = document.OriginalFileId,
+                        DocumentId = document.Id,
+                        WorkTypeId = project.WorkTypeId.Value,
+                    };
+                    await Rep.AddDocStage(initialStage);
+
                     return Redirect("InWork");
                 }
+                else
+                    await Rep.DeleteDocFile(originalFile.Id);
             }
-
             return View(document);
         }
        

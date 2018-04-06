@@ -8,33 +8,23 @@
     <i class="material-icons ajaxToggleBtn" data-ajax-update="#addProj" data-href="/Projects/Create">add_circle</i>
 </div>
 
-<!-- ФИЛЬТРЫ -->
-<div class="container">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="container">
-        <ul class="filters">
-            <li>
-                <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/InWork">Проекты в работе</a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/All">Все проекты</a>
-            </li>
-            <li>
-                <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Done">Закрытые проекты</a>
-            </li>
-        </ul>
-    </div>
-</div>
-
 <!-- ОБЛАСТЬ ДОБАВЛЕНИЯ ПРОЕКТОВ -->
 <div id="addProj" class="dynamicBlock dynamic-block-create"></div>
+
+<!-- ФИЛЬТРЫ -->
+<div class="filterContainer">
+    <ul class="filters">
+        <li>
+            <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/InWork">Проекты в работе</a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/All">Все проекты</a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Done">Закрытые проекты</a>
+        </li>
+    </ul>
+</div>
 
 <!-- СПИСОК ПРОЕКТОВ -->
 <div id="projectList">

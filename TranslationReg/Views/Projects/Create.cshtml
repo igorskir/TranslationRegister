@@ -1,5 +1,5 @@
 ﻿@model TranslationReg.Models.ProjectModel
-@using (Ajax.BeginForm(new AjaxOptions { UpdateTargetId = "projectList" }))
+@using (Ajax.BeginForm("Create","Projects", new AjaxOptions { UpdateTargetId = "projectList", HttpMethod = "Post"}))
 {
     @Html.AntiForgeryToken()
 
@@ -48,3 +48,9 @@
     </div>
     <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
 }
+
+<style>
+    .addFormContainer{
+        margin:18px;
+    }
+</style>

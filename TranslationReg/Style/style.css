@@ -50,7 +50,7 @@ body {
         text-align: center;
         font-size: 14px;
         bottom: 0;
-        width:100%;
+        width: 100%;
     }
 
 .tableMaterial {
@@ -193,15 +193,11 @@ body {
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
-    border-bottom: 1px solid darkgray;
+    border-bottom: 1px solid #b5b6dc;
 }
 
     .properties:last-of-type {
         border-bottom: none;
-    }
-
-    .properties:hover {
-        background-color: #ffffff63;
     }
 
     .properties > div {
@@ -379,6 +375,10 @@ body {
 .formContainer {
     margin-top: 20px;
     margin-bottom: 10px;
+}
+
+addFormContainer {
+    margin: 18px;
 }
 
 .createBtn {

@@ -2,38 +2,44 @@
 
 <div class="tableMaterial">
     <div class="titles">
-        <div class="col-md-3">@Html.Label("Название")</div>
-        <div class="col-md-1">@Html.Label("Статус")</div>
-        <div class="col-md-2">@Html.Label("Создатель")</div>
-        <div class="col-md-2">@Html.Label("Перевод")</div>
-        <div class="col-md-2">@Html.Label("Создан")</div>
-        <div class="col-md-2">@Html.Label("Команды")</div>
+        <div class="col-md-3">Название</div>
+        <div class="col-md-2">Заказчик</div>
+        <div class="col-md-2">Статус</div>
+        <div class="col-md-1">Перевод</div>
+        <div class="col-md-2">Дедлайн</div>
+        <div class="col-md-2">Команды</div>
     </div>
 
     @foreach (var project in Model)
     {
         <div class="properties">
+
             <div class="col-md-3">
+                <a class="titleLink" href="/Projects/Project/@(project.Id)">@project.Name</a>
                 <a class="titleLink" href="/Projects/TabPages/@(project.Id)">@project.Name</a>
             </div>
-            <div class="col-md-1">
+
+            <div class="col-md-2">
+                <span>
+                    @Html.DisplayFor(modelItem => project.Customer)
+                </span>
+            </div>
+            <div class="col-md-2">
                 <span>
                     @Html.DisplayFor(modelItem => project.ProjectStatus.Name)
                 </span>
             </div>
-            <div class="col-md-2">
-                <span>
-                    @Html.DisplayFor(modelItem => project.Creator.Name)
-                </span>
-            </div>
-            <div class="col-md-2">
+            <div class="col-md-1">
                 <span>
                     @Html.DisplayFor(modelItem => project.LanguagePair.Name)
                 </span>
             </div>
             <div class="col-md-2">
                 <span>
-                    @project.Date.ToString("dd/MM/yyyy")
+                    @if (project.Deadline.HasValue)
+                    {
+                        @project.Deadline.Value.ToString("dd/MM/yyyy")
+                    }
                 </span>
             </div>
             <div class="col-md-2">

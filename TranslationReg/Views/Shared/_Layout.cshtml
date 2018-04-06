@@ -167,9 +167,16 @@
         display: flex;
     }
 
-        .titleAndIcon i {
-            font-size: 40px;
+        .titleAndIcon i,
+        .titleAndIcon > a{
+            font-size: 30px;
             color: #3d5279;
+            align-self: center;
+            float: left;
+        }
+
+        .titleAndIcon h2,
+        .titleAndIcon h3 {
             align-self: center;
             float: left;
         }
@@ -204,6 +211,7 @@
             display: block;
             overflow-y: scroll;
             overflow-x: hidden;
+            padding: 10px 20px;
         }
 
         .content-container .menu {

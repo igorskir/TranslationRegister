@@ -12,6 +12,7 @@ namespace TranslationReg
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery/jquery.unobtrusive*",
+                        //"~/Scripts/jquery/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(

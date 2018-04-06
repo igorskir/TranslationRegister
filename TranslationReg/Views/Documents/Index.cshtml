@@ -6,8 +6,12 @@
     <h2>Документы</h2>
     <i class="material-icons ajaxToggleBtn" data-ajax-update="#addDoc" data-href="/Documents/Create">add_circle</i>
 </div>
+
+<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ ДОКУМЕНТОВ -->
+<div id="addDoc" class="dynamicBlock dynamic-block-create"></div>
+
 <!-- ФИЛЬТРЫ -->
-<div class="container">
+<div class="filterContainer">
     <ul class="filters">
         <li>
             <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#docList" href="/Documents/All">
@@ -27,8 +31,6 @@
     </ul>
 </div>
 
-<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ ДОКУМЕНТОВ -->
-<div id="addDoc" class="dynamicBlock dynamic-block-create"></div>
 
 
 <!-- СПИСОК ДОКУМЕНТОВ -->

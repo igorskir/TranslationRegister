@@ -95,7 +95,7 @@ namespace TranslationReg.Controllers
             var ticketData = new NameValueCollection { { "avatarPath", user.AvatarPath } };
             new FormsAuthentication().SetAuthCookie(user.Name, true, ticketData);
         }
-        public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 48, int height = 48)
+        public async Task SaveSmallAvatar(HttpPostedFileBase file, User user, int width = 128, int height = 128)
         {
             var filePath = Helper.GetValidPath(file, Server, Helper.avatarsDir);
 

@@ -236,6 +236,7 @@
     <Content Include="package-lock.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.min.map" />
@@ -249,9 +250,9 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr\modernizr-2.6.2.js" />
-    <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\bootstrap\respond.min.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Style\buttons\filters.css" />
     <Content Include="Style\cards\addCard.css" />
     <Content Include="Style\bootstrap\bootstrap-theme.css" />
     <Content Include="Style\bootstrap\bootstrap-theme.min.css" />
@@ -259,12 +260,12 @@
     <Content Include="Style\bootstrap\bootstrap.min.css" />
     <Content Include="Style\cards\card.css" />
     <Content Include="Style\images\bodyBg.jpg" />
-    <Content Include="Style\material\materialButtons.css" />
+    <Content Include="Style\buttons\buttons.css" />
     <Content Include="Style\modal\addModal.css" />
     <Content Include="Style\search\search.css" />
-    <Content Include="Style\Site.css" />
     <Content Include="Style\modal\deleteModal.css" />
     <Content Include="Style\style.css" />
+    <Content Include="Style\tables\table.css" />
     <Content Include="Style\themes\base\accordion.css" />
     <Content Include="Style\themes\base\all.css" />
     <Content Include="Style\themes\base\autocomplete.css" />
@@ -383,9 +384,7 @@
     <Content Include="Views\User_Stage\MyTasks.cshtml" />
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Style\tables\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>

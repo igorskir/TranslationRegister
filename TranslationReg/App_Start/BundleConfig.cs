@@ -26,13 +26,13 @@ namespace TranslationReg
 
             bundles.Add(new StyleBundle("~/Style/css").Include(
                       "~/Style/bootstrap/bootstrap.css",
-                      "~/Style/style.css",
-                      "~/Style/cards/card.css",
-                      "~/Style/cards/addCard.css",
-                      "~/Style/search/search.css",
-                      "~/Style/modal/deleteModal.css",
-                      "~/Style/material/materialButtons.css"
-                      ));
+                      "~/Style/style.css")
+                      .IncludeDirectory("~/Style/buttons", "*.css")
+                      .IncludeDirectory("~/Style/cards", "*.css")
+                      .IncludeDirectory("~/Style/modal", "*.css")
+                      .IncludeDirectory("~/Style/search", "*.css")
+                      .IncludeDirectory("~/Style/tables", "*.css")
+                      );
         }
     }
 }

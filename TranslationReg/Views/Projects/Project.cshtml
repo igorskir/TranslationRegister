@@ -1,13 +1,9 @@
 ﻿@model TranslationRegistryModel.Project
 @using TranslationReg.Controllers
-<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
-<div class="titleAndIcon">
-    <h2>@Model.Name</h2>
-    <a href="/Projects/Edit/@Model.Id">
-        <i class="material-icons">edit</i>
-    </a>
-</div>
-
+<!-- ЗАГОЛОВОК И КНОПКА РЕДАКТИРОВАНИЯ -->
+<h2 class="iconed-text">@Model.Name
+    <a href="/Projects/Edit/@Model.Id"><i class="material-icons right-icon">edit</i></a>
+</h2>
 
 <!-- ФИЛЬТРЫ -->
 <div class="filterContainer">
@@ -33,10 +29,10 @@
     </ul>
 </div>
 
-<!-- Область добавления -->
+<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ -->
 <div id="addArea" class="dynamicBlock dynamic-block-create"></div>
 
-<!-- Основная область -->
+<!-- ОСНОВНАЯ ОБЛАСТЬ -->
 @{
     // все стадии
     var stages = Model.Documents.SelectMany(x => x.Stages);
@@ -73,26 +69,26 @@
                             <div class="docworks-container">
                                 @{
 
-                                    //--------------------------------------------- Отображение доков ------------------------------------------
+                                    //--------------------------------------------- ОТОБРАЖЕНИЕ ДОКОВ ------------------------------------------
                                     var currentDoc = oneDocStages.First().Document;
                                     <div class="doc-container">
-                                        <img src="~/Uploads/DocIcons/Word.png" width="180" height="180" />
-                                        <p>@currentDoc.Name</p>
-                                        <hr />
+                                        <img src="~/Uploads/DocIcons/Word.png" width="100" height="100" style="float:left"/>
                                         <div class="buttons-container">
                                             @if (currentDoc.FinalFileId != null)
                                             {
-                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
+                                                <a class="icon-list"><i class="material-icons">file_download</i></a>
                                             }
-                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
-                                            <a class="listIcon"><i class="material-icons">edit</i></a>
-                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                            <a class="icon-list"><i class="material-icons">file_upload</i></a>
+                                            <a class="icon-list"><i class="material-icons">edit</i></a>
+                                            <a class="icon-list"><i class="material-icons">delete</i></a>
                                         </div>
+                                        <hr style="margin:5px"/>
+                                        <p style="margin:0">@currentDoc.Name</p>
                                     </div>
                                     //----------------------------------------------------------------------------------------------------------
 
 
-                                    //--------------------------------------------- Отображение работ ------------------------------------------
+                                    //--------------------------------------------- ТАБЛИЦА РАБОТ ------------------------------------------
                                     // работы по доку в стадии
                                     var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
                                     <div class="works-table">
@@ -117,11 +113,11 @@
                                                         @if (work.User.AvatarPath == null)
                                                         {
                                                             string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                                                            <img src="@Url.Content("~/"+ avatarPath)" height="48" width="48" />
+                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon" />
                                                         }
                                                         else
                                                         {
-                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" height="48" width="48" />
+                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon" />
                                                         }
 
                                                         <span>
@@ -142,11 +138,11 @@
                                                         <div class="buttons-container">
                                                             @if (work.DocFileId != null)
                                                             {
-                                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
+                                                                <a class="icon-list"><i class="material-icons">file_download</i></a>
                                                             }
-                                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
-                                                            <a class="listIcon"><i class="material-icons">edit</i></a>
-                                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                                            <a class="icon-list"><i class="material-icons">file_upload</i></a>
+                                                            <a class="icon-list"><i class="material-icons">edit</i></a>
+                                                            <a class="icon-list"><i class="material-icons">delete</i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -168,8 +164,8 @@
 }
 
 <style>
+
     .worktype-container {
-        margin-top: 30px;
         margin-bottom: 20px;
         width: 100%;
         height: 100%;
@@ -204,7 +200,7 @@
             }
 
     .work-titles {
-        height: 40px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -218,7 +214,7 @@
 
 
     .worktype-content {
-        padding: 10px 0 0 20px;
+        padding: 0 0 0 15px;
         margin: 0 15px 0px 15px;
         background: #ffffff57;
         box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3);
@@ -227,7 +223,7 @@
     }
 
         .worktype-content .doc-container {
-            height: 300px;
+            height: 158px;
             width: 200px;
             background-color: #ffffff85;
             float: left;
@@ -235,7 +231,7 @@
             text-align: center;
             vertical-align: top;
             border-radius: 6px;
-            overflow:hidden;
+            overflow: hidden;
         }
 
             .worktype-content .doc-container p {
@@ -255,11 +251,8 @@
             }
 
     .worktype-name {
-        width: 100%;
-        overflow: hidden;
         text-align: left !important;
         padding-left: 20px;
-        font-size: 18px !important;
     }
 
     .dropdown-btn {
@@ -318,9 +311,10 @@
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
                 }
 </style>
+
 @section scripts {
     <script>
-
+        // показать только последнюю стадию
         $(document).ready(function () {
             $('.worktype-content').hide();
             var btn = $(".dropdown-btn").last();
@@ -331,6 +325,7 @@
             $(activeWorktypeId).show();
         });
 
+        // свернуть/развернуть стадию
         $('.dropdown-btn').click(function (e) {
             var btn = $(this);
             var toogleId = '#' + btn.attr("toggleid");

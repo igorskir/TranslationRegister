@@ -259,6 +259,7 @@
     <Content Include="Style\bootstrap\bootstrap.css" />
     <Content Include="Style\bootstrap\bootstrap.min.css" />
     <Content Include="Style\cards\card.css" />
+    <Content Include="Style\icons\icons.css" />
     <Content Include="Style\images\bodyBg.jpg" />
     <Content Include="Style\buttons\buttons.css" />
     <Content Include="Style\modal\addModal.css" />

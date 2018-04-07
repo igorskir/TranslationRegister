@@ -32,6 +32,7 @@ namespace TranslationReg
                       .IncludeDirectory("~/Style/modal", "*.css")
                       .IncludeDirectory("~/Style/search", "*.css")
                       .IncludeDirectory("~/Style/tables", "*.css")
+                      .IncludeDirectory("~/Style/icons", "*.css")
                       );
         }
     }

@@ -1,0 +1,31 @@
+﻿/* ЗАГОЛОВКИ С ИКОНКАМИ */
+
+.iconed-text i {
+    position: absolute;
+    font-size: 30px;
+    color: #3d5279;
+}
+
+.right-icon {
+    float: right;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.left-icon {
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.iconed-text i:hover {
+    color: #d41955;
+    transition: 0.3s;
+}
+
+.small-icon{
+    height:32px;
+    width:32px;
+    border-radius:100px;
+    overflow:hidden;
+}

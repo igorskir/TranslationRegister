@@ -7,7 +7,8 @@
 h2 {
     color: #282828;
     align-self: center;
-    margin: 18px;
+    margin: 10px 10px 20px 10px;
+    font-size: 30px;
 }
 
 .padding-container {
@@ -69,18 +70,6 @@ body {
         width: 100%;
     }
 
-.tableMaterial {
-    background-color: white;
-    opacity: 0.86;
-    overflow: hidden;
-    box-shadow: 6px 5px 12px 1px rgba(0, 0, 0, 0.3);
-    transition: 0.3s;
-}
-
-    .tableMaterial:hover {
-        box-shadow: 10px 9px 15px 1px rgba(0, 0, 0, 0.4);
-    }
-
 .navbar-brand {
     width: 50px;
     background-image: url("images/logo_tpu.png");
@@ -138,131 +127,9 @@ body {
             vertical-align: middle;
         }
 
-.tables {
-    padding: 0;
-}
-
-.titles {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    color: white;
-}
-
-    .titles > div {
-        text-align: center;
-        background-color: #3d5279;
-        height: 55px;
-        font-size: 16px;
-        line-height: 55px;
-        font-weight: 500;
-    }
-
-        .titles > div:last-child {
-            border-right: none;
-        }
-
 .btn-form {
     align-self: flex-start;
 }
-
-.titleLink {
-    font-size: 16px;
-    text-align: left;
-    color: #006186;
-    margin-left: 15px;
-    text-decoration: none;
-    width: auto;
-    position: relative;
-    text-align: left;
-    align-self: center;
-}
-
-    .titleLink:after {
-        height: 3px;
-        width: 100%;
-        background: #d41955;
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        transition: all .3s;
-        transform: scaleX(0);
-    }
-
-    .titleLink:hover:after {
-        transform: scaleX(1);
-    }
-
-    .titleLink:hover {
-        color: #d41955 !important;
-    }
-
-.titleLink-small {
-    font-size: 14px;
-}
-
-.properties {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    border-bottom: 1px solid #b5b6dc;
-}
-
-    .properties:last-of-type {
-        border-bottom: none;
-    }
-
-    .properties > div {
-        padding: 7px 0;
-        height: auto;
-        font-size: 16px;
-        text-align: center;
-        display: flex;
-    }
-
-        .properties > div:last-child {
-            display: flex;
-            border-right: none;
-        }
-
-
-
-        .properties > div span {
-            margin: auto;
-        }
-
-    .properties .dynamicItem {
-        margin: 0 auto;
-    }
-
-        .properties .dynamicItem form {
-            display: flex;
-            flex-direction: column;
-            width: 500px;
-        }
-
-            .properties .dynamicItem form .form-group {
-                display: flex;
-            }
-
-                .properties .dynamicItem form .form-group label {
-                    margin: 0 10px 5px 0;
-                    width: 200px;
-                    text-align: left;
-                }
-
-    .properties .buttons-container {
-        margin: auto;
-        align-self: center;
-    }
-
-        .properties .buttons-container > a {
-            margin-bottom: 0;
-        }
 
 .dynamicBlock {
     display: none;

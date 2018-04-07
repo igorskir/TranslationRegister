@@ -1,2 +1,148 @@
-﻿body {
+﻿.tableMaterial {
+    background-color: #ffffff7d;
+    opacity: 0.86;
+    overflow: hidden;
+    box-shadow: 6px 5px 12px 1px rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
 }
+
+    .tableMaterial:hover {
+        box-shadow: 10px 9px 15px 1px rgba(0, 0, 0, 0.4);
+    }
+
+
+.titles {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    color: white;
+    background-color: #3d5279;
+}
+
+    .titles > div {
+        text-align: center;
+        font-size: 18px;
+        line-height: 48px;
+        font-weight: 500;
+    }
+
+        .titles > div:last-child {
+            border-right: none;
+        }
+
+.titleLink {
+    font-size: 16px;
+    text-align: left;
+    color: #006186;
+    margin-left: 15px;
+    text-decoration: none;
+    width: auto;
+    position: relative;
+    text-align: left;
+    align-self: center;
+}
+
+    .titleLink:after {
+        height: 3px;
+        width: 100%;
+        background: #d41955;
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        transition: all .3s;
+        transform: scaleX(0);
+    }
+
+    .titleLink:hover:after {
+        transform: scaleX(1);
+    }
+
+    .titleLink:hover {
+        color: #d41955 !important;
+    }
+
+
+.icon-list {
+    color: #3d5279;
+}
+
+    .icon-list:hover {
+        color: #d41955;
+    }
+
+    .icon-list i {
+        font-size: 30px;
+        margin: 0 10px;
+    }
+
+        .icon-list i:hover {
+            transition: 0.3s;
+        }
+
+
+
+.properties {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-bottom: 1px solid #b5b6dc;
+}
+    .properties i{
+        font-size: 26px;
+    }
+
+    .properties:last-of-type {
+        border-bottom: none;
+    }
+
+    .properties > div {
+        padding: 4px 0;
+        height: auto;
+        font-size: 14px;
+        text-align: center;
+        display: flex;
+    }
+
+        .properties > div:last-child {
+            display: flex;
+            border-right: none;
+        }
+
+
+
+        .properties > div span {
+            margin: auto;
+        }
+
+    .properties .dynamicItem {
+        margin: 0 auto;
+    }
+
+        .properties .dynamicItem form {
+            display: flex;
+            flex-direction: column;
+            width: 500px;
+        }
+
+            .properties .dynamicItem form .form-group {
+                display: flex;
+            }
+
+                .properties .dynamicItem form .form-group label {
+                    margin: 0 10px 5px 0;
+                    width: 200px;
+                    text-align: left;
+                }
+
+    .properties .buttons-container {
+        margin: auto;
+        align-self: center;
+    }
+
+        .properties .buttons-container > a {
+            margin-bottom: 0;
+        }

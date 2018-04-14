@@ -37,22 +37,22 @@
 
                 <!-- Проект -->
                 <div class="col-md-2">
-                    <a class="titleLink">
+                    <a class="titleLink" href="/Projects/Project/@(userStage.Stage.Document.Project.Id)">
                         @userStage.Stage.Document.Project.Name
                     </a>
                 </div>
 
                 <!-- Документ -->
                 <div class="col-md-2">
-                    <a class="titleLink">
+                    <a class="titleLink" href="/Documents/DocAndStages/@(userStage.Stage.Document.Id)">
                         @userStage.Stage.Document.Name
                     </a>
                 </div>
 
                 <!-- Оригинал -->
                 <div class="col-md-1">
-                    <span>
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = userStage.Stage.Original.Path })" class="icon-list">
+                    <span class="icon-container">
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = userStage.Stage.Original.Path })">
                             <i class="material-icons right-icon">file_download</i>
                         </a>
                     </span>
@@ -81,20 +81,18 @@
 
                 <!-- Результат -->
                 <div class="col-md-1">
-                    <div class="buttons-container">
-                        <a class="icon-list">
-                            <i class="material-icons">file_upload</i>
-                        </a>
+                    <div class="icons-container">
+                        <a><i class="material-icons">file_upload</i></a>
                     </div>
                 </div>
 
                 <!-- Команды -->
                 <div class="col-md-1">
-                    <div class="buttons-container">
-                        <a href="/User_Stage/Edit/@userStage.Id" class="icon-list">
+                    <div class="icons-container">
+                        <a href="/User_Stage/Edit/@userStage.Id">
                             <i class="material-icons">mode_edit</i>
                         </a>
-                        <a class="deleteBtn icon-list" data-href="/User_Stage/Delete/@userStage.Id">
+                        <a class="deleteBtn" data-href="/User_Stage/Delete/@userStage.Id">
                             <i class="material-icons">delete</i>
                         </a>
                     </div>

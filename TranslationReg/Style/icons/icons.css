@@ -1,13 +1,24 @@
 ﻿/* ЗАГОЛОВКИ С ИКОНКАМИ */
 
 .material-icons{
-    color:white;
     font-size:30px;
 }
 
     .material-icons:hover {
         color: #d41955;
         transition: 0.3s;
+    }
+
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+}
+
+    .icons-container i {
+        margin: 3px 10px;
     }
 
 
@@ -47,9 +58,9 @@
 
 
 
-.icons-row{
-    display:flex;
-    flex-flow:column;
-    justify-content:space-around;
+.icons-column {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
     max-width: 40px;
 }

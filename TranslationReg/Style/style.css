@@ -341,26 +341,6 @@ addFormContainer {
         background-color: white;
     }
 
-.dynamic-block-create > form {
-    display: flex;
-    flex-direction: column;
-}
-
-    .dynamic-block-create > form div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 17px;
-    }
-
-        .dynamic-block-create > form div option {
-            font-size: 16px;
-        }
-
-        .dynamic-block-create > form div label {
-            width: 180px;
-        }
-
 .dynamic-block-add-stage > form {
     display: flex;
     flex-direction: column;

@@ -21,19 +21,18 @@
     }
 }
 <div>
-
     @if (avatarPath != null)
     {
         <div class="avatar-container">
-            <img src="@Url.Content("~/"+ avatarPath)" />
+            <img src="@Url.Content("~/"+ avatarPath)" height="100" width="100"/>
         </div>
     }
 
     @if (Request.IsAuthenticated)
     {
-            <div class="hello">
-                Здравствуйте,   @User.Identity.Name!
-            </div>
+        <div class="hello">
+            Здравствуйте,   @User.Identity.Name!
+        </div>
     }
 </div>
 

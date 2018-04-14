@@ -1,6 +1,5 @@
 ﻿.tableMaterial {
-    background-color: #ffffff7d;
-    opacity: 0.86;
+    background-color: #ffffffe6;
     overflow: hidden;
     box-shadow: 6px 5px 12px 1px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
@@ -62,26 +61,6 @@
     .titleLink:hover {
         color: #d41955 !important;
     }
-
-
-.icon-list {
-    color: #3d5279;
-}
-
-    .icon-list:hover {
-        color: #d41955;
-    }
-
-    .icon-list i {
-        font-size: 30px;
-        margin: 0 10px;
-    }
-
-        .icon-list i:hover {
-            transition: 0.3s;
-        }
-
-
 
 .properties {
     width: 100%;

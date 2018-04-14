@@ -33,6 +33,7 @@ namespace TranslationReg
                       .IncludeDirectory("~/Style/search", "*.css")
                       .IncludeDirectory("~/Style/tables", "*.css")
                       .IncludeDirectory("~/Style/icons", "*.css")
+                      .IncludeDirectory("~/Style/containers", "*.css")
                       );
         }
     }

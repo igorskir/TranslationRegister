@@ -1,0 +1,24 @@
+
+/*------------------------------------ ÔÎÐÌÛ ÄÎÁÀÂËÅÍÈß ------------------------------------*/
+.dynamic-block-create > form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #ffffff61;
+}
+
+    .dynamic-block-create > form div {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        font-size: 17px;
+    }
+
+        .dynamic-block-create > form div option {
+            font-size: 16px;
+        }
+
+        .dynamic-block-create > form div label {
+            width: 200px;
+            margin:0 30px 0 0;
+        }

@@ -1,13 +1,14 @@
 ﻿(function () {
     $(document).on('click', '.ajaxToggleBtn', function (e) {
-        updatedBlock = $(this).attr("data-ajax-update");
-        myurl = $(this).attr("data-href");
+        var updatedBlockId = $(this).attr("data-ajax-update");
+        var updatedBlock = $(updatedBlockId);
+        var myurl = $(this).attr("data-href");
         $.ajax({
             type: 'GET',
             url: myurl,
             success: function (result) {
-                $(updatedBlock).html(result);
-                $(updatedBlock).toggle("fast");
+                updatedBlock.html(result);
+                updatedBlock.toggle("fast");
             }
         });
     });

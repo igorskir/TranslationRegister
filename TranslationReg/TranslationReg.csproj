@@ -259,6 +259,7 @@
     <Content Include="Style\bootstrap\bootstrap.css" />
     <Content Include="Style\bootstrap\bootstrap.min.css" />
     <Content Include="Style\cards\card.css" />
+    <Content Include="Style\containers\containers.css" />
     <Content Include="Style\icons\icons.css" />
     <Content Include="Style\images\bodyBg.jpg" />
     <Content Include="Style\buttons\buttons.css" />
@@ -385,7 +386,6 @@
     <Content Include="Views\User_Stage\MyTasks.cshtml" />
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
   </ItemGroup>

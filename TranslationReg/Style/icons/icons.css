@@ -1,10 +1,25 @@
 ﻿/* ЗАГОЛОВКИ С ИКОНКАМИ */
 
-.iconed-text i {
-    position: absolute;
-    font-size: 30px;
-    color: #3d5279;
+.material-icons{
+    color:white;
+    font-size:30px;
 }
+
+    .material-icons:hover {
+        color: #d41955;
+        transition: 0.3s;
+    }
+
+
+.iconed-text {
+    position: relative;
+}
+
+    .iconed-text i {
+        position: absolute;
+        font-size: 30px;
+        color: #3d5279;
+    }
 
 .right-icon {
     float: right;
@@ -23,9 +38,18 @@
     transition: 0.3s;
 }
 
-.small-icon{
-    height:32px;
-    width:32px;
-    border-radius:100px;
-    overflow:hidden;
+.small-icon {
+    height: 32px;
+    width: 32px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+
+
+.icons-row{
+    display:flex;
+    flex-flow:column;
+    justify-content:space-around;
+    max-width: 40px;
 }

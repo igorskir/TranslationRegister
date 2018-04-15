@@ -12,7 +12,6 @@ namespace TranslationReg
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery/jquery.unobtrusive*",
-                        //"~/Scripts/jquery/jquery.unobtrusive-ajax.min.js",
                         "~/Scripts/jquery/jquery.validate*"));
 
             bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
@@ -26,15 +25,16 @@ namespace TranslationReg
                       "~/Scripts/modernizr/modernizr-2.6.2.js"));
 
             bundles.Add(new StyleBundle("~/Style/css").Include(
-                      "~/Style/bootstrap.css",
-                      "~/Style/Site.css",
-                      "~/Style/style.css",
-                      "~/Style/cards/card.css",
-                      "~/Style/cards/addCard.css",
-                      "~/Style/search/search.css",
-                      "~/Style/modal/deleteModal.css",
-                      "~/Style/material/materialButtons.css"
-                      ));
+                      "~/Style/bootstrap/bootstrap.css",
+                      "~/Style/style.css")
+                      .IncludeDirectory("~/Style/buttons", "*.css")
+                      .IncludeDirectory("~/Style/cards", "*.css")
+                      .IncludeDirectory("~/Style/modal", "*.css")
+                      .IncludeDirectory("~/Style/search", "*.css")
+                      .IncludeDirectory("~/Style/tables", "*.css")
+                      .IncludeDirectory("~/Style/icons", "*.css")
+                      .IncludeDirectory("~/Style/containers", "*.css")
+                      );
         }
     }
 }

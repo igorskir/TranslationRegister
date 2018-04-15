@@ -1,31 +1,28 @@
 ﻿@model TranslationRegistryModel.Project
 @using TranslationReg.Controllers
-<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
-<div class="titleAndIcon">
-    <h2>@Model.Name</h2>
-    <a href="/Projects/Edit/@Model.Id">
-        <i class="material-icons">edit</i>
-    </a>
-</div>
-
+<!-- ЗАГОЛОВОК И КНОПКА РЕДАКТИРОВАНИЯ -->
+<h2 class="iconed-text">
+    @Model.Name
+    <a href="/Projects/Edit/@Model.Id"><i class="material-icons right-icon">edit</i></a>
+</h2>
 
 <!-- ФИЛЬТРЫ -->
 <div class="filterContainer">
     <ul class="buttons">
         <li>
-            <div class="btn-wrapper ajaxToggleBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
+            <div class="btn-wrapper ajaxToggleBtn" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
                 <i class="material-icons">add_circle</i>
                 <span> Документ</span>
             </div>
         </li>
         <li>
-            <div class="btn-wrapper ajaxToggleBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#addArea" data-href="/DocStages/ChooseForProject/@Model.Id">
+            <div class="btn-wrapper ajaxToggleBtn" data-ajax-update="#addArea" data-href="/DocStages/ChooseForProject/@Model.Id">
                 <i class="material-icons">add_circle</i>
                 <span> Стадия</span>
             </div>
         </li>
         <li>
-            <div class="btn-wrapper" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#projectList" href="/Projects/Finalise/@Model.Id">
+            <div class="btn-wrapper" data-ajax="true" data-ajax-update="#projectList" data-href="/Projects/Finalise/@Model.Id">
                 <i class="material-icons">done_all</i>
                 <span> Финализировать</span>
             </div>
@@ -33,10 +30,10 @@
     </ul>
 </div>
 
-<!-- Область добавления -->
+<!-- ОБЛАСТЬ ДОБАВЛЕНИЯ -->
 <div id="addArea" class="dynamicBlock dynamic-block-create"></div>
 
-<!-- Основная область -->
+<!-- ОСНОВНАЯ ОБЛАСТЬ -->
 @{
     // все стадии
     var stages = Model.Documents.SelectMany(x => x.Stages);
@@ -73,33 +70,31 @@
                             <div class="docworks-container">
                                 @{
 
-                                    //--------------------------------------------- Отображение доков ------------------------------------------
+                                    //--------------------------------------------- ОТОБРАЖЕНИЕ ДОКОВ ------------------------------------------
                                     var currentDoc = oneDocStages.First().Document;
                                     <div class="doc-container">
-                                        <img src="~/Uploads/DocIcons/Word.png" width="180" height="180" />
-                                        <p>@currentDoc.Name</p>
-                                        <hr />
-                                        <div class="buttons-container">
-                                            @if (currentDoc.FinalFileId != null)
-                                            {
-                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
-                                            }
-                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
-                                            <a class="listIcon"><i class="material-icons">edit</i></a>
-                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                        <img src="~/Uploads/DocIcons/Word.png" width="100" height="100" style="float:left" />
+                                        <div class="icons-column">
+                                            <a><i class="material-icons">file_download</i></a>
+                                            <a><i class="material-icons">edit</i></a>
+                                            <a><i class="material-icons">delete</i></a>
                                         </div>
+                                        <hr style="margin:5px" />
+                                        <p style="margin:0">@currentDoc.Name</p>
                                     </div>
                                     //----------------------------------------------------------------------------------------------------------
 
-
-                                    //--------------------------------------------- Отображение работ ------------------------------------------
+                                    //--------------------------------------------- ТАБЛИЦА РАБОТ ------------------------------------------
                                     // работы по доку в стадии
                                     var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
+                                    var stageId = oneDocStages.First().Id.ToString();
                                     <div class="works-table">
                                         <div class="tableMaterial">
                                             <div class="work-titles">
                                                 <div class="col-md-2" style="display:flex;">
-                                                    <i class="material-icons" style="margin-right: 50px">add_circle</i>
+                                                    <div data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/Create/@stageId" class="ajaxToggleBtn">
+                                                        <i class="material-icons">add_circle</i>
+                                                    </div>
                                                     <span style="text-align: center; align-self: center; margin: auto;">
                                                         Исполнитель
                                                     </span>
@@ -110,6 +105,7 @@
                                             </div>
                                         </div>
                                         <div class="inner-padding">
+                                            <div id="addWork@(stageId)" class="dynamicBlock dynamic-block-create">123</div>
                                             @foreach (var work in typedDocWorks)
                                             {
                                                 <div class="properties">
@@ -117,11 +113,11 @@
                                                         @if (work.User.AvatarPath == null)
                                                         {
                                                             string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                                                            <img src="@Url.Content("~/"+ avatarPath)" height="48" width="48" />
+                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon" />
                                                         }
                                                         else
                                                         {
-                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" height="48" width="48" />
+                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon" />
                                                         }
 
                                                         <span>
@@ -139,14 +135,14 @@
                                                         </span>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="buttons-container">
+                                                        <div class="icons-container">
                                                             @if (work.DocFileId != null)
                                                             {
-                                                                <a class="listIcon"><i class="material-icons">file_download</i></a>
+                                                                <a><i class="material-icons">file_download</i></a>
                                                             }
-                                                            <a class="listIcon"><i class="material-icons">file_upload</i></a>
-                                                            <a class="listIcon"><i class="material-icons">edit</i></a>
-                                                            <a class="listIcon"><i class="material-icons">delete</i></a>
+                                                            <a><i class="material-icons">file_upload</i></a>
+                                                            <a><i class="material-icons">edit</i></a>
+                                                            <a><i class="material-icons">delete</i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -154,6 +150,7 @@
                                         </div>
                                     </div>
                                 }
+                                <div style="clear:left"></div>
                             </div>
                             //----------------------------------------------------------------------------------------------------------
                         }
@@ -169,19 +166,10 @@
 
 <style>
     .worktype-container {
-        margin-top: 30px;
         margin-bottom: 20px;
         width: 100%;
         height: 100%;
         clear: left;
-    }
-
-    .docworks-container:first-child {
-        margin-top: 20px;
-    }
-
-    .docworks-container {
-        margin-top: 60px;
     }
 
     .works-table .inner-padding {
@@ -194,7 +182,7 @@
 
         .works-table .inner-padding .properties {
             padding: 0 5px 0 5px;
-            background-color: #ffffff85;
+            background-color: #ffffffed;
         }
 
             .works-table .inner-padding .properties:last-child {
@@ -204,7 +192,7 @@
             }
 
     .work-titles {
-        height: 40px;
+        height: 36px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -218,24 +206,31 @@
 
 
     .worktype-content {
-        padding: 10px 0 0 20px;
-        margin: 0 15px 0px 15px;
+        padding: 5px;
+        margin: 0 8px;
         background: #ffffff57;
         box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3);
-        min-height: 320px;
         overflow: hidden;
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
     }
 
+        .worktype-content .docworks-container {
+            margin: 10px;
+        }
+
         .worktype-content .doc-container {
-            height: 300px;
+            height: 158px;
             width: 200px;
-            background-color: #ffffff85;
+            background-color: #ffffffed;
             float: left;
-            padding: 0 10px 0 10px;
+            padding: 0px 10px;
+            margin-top: 5px;
             text-align: center;
             vertical-align: top;
             border-radius: 6px;
-            overflow:hidden;
+            overflow: hidden;
+            box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
         }
 
             .worktype-content .doc-container p {
@@ -245,21 +240,16 @@
         .worktype-content .works-table {
             width: auto;
             overflow: hidden;
-            padding-left: 40px;
-            padding-right: 10px;
-            min-height: 310px;
+            padding: 5px 10px 0 30px;
         }
 
             .worktype-content .works-table > .tableMaterial {
-                box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3)
+                box-shadow: 2px 1px 4px 1px rgba(0, 0, 0, 0.3)
             }
 
     .worktype-name {
-        width: 100%;
-        overflow: hidden;
         text-align: left !important;
         padding-left: 20px;
-        font-size: 18px !important;
     }
 
     .dropdown-btn {
@@ -318,9 +308,10 @@
                     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
                 }
 </style>
+
 @section scripts {
     <script>
-
+        // показать только последнюю стадию
         $(document).ready(function () {
             $('.worktype-content').hide();
             var btn = $(".dropdown-btn").last();
@@ -331,6 +322,7 @@
             $(activeWorktypeId).show();
         });
 
+        // свернуть/развернуть стадию
         $('.dropdown-btn').click(function (e) {
             var btn = $(this);
             var toogleId = '#' + btn.attr("toggleid");

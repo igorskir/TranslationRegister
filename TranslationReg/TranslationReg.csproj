@@ -237,6 +237,7 @@
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery\jquery-1.12.4.intellisense.js" />
     <Content Include="Scripts\jquery.filedrop.js" />
+    <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.min.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.min.map" />
@@ -250,25 +251,24 @@
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr\modernizr-2.6.2.js" />
-    <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\bootstrap\respond.min.js" />
     <Content Include="Scripts\scripts.js" />
+    <Content Include="Style\buttons\filters.css" />
     <Content Include="Style\cards\addCard.css" />
-    <Content Include="Style\bootstrap-theme.css" />
-    <Content Include="Style\bootstrap-theme.min.css" />
-    <Content Include="Style\bootstrap.css" />
-    <Content Include="Style\bootstrap.min.css" />
+    <Content Include="Style\bootstrap\bootstrap-theme.css" />
+    <Content Include="Style\bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Style\bootstrap\bootstrap.css" />
+    <Content Include="Style\bootstrap\bootstrap.min.css" />
     <Content Include="Style\cards\card.css" />
+    <Content Include="Style\containers\containers.css" />
+    <Content Include="Style\icons\icons.css" />
     <Content Include="Style\images\bodyBg.jpg" />
-    <Content Include="Style\images\logo_tpu.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Style\material\materialButtons.css" />
+    <Content Include="Style\buttons\buttons.css" />
     <Content Include="Style\modal\addModal.css" />
     <Content Include="Style\search\search.css" />
-    <Content Include="Style\Site.css" />
     <Content Include="Style\modal\deleteModal.css" />
     <Content Include="Style\style.css" />
+    <Content Include="Style\tables\table.css" />
     <Content Include="Style\themes\base\accordion.css" />
     <Content Include="Style\themes\base\all.css" />
     <Content Include="Style\themes\base\autocomplete.css" />
@@ -353,11 +353,10 @@
     <Content Include="Views\Documents\DocAndStages.cshtml" />
     <Content Include="Views\UnitOfMeasure\Delete.cshtml" />
     <Content Include="Views\WorkTypes\Delete.cshtml" />
-    <Content Include="Style\bootstrap-theme.css.map" />
-    <Content Include="Style\bootstrap-theme.min.css.map" />
-    <Content Include="Style\bootstrap.css.map" />
-    <Content Include="Style\bootstrap.min.css.map" />
-    <Content Include="Style\style.less" />
+    <Content Include="Style\bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Style\bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Style\bootstrap\bootstrap.css.map" />
+    <Content Include="Style\bootstrap\bootstrap.min.css.map" />
     <Content Include="Views\Projects\List.cshtml" />
     <Content Include="Views\Documents\List.cshtml" />
     <Content Include="Views\DocStages\List.cshtml" />
@@ -385,9 +384,6 @@
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
     <Content Include="Views\Analytics\Table.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Style\tables\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

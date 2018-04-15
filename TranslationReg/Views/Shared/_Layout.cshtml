@@ -7,8 +7,7 @@
     <title>@ViewBag.Title</title>
     @Styles.Render("~/Style/css")
     @Scripts.Render("~/bundles/modernizr")
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
     <div class="content-container">
@@ -146,23 +145,6 @@
         background-color: #c42d5b;
     }
 
-    .listIcon {
-        color: #3d5279;
-    }
-
-        .listIcon:hover {
-            color: #d41955;
-        }
-
-        .listIcon i {
-            font-size: 30px;
-            margin: 0 10px;
-        }
-
-            .listIcon i:hover {
-                transition: 0.3s;
-            }
-
     .titleAndIcon {
         display: flex;
     }
@@ -262,7 +244,10 @@
         font-weight: 500;
         margin: 0;
     }
-
+    /* отмена краснения*/
+    .menu-content i:hover{
+        color:white;
+    }
     .menu-content > ul > li:hover {
         background-color: #c42d5b;
     }

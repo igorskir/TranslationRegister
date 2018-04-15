@@ -1,0 +1,66 @@
+﻿/* ЗАГОЛОВКИ С ИКОНКАМИ */
+
+.material-icons{
+    font-size:30px;
+}
+
+    .material-icons:hover {
+        color: #d41955;
+        transition: 0.3s;
+    }
+
+
+.icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:100%;
+}
+
+    .icons-container i {
+        margin: 3px 10px;
+    }
+
+
+.iconed-text {
+    position: relative;
+}
+
+    .iconed-text i {
+        position: absolute;
+        font-size: 30px;
+        color: #3d5279;
+    }
+
+.right-icon {
+    float: right;
+    margin-left: 10px;
+    margin-right: 5px;
+}
+
+.left-icon {
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.iconed-text i:hover {
+    color: #d41955;
+    transition: 0.3s;
+}
+
+.small-icon {
+    height: 32px;
+    width: 32px;
+    border-radius: 100px;
+    overflow: hidden;
+}
+
+
+
+.icons-column {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-around;
+    max-width: 40px;
+}

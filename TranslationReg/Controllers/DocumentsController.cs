@@ -228,6 +228,7 @@ namespace TranslationReg.Controllers
 
             return PartialView(document);
         }
+
         // POST: Documents/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -235,6 +236,15 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteDocument(id);
             return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // POST: Documents/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteFromList(int id)
+        {
+            await Rep.DeleteDocument(id);
+            return RedirectToAction("Index");
         }
     }
 }

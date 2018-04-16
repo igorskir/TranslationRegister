@@ -17,6 +17,8 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Index()
         {
             var projects = await Rep.GetProjectsInWork();
+            if (this.Request.IsAjaxRequest())
+                return PartialView(projects);
             return View(projects);
         }
 
@@ -160,6 +162,7 @@ namespace TranslationReg.Controllers
 
             return PartialView(project);
         }
+
         // POST: Projects/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -167,6 +170,15 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteProject(id);
             return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // POST: Projects/DeleteFromList/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteFromList(int id)
+        {
+            await Rep.DeleteProject(id);
+            return RedirectToAction("Index");
         }
     }
 }

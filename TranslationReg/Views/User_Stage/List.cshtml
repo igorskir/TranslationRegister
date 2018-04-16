@@ -1,16 +1,24 @@
 ﻿@model List<TranslationRegistryModel.User_Stage>
-<div>
-    <div class="titles">
-        <div class="col-md-2">Пользователь</div>
-        <div class="col-md-2">Комментарий</div>
-        <div class="col-md-1">Количество</div>
-        <div class="col-md-2">Назначено</div>
-        <div class="col-md-2">Загружено</div>
-        <div class="col-md-3">Команды</div>
-    </div>
+<div id="tasksList">
+    <div class="tableMaterial">
+        <div class="titles">
+            <div class="col-md-2">Проект</div>
+            <div class="col-md-2">Документ</div>
+            <div class="col-md-1">Оригинал</div>
+            <div class="col-md-3">Комментарий</div>
+            <div class="col-md-1">Объем</div>
+            <div class="col-md-1">Дедлайн</div>
+            <div class="col-md-1">Результат</div>
+            <div class="col-md-1">Команды</div>
+        </div>
 
-    @foreach (var userStage in Model)
-    {
-        @Html.Partial("../User_Stage/Item", userStage)
-    }
+        <div>
+            @foreach (var userStage in Model)
+            {
+                <div id="@userStage.Id">
+                    @Html.Partial("../User_Stage/ListItem", userStage)
+                </div>
+            }
+        </div>
+    </div>
 </div>

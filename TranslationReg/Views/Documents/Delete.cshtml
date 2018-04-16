@@ -5,7 +5,7 @@
     <div class="modal-content">
 
         <!-- Хедер -->
-        <div class="modal-header">
+        <div class="modal-header delete-header">
             <h4 class="modal-title">Удаление документа "@Model.Name"</h4>
             <p type="button" class="close" data-dismiss="modal">&times;</p>
         </div>
@@ -13,31 +13,31 @@
         <!-- Тело -->
         <div class="modal-body">
             <h3>Вы уверены, что хотите удалить данную запись?</h3>
-            <div class="del-row">
-                <div class="del-property"><p>Название:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Название:</p></div>
+                <div class="modal-value">
                     <p>@Model.Name</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Создатель:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Создатель:</p></div>
+                <div class="modal-value">
                     <p>@Model.Owner.Name<p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Проект:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Проект:</p></div>
+                <div class="modal-value">
                     <p>@Model.Project.Name<p>
                 </div>
             </div>
             @{
                 var stages = Model.Stages.SelectMany(x => x.User_Stage).ToList();
-                <div class="del-row">
-                    <div class="del-property">
+                <div class="modal-row">
+                    <div class="modal-property">
                         <p>Количество работ:</p>
                     </div>
-                    <div class="del-value">
+                    <div class="modal-value">
                         @if (stages.Count > 0)
                         {
                             <p>@stages.Count</p>
@@ -53,9 +53,11 @@
 
         <!-- Подтверждение\отмена -->
         <div class="modal-footer">
-            @using (Html.BeginForm())
+            @using (Ajax.BeginForm("DeleteFromList", "Documents", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "partialContent" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.Id)
+
                 <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
             }
             <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>

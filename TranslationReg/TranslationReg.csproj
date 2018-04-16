@@ -263,7 +263,8 @@
     <Content Include="Style\icons\icons.css" />
     <Content Include="Style\images\bodyBg.jpg" />
     <Content Include="Style\buttons\buttons.css" />
-    <Content Include="Style\modal\addModal.css" />
+    <Content Include="Style\modal\editModal.css" />
+    <Content Include="Style\modal\modal.css" />
     <Content Include="Style\search\search.css" />
     <Content Include="Style\modal\deleteModal.css" />
     <Content Include="Style\style.css" />
@@ -345,7 +346,6 @@
     <Content Include="Views\User_Stage\Create.cshtml" />
     <Content Include="Views\User_Stage\Delete.cshtml" />
     <Content Include="Views\User_Stage\Edit.cshtml" />
-    <Content Include="Views\User_Stage\Item.cshtml" />
     <Content Include="Views\User_Stage\List.cshtml" />
     <Content Include="Views\Projects\TabPages.cshtml" />
     <Content Include="Views\Projects\Documents.cshtml" />
@@ -385,6 +385,8 @@
     <Content Include="Views\Projects\Project.cshtml" />
     <Content Include="Views\User_Stage\MyTasks.cshtml" />
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />
+    <Content Include="Views\User_Stage\ListItem.cshtml" />
+    <Content Include="Views\User_Stage\ListItemEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

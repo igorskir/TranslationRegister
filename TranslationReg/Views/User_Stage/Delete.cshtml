@@ -1,14 +1,10 @@
 ﻿@model TranslationRegistryModel.User_Stage
 
-
-<dt>@Html.LabelFor(model => model.Comment, "Комментарий")</dt>
-<dd>@Html.DisplayFor(model => model.Comment)</dd>
-
 <div class="modal-dialog">
     <div class="modal-content">
 
         <!-- Хедер -->
-        <div class="modal-header">
+        <div class="modal-header delete-header">
             <h4 class="modal-title">Удаление работы</h4>
             <p type="button" class="close" data-dismiss="modal">&times;</p>
         </div>
@@ -16,27 +12,27 @@
         <!-- Тело -->
         <div class="modal-body">
             <h3>Вы уверены, что хотите удалить данную запись?</h3>
-            <div class="del-row">
-                <div class="del-property"><p>Исполнитель:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Исполнитель:</p></div>
+                <div class="modal-value">
                     <p>@Model.User.Name</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Тип работы:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Тип работы:</p></div>
+                <div class="modal-value">
                     <p>@Model.Stage.WorkType.Name</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Количество:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Количество:</p></div>
+                <div class="modal-value">
                     <p>@Model.Amount (@(Model.Stage.WorkType.UnitOfMeasure.Name))</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Комментарий:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Комментарий:</p></div>
+                <div class="modal-value">
                     <p>@Model.Comment</p>
                 </div>
             </div>
@@ -44,9 +40,10 @@
 
         <!-- Подтверждение\отмена -->
         <div class="modal-footer">
-            @using (Html.BeginForm())
+            @using (Ajax.BeginForm("DeleteFromMyTasks", "User_Stage", new AjaxOptions {HttpMethod = "Post", UpdateTargetId = "partialContent" }))
             {
                 @Html.AntiForgeryToken()
+                @Html.HiddenFor(x=>x.Id)
                 <input type="submit" value="Удалить" class="btn btn-delete btn-modal" />
             }
             <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>

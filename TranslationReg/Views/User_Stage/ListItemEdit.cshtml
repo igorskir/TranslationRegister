@@ -2,17 +2,19 @@
 
 <div class="modal-dialog">
     <div class="modal-content">
-        @using (Html.BeginForm("Edit", "User_Stage", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Ajax.BeginForm("Edit", "User_Stage",
+            new AjaxOptions { HttpMethod= "Post", UpdateTargetId= "tasksList" },
+            new { enctype = "multipart/form-data" }))
         {
             <!-- Хедер -->
-            <div class="modal-header">
-                <h4 class="modal-title">Редактирование работы</h4>
+            <div class="modal-header edit-header">
+                <h4 class="modal-title">Редактирование задачи</h4>
                 <p type="button" class="close" data-dismiss="modal">&times;</p>
             </div>
 
             <!-- Тело -->
             <div class="modal-body">
-                <h3>Вы уверены, что хотите удалить данную запись?</h3>
+                <h3>Вы уверены, что хотите изменить данную запись?</h3>
 
                 @Html.AntiForgeryToken()
 
@@ -53,7 +55,7 @@
 
             <!-- Подтверждение\отмена -->
             <div class="modal-footer">
-                <input type="submit" value="Сохранить" class="btn btn-delete btn-modal" />
+                <input type="submit" value="Сохранить" class="btn btn-edit btn-modal" />
                 <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
             </div>
         }

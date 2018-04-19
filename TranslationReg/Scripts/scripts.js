@@ -66,6 +66,10 @@
         });
     });
 
+    $(document).on("click", ".btn-delete", function (e) {
+        $("#delModal").modal("hide");
+    });
+
     $(".addBtn").on("click", function (e) {
         e.preventDefault();
         $.ajax({

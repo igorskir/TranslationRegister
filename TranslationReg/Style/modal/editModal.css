@@ -1,0 +1,16 @@
+﻿.edit-header {
+    background-color: #3d5279;
+    color: white;
+    border-bottom: 2px solid #1e2f4f;
+}
+
+.btn-edit {
+    background-color: #3d5279;
+    color: white;
+    width: 120px;
+    float: left;
+}
+    .btn-edit:hover {
+        background-color: #c42d5b;
+        color: white;
+    }

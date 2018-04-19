@@ -1,0 +1,65 @@
+﻿@model TranslationRegistryModel.User_Stage
+<div class="properties">
+    <!-- Проект -->
+    <div class="col-md-2">
+        <a class="titleLink" href="/Projects/Project/@(Model.Stage.Document.Project.Id)">
+            @Model.Stage.Document.Project.Name
+        </a>
+    </div>
+
+    <!-- Документ -->
+    <div class="col-md-2">
+        <a class="titleLink" href="/Documents/DocAndStages/@(Model.Stage.Document.Id)">
+            @Model.Stage.Document.Name
+        </a>
+    </div>
+
+    <!-- Оригинал -->
+    <div class="col-md-1">
+        <span class="icon-container">
+            <a href="@Url.Action("Download", "Documents", new { @filepath = Model.Stage.Original.Path })">
+                <i class="material-icons right-icon">file_download</i>
+            </a>
+        </span>
+    </div>
+
+    <!-- Комментарий -->
+    <div class="col-md-3">
+        <span>
+            @Html.DisplayFor(modelItem => Model.Comment)
+        </span>
+    </div>
+
+    <!-- Объем -->
+    <div class="col-md-1">
+        <span>
+            @Html.DisplayFor(modelItem => Model.Amount)
+        </span>
+    </div>
+
+    <!-- Дедлайн -->
+    <div class="col-md-1">
+        <span>
+            @Model.Stage.Deadline
+        </span>
+    </div>
+
+    <!-- Результат -->
+    <div class="col-md-1">
+        <div class="icons-container">
+            <a><i class="material-icons">file_upload</i></a>
+        </div>
+    </div>
+
+    <!-- Команды -->
+    <div class="col-md-1">
+        <div class="icons-container">
+            <a class="deleteBtn" data-href="/User_Stage/Edit/@Model.Id" data-ajax-update="#@(Model.Id)">
+                <i class="material-icons">mode_edit</i>
+            </a>
+            <a class="deleteBtn" data-href="/User_Stage/Delete/@Model.Id">
+                <i class="material-icons">delete</i>
+            </a>
+        </div>
+    </div>
+</div>

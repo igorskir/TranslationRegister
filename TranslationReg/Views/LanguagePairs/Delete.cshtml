@@ -4,7 +4,7 @@
     <div class="modal-content">
 
         <!-- Хедер -->
-        <div class="modal-header">
+        <div class="modal-header  delete-header">
             <h4 class="modal-title">Удаление языковой пары "@Model.Name"</h4>
             <p type="button" class="close" data-dismiss="modal">&times;</p>
         </div>
@@ -12,21 +12,21 @@
         <!-- Тело -->
         <div class="modal-body">
             <h3>Вы уверены, что хотите удалить данную запись?</h3>
-            <div class="del-row">
-                <div class="del-property"><p>Название:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Название:</p></div>
+                <div class="modal-value">
                     <p>@Model.Name</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Оригинал:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Оригинал:</p></div>
+                <div class="modal-value">
                     <p>@Model.OriginalLanguage.Name<p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Перевод:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Перевод:</p></div>
+                <div class="modal-value">
                     <p>@Model.TranslationLanguage.Name<p>
                 </div>
             </div>
@@ -43,121 +43,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    .modal-content {
-        overflow: hidden;
-        font-size: 18px;
-    }
-    .modal-header {
-        width: 100%;
-        margin: 0;
-        height: 50px;
-        display: flex;
-        justify-content: space-between;
-        color: white;
-        font-weight: 600;
-        background-color: #ad5e5e;
-        border-bottom: 2px solid #310404;
-    }
-        .modal-header::before {
-            content: none;
-        }
-        .modal-header::after {
-            content: none;
-        }
-        .modal-header > h4 {
-            float: left;
-            align-self: center;
-        }
-        .modal-header .close {
-            padding: 0;
-            margin: 0;
-            float: right;
-            align-self: center;
-            color: white;
-            opacity: 0.8;
-            font-size: 36px;
-        }
-            .modal-header .close:hover {
-                opacity: 1.0;
-                transform: scale(1.1);
-                transition: 0.3s;
-            }
-
-    .modal-body > h3 {
-        margin: 0 0 20px 0;
-        padding: 5px;
-    }
-
-    .modal-footer {
-        padding: 5px;
-        height: 70px;
-        font-weight: 600;
-        display: flex;
-        justify-content: space-between;
-        border-top: 2px solid #310404
-    }
-
-        .modal-footer > form {
-            display: flex;
-        }
-
-    .btn-delete {
-        background-color: #ad5e5e;
-        color: white;
-        width: 120px;
-        float: left;
-    }
-
-    .btn-cancel {
-        float: right;
-        width: 120px;
-    }
-
-    .btn-modal {
-        margin: 0px;
-        padding: 6px;
-        align-self: center;
-        font-size: 18px;
-    }
-
-    .del-row {
-        display: flex;
-        height: 50px;
-    }
-
-        .del-row:last-of-type {
-            border: none;
-        }
-
-    .del-property {
-        color: #626262;
-        text-align: left;
-        display: flex;
-        padding: 10px;
-        min-width: 130px;
-    }
-
-        .del-property > p {
-            margin: 0;
-            white-space: nowrap;
-            align-self: center;
-        }
-
-    .del-value {
-        font-weight: 600;
-        font-size: 18px;
-        text-align: left;
-        display: flex;
-        overflow: hidden;
-    }
-
-        .del-value > p {
-            margin: 0;
-            overflow: hidden;
-            align-self: center;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-</style>

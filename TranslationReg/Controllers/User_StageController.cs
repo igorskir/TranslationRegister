@@ -28,11 +28,12 @@ namespace TranslationReg.Controllers
             return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
 
-        // GET: User_Stage/My
+        // GET: User_Stage/MyTasks
         // принимает id стадии
         public async Task<ActionResult> MyTasks()
         {
             var tasks = await Rep.GetMyTasks(User.Identity.Name);
+
             return PartialView(tasks);
         }
 
@@ -68,7 +69,7 @@ namespace TranslationReg.Controllers
                 return HttpNotFound();
 
             User_StageModel model = await User_StageModel.GetModel(Rep, User.Identity.Name, user_Stage.StageId, user_Stage);
-            return PartialView(model);
+            return PartialView("ListItemEdit", model);
         }
         // POST: User_Stage/Edit/5
         [HttpPost]
@@ -81,7 +82,9 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutUser_Stage(user_Stage);
-                return Redirect(Request.UrlReferrer.ToString());
+                var taskList = await Rep.GetMyTasks(User.Identity.Name);
+                return PartialView("List", taskList);
+                //return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(user_Stage);
@@ -105,6 +108,15 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteUser_Stage(id);
             return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // POST: User_Stage/DeleteFromMyTasks/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteFromMyTasks(int id)
+        {
+            await Rep.DeleteUser_Stage(id);
+            return RedirectToAction("MyTasks");
         }
 
         // GET: User_Stage/Download

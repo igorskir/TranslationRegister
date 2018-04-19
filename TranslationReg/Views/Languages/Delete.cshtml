@@ -3,7 +3,7 @@
     <div class="modal-content">
 
         <!-- Хедер -->
-        <div class="modal-header">
+        <div class="modal-header  delete-header">
             <h4 class="modal-title">Удаление языка "@Model.Name"</h4>
             <p type="button" class="close" data-dismiss="modal">&times;</p>
         </div>
@@ -11,15 +11,15 @@
         <!-- Тело -->
         <div class="modal-body">
             <h3>Вы уверены, что хотите удалить данную запись?</h3>
-            <div class="del-row">
-                <div class="del-property"><p>Название:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Название:</p></div>
+                <div class="modal-value">
                     <p>@Model.Name</p>
                 </div>
             </div>
-            <div class="del-row">
-                <div class="del-property"><p>Сокращение:</p></div>
-                <div class="del-value">
+            <div class="modal-row">
+                <div class="modal-property"><p>Сокращение:</p></div>
+                <div class="modal-value">
                     <p>@Model.ShortName<p>
                 </div>
             </div>

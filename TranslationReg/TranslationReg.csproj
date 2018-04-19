@@ -384,6 +384,7 @@
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
     <Content Include="Views\Analytics\Table.cshtml" />
+    <Content Include="Views\Projects\Project.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

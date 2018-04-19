@@ -32,7 +32,7 @@ namespace TranslationReg.Controllers
         {
             try
             {
-                var fileName = Path.GetFileName(file.FileName);
+                var fileName = HttpUtility.UrlDecode(Path.GetFileName(file.FileName));
                 string path;
                 if (subDirectories == null)
                     path = Path.Combine(Server.MapPath($"~/{uploadDir}"), fileName);
@@ -42,8 +42,8 @@ namespace TranslationReg.Controllers
                 if (File.Exists(path))
                 {
                     Guid guid = Guid.NewGuid();
-                    fileName = Path.GetFileNameWithoutExtension(file.FileName);
-                    string extension = Path.GetExtension(file.FileName);
+                    fileName = HttpUtility.UrlDecode(Path.GetFileNameWithoutExtension(file.FileName));
+                    string extension = HttpUtility.UrlDecode(Path.GetExtension(file.FileName));
                     fileName += guid.ToString() + extension;
                     
                     path = Path.Combine(Path.GetDirectoryName(path), fileName);

@@ -88,21 +88,68 @@ namespace TranslationReg.Controllers
         }
 
         [HttpPost]
-        public ActionResult UploadFiles(IEnumerable<HttpPostedFileBase> files)
+        public async Task<ActionResult> UploadFiles(int id, IEnumerable<HttpPostedFileBase> files)
         {
             
-            
-            foreach (var file in files)
+            foreach (var original in files)
             {
-                string Name = file.FileName;
+
+                Document document = new Document();
+                document.ProjectId = id;
+                document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
+                document.Date = DateTime.Now;
                 
-                string fileName = Path.GetFileName(file.FileName);
-                // сохраняем файл в папку Files в проекте
-                string filePath = Server.MapPath("~/Uploads/" + fileName);
-                file.SaveAs(filePath);
-                
+                if (original != null && original.ContentLength != 0)
+                {
+                    document.Name = HttpUtility.HtmlDecode(original.FileName);
+                    //здесь и сохранение файла и кортежа DocFile
+                    var originalFile = (await Helper.SetFile(original, Rep, Server));
+                    // дополняем информацию об оригинале
+                    document.OriginalFileId = originalFile.Id;
+
+                    // определение числа слов автоматом
+                    var MsWordDocMime = "application/msword";
+                    var MsWordDocxMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    if (original.ContentType == MsWordDocMime || original.ContentType == MsWordDocxMime)
+                    {
+                        try
+                        {
+                            using (Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(originalFile.Path))
+                            {
+                                doc.UpdateWordCount(false);
+                                int wordCount = doc.BuiltinDocumentProperties.WordCount;
+                                document.WordsNumber = wordCount;
+                            }
+                        }
+                        catch (Exception) { }
+                    }
+
+                  
+                    if (ModelState.IsValid)
+                    {
+                        
+                        // сохраняем док
+                        await Rep.AddDocument(document);
+
+                        // добавляем стадию автоматом. Id дока обновился после сохранения
+                        var project = await Rep.GetProject(document.ProjectId.Value);
+                        //DocStage initialStage = new DocStage
+                        //{
+                        //    OriginalId = document.OriginalFileId,
+                        //    DocumentId = document.Id,
+                        //    WorkTypeId = project.WorkTypeId.Value,
+                        //};
+                        //await Rep.AddDocStage(initialStage);
+
+                        return new HttpStatusCodeResult(HttpStatusCode.OK);
+                    }
+                    else
+                        await Rep.DeleteDocFile(originalFile.Id);
+                    //todo refresh
+                }
+
             }
-            return Json("file uploaded successfully");
+            return View();
         }
      
 

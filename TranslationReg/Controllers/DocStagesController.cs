@@ -17,17 +17,17 @@ namespace TranslationReg.Controllers
 
         // GET: DocStages/ChooseForProject
         // Принимает id проекта
-        public async Task<ActionResult> ChooseForProject(int? id)
-        {
-            //проверка привязки к документу
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            Project project = await Rep.GetProject(id.Value);
+        //public async Task<ActionResult> ChooseForProject(int? id)
+        //{
+        //    //проверка привязки к документу
+        //    if (id == null)
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    Project project = await Rep.GetProject(id.Value);
 
-            var model = await Models.StageForProjModel.GetModel(Rep, project);
+        //    var model = await Models.StageForProjModel.GetModel(Rep, project);
 
-            return PartialView(model);
-        }
+        //    return PartialView(model);
+        //}
         // POST: DocStages/AddToProject
         [HttpPost]
         [ValidateAntiForgeryToken]

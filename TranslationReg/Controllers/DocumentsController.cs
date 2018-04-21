@@ -159,7 +159,7 @@ namespace TranslationReg.Controllers
                     };
                     await Rep.AddDocStage(initialStage);
 
-                    return Redirect("InWork");
+                    return View("Index", await Rep.GetDocuments());
                 }
                 else
                     await Rep.DeleteDocFile(originalFile.Id);

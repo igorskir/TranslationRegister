@@ -383,7 +383,7 @@
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
     <Content Include="Views\Projects\Project.cshtml" />
-    <Content Include="Views\User_Stage\MyTasks.cshtml" />
+    <Content Include="Views\User_Stage\Tasks.cshtml" />
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />
     <Content Include="Views\User_Stage\ListItem.cshtml" />
     <Content Include="Views\User_Stage\ListItemEdit.cshtml" />

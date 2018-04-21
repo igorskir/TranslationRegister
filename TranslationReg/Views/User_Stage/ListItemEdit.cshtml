@@ -27,7 +27,7 @@
                 <div class="modal-row">
                     <div class="modal-property"><p>Исполнитель:</p></div>
                     <div class="modal-value">
-                        @Html.DropDownList("UserId", Model.usersSelectList, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                        @Html.DropDownList("UserId", Model.usersSelectList, new { @class = "form-control", required = "required" })
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
 
             <!-- Подтверждение\отмена -->
             <div class="modal-footer">
-                <input type="submit" value="Сохранить" class="btn btn-edit btn-modal" />
+                <input type="submit" value="Сохранить" class="btn btn-edit btn-modal hide-modal" />
                 <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
             </div>
         }

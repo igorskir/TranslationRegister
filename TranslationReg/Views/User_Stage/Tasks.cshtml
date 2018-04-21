@@ -1,0 +1,24 @@
+﻿@model List<TranslationRegistryModel.User_Stage>
+@{ViewBag.Title = "Задачи";}
+<!-- ЗАГОЛОВОК И КНОПКА ДОБАВЛЕНИЯ -->
+<h2>Мои задачи</h2>
+
+<!-- ФИЛЬТРЫ -->
+<div class="filterContainer">
+    <ul class="filters">
+        <li>
+            <a class="filter filter-active" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tasksList" href="/User_stage/InWork">Текущие задачи</a>
+        </li>
+        <li>
+            <a class="filter" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#tasksList" href="/User_stage/Done">Выполненные задачи</a>
+        </li>
+    </ul>
+</div>
+
+<div id="tasksList">
+    @Html.Partial("List", Model)
+</div>
+
+<script type="text/javascript">
+    document.title = '@ViewBag.Title';
+</script>

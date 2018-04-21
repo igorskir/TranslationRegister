@@ -161,7 +161,8 @@
     .card-row:last-of-type {
         border: none;
     }
-    .card-row .card-value > input, select {
+    .card-row .card-value > input,
+    .card-row .card-value > select {
         color: #333333 !important;
         font-size: 18px !important;
         align-self: center;

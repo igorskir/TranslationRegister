@@ -19,6 +19,7 @@
         $.ajax({
             type: 'GET',
             url: myurl,
+            
             success: function (result) {
                 $(updatedBlock).html(result);
             }
@@ -38,6 +39,12 @@
         });
     });
 
+    $(document).ajaxStart(function () {
+        $('#loader').show();
+    }).ajaxStop(function () {
+        $('#loader').hide();
+    });
+
     $(document).on('click', '.filter', function () {
         $(".filter").removeClass("filter-active");
         $(this).addClass("filter-active");
@@ -50,7 +57,7 @@
         selecton.addClass("currentMenuSelection");
     });
 
-    $(document).on('click', '.deleteBtn', function (e) {
+    $(document).on('click', '.loadModal', function (e) {
         e.preventDefault();
         myurl = $(this).attr("data-href");
         $.ajax({
@@ -58,16 +65,16 @@
             url: myurl,
             success: function (result) {
                 if (!$('modal#delModal').length) {
-                    $("<div class=\"modal fade delModal\" id=\"delModal\" role=\"dialog\"></div>").appendTo("body");
+                    $("<div class=\"modal fade\" id=\"modal\" role=\"dialog\"></div>").appendTo("body");
                 }
-                $("#delModal").html(result);
-                $('#delModal').modal({ show: true });
+                $("#modal").html(result);
+                $('#modal').modal({ show: true });
             }
         });
     });
 
-    $(document).on("click", ".btn-delete", function (e) {
-        $("#delModal").modal("hide");
+    $(document).on("click", ".hide-modal", function (e) {
+        $("#modal").modal("hide");
     });
 
     $(".addBtn").on("click", function (e) {

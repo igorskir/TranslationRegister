@@ -21,11 +21,21 @@ namespace SqlRepository
             return await context.User_Stage.ToListAsync();
         }
 
-        public async Task<List<User_Stage>> GetMyTasks(string login)
+        public async Task<List<User_Stage>> GetMyCurrentTasks(string login)
         {
             var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;
             return await context.User_Stage.
                 Where(x => x.UserId == userId).
+                Where(x => x.DocFileId == null).
+                ToListAsync();
+        }
+
+        public async Task<List<User_Stage>> GetMyDoneTasks(string login)
+        {
+            var userId = (await context.Users.FirstOrDefaultAsync(x => x.Name == login)).Id;
+            return await context.User_Stage.
+                Where(x => x.UserId == userId).
+                Where(x => x.DocFileId != null).
                 ToListAsync();
         }
 

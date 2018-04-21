@@ -53,7 +53,7 @@
       docLeave: empty,
       beforeEach: empty,
       afterAll: empty,
-      rename: empty,
+      rename: function (name) { return encodeURIComponent(name); },
       error: function(err, file, i, status) {
         alert(err);
       },

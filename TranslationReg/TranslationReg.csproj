@@ -217,7 +217,7 @@
     <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\LanguagePairsModel.cs" />
     <Compile Include="Models\User_StageModel.cs" />
-    <Compile Include="Models\DocStageModel.cs" />
+    <Compile Include="Models\WebReportModel.cs" />
     <Compile Include="Models\WorkTypesModel.cs" />
     <Compile Include="Models\LanguagesModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
@@ -236,6 +236,7 @@
     <Content Include="package-lock.json" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Scripts\jquery\jquery-1.12.4.intellisense.js" />
+    <Content Include="Scripts\jquery.filedrop.js" />
     <Content Include="Scripts\bootstrap\respond.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.js" />
     <Content Include="Scripts\jquery\jquery-1.12.4.min.js" />
@@ -382,6 +383,7 @@
     <Content Include="Views\UnitOfMeasure\EditCard.cshtml" />
     <Content Include="Views\Search\SearchResults.cshtml" />
     <Content Include="Views\Documents\AddProjectDocs.cshtml" />
+    <Content Include="Views\Analytics\Table.cshtml" />
     <Content Include="Views\Projects\Project.cshtml" />
     <Content Include="Views\User_Stage\Tasks.cshtml" />
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />

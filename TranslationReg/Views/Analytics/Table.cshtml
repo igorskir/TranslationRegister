@@ -1,0 +1,31 @@
+﻿
+<div class="">
+
+    @if (ViewBag.list != null)
+    {
+        <div class="titles">
+            <div class="col-md-4">Пользователь</div>
+            <div class="col-md-4">Тип работы</div>
+            <div class="col-md-4">Итого</div>
+        </div>
+        foreach (var userWorks in ViewBag.list)
+        {
+
+            <div class="properties">
+                <div class="col-md-4">
+                    <a>@userWorks.User</a>
+                </div>
+                <div class="col-md-4">
+                    <span>
+                        @userWorks.Work
+                    </span>
+                </div>
+                <div class="col-md-4">
+                    @userWorks.Count
+                </div>
+            </div>
+
+        }
+    }
+
+</div>

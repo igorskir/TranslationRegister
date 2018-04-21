@@ -56,14 +56,38 @@ namespace TranslationReg.Models
 
             // группирую данные для представления
             var reportData = GroupReportData(filteredWorks.ToList());
-
-            return new ReportModel
+            if (filters != null)
             {
-                ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
-                UserList = new SelectList(users, "Id", "Name", skipFilterId),
-                WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),
-                ReportSections = reportData
-            };
+                return new ReportModel
+                {
+
+                    DateFrom = filters.PeriodFrom,
+                    DateTo = filters.PeriodTo - TimeSpan.FromDays(2),
+
+                    ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
+                    UserList = new SelectList(users, "Id", "Name", skipFilterId),
+                    WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),
+                    ReportSections = reportData
+                };
+            }
+            else
+            {
+               
+                int year = DateTime.Now.Year;
+                int month = DateTime.Now.Month;
+                int lastDay = DateTime.DaysInMonth(year, month);
+                
+                return new ReportModel
+                {
+                    DateFrom = new DateTime(year, month, 1),
+                    DateTo = new DateTime(year, month, lastDay),
+                    ProjectList = new SelectList(projects, "Id", "Name", skipFilterId),
+                    UserList = new SelectList(users, "Id", "Name", skipFilterId),
+                    WorkTypeList = new SelectList(workTypes, "Id", "Name", skipFilterId),
+                    ReportSections = reportData
+                };
+            }
+           
         }
 
         public static async Task<List<User_Stage>> ApplyFiltersToWorksAsync(IRepository Rep, ChosenFilters filters)

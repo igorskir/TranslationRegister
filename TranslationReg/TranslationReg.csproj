@@ -389,6 +389,7 @@
     <Content Include="Views\DocStages\ChooseForProject.cshtml" />
     <Content Include="Views\User_Stage\ListItem.cshtml" />
     <Content Include="Views\User_Stage\ListItemEdit.cshtml" />
+    <Content Include="Views\User_Stage\AddResultFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

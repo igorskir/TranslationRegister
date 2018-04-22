@@ -33,8 +33,49 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Tasks()
         {
             var tasks = await Rep.GetMyCurrentTasks(User.Identity.Name);
+            if (Request.IsAjaxRequest())
+                return PartialView(tasks);
+            return
+                View(tasks);
+        }
 
-            return PartialView(tasks);
+
+
+        // GET: User_Stage/AddResultFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddResultFile(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            if (user_Stage == null)
+                return HttpNotFound();
+
+            return PartialView(user_Stage);
+        }
+        // POST: User_Stage/AddResultFile
+        // принимает id стадии
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddResultFile(int? id, [Bind(Include = "result")] HttpPostedFileBase result)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            if (user_Stage == null)
+                return HttpNotFound();
+
+            if (result != null && result.ContentLength != 0)
+            {
+                user_Stage.DocFile = await Helper.SetFile(result, Rep, Server);
+                await Rep.PutUser_Stage(user_Stage);
+            }
+
+            return RedirectToAction("Tasks");
         }
 
         // GET: User_Stage/InWork

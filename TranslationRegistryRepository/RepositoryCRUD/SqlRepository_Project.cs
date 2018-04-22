@@ -50,6 +50,7 @@ namespace SqlRepository
         {
             return await context.Projects
                 .Where(x => x.ProjectStatuseId == Seeding.Seeder.InWorkStatuseId)
+                .OrderByDescending(x=>x.Date)
                 .ToListAsync();
         }
 
@@ -57,6 +58,7 @@ namespace SqlRepository
         {
             return await context.Projects
                 .Where(x => x.ProjectStatuseId == Seeding.Seeder.DoneStatuseId)
+                .OrderByDescending(x => x.Date)
                 .ToListAsync();
         }
 

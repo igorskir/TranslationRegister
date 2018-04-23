@@ -47,7 +47,7 @@ namespace SqlRepository
 
         public async Task<List<Document>> GetDocuments()
         {
-            return await context.Documents.ToListAsync();
+            return await context.Documents.OrderByDescending(x=>x.Date).ToListAsync();
         }
 
         public async Task PutDocument(Document doc)

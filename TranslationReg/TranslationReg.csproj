@@ -386,10 +386,10 @@
     <Content Include="Views\Analytics\Table.cshtml" />
     <Content Include="Views\Projects\Project.cshtml" />
     <Content Include="Views\User_Stage\Tasks.cshtml" />
-    <Content Include="Views\DocStages\ChooseForProject.cshtml" />
     <Content Include="Views\User_Stage\ListItem.cshtml" />
     <Content Include="Views\User_Stage\ListItemEdit.cshtml" />
     <Content Include="Views\User_Stage\AddResultFile.cshtml" />
+    <Content Include="Views\Documents\Card.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

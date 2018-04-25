@@ -101,7 +101,7 @@ namespace TranslationReg.Controllers
                 
                 if (original != null && original.ContentLength != 0)
                 {
-                    document.Name = HttpUtility.HtmlDecode(original.FileName);
+                    document.Name = HttpUtility.UrlDecode(original.FileName);
                     //здесь и сохранение файла и кортежа DocFile
                     var originalFile = (await Helper.SetFile(original, Rep, Server));
                     // дополняем информацию об оригинале
@@ -133,15 +133,16 @@ namespace TranslationReg.Controllers
 
                         // добавляем стадию автоматом. Id дока обновился после сохранения
                         var project = await Rep.GetProject(document.ProjectId.Value);
-                        //DocStage initialStage = new DocStage
-                        //{
-                        //    OriginalId = document.OriginalFileId,
-                        //    DocumentId = document.Id,
-                        //    WorkTypeId = project.WorkTypeId.Value,
-                        //};
-                        //await Rep.AddDocStage(initialStage);
+                        DocStage initialStage = new DocStage
+                        {
+                            OriginalId = document.OriginalFileId,
+                            DocumentId = document.Id,
+                            WorkTypeId = project.WorkTypeId.Value,
+                        };
+                        await Rep.AddDocStage(initialStage);
 
-                        return new HttpStatusCodeResult(HttpStatusCode.OK);
+                        //return new HttpStatusCodeResult(HttpStatusCode.OK);
+                        return Redirect(Request.UrlReferrer.ToString());
                     }
                     else
                         await Rep.DeleteDocFile(originalFile.Id);

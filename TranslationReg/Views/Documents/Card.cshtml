@@ -1,18 +1,137 @@
 ﻿@model TranslationRegistryModel.Document
+<div class="doc-card-container">
+    <div class="doc-card">
+        <div class="doc-card-header">
+            <p style="margin:0">@Model.Name</p>
+        </div>
+        <div class="doc-img-icons">
+            @{
+                var extension = Path.GetExtension(Model.OriginalFile.Path);
+                switch (extension)
+                {
+                    case ".doc":
+                    case ".docx":
+                        <img src="~/Uploads/DocIcons/doc.png" />
+                        break;
+                    case ".ppt":
+                    case ".pptx":
+                        <img src="~/Uploads/DocIcons/ppt.png" />
+                        break;
+                    case ".pdf":
+                        <img src="~/Uploads/DocIcons/pdf.png" />
+                        break;
+                    default:
+                        <img src="~/Uploads/DocIcons/any.png" />
+                        break;
+                }
+            }
+            <div class="icons-column">
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                    <i class="material-icons">file_download</i>
+                </a>
+                <hr />
+                <a href="/Documents/Edit/@Model.Id">
+                    <i class="material-icons">mode_edit</i>
+                </a>
+                <hr />
+                <a data-href="/Documents/Delete/@Model.Id" class="loadModal" data-dialog-title="Удаление документа и работ">
+                    <i class="material-icons">delete</i>
+                </a>
+            </div>
+        </div>
 
-<div class="doc-container">
-    <img src="~/Uploads/DocIcons/Word.png" width="100" height="100" style="float:left" />
-    <div class="icons-column">
-        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
-            <i class="material-icons">file_download</i>
-        </a>
-        <a href="/Documents/Edit/@Model.Id">
-            <i class="material-icons">mode_edit</i>
-        </a>
-        <a data-href="/Documents/Delete/@Model.Id" class="loadModal" data-dialog-title="Удаление документа и работ">
-            <i class="material-icons">delete</i>
-        </a>
+        <div class="doc-next-stage">
+            <span>В новую стадию</span>
+            <i class="material-icons">keyboard_arrow_down</i>
+        </div>
     </div>
-    <hr style="margin:5px" />
-    <p style="margin:0">@Model.Name</p>
 </div>
+
+<style>
+    /*------------------------------------ карточка документа ------------------------------------*/
+    .doc-card-container {
+        padding: 5px;
+        height: 100%;
+    }
+
+        .doc-card-container .doc-card {
+            width: 190px;
+            background-color: #ffffffed;
+            text-align: center;
+            vertical-align: top;
+            border-radius: 6px;
+            overflow: hidden;
+            box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
+        }
+
+    .doc-img-icons {
+        display: flex;
+        justify-content: space-between;
+        align-content: center;
+        padding: 0 10px;
+    }
+
+    .doc-card img {
+        width: 100px;
+        height: 100px;
+        float: left;
+        padding: 5px;
+    }
+    .doc-card:hover {
+        transition:0.3s;
+        box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.3);
+    }
+
+    .doc-next-stage,
+    .doc-card-header {
+        background: #45295fed;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-content: center;
+        font-size: 14px;
+        color: white;
+        box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
+    }
+
+    .doc-next-stage {
+        height: 32px;
+    }
+
+    .doc-card-header {
+        min-height: 36px;
+    }
+
+        .doc-card-header p {
+            align-self: center;
+        }
+
+    .doc-next-stage i,
+    .doc-next-stage span {
+        align-self: center;
+    }
+
+    .doc-next-stage:hover i,
+    .doc-next-stage:hover span {
+        transition: 0.3s;
+        color: #c42d5b;
+    }
+
+    .doc-next-stage span {
+        font-size: 14px;
+    }
+
+    .icons-column > hr {
+        margin: 0;
+        padding: 0;
+    }
+
+
+    .icons-column {
+        display: flex;
+        flex-flow: column;
+        justify-content: space-around;
+        max-width: 40px;
+        padding: 4px 0;
+    }
+</style>

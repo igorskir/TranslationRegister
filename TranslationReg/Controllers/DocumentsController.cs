@@ -19,7 +19,9 @@ namespace TranslationReg.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return PartialView(await Rep.GetDocuments());
+            if (Request.IsAjaxRequest())
+                return PartialView(await Rep.GetDocuments());
+            return View(await Rep.GetDocuments());
         }
         
         //                                          ФИЛЬТРЫ
@@ -94,11 +96,13 @@ namespace TranslationReg.Controllers
             foreach (var original in files)
             {
 
-                Document document = new Document();
-                document.ProjectId = id;
-                document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
-                document.Date = DateTime.Now;
-                
+                Document document = new Document
+                {
+                    ProjectId = id,
+                    OwnerId = (await Rep.GetUser(User.Identity.Name)).Id,
+                    Date = DateTime.Now
+                };
+
                 if (original != null && original.ContentLength != 0)
                 {
                     document.Name = HttpUtility.HtmlDecode(original.FileName);
@@ -241,7 +245,7 @@ namespace TranslationReg.Controllers
             //todo viewmodel
             ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
-            return View(document);
+            return PartialView(document);
         }
         // POST: Documents/Edit/5
         [HttpPost]

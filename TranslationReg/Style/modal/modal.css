@@ -70,6 +70,7 @@
     display: flex;
     align-items: center;
     height: 50px;
+    border-bottom: 1px solid #d3d3d324;
 }
     .modal-row:last-of-type {
         border: none;
@@ -80,7 +81,7 @@
     text-align: left;
     display: flex;
     padding: 10px;
-    min-width: 130px;
+    min-width: 200px;
 }
     .modal-property > p {
         margin: 0;

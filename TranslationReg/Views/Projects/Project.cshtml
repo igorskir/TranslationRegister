@@ -87,7 +87,8 @@
                                                 </div>
                                                 <div class="col-md-5">Комментарий</div>
                                                 <div class="col-md-2">Количество</div>
-                                                <div class="col-md-3">Комманды</div>
+                                                <div class="col-md-1">Результат</div>
+                                                <div class="col-md-2">Комманды</div>
                                             </div>
                                         </div>
                                         <div class="inner-padding">
@@ -99,11 +100,11 @@
                                                         @if (work.User.AvatarPath == null)
                                                         {
                                                             string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon" />
+                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon user-icon" />
                                                         }
                                                         else
                                                         {
-                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon" />
+                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon user-icon" />
                                                         }
 
                                                         <span>
@@ -120,14 +121,18 @@
                                                             @work.Amount
                                                         </span>
                                                     </div>
-                                                    <div class="col-md-3">
-                                                        <div class="icons-container">
-                                                            @if (work.DocFileId != null)
-                                                            {
+                                                    <div class="col-md-1">
+                                                        @if (work.DocFileId != null)
+                                                        {
+                                                            <div class="icons-container">
                                                                 <a href="@Url.Action("Download", "Documents", new { @filepath = work.DocFile.Path })">
                                                                     <i class="material-icons">file_download</i>
                                                                 </a>
-                                                            }
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="icons-container">
                                                             <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
                                                                 <i class="material-icons">file_upload</i>
                                                             </a>
@@ -211,30 +216,14 @@
 
         .worktype-content .docworks-container {
             margin: 10px;
+            display: flex;
+            margin-bottom: 30px;
         }
-
-        .worktype-content .doc-container {
-            height: 158px;
-            width: 200px;
-            background-color: #ffffffed;
-            float: left;
-            padding: 0px 10px;
-            margin-top: 5px;
-            text-align: center;
-            vertical-align: top;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
-        }
-
-            .worktype-content .doc-container p {
-                font-size: 16px;
-            }
 
         .worktype-content .works-table {
-            width: auto;
+            width: 100%;
             overflow: hidden;
-            padding: 5px 10px 0 30px;
+            padding: 5px 20px 0 30px;
         }
 
             .worktype-content .works-table > .tableMaterial {
@@ -272,6 +261,10 @@
             padding-left: 10px;
             align-self: center;
             vertical-align: middle;
+        }
+
+        .user-icon{
+            margin-left:10px;
         }
 </style>
 

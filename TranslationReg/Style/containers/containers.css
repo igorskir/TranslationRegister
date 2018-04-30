@@ -1,24 +1,44 @@
 
 /*------------------------------------ ÔÎÐÌÛ ÄÎÁÀÂËÅÍÈß ------------------------------------*/
-.dynamic-block-create > form {
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    background-color: #ffffff61;
+.dynamic-block-create {
+    margin-bottom: 40px;
+    max-width: 600px;
 }
 
-    .dynamic-block-create > form div {
+.dynamic-block-create form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 20px;
+}
+
+    .dynamic-block-create form .form-group {
         display: flex;
         flex-direction: row;
         align-items: center;
-        font-size: 17px;
+        font-size: 16px;
     }
 
-        .dynamic-block-create > form div option {
-            font-size: 16px;
-        }
+    .dynamic-block-create form .btn-submit:hover {
+        color: white;
+        background-color: #c42d5b;
+        border: 1px solid #c42d5b;
+    }
 
-        .dynamic-block-create > form div label {
-            width: 200px;
-            margin:0 30px 0 0;
-        }
+.dynamic-block-create .form-group {
+    margin: 0;
+    padding: 10px;
+    /*
+    border-bottom: 1px solid #d3d3d37a;
+    */
+}
+    .dynamic-block-create .form-group:last-of-type {
+        border-bottom: none;
+    }
+
+.dynamic-block-create form .form-group label {
+    width: 200px;
+    margin: 0 30px 0 0;
+    font-weight: 300;
+}
+
+       

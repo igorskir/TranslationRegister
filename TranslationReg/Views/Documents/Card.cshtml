@@ -1,0 +1,18 @@
+﻿@model TranslationRegistryModel.Document
+
+<div class="doc-container">
+    <img src="~/Uploads/DocIcons/Word.png" width="100" height="100" style="float:left" />
+    <div class="icons-column">
+        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+            <i class="material-icons">file_download</i>
+        </a>
+        <a href="/Documents/Edit/@Model.Id">
+            <i class="material-icons">mode_edit</i>
+        </a>
+        <a data-href="/Documents/Delete/@Model.Id" class="loadModal" data-dialog-title="Удаление документа и работ">
+            <i class="material-icons">delete</i>
+        </a>
+    </div>
+    <hr style="margin:5px" />
+    <p style="margin:0">@Model.Name</p>
+</div>

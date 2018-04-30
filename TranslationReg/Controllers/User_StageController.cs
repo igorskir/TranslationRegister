@@ -28,13 +28,69 @@ namespace TranslationReg.Controllers
             return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
 
-        // GET: User_Stage/MyTasks
+        // GET: User_Stage/Tasks
         // принимает id стадии
-        public async Task<ActionResult> MyTasks()
+        public async Task<ActionResult> Tasks()
         {
-            var tasks = await Rep.GetMyTasks(User.Identity.Name);
+            var tasks = await Rep.GetMyCurrentTasks(User.Identity.Name);
+            if (Request.IsAjaxRequest())
+                return PartialView(tasks);
+            return
+                View(tasks);
+        }
 
-            return PartialView(tasks);
+
+
+        // GET: User_Stage/AddResultFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddResultFile(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            if (user_Stage == null)
+                return HttpNotFound();
+
+            return PartialView(user_Stage);
+        }
+        // POST: User_Stage/AddResultFile
+        // принимает id стадии
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> AddResultFile(int? id, [Bind(Include = "result")] HttpPostedFileBase result)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
+
+            if (user_Stage == null)
+                return HttpNotFound();
+
+            if (result != null && result.ContentLength != 0)
+            {
+                user_Stage.DocFile = await Helper.SetFile(result, Rep, Server);
+                await Rep.PutUser_Stage(user_Stage);
+            }
+
+            return RedirectToAction("Tasks");
+        }
+
+        // GET: User_Stage/InWork
+        // принимает id стадии
+        public async Task<ActionResult> InWork()
+        {
+            var tasks = await Rep.GetMyCurrentTasks(User.Identity.Name);
+            return PartialView("List", tasks);
+        }
+        // GET: User_Stage/Done
+        // принимает id стадии
+        public async Task<ActionResult> Done()
+        {
+            var tasks = await Rep.GetMyDoneTasks(User.Identity.Name);
+            return PartialView("List", tasks);
         }
 
         // POST: User_Stage/Create
@@ -82,9 +138,9 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutUser_Stage(user_Stage);
-                var taskList = await Rep.GetMyTasks(User.Identity.Name);
+                //todo
+                var taskList = await Rep.GetMyCurrentTasks(User.Identity.Name);
                 return PartialView("List", taskList);
-                //return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(user_Stage);
@@ -110,13 +166,13 @@ namespace TranslationReg.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        // POST: User_Stage/DeleteFromMyTasks/5
+        // POST: User_Stage/DeleteFromTasks/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFromMyTasks(int id)
+        public async Task<ActionResult> DeleteFromTasks(int id)
         {
             await Rep.DeleteUser_Stage(id);
-            return RedirectToAction("MyTasks");
+            return RedirectToAction("Tasks");
         }
 
         // GET: User_Stage/Download

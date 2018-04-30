@@ -1,34 +1,41 @@
 ﻿@model TranslationReg.Models.DocumentModel
 <div class="dynamic-block-create">
-    @using (Html.BeginForm("Create", "Documents", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
-    {
-        @Html.AntiForgeryToken()
-
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Document.Name, "Название")
-            @Html.EditorFor(model => model.Document.Name, new { htmlAttributes = new { @class = "form-control", required = "required ", id = "fileName" } })
-            @Html.ValidationMessageFor(model => model.Document.Name, "", new { @class = "text-danger" })
+    <div class="tableMaterial">
+        <div class="titles">
+            <div class="col-md-12">Добавление нового документа</div>
         </div>
+        @using (Html.BeginForm("Create", "Documents", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Document.ProjectId, "Проект")
-            @Html.DropDownListFor(model => Model.Document.ProjectId, Model.Projects, new { @class = "form-control", required = "required" })
-            @Html.ValidationMessageFor(model => model.Document.ProjectId, "", new { @class = "text-danger" })
-        </div>
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Document.Name, "Название")
+                @Html.EditorFor(model => model.Document.Name, new { htmlAttributes = new { @class = "form-control", required = "required ", id = "fileName" } })
+                @Html.ValidationMessageFor(model => model.Document.Name, "", new { @class = "text-danger" })
+            </div>
 
-        <div class="form-group">
-            @Html.Label("Файл оригинала")
-            <input type="file" name="original" required="required" class="fileNamePicker" />
-        </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Document.ProjectId, "Проект")
+                @Html.DropDownListFor(model => Model.Document.ProjectId, Model.Projects, new { @class = "form-control", required = "required" })
+                @Html.ValidationMessageFor(model => model.Document.ProjectId, "", new { @class = "text-danger" })
+            </div>
 
-        <div class="form-group">
-            @Html.Label("Конечный файл (*если готов)")
-            <input type="file" name="final" />
-        </div>
+            <div class="form-group">
+                @Html.Label("Файл оригинала")
+                <input type="file" name="original" required="required" class="fileNamePicker" />
+            </div>
 
-        <input type="submit" value="Сохранить" class="btn btn-default btn-form" />
-    }
+            <div class="form-group">
+                @Html.Label("Конечный файл (*если готов)")
+                <input type="file" name="final" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Сохранить" class="btn btn-default btn-form btn-submit" />
+            </div>
+
+        }
+    </div>
 </div>
 
 <script type="text/javascript">

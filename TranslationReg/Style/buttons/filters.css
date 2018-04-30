@@ -33,3 +33,28 @@
 .filterContainer{
     padding-left:50px;
 }
+
+.buttons {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 15px;
+}
+    .buttons li {
+        display: inline-block;
+    }
+        .buttons li div {
+            display: flex;
+            padding: 8px 10px;
+            text-decoration: none;
+            transition: 0.3s;
+            background: #3d5279 !important;
+            color: white !important;
+            opacity: 0.9;
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
+            margin: 5px;
+        }
+            .buttons li div:hover {
+                color: #d41955 !important;
+                background-color: white;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+            }

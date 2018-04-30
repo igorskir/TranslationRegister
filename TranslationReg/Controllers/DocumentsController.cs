@@ -142,7 +142,7 @@ namespace TranslationReg.Controllers
                         await Rep.AddDocStage(initialStage);
 
                         //return new HttpStatusCodeResult(HttpStatusCode.OK);
-                        return Redirect(Request.UrlReferrer.ToString());
+                        return View("Index", await Rep.GetDocuments());
                     }
                     else
                         await Rep.DeleteDocFile(originalFile.Id);
@@ -207,7 +207,7 @@ namespace TranslationReg.Controllers
                     };
                     await Rep.AddDocStage(initialStage);
 
-                    return Redirect("InWork");
+                    return View("Index", await Rep.GetDocuments());
                 }
                 else
                     await Rep.DeleteDocFile(originalFile.Id);

@@ -12,15 +12,10 @@
         <li>
             <div class="btn-wrapper ajaxToggleBtn" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
                 <i class="material-icons">add_circle</i>
-                <span> Документ</span>
+                <span> Документы</span>
             </div>
         </li>
-        <li>
-            <div class="btn-wrapper ajaxToggleBtn" data-ajax-update="#addArea" data-href="/DocStages/ChooseForProject/@Model.Id">
-                <i class="material-icons">add_circle</i>
-                <span> Стадия</span>
-            </div>
-        </li>
+
         <li>
             <div class="btn-wrapper" data-ajax="true" data-ajax-update="#projectList" data-href="/Projects/Finalise/@Model.Id">
                 <i class="material-icons">done_all</i>
@@ -72,16 +67,7 @@
 
                                     //--------------------------------------------- ОТОБРАЖЕНИЕ ДОКОВ ------------------------------------------
                                     var currentDoc = oneDocStages.First().Document;
-                                    <div class="doc-container">
-                                        <img src="~/Uploads/DocIcons/Word.png" width="100" height="100" style="float:left" />
-                                        <div class="icons-column">
-                                            <a><i class="material-icons">file_download</i></a>
-                                            <a><i class="material-icons">edit</i></a>
-                                            <a><i class="material-icons">delete</i></a>
-                                        </div>
-                                        <hr style="margin:5px" />
-                                        <p style="margin:0">@currentDoc.Name</p>
-                                    </div>
+                                    @Html.Partial("../Documents/Card", currentDoc)
                                     //----------------------------------------------------------------------------------------------------------
 
                                     //--------------------------------------------- ТАБЛИЦА РАБОТ ------------------------------------------
@@ -138,11 +124,19 @@
                                                         <div class="icons-container">
                                                             @if (work.DocFileId != null)
                                                             {
-                                                                <a><i class="material-icons">file_download</i></a>
+                                                                <a href="@Url.Action("Download", "Documents", new { @filepath = work.DocFile.Path })">
+                                                                    <i class="material-icons">file_download</i>
+                                                                </a>
                                                             }
-                                                            <a><i class="material-icons">file_upload</i></a>
-                                                            <a><i class="material-icons">edit</i></a>
-                                                            <a><i class="material-icons">delete</i></a>
+                                                            <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
+                                                                <i class="material-icons">file_upload</i>
+                                                            </a>
+                                                            <a class="loadModal" data-href="/User_Stage/Edit/@work.Id">
+                                                                <i class="material-icons">edit</i>
+                                                            </a>
+                                                            <a class="loadModal" data-href="/User_Stage/Delete/@work.Id">
+                                                                <i class="material-icons">delete</i>
+                                                            </a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -279,34 +273,6 @@
             align-self: center;
             vertical-align: middle;
         }
-
-    .buttons {
-        list-style: none;
-        padding: 0;
-        margin-bottom: 15px;
-    }
-
-        .buttons li {
-            display: inline-block;
-        }
-
-            .buttons li div {
-                display: flex;
-                padding: 8px 10px;
-                text-decoration: none;
-                transition: 0.3s;
-                background: #3d5279 !important;
-                color: white !important;
-                opacity: 0.9;
-                box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
-                margin: 5px;
-            }
-
-                .buttons li div:hover {
-                    color: #d41955 !important;
-                    background-color: white;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-                }
 </style>
 
 @section scripts {

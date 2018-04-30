@@ -311,6 +311,10 @@
     <Content Include="Style\themes\base\tabs.css" />
     <Content Include="Style\themes\base\theme.css" />
     <Content Include="Style\themes\base\tooltip.css" />
+    <Content Include="Uploads\DocIcons\any.png" />
+    <Content Include="Uploads\DocIcons\doc.png" />
+    <Content Include="Uploads\DocIcons\pdf.png" />
+    <Content Include="Uploads\DocIcons\ppt.png" />
     <Content Include="Uploads\UserAvatars\default.jpg" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>

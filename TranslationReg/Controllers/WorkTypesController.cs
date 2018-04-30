@@ -12,13 +12,6 @@ namespace TranslationReg.Controllers
     {
         public WorkTypesController(IRepository repository) : base(repository) { } // Конструктор
 
-        // GET: WorkTypes           списки карточек типов работ, статусов проектов, ед. измерения
-        public async Task<ActionResult> Index()
-        {
-            var workTypesModel = await WorkTypesModel.GetModel(Rep);
-            return View(workTypesModel);
-        }
-
         // GET: WorkTypes/Card
         public async Task<ActionResult> Card(int id)
         {
@@ -28,7 +21,9 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Cards()
         {
             var workTypesModel = await WorkTypesModel.GetModel(Rep);
-            return PartialView(workTypesModel);
+            if (Request.IsAjaxRequest())
+                return PartialView(workTypesModel);
+            return View(workTypesModel);
         }
 
         // GET: WorkTypes/AddCard

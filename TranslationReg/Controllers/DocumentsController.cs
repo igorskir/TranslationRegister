@@ -19,7 +19,9 @@ namespace TranslationReg.Controllers
         // GET: Documents
         public async Task<ActionResult> Index()
         {
-            return PartialView(await Rep.GetDocuments());
+            if (Request.IsAjaxRequest())
+                return PartialView(await Rep.GetDocuments());
+            return View(await Rep.GetDocuments());
         }
         
         //                                          ФИЛЬТРЫ
@@ -94,11 +96,13 @@ namespace TranslationReg.Controllers
             foreach (var original in files)
             {
 
-                Document document = new Document();
-                document.ProjectId = id;
-                document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
-                document.Date = DateTime.Now;
-                
+                Document document = new Document
+                {
+                    ProjectId = id,
+                    OwnerId = (await Rep.GetUser(User.Identity.Name)).Id,
+                    Date = DateTime.Now
+                };
+
                 if (original != null && original.ContentLength != 0)
                 {
                     document.Name = HttpUtility.UrlDecode(original.FileName);
@@ -142,7 +146,7 @@ namespace TranslationReg.Controllers
                         await Rep.AddDocStage(initialStage);
 
                         //return new HttpStatusCodeResult(HttpStatusCode.OK);
-                        return View("Index", await Rep.GetDocuments());
+                        //return View("Index", await Rep.GetDocuments());
                     }
                     else
                         await Rep.DeleteDocFile(originalFile.Id);
@@ -150,69 +154,78 @@ namespace TranslationReg.Controllers
                 }
 
             }
-            return View();
+
+            return View("Index", await Rep.GetDocuments());
         }
-     
+
 
 
         // POST: Documents/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Document document, [Bind(Include = "original")] HttpPostedFileBase original, [Bind(Include = "final")] HttpPostedFileBase final)
+        public async Task<ActionResult> Create(Document document, [Bind(Include = "original")] IEnumerable<HttpPostedFileBase> original, [Bind(Include = "final")] HttpPostedFileBase final)
         {
-            // дополняем информацию о владельце и дате
-            document.OwnerId = (await Rep.GetUser(User.Identity.Name)).Id;
-            document.Date = DateTime.Now;
-
-
-            if (original != null && original.ContentLength != 0)
+            
+            foreach (var originalOne in original)
             {
-                //здесь и сохранение файла и кортежа DocFile
-                var originalFile = (await Helper.SetFile(original, Rep, Server));
-                // дополняем информацию об оригинале
-                document.OriginalFileId = originalFile.Id;
-
-                // определение числа слов автоматом
-                var MsWordDocMime = "application/msword";
-                var MsWordDocxMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-                if (original.ContentType == MsWordDocMime || original.ContentType == MsWordDocxMime)
+                Document NewDoc = new Document
                 {
-                    try
+                    ProjectId = document.ProjectId,
+                    OwnerId = (await Rep.GetUser(User.Identity.Name)).Id,
+                    Date = DateTime.Now
+                };
+                if (originalOne != null && originalOne.ContentLength != 0)
+                {
+                    NewDoc.Name = originalOne.FileName;
+                    //здесь и сохранение файла и кортежа DocFile
+                    var originalFile = (await Helper.SetFile(originalOne, Rep, Server));
+                    // дополняем информацию об оригинале
+                    NewDoc.OriginalFileId = originalFile.Id;
+
+                    // определение числа слов автоматом
+                    var MsWordDocMime = "application/msword";
+                    var MsWordDocxMime = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+                    if (originalOne.ContentType == MsWordDocMime || originalOne.ContentType == MsWordDocxMime)
                     {
-                        using (Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(originalFile.Path))
+                        try
                         {
-                            doc.UpdateWordCount(false);
-                            int wordCount = doc.BuiltinDocumentProperties.WordCount;
-                            document.WordsNumber = wordCount;
+                            using (Syncfusion.DocIO.DLS.WordDocument doc = new Syncfusion.DocIO.DLS.WordDocument(originalFile.Path))
+                            {
+                                doc.UpdateWordCount(false);
+                                int wordCount = doc.BuiltinDocumentProperties.WordCount;
+                                NewDoc.WordsNumber = wordCount;
+                            }
                         }
+                        catch (Exception) { }
                     }
-                    catch (Exception){}
+
+                    // если прикрепили сразу перевод, добавляем в базу
+                    if (final != null && final.ContentLength != 0)
+                        NewDoc.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
+
+                    if (ModelState.IsValid)
+                    {
+                        // сохраняем док
+                        await Rep.AddDocument(NewDoc);
+
+                        // добавляем стадию автоматом. Id дока обновился после сохранения
+                        var project = await Rep.GetProject(NewDoc.ProjectId.Value);
+                        DocStage initialStage = new DocStage
+                        {
+                            OriginalId = NewDoc.OriginalFileId,
+                            DocumentId = NewDoc.Id,
+                            WorkTypeId = project.WorkTypeId.Value,
+                        };
+                        await Rep.AddDocStage(initialStage);
+
+
+                    }
+                    else
+                        await Rep.DeleteDocFile(originalFile.Id);
                 }
-           
-                // если прикрепили сразу перевод, добавляем в базу
-                if (final != null && final.ContentLength != 0)
-                    document.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
-
-                if (ModelState.IsValid)
-                {
-                    // сохраняем док
-                    await Rep.AddDocument(document);
-
-                    // добавляем стадию автоматом. Id дока обновился после сохранения
-                    var project = await Rep.GetProject(document.ProjectId.Value);
-                    DocStage initialStage = new DocStage {
-                        OriginalId = document.OriginalFileId,
-                        DocumentId = document.Id,
-                        WorkTypeId = project.WorkTypeId.Value,
-                    };
-                    await Rep.AddDocStage(initialStage);
-
-                    return View("Index", await Rep.GetDocuments());
-                }
-                else
-                    await Rep.DeleteDocFile(originalFile.Id);
             }
-            return View(document);
+            return View("Index", await Rep.GetDocuments());
+            
         }
        
         // GET: Documents/Download
@@ -242,7 +255,7 @@ namespace TranslationReg.Controllers
             //todo viewmodel
             ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
-            return View(document);
+            return PartialView(document);
         }
         // POST: Documents/Edit/5
         [HttpPost]

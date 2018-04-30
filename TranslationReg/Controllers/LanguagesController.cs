@@ -15,7 +15,9 @@ namespace TranslationReg.Controllers
         // GET: Languages/Cards            списки карточек языков и языковых пар
         public async Task<ActionResult> Cards()
         {
-            return PartialView(await LanguagesModel.GetModel(Rep));
+            if (Request.IsAjaxRequest())
+                return PartialView(await LanguagesModel.GetModel(Rep));
+            return View(await LanguagesModel.GetModel(Rep));
         }
 
         // GET: Languages/Card

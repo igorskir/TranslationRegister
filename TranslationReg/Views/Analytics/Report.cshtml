@@ -5,27 +5,28 @@
 
 @Html.Partial("..//Analytics//Filters")
 
+@if (ViewBag.list != null)
+{
+    <div class="dates">@ViewBag.dates</div>
+
+    <div class="tableMaterial ReportTable" >
 
 
-<div class="ReportTable">
-
-    @if (ViewBag.list != null)
-    {
-        <div class="dates">@ViewBag.dates</div>
         <div class="titles">
             <div class="col-md-4">Пользователь</div>
             <div class="col-md-4">Тип работы</div>
             <div class="col-md-4">Итого</div>
         </div>
-        foreach (var userWorks in ViewBag.list)
+
+        @foreach (var userWorks in ViewBag.list)
         {
 
             <div class="properties">
                 <div class="col-md-4">
                     <span>
                         @userWorks.User
-                        <span>
-</div>
+                    </span>
+                </div>
                 <div class="col-md-4">
                     <span>
                         @userWorks.Work
@@ -39,25 +40,27 @@
             </div>
 
         }
-    }
-    else
+
+    </div>
+    ViewBag.list = null;
+}
+else
+{
+    if (ViewBag.nodata != null)
     {
-        if (ViewBag.nodata != null)
-        {
-            <a>@ViewBag.nodata</a>
-        }
-
+        <a>@ViewBag.nodata</a>
     }
-</div>
 
+}
 <style>
-    .ReportTable{
-        margin-top:3%;
-        width:70%;
-        position:center;
+    .ReportTable {
+        margin-top: 3%;
+        margin-bottom:3%;
+        width: 70%;
+        position: center;
     }
-    .dates{
-        font-size:16px;
+
+    .dates {
+        font-size: 16px;
     }
-    
 </style>

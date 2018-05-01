@@ -4,10 +4,7 @@
     @using (Html.BeginForm("Report", "Analytics", FormMethod.Post))
     {
         @Html.AntiForgeryToken()
-
-
-
-
+        
         <div class="btn-group">
             <button type="button" class="btn btn-default" onclick="MonthBTN()">Текущий месяц</button>
             <button type="button" class="btn btn-default" onclick="BefMonthBTN()">Прошлый месяц</button>
@@ -18,7 +15,7 @@
 
         <div class="form-group">
             @Html.Label("Дата от")
-            <input type="date" name="filters.PeriodFrom" value="@Model.DateFrom.ToString("yyyy-MM-dd")" id="dateFrom">
+            <input type="date" name="filters.PeriodFrom" value="@Model.DateFrom.ToString("yyyy-MM-dd")" id="dateFrom" onchange="DateChanged()">
         </div>
 
         <div class="form-group">
@@ -27,8 +24,8 @@
         </div>
 
         <div class="form-group">
-            @Html.Label("Проект")
-            @Html.DropDownList("filters.projectId", Model.ProjectList, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+            @Html.Label("Проект", new {id="ProjectCount" })
+            @Html.DropDownList("filters.projectId", Model.ProjectList, new { id = "ProjectList",  htmlAttributes = new { @class = "form-control", required = "required" } })
         </div>
 
         <div class="form-group">
@@ -94,27 +91,60 @@
         }
         }
 
+    window.onload = function () {
+        DateChanged();
+    };
+    function DateChanged()
+    {
+        var projects = $('#ProjectList');
+        $.ajax({
+            url: '@Url.Action("UpdateProj", "Analytics")',
+            type: "get",
+            data: { dateFrom: document.getElementById("dateFrom").value },
+            dataType: 'json',
+            success: function (data) {
+                projects.empty();
+                $.each(data, function (index, value) {
+                    $('#ProjectCount').html("Проект (" + data.length + ")");
+                    console.log(@Model.ProjectList.SelectedValue);
+                    projects.append($("<option/>", {
+                         
+                        value: value.Value,
+                        text: value.Text,
+                         
+                        
+                        
+                    }));
+                });
+             }
+
+        });
+    }
+
         function YearBTN()
         {
             document.getElementById("dateFrom").value = "@(YearPeriod()[0].ToString("yyyy-MM-dd"))";
-            document.getElementById("dateTo").value  =  "@(YearPeriod()[1].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value = "@(YearPeriod()[1].ToString("yyyy-MM-dd"))";
+            DateChanged()
         }
 
         function HalfYearBTN()
         {
             document.getElementById("dateFrom").value = "@(HalfYearPeriod()[0].ToString("yyyy-MM-dd"))";
-            document.getElementById("dateTo").value  =  "@(HalfYearPeriod()[1].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value = "@(HalfYearPeriod()[1].ToString("yyyy-MM-dd"))";
+            DateChanged()
         }
         function MonthBTN()
         {
             document.getElementById("dateFrom").value = "@(MonthPeriod()[0].ToString("yyyy-MM-dd"))";
             document.getElementById("dateTo").value  =  "@(MonthPeriod()[1].ToString("yyyy-MM-dd"))";
-
+            DateChanged()
         }
      function BefMonthBTN()
         {
             document.getElementById("dateFrom").value = "@(BefMonthPeriod()[0].ToString("yyyy-MM-dd"))";
-            document.getElementById("dateTo").value  =  "@(BefMonthPeriod()[1].ToString("yyyy-MM-dd"))";
+            document.getElementById("dateTo").value = "@(BefMonthPeriod()[1].ToString("yyyy-MM-dd"))";
+            DateChanged()
         }
 
     // Название вкладки

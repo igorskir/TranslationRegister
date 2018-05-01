@@ -9,7 +9,9 @@ namespace TranslationReg.Controllers
         [AllowAnonymous]
         public ActionResult About()
         {
+            if (Request.IsAjaxRequest())
             return PartialView();
+            return View();
         }
 
     }

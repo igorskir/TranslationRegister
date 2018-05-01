@@ -1,16 +1,16 @@
-﻿.edit-header {
+﻿.blue-modal-header {
     background-color: #3d5279;
     color: white;
     border-bottom: 2px solid #1e2f4f;
 }
 
-.btn-edit {
+.btn-modal-save {
     background-color: #3d5279;
     color: white;
     width: 120px;
     float: left;
 }
-    .btn-edit:hover {
+    .btn-modal-save:hover {
         background-color: #c42d5b;
         color: white;
     }

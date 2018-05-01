@@ -92,7 +92,6 @@ namespace TranslationReg.Controllers
         [HttpPost]
         public async Task<ActionResult> UploadFiles(int id, IEnumerable<HttpPostedFileBase> files)
         {
-            
             foreach (var original in files)
             {
 
@@ -128,7 +127,6 @@ namespace TranslationReg.Controllers
                         catch (Exception) { }
                     }
 
-                  
                     if (ModelState.IsValid)
                     {
                         
@@ -210,7 +208,9 @@ namespace TranslationReg.Controllers
                     };
                     await Rep.AddDocStage(initialStage);
 
-                    return View("Index", await Rep.GetDocuments());
+                    //return View("Index", await Rep.GetDocuments());
+                    return Redirect(Request.UrlReferrer.ToString());
+
                 }
                 else
                     await Rep.DeleteDocFile(originalFile.Id);
@@ -247,6 +247,7 @@ namespace TranslationReg.Controllers
 
             return PartialView(document);
         }
+
         // POST: Documents/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

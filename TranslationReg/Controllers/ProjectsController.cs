@@ -40,7 +40,10 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Projects()
         {
             var projects = await Rep.GetProjectsInWork();
-            return PartialView("Index",projects);
+
+            if (this.Request.IsAjaxRequest())
+                return PartialView("Index", projects);
+            return View("Index", projects);
         }
         //                                          ФИЛЬТРЫ
         // GET: Projects/All

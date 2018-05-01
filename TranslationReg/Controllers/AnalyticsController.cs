@@ -19,7 +19,9 @@ namespace TranslationReg.Controllers
         // GET: Analytics
         public async Task<ActionResult> Index()
         {
-            return PartialView("Report", await ReportModel.GetModel(Rep));
+            if (Request.IsAjaxRequest())
+                return PartialView("Report", await ReportModel.GetModel(Rep));
+            return View("Report", await ReportModel.GetModel(Rep));
         }
         public async Task<ActionResult> Filters()
         {

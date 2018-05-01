@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="doc-next-stage">
+        <div class="doc-next-stage loadModal" data-href="/DocStages/CreateModal/@Model.Id" >
             <span>В новую стадию</span>
             <i class="material-icons">keyboard_arrow_down</i>
         </div>
@@ -56,7 +56,7 @@
 
         .doc-card-container .doc-card {
             width: 190px;
-            background-color: #ffffffed;
+            background-color: #ffffff;
             text-align: center;
             vertical-align: top;
             border-radius: 6px;
@@ -77,10 +77,6 @@
         float: left;
         padding: 5px;
     }
-    .doc-card:hover {
-        transition:0.3s;
-        box-shadow: 2px 4px 6px 0px rgba(0, 0, 0, 0.3);
-    }
 
     .doc-next-stage,
     .doc-card-header {
@@ -91,7 +87,6 @@
         align-content: center;
         font-size: 14px;
         color: white;
-        box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
     }
 
     .doc-next-stage {
@@ -115,6 +110,11 @@
     .doc-next-stage:hover span {
         transition: 0.3s;
         color: #c42d5b;
+    }
+
+    .doc-next-stage:hover {
+        transition: 0.3s;
+        background-color: white;
     }
 
     .doc-next-stage span {

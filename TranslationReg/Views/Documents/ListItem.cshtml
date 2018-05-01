@@ -1,0 +1,50 @@
+﻿@model TranslationRegistryModel.Document
+
+<div class="properties">
+    <div class="col-md-3">
+        <a class="titleLink" href="/Documents/DocAndStages/@Model.Id">@Model.Name</a>
+    </div>
+
+    <div class="col-md-2">
+        <span>
+            @Model.Date.ToString("dd/MM/yyyy")
+        </span>
+    </div>
+
+    <div class="col-md-1">
+        <span>
+            @Html.DisplayFor(modelItem => Model.WordsNumber)
+        </span>
+    </div>
+
+    <div class="col-md-2">
+        @if (!String.IsNullOrWhiteSpace(Model.OriginalFile.Path))
+        {
+            <div class="icons-container">
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                    <i class="material-icons">file_download</i>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="col-md-2">
+        @if (Model.FinalFile != null && !String.IsNullOrWhiteSpace(Model.FinalFile.Path))
+        {
+            <div class="icons-container">
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })">
+                    <i class="material-icons">file_download</i>
+                </a>
+            </div>
+        }
+    </div>
+    <div class="col-md-2">
+        <div class="icons-container">
+            <a data-href="/Documents/Edit/@Model.Id" class="loadModal">
+                <i class="material-icons">mode_edit</i>
+            </a>
+            <a data-href="/Documents/Delete/@Model.Id" class="loadModal">
+                <i class="material-icons">delete</i>
+            </a>
+        </div>
+    </div>
+</div>

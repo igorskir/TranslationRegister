@@ -8,29 +8,26 @@ using TranslationRegistryModel;
 
 namespace TranslationReg.Models
 {
-    public class StageForProjModel
+    public class StageForDocModel
     {
-        public int projectId;
-        public int worktypeId;
+        public int docId;
         public SelectList worktypes;
+        public bool available;
 
-        public static async Task<StageForProjModel> GetModel(IRepository Rep, Project project)
+        public static async Task<StageForDocModel> GetModel(IRepository Rep, Document doc)
         {
             //список доступных стадий
             List<WorkType> availableWorkTypes = await Rep.GetWorkTypes();
-            List<WorkType> takenWorktypes = project.Documents.SelectMany(x => x.Stages).Select(x => x.WorkType).ToList();
+            List<WorkType> takenWorktypes = doc.Stages.Select(x => x.WorkType).ToList();
             availableWorkTypes = availableWorkTypes.Except(takenWorktypes).ToList();
-            if (availableWorkTypes.Any())
+            var selectList = new SelectList(availableWorkTypes, "Id", "Name", availableWorkTypes[0].Id);
+            StageForDocModel model = new StageForDocModel
             {
-                var selectList = new SelectList(availableWorkTypes, "Id", "Name", availableWorkTypes[0].Id);
-                StageForProjModel model = new StageForProjModel
-                {
-                    projectId = project.Id,
-                    worktypes = selectList
-                };
-                return model;
-            }
-            return null;
+                docId = doc.Id,
+                worktypes = selectList,
+                available = availableWorkTypes.Any()
+            };
+            return model;
         }
     }
 }

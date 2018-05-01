@@ -11,53 +11,6 @@
 
     @foreach (var document in Model)
     {
-        <div class="properties">
-            <div class="col-md-3">
-                <a class="titleLink" href="/Documents/DocAndStages/@document.Id">@document.Name</a>
-            </div>
-
-            <div class="col-md-2">
-                <span>
-                    @document.Date.ToString("dd/MM/yyyy")
-                </span>
-            </div>
-
-            <div class="col-md-1">
-                <span>
-                    @Html.DisplayFor(modelItem => document.WordsNumber)
-                </span>
-            </div>
-
-            <div class="col-md-2">
-                @if (!String.IsNullOrWhiteSpace(document.OriginalFile.Path))
-                {
-                    <div class="icons-container">
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.OriginalFile.Path })">
-                            <i class="material-icons">file_download</i>
-                        </a>
-                    </div>
-                }
-            </div>
-            <div class="col-md-2">
-                @if (document.FinalFile != null && !String.IsNullOrWhiteSpace(document.FinalFile.Path))
-                {
-                    <div class="icons-container">
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = document.FinalFile.Path })">
-                            <i class="material-icons">file_download</i>
-                        </a>
-                    </div>
-                }
-            </div>
-            <div class="col-md-2">
-                <div class="icons-container">
-                    <a data-href="/Documents/Edit/@document.Id" class="loadModal">
-                        <i class="material-icons">mode_edit</i>
-                    </a>
-                    <a data-href="/Documents/Delete/@document.Id" class="loadModal">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </div>
-            </div>
-        </div>
+        @Html.Partial("ListItem", document)
     }
 </div>

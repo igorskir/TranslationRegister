@@ -25,47 +25,63 @@
                         </div>
                     </div>
                     <ul>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Projects/Projects">
-                            <div class="menuSelection currentMenuSelection"></div>
-                            <i class="material-icons">folder</i>
-                            <p>Проекты</p>
+                        <li>
+                            <a href="/Projects/Projects" class="main-menu-button">
+                                <div class="menuSelection currentMenuSelection" id="Project"></div>
+                                <i class="material-icons">folder</i>
+                                <p>Проекты</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/User_Stage/Tasks">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">event</i>
-                            <p>Мои задачи</p>
+                        <li>
+                            <a href="/User_Stage/Tasks" class="main-menu-button">
+                                <div class="menuSelection" id="Tasks"></div>
+                                <i class="material-icons">event</i>
+                                <p>Мои задачи</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Documents/Index">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">description</i>
-                            <p>Документы</p>
+                        <li>
+                            <a href="/Documents/Index" class="main-menu-button">
+                                <div class="menuSelection" id="Documents"></div>
+                                <i class="material-icons">description</i>
+                                <p>Документы</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Analytics/Index">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">trending_up</i>
-                            <p>Отчеты</p>
+                        <li>
+                            <a href="/Analytics/Index" class="main-menu-button">
+                                <div class="menuSelection" id="Analytics"></div>
+                                <i class="material-icons">trending_up</i>
+                                <p>Отчеты</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Languages/Cards">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">translate</i>
-                            <p>Языки</p>
+                        <li>
+                            <a href="/Languages/Cards" class="main-menu-button">
+                                <div class="menuSelection" id="Languages"></div>
+                                <i class="material-icons">translate</i>
+                                <p>Языки</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/WorkTypes/Cards">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">assignment</i>
-                            <p>Типы работ</p>
+                        <li>
+                            <a href="/WorkTypes/Cards" class="main-menu-button">
+                                <div class="menuSelection" id="Cards"></div>
+                                <i class="material-icons">assignment</i>
+                                <p>Типы работ</p>
+                            </a>
                         </li>
-                        <li class="ajaxBtn menuBtn" data-ajax="true" data-ajax-mode="replace" data-ajax-update="#partialContent" data-href="/Home/About">
-                            <div class="menuSelection"></div>
-                            <i class="material-icons">help_outline</i>
-                            <p>О программе</p>
+                        <li>
+                            <a href="/Home/About" class="main-menu-button">
+                                <div class="menuSelection" id="About"></div>
+                                <i class="material-icons">help_outline</i>
+                                <p>О программе</p>
+                            </a>
                         </li>
                         @if (Request.IsAuthenticated)
                         {
-                            <li class="logOffBtn" onclick="return location.href = '/Account/LogOff'">
-                                <div class="menuSelection"></div>
-                                <i class="material-icons">exit_to_app</i>
-                                <p>Выйти</p>
+                            <li>
+                                <a class="logOffBtn main-menu-button" onclick="return location.href = '/Account/LogOff'">
+                                    <div class="menuSelection" id="Exit"></div>
+                                    <i class="material-icons">exit_to_app</i>
+                                    <p>Выйти</p>
+                                </a>
                             </li>
                         }
 
@@ -87,6 +103,8 @@
     s14.946-6.691,14.946-14.946C35.146,11.861,28.455,5.169,20.201,5.169z M20.201,31.749c-6.425,0-11.634-5.208-11.634-11.634
     c0-6.425,5.209-11.634,11.634-11.634c6.425,0,11.633,5.209,11.633,11.634C31.834,26.541,26.626,31.749,20.201,31.749z" />
 
+
+
                 <path fill="#000" d="M26.013,10.047l1.654-2.866c-2.198-1.272-4.743-2.012-7.466-2.012h0v3.312h0
     C22.32,8.481,24.301,9.057,26.013,10.047z">
                 <animateTransform attributeType="xml"
@@ -96,6 +114,7 @@
                                   to="360 20 20"
                                   dur="0.5s"
                                   repeatCount="indefinite" />
+
     </path>
   </svg>
             </div>
@@ -121,9 +140,9 @@
     .loader {
         display: flex;
         position: absolute;
-        top:50%;
-        left:50%;
-        display:none;
+        top: 50%;
+        left: 50%;
+        display: none;
     }
 
         .loader > svg {
@@ -216,36 +235,42 @@
         margin-top: 30px;
     }
 
-        .menu-content > ul > li {
-            height: 50px;
-            padding: 10px;
-            font-size: 18px;
-            border-top: 1px solid #27395abf;
-            position: relative;
-        }
-
-        .menu-content > ul > li {
-            display: flex;
-            padding-left: 50px;
-            cursor: pointer;
-        }
-
-    .menu-content li > p,
-    .menu-content li > i {
-        padding-right: 15px;
+    .main-menu-button {
+        display: flex;
+        justify-content: flex-start;
+        flex-flow: row wrap;
         color: white;
-        text-decoration: none;
-        align-self: center;
+        height: 50px;
+        padding: 10px;
+        font-size: 18px;
+        border-top: 1px solid #27395abf;
+        position: relative;
+        padding-left: 70px;
         cursor: pointer;
-        font-weight: 500;
-        margin: 0;
+        text-decoration:none;
     }
+
+        .main-menu-button p,
+        .main-menu-button i {
+            color: white;
+            text-decoration: none;
+            align-self: center;
+            cursor: pointer;
+            font-weight: 500;
+            margin: 0;
+        }
+
+        .main-menu-button i {
+            padding-right: 15px;
+        }
+
     /* отмена краснения*/
     .menu-content i:hover {
         color: white;
     }
 
     .menu-content > ul > li:hover {
+        transition:0.2s;
         background-color: #c42d5b;
     }
 </style>

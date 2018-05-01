@@ -27,6 +27,7 @@ namespace SqlRepository
             return await context.User_Stage.
                 Where(x => x.UserId == userId).
                 Where(x => x.DocFileId == null).
+                Include(x=>x.Stage.Document.Project).
                 ToListAsync();
         }
 

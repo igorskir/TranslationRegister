@@ -212,6 +212,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DocStageModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\ReportModel.cs" />
     <Compile Include="Models\AccountModel.cs" />
@@ -394,6 +395,8 @@
     <Content Include="Views\User_Stage\ListItemEdit.cshtml" />
     <Content Include="Views\User_Stage\AddResultFile.cshtml" />
     <Content Include="Views\Documents\Card.cshtml" />
+    <Content Include="Views\DocStages\CreateModal.cshtml" />
+    <Content Include="Views\Documents\ListItem.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

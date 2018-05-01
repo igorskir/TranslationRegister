@@ -3,6 +3,7 @@ using System.Data;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 using TranslationRegistryModel;
 
@@ -71,6 +72,30 @@ namespace TranslationReg.Controllers
             DocStage stage = new DocStage() { DocumentId = parentDoc.Id };
             return PartialView(stage);
         }
+
+        // GET: DocStages/CreateModal
+        // Принимает id документа для которого создается
+        public async Task<ActionResult> CreateModal(int? id)
+        {
+            //проверка привязки к документу
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            Document parentDoc = await Rep.GetDocument(id.Value);
+            if (parentDoc == null)
+                return HttpNotFound();
+
+            //список доступных стадий
+            List<WorkType> availableWorkTypes = await Rep.GetWorkTypes();
+            List<WorkType> takenWorktypes = parentDoc.Stages.Select(x => x.WorkType).ToList();
+            availableWorkTypes = availableWorkTypes.Except(takenWorktypes).ToList();
+            ViewBag.WorkTypeId = new SelectList(availableWorkTypes, "Id", "Name");
+            //флаг возможности добавления стадии
+            ViewBag.Available = (availableWorkTypes.Count != 0);
+
+            var model = await TranslationReg.Models.StageForDocModel.GetModel(Rep, parentDoc);
+            return PartialView(model);
+        }
+
         // POST: DocStages/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,6 +109,35 @@ namespace TranslationReg.Controllers
 
             ViewBag.WorkTypeId = new SelectList(await Rep.GetWorkTypes(), "Id", "Name");
             return RedirectToAction("Details", "", docStage);
+        }
+
+        // POST: DocStages/CreateForDoc
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateForDoc(int? DocId, int? WorkTypeId, HttpPostedFileBase stageOriginal)
+        {
+            //проверка наличия файла и привязки к документу и типу работ
+            if (DocId == null || WorkTypeId == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document parentDoc = await Rep.GetDocument(DocId.Value);
+            WorkType workType = await Rep.GetWorkType(WorkTypeId.Value);
+
+            if (parentDoc == null || parentDoc == null || stageOriginal == null)
+                return HttpNotFound();
+
+            //здесь и сохранение файла и кортежа DocFile
+            var originalFile = (await Helper.SetFile(stageOriginal, Rep, Server));
+            // дополняем информацию об оригинале
+            DocStage stage = new DocStage
+            {
+                DocumentId = parentDoc.Id,
+                WorkTypeId = workType.Id,
+            };
+            stage.OriginalId = originalFile.Id;
+            await Rep.AddDocStage(stage);
+
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: DocStages/Edit/5

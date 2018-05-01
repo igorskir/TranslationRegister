@@ -50,11 +50,24 @@
         $(this).addClass("filter-active");
     });
 
-    $(document).on('click', '.menuBtn', function () {
-        var selecton = $(this).find("div");
-
+    $(document).on('click', '.main-menu-button', function () {
+        var selection = $(this).find(".menuSelection");
         $(".menuSelection").removeClass("currentMenuSelection");
-        selecton.addClass("currentMenuSelection");
+        selection.addClass("currentMenuSelection");
+        localStorage['currentMenuItem'] = selection.attr("id");
+    });
+
+    $(document).ready(function () {
+        var currentMenuItem = localStorage['currentMenuItem'];
+        if (!currentMenuItem) {
+            localStorage['currentMenuItem'] = "Projects";
+        }
+        else {
+            var selector = "#" + localStorage['currentMenuItem'];
+            var selection = $(selector);
+            $(".menuSelection").removeClass("currentMenuSelection");
+            selection.addClass("currentMenuSelection");
+        }
     });
 
     $(document).on('click', '.loadModal', function (e) {

@@ -35,8 +35,7 @@ namespace TranslationReg.Controllers
             var tasks = await Rep.GetMyCurrentTasks(User.Identity.Name);
             if (Request.IsAjaxRequest())
                 return PartialView(tasks);
-            return
-                View(tasks);
+            return View(tasks);
         }
 
 

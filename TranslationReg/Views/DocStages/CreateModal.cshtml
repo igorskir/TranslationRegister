@@ -1,0 +1,58 @@
+﻿@model TranslationReg.Models.StageForDocModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("CreateForDoc", "DocStages", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <!-- Хедер -->
+            <div class="modal-header blue-modal-header">
+                <h4 class="modal-title">Перевод документа в стадию</h4>
+                <p type="button" class="close" data-dismiss="modal">&times;</p>
+            </div>
+
+            <!-- Тело -->
+            <div class="modal-body">
+                <h3>Выберите новую стадию и загрузите ее начальный файл</h3>
+
+                @Html.AntiForgeryToken()
+                @Html.Hidden("DocId", Model.docId)
+
+
+                @if (Model.available)
+                {
+                    <div class="modal-row">
+                        <div class="modal-property"><p>Тип работ:</p></div>
+                        <div class="modal-value">
+                            @Html.DropDownList("WorktypeId", Model.worktypes, htmlAttributes: new { @class = "form-control", required = "required"})
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    <div class="modal-row">
+                        <div class="modal-property"><p>Тип работ:</p></div>
+                        <div class="modal-value">
+                            Нет доступных стадий
+                        </div>
+                    </div>
+                }
+
+
+
+                <div class="modal-row">
+                    <div class="modal-property"><p>Начальный файл:</p></div>
+                    <div class="modal-value">
+                        <input type="file" name="stageOriginal" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Подтверждение\отмена -->
+            <div class="modal-footer">
+                <input type="submit" value="Сохранить" class="btn hide-modal btn-modal" />
+                <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+            </div>
+        }
+    </div>
+</div>
+

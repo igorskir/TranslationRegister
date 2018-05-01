@@ -361,11 +361,11 @@ addFormContainer {
         }
 
 #dropArea {
-    background: #b5b5b5;
+    background: #d2d2d2;
     border: black dashed 1px;
-    height: 70px;
+    height: 80px;
     text-align: center;
-    color: #fff;
+    color: #3d5279;
     padding-top: 0;
 }
 
@@ -374,4 +374,8 @@ addFormContainer {
     border: solid 2px blue !important;
     opacity: .5;
     color: black !important;
+}
+
+.pressMe {
+
 }

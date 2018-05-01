@@ -23,10 +23,30 @@ namespace TranslationReg.Controllers
                 return PartialView("Report", await ReportModel.GetModel(Rep));
             return View("Report", await ReportModel.GetModel(Rep));
         }
+        
+        [HttpGet]
+        public async Task<JsonResult> UpdateProj(DateTime dateFrom)
+        {
+            var projects = await Rep.GetProjects();
+            
+            projects.Insert(0, new Project { Id = -1, Name = "Все проекты" });
+            for (int i = 0; i < projects.Count(); i++)
+            {
+                if (projects[i].Deadline < dateFrom)
+                {
+                    projects.RemoveAt(i);
+                    i--;
+                }
+            }
+            SelectList ProjectList = new SelectList(projects, "Id", "Name", -1);
+            ViewBag.ProjectList = ProjectList;
+            return Json(ProjectList, JsonRequestBehavior.AllowGet);
+        }
         public async Task<ActionResult> Filters()
         {
             return PartialView("Report", await ReportModel.GetModel(Rep));
         }
+        
         public async Task<ActionResult> Report([Bind(Prefix = "filters")]
             ChosenFilters filters)
         {
@@ -35,9 +55,9 @@ namespace TranslationReg.Controllers
             if (groupedWorks == null)
             {
                 ViewBag.nodata = "Нет данных по указанным фильтрам";
-                return View("Report", await ReportModel.GetModel(Rep));  //todo EXCEPTION
+                return View("Report", await ReportModel.GetModel(Rep, filters));
             }
-            List<WebReportModel> a = new List<WebReportModel>();
+            List<WebReportModel> result = new List<WebReportModel>();
 
             if (groupedWorks != null && groupedWorks.Count != 0)
             {
@@ -46,7 +66,7 @@ namespace TranslationReg.Controllers
                     var userName = userWorks.First().First().User.Name;
                     foreach (var typedWorks in userWorks)
                     {    
-                        a.Add(
+                        result.Add(
                             new WebReportModel {
                                 User = userName,
                                 Work = typedWorks.First().Stage.WorkType.Name,
@@ -54,26 +74,26 @@ namespace TranslationReg.Controllers
                     }
                 }
             }
-            ViewBag.list = a;
+            ViewBag.list = result;
             ViewBag.dates = "Отчетный период с " + filters.PeriodFrom.ToString("dd/MM/yyyy") + " по " + (filters.PeriodTo - TimeSpan.FromDays(1)).ToString("dd/MM/yyyy");
             return View("Report", await ReportModel.GetModel(Rep, filters));
         }
 
-        // POST: Analytics
-        //public async Task<FileResult> FormReport([Bind(Prefix = "filters")]
-        //    ChosenFilters filters)
-        //{
-        //    var filteredWorks = await ReportModel.ApplyFiltersToWorksAsync(Rep, filters);
-        //    var groupedWorks = ReportModel.GroupReportData(filteredWorks);
-        //    if (groupedWorks == null) return null; //todo EXCEPTION
-        //    string filepath = await ComFileGeneration(filters, groupedWorks);
+        //POST: Analytics
+        public async Task<FileResult> DocReport([Bind(Prefix = "filters")]
+            ChosenFilters filters)
+        {
+            var filteredWorks = await ReportModel.ApplyFiltersToWorksAsync(Rep, filters);
+            var groupedWorks = ReportModel.GroupReportData(filteredWorks);
+            if (groupedWorks == null) return null; //todo EXCEPTION
+            string filepath = await ComFileGeneration(filters, groupedWorks);
 
-        //    FileInfo file = new FileInfo(filepath);
-        //    byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-        //    string fileName = file.Name;
-        //    System.IO.File.Delete(filepath);
-        //    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        //}
+            FileInfo file = new FileInfo(filepath);
+            byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+            string fileName = file.Name;
+            System.IO.File.Delete(filepath);
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }
 
         //COM 
         public Task<string> ComFileGeneration(ChosenFilters filters, List<IEnumerable<IGrouping<int, User_Stage>>> groupedWorks)

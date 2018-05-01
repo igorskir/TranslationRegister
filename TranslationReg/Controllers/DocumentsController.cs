@@ -163,7 +163,7 @@ namespace TranslationReg.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(Document document, [Bind(Include = "original")] IEnumerable<HttpPostedFileBase> original, [Bind(Include = "final")] HttpPostedFileBase final)
         {
-            
+
             foreach (var originalOne in original)
             {
                 Document NewDoc = new Document
@@ -197,28 +197,6 @@ namespace TranslationReg.Controllers
                         catch (Exception) { }
                     }
 
-<<<<<<< HEAD
-                if (ModelState.IsValid)
-                {
-                    // сохраняем док
-                    await Rep.AddDocument(document);
-
-                    // добавляем стадию автоматом. Id дока обновился после сохранения
-                    var project = await Rep.GetProject(document.ProjectId.Value);
-                    DocStage initialStage = new DocStage {
-                        OriginalId = document.OriginalFileId,
-                        DocumentId = document.Id,
-                        WorkTypeId = project.WorkTypeId.Value,
-                    };
-                    await Rep.AddDocStage(initialStage);
-
-                    //return View("Index", await Rep.GetDocuments());
-                    return Redirect(Request.UrlReferrer.ToString());
-
-=======
-                    // если прикрепили сразу перевод, добавляем в базу
-                    if (final != null && final.ContentLength != 0)
-                        NewDoc.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
 
                     if (ModelState.IsValid)
                     {
@@ -226,7 +204,7 @@ namespace TranslationReg.Controllers
                         await Rep.AddDocument(NewDoc);
 
                         // добавляем стадию автоматом. Id дока обновился после сохранения
-                        var project = await Rep.GetProject(NewDoc.ProjectId.Value);
+                        var project = await Rep.GetProject(document.ProjectId.Value);
                         DocStage initialStage = new DocStage
                         {
                             OriginalId = NewDoc.OriginalFileId,
@@ -235,46 +213,51 @@ namespace TranslationReg.Controllers
                         };
                         await Rep.AddDocStage(initialStage);
 
+                        //return View("Index", await Rep.GetDocuments());
+                        //return Redirect(Request.UrlReferrer.ToString());
 
+
+                        // если прикрепили сразу перевод, добавляем в базу
+                        if (final != null && final.ContentLength != 0)
+                            NewDoc.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
+                        
                     }
                     else
                         await Rep.DeleteDocFile(originalFile.Id);
->>>>>>> 8a472c4a7a57c848dc5697ed54e3548c5d09d754
                 }
+                
             }
             return View("Index", await Rep.GetDocuments());
-            
         }
-       
-        // GET: Documents/Download
-        public ActionResult Download(string filepath)
-        {
-            if (System.IO.File.Exists(filepath))
+            // GET: Documents/Download
+            public ActionResult Download(string filepath)
             {
-                FileInfo file = new FileInfo(filepath);
-                byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-                string fileName = file.Name;
-                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+                if (System.IO.File.Exists(filepath))
+                {
+                    FileInfo file = new FileInfo(filepath);
+                    byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+                    string fileName = file.Name;
+                    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+                }
+                return HttpNotFound("Файл не найден");
             }
-            return HttpNotFound("Файл не найден");
-        }
 
-        // GET: Documents/Edit/5
-        public async Task<ActionResult> Edit(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            // GET: Documents/Edit/5
+            public async Task<ActionResult> Edit(int? id)
+            {
+                if (id == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-            Document document = await Rep.GetDocument(id.Value);
+                Document document = await Rep.GetDocument(id.Value);
 
-            if (document == null)
-                return HttpNotFound();
+                if (document == null)
+                    return HttpNotFound();
 
-            //todo viewmodel
-            ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
+                //todo viewmodel
+                ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
-            return PartialView(document);
-        }
+                return PartialView(document);
+            } 
 
         // POST: Documents/Edit/5
         [HttpPost]

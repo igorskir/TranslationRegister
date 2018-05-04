@@ -30,7 +30,7 @@
                     <i class="material-icons">file_download</i>
                 </a>
                 <hr />
-                <a href="/Documents/Edit/@Model.Id">
+                <a data-href="/Documents/Edit/@Model.Id" class="loadModal">
                     <i class="material-icons">mode_edit</i>
                 </a>
                 <hr />
@@ -109,12 +109,12 @@
     .doc-next-stage:hover i,
     .doc-next-stage:hover span {
         transition: 0.3s;
-        color: #c42d5b;
+        color: white;
     }
 
     .doc-next-stage:hover {
         transition: 0.3s;
-        background-color: white;
+        background-color: #c42d5b;
     }
 
     .doc-next-stage span {

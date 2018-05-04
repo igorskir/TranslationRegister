@@ -139,7 +139,7 @@ namespace TranslationReg.Controllers
                 await Rep.PutUser_Stage(user_Stage);
                 //todo
                 var taskList = await Rep.GetMyCurrentTasks(User.Identity.Name);
-                return PartialView("List", taskList);
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(user_Stage);

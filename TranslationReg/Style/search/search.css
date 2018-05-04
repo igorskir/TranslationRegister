@@ -16,6 +16,7 @@
     border-radius: 3px 0 0 3px;
     max-width: none;
     padding: 5px 10px;
+    font-size: 14px;
 }
     .search-form-wrapper input:focus {
         outline: 0;

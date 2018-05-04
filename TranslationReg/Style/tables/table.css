@@ -1,12 +1,12 @@
 ﻿.tableMaterial {
     background-color: #ffffffe6;
     overflow: hidden;
-    box-shadow: 6px 5px 12px 1px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.3);
     transition: 0.3s;
 }
 
     .tableMaterial:hover {
-        box-shadow: 10px 9px 15px 1px rgba(0, 0, 0, 0.4);
+        box-shadow: 3px 2px 7px 1px rgba(0, 0, 0, 0.3);
     }
 
 
@@ -21,7 +21,7 @@
 
     .titles > div {
         text-align: center;
-        font-size: 18px;
+        font-size: 16px;
         line-height: 48px;
         font-weight: 500;
     }
@@ -31,7 +31,9 @@
         }
 
 .titleLink {
-    font-size: 16px;
+    /*
+        font-size: 16px;
+    */
     text-align: left;
     color: #006186;
     margin-left: 15px;

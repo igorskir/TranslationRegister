@@ -11,26 +11,24 @@
         .filters li a {
             display: block;
             padding: 8px 10px;
-            color: black;
+            color: white;
             text-decoration: none;
             transition: 0.3s;
-            background-color: white;
+            background-color: #3d5279;
             box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
             margin: 5px;
         }
 
             .filters li a:hover {
-                color: #d41955 !important;
-                background-color: white;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+                background: #2b66d2;
             }
 
 .filter-active {
-    background: #3d5279 !important;
-    color: white !important;
+    background: white !important;
+    color: #c42d5b !important;
 }
 
-.filterContainer{
+.buttonsContainer{
     padding-left:50px;
 }
 
@@ -47,7 +45,7 @@
             padding: 8px 10px;
             text-decoration: none;
             transition: 0.3s;
-            background: #3d5279 !important;
+            background: #3d5279;
             color: white !important;
             opacity: 0.9;
             box-shadow: 0px 3px 6px rgba(0,0,0,0.3);
@@ -58,3 +56,7 @@
                 background-color: white;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
             }
+
+.disabled-filter-btn{
+    background-color: darkslategrey;
+}

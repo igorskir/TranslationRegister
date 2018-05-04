@@ -7,21 +7,35 @@
 </h2>
 
 <!-- ФИЛЬТРЫ -->
-<div class="filterContainer">
+<div class="buttonsContainer">
     <ul class="buttons">
         <li>
-            <div class="btn-wrapper ajaxToggleBtn" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
+            <div class="ajaxToggleBtn iconed-title" data-ajax-update="#addArea" data-href="/Documents/CreateProjectDoc/@Model.Id">
                 <i class="material-icons">add_circle</i>
                 <span> Документы</span>
             </div>
         </li>
-
-        <li>
-            <div class="btn-wrapper" data-ajax="true" data-ajax-update="#projectList" data-href="/Projects/Finalise/@Model.Id">
-                <i class="material-icons">done_all</i>
-                <span> Финализировать</span>
-            </div>
-        </li>
+        @{
+            bool finalisabe = Model.Documents.All(x => x.Stages.All(y => y.ResultId != null));
+            if (finalisabe)
+            {
+                <li>
+                    <div class="iconed-title" data-ajax="true" data-ajax-update="#projectList" data-href="/Projects/Finalise/@Model.Id">
+                        <i class="material-icons">done_all</i>
+                        <span> Финализировать</span>
+                    </div>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <div class="disabled-filter-btn iconed-title">
+                        <i class="material-icons">done_all</i>
+                        <span> Финализировать</span>
+                    </div>
+                </li>
+            }
+        }
     </ul>
 </div>
 
@@ -56,8 +70,6 @@
                 <div class="worktype-content" id="stageToggle@(currentWorkType.Id)">
                     @{
                         //----------------------------------------------------------------------------------------------------------
-
-
                         var docedStages = oneTypeStages.GroupBy(x => x.DocumentId);
                         // работы по документам
                         foreach (var oneDocStages in docedStages)
@@ -77,34 +89,31 @@
                                     <div class="works-table">
                                         <div class="tableMaterial">
                                             <div class="work-titles">
-                                                <div class="col-md-2" style="display:flex;">
-                                                    <div data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/Create/@stageId" class="ajaxToggleBtn">
-                                                        <i class="material-icons">add_circle</i>
-                                                    </div>
-                                                    <span style="text-align: center; align-self: center; margin: auto;">
+                                                <div class="col-md-3 iconed-title">
+                                                    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/Create/@stageId">add_circle</i>
+                                                    <span>
                                                         Исполнитель
                                                     </span>
                                                 </div>
                                                 <div class="col-md-5">Комментарий</div>
                                                 <div class="col-md-2">Количество</div>
-                                                <div class="col-md-1">Результат</div>
                                                 <div class="col-md-2">Комманды</div>
                                             </div>
                                         </div>
                                         <div class="inner-padding">
-                                            <div id="addWork@(stageId)" class="dynamicBlock dynamic-block-create">123</div>
+                                            <div id="addWork@(stageId)" class="dynamicBlock"  style="background-color:#ffffffed;"></div>
                                             @foreach (var work in typedDocWorks)
                                             {
                                                 <div class="properties">
-                                                    <div class="col-md-2">
+                                                    <div class="col-md-3">
                                                         @if (work.User.AvatarPath == null)
                                                         {
                                                             string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon user-icon" />
+                                                        <img src="@Url.Content("~/"+ avatarPath)" class="small-icon user-icon" />
                                                         }
                                                         else
                                                         {
-                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon user-icon" />
+                                                        <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon user-icon" />
                                                         }
 
                                                         <span>
@@ -121,18 +130,16 @@
                                                             @work.Amount
                                                         </span>
                                                     </div>
-                                                    <div class="col-md-1">
-                                                        @if (work.DocFileId != null)
-                                                        {
+                                                    <div class="col-md-2">
+                                                        <div class="icons-container">
+                                                            @if (work.DocFileId != null)
+                                                            {
                                                             <div class="icons-container">
                                                                 <a href="@Url.Action("Download", "Documents", new { @filepath = work.DocFile.Path })">
                                                                     <i class="material-icons">file_download</i>
                                                                 </a>
                                                             </div>
-                                                        }
-                                                    </div>
-                                                    <div class="col-md-2">
-                                                        <div class="icons-container">
+                                                            }
                                                             <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
                                                                 <i class="material-icons">file_upload</i>
                                                             </a>
@@ -151,19 +158,35 @@
                                 }
                                 <div style="clear:left"></div>
                             </div>
-                            //----------------------------------------------------------------------------------------------------------
-                        }
+                                        //----------------------------------------------------------------------------------------------------------
+                                    }
                     }
                 </div>
             </div>
             <div style="clear:both"></div>
-        }
-    }
+                                        }
+
+                                    }
 
 
 }
 
 <style>
+    .iconed-title {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: center;
+    }
+
+        .iconed-title > span,
+        .iconed-title > i {
+            align-self: center;
+        }
+
+        .iconed-title > i {
+            padding-right: 5px;
+        }
+
     .worktype-container {
         margin-bottom: 20px;
         width: 100%;
@@ -211,7 +234,7 @@
         margin: 0 8px;
         background: #ffffff;
         background: #ffffff94;
-        box-shadow: 4px 3px 8px 1px rgba(0, 0, 0, 0.3);
+        box-shadow: 2px 1px 3px 1px rgba(0, 0, 0, 0.3);
         overflow: hidden;
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
@@ -254,21 +277,9 @@
             color: #c42d5b;
         }
 
-    .btn-wrapper {
-        vertical-align: middle;
-        display: flex;
-        text-align: center;
+    .user-icon {
+        margin-left: 10px;
     }
-
-        .btn-wrapper > span {
-            padding-left: 10px;
-            align-self: center;
-            vertical-align: middle;
-        }
-
-        .user-icon{
-            margin-left:10px;
-        }
 </style>
 
 @section scripts {

@@ -273,7 +273,7 @@ namespace TranslationReg.Controllers
                 }
 
                 await Rep.PutDocument(document);
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
             return View(document);
         }

@@ -1,68 +1,75 @@
 .modal-content {
     overflow: hidden;
     font-size: 16px;
-    border:none;
-    border-radius:0;
+    border: none;
+    border-radius: 0;
 }
 
 .modal-header {
-    width:100%;
+    width: 100%;
     margin: 0;
     height: 50px;
-    display:flex;
-    justify-content:space-between;
+    display: flex;
+    justify-content: space-between;
     font-weight: 600;
 }
-    .modal-header::before{
-        content:none;
+
+    .modal-header::before {
+        content: none;
     }
+
     .modal-header::after {
         content: none;
     }
-    .modal-header > h4{
-        float:left;
-        align-self:center;
-    }
-    .modal-header .close {
-        padding:0;
-        margin:0;
-        float:right;
-        align-self:center;
-        color:white;
-        opacity:0.8;
-        font-size:36px;
-    }
-    .modal-header .close:hover {
-        opacity: 1.0;
-        transform: scale(1.1);
-        transition: 0.3s;
+
+    .modal-header > h4 {
+        float: left;
+        align-self: center;
     }
 
-.modal-body > h3{
+    .modal-header .close {
+        padding: 0;
+        margin: 0;
+        float: right;
+        align-self: center;
+        color: white;
+        opacity: 0.8;
+        font-size: 36px;
+    }
+
+        .modal-header .close:hover {
+            opacity: 1.0;
+            transform: scale(1.1);
+            transition: 0.3s;
+        }
+
+.modal-body > h3 {
     margin: 0 0 20px 0;
     padding: 5px;
 }
 
 .modal-footer {
     padding: 5px;
-    height:70px;
+    height: 60px;
     font-weight: 600;
-    display:flex;
-    justify-content:space-between;
-    border-top: 2px solid #310404
+    display: flex;
+    justify-content: space-between;
+    border-top: 2px solid #310404;
 }
-    .modal-footer > form{
-        display:flex;
+
+    .modal-footer > form {
+        display: flex;
     }
 
 .btn-cancel {
     float: right;
     width: 120px;
 }
-.btn-modal{
-    margin:0;
-    padding:6px;
-    align-self:center;
+
+.btn-modal {
+    margin: 0;
+    padding: 6px;
+    align-self: center;
     font-size: 16px;
 }
 
@@ -70,8 +77,8 @@
     display: flex;
     align-items: center;
     height: 50px;
-    border-bottom: 1px solid #d3d3d324;
 }
+
     .modal-row:last-of-type {
         border: none;
     }
@@ -83,6 +90,7 @@
     padding: 10px;
     min-width: 200px;
 }
+
     .modal-property > p {
         margin: 0;
         white-space: nowrap;
@@ -94,12 +102,18 @@
     font-size: 16px;
     text-align: left;
     display: flex;
-    overflow:hidden;
+    overflow: hidden;
 }
+
     .modal-value > p {
         margin: 0;
         overflow: hidden;
         align-self: center;
         white-space: nowrap;
         text-overflow: ellipsis;
+    }
+
+    .modal-value > input,
+    .modal-value > select {
+        min-width: 240px;
     }

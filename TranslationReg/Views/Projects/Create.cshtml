@@ -53,8 +53,14 @@
             </div>
 
             <div class="form-group">
-                <input type="submit" value="Сохранить" class="btn btn-default btn-form btn-submit" />
+                <input type="submit" value="Сохранить" class="btn btn-submit btn-modal-save" id="addProjBtn"/>
             </div>
         }
     </div>
 </div>
+
+<script>
+    $(document).on('click', '#addProjBtn', function (e) {
+        $('#addProj').hide();
+    });
+</script>

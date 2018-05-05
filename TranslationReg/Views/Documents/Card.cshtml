@@ -2,7 +2,7 @@
 <div class="doc-card-container">
     <div class="doc-card">
         <div class="doc-card-header">
-            <p style="margin:0">@Model.Name</p>
+            <p style="font-weight:500;margin:0;">@Model.Name</p>
         </div>
         <div class="doc-img-icons">
             @{
@@ -29,19 +29,16 @@
                 <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
                     <i class="material-icons">file_download</i>
                 </a>
-                <hr />
                 <a data-href="/Documents/Edit/@Model.Id" class="loadModal">
                     <i class="material-icons">mode_edit</i>
                 </a>
-                <hr />
                 <a data-href="/Documents/Delete/@Model.Id" class="loadModal" data-dialog-title="Удаление документа и работ">
                     <i class="material-icons">delete</i>
                 </a>
             </div>
         </div>
 
-        <div class="doc-next-stage loadModal" data-href="/DocStages/CreateModal/@Model.Id" >
-            <span>В новую стадию</span>
+        <div class="doc-next-stage loadModal" data-href="/DocStages/CreateModal/@Model.Id">
             <i class="material-icons">keyboard_arrow_down</i>
         </div>
     </div>
@@ -80,7 +77,7 @@
 
     .doc-next-stage,
     .doc-card-header {
-        background: #45295fed;
+        background-color: #5580aa;
         display: flex;
         text-align: center;
         justify-content: center;

@@ -1,14 +1,24 @@
 * {
     padding: 0;
     margin: 0;
-    font-family: "Roboto","Open Sans", Helvetica, Arial, sans-serif;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+}
+
+body{
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
 }
 
 h2 {
     color: #282828;
     align-self: center;
     margin: 10px 10px 20px 10px;
-    font-size: 30px;
+    font-size: 1.71429em;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 32px;
 }
 
 .padding-container {

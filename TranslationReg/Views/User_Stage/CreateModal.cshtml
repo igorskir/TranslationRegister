@@ -1,0 +1,59 @@
+﻿@model TranslationReg.Models.User_StageModel
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("Create", "User_Stage", new { enctype = "multipart/form-data" }))
+        {
+            <!-- Хедер -->
+            <div class="modal-header blue-modal-header">
+                <h4 class="modal-title">Редактирование задачи</h4>
+                <p type="button" class="close" data-dismiss="modal">&times;</p>
+            </div>
+
+            <!-- Тело -->
+            <div class="modal-body">
+                <h3>Вы уверены, что хотите изменить данную запись?</h3>
+
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.Hidden("Date", Model.work.Date)
+                @Html.Hidden("StageId", Model.work.StageId)
+
+                <div class="modal-row">
+                    <div class="modal-property"><p>Исполнитель:</p></div>
+                    <div class="modal-value">
+                        @Html.DropDownList("UserId", Model.usersSelectList, new { @class = "form-control", required = "required" })
+                    </div>
+                </div>
+
+                <div class="modal-row">
+                    <div class="modal-property"><p>Количество:</p></div>
+                    <div class="modal-value">
+                        <input class="form-control" type="number" required="required" min="1" max="100000" name="Amount" value="@Model.work.Amount" />
+                    </div>
+                </div>
+
+                <div class="modal-row">
+                    <div class="modal-property"><p>Комментарий:</p></div>
+                    <div class="modal-value">
+                        <input class="form-control" type="text" name="Comment" value="@Model.work.Comment" />
+                    </div>
+                </div>
+
+                <div class="modal-row">
+                    <div class="modal-property"><p>Результат:</p></div>
+                    <div class="modal-value">
+                        <input type="file" name="workFile" value="@Model.work.Comment" />
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Подтверждение\отмена -->
+            <div class="modal-footer">
+                <input type="submit" value="Сохранить" class="btn btn-modal-save btn-modal hide-modal" />
+                <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+            </div>
+        }
+    </div>
+</div>

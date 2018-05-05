@@ -2,7 +2,7 @@
 @using TranslationReg.Controllers
 <!-- ЗАГОЛОВОК И КНОПКА РЕДАКТИРОВАНИЯ -->
 <h2 class="iconed-text">
-    @Model.Name
+    Проект: @Model.Name
     <a href="/Projects/Edit/@Model.Id"><i class="material-icons right-icon">edit</i></a>
 </h2>
 
@@ -90,7 +90,7 @@
                                         <div class="tableMaterial">
                                             <div class="work-titles">
                                                 <div class="col-md-3 iconed-title">
-                                                    <i class="material-icons ajaxToggleBtn" data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/Create/@stageId">add_circle</i>
+                                                    <i class="material-icons loadModal" data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/CreateModal/@stageId">add_circle</i>
                                                     <span>
                                                         Исполнитель
                                                     </span>

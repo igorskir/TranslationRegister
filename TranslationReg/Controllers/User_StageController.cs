@@ -28,6 +28,19 @@ namespace TranslationReg.Controllers
             return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
 
+        // GET: User_Stage/CreateModal
+        // принимает id стадии
+        public async Task<ActionResult> CreateModal(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            DocStage docStage = await Rep.GetDocStage(id.Value);
+            if (docStage == null)
+                return HttpNotFound();
+
+            return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
+        }
+
         // GET: User_Stage/Tasks
         // принимает id стадии
         public async Task<ActionResult> Tasks()

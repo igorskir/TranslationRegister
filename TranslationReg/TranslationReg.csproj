@@ -397,7 +397,7 @@
     <Content Include="Views\Documents\Card.cshtml" />
     <Content Include="Views\DocStages\CreateModal.cshtml" />
     <Content Include="Views\Documents\ListItem.cshtml" />
-    <Content Include="Views\User_Stage\AddModal.cshtml" />
+    <Content Include="Views\User_Stage\CreateModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

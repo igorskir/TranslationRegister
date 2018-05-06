@@ -261,6 +261,7 @@
     <Content Include="Style\bootstrap\bootstrap.css" />
     <Content Include="Style\bootstrap\bootstrap.min.css" />
     <Content Include="Style\cards\card.css" />
+    <Content Include="Style\cards\docCard.css" />
     <Content Include="Style\containers\containers.css" />
     <Content Include="Style\icons\icons.css" />
     <Content Include="Style\images\bodyBg.jpg" />
@@ -398,6 +399,7 @@
     <Content Include="Views\DocStages\CreateModal.cshtml" />
     <Content Include="Views\Documents\ListItem.cshtml" />
     <Content Include="Views\User_Stage\CreateModal.cshtml" />
+    <Content Include="Views\Projects\EditModal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

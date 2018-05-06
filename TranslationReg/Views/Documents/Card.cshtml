@@ -1,8 +1,12 @@
 ﻿@model TranslationRegistryModel.Document
 <div class="doc-card-container">
     <div class="doc-card">
-        <div class="doc-card-header">
+        <div class="doc-card-header flex-row">
             <p style="font-weight:500;margin:0;">@Model.Name</p>
+            <div class="flex-row">
+                <i class="material-icons loadModal" data-href="/Documents/Edit/@Model.Id">mode_edit</i>
+                <i class="material-icons loadModal" data-href="/Documents/Delete/@Model.Id">delete</i>
+            </div>
         </div>
         <div class="doc-img-icons">
             @{
@@ -29,11 +33,8 @@
                 <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
                     <i class="material-icons">file_download</i>
                 </a>
-                <a data-href="/Documents/Edit/@Model.Id" class="loadModal">
-                    <i class="material-icons">mode_edit</i>
-                </a>
-                <a data-href="/Documents/Delete/@Model.Id" class="loadModal" data-dialog-title="Удаление документа и работ">
-                    <i class="material-icons">delete</i>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                    <i class="material-icons">cloud_upload</i>
                 </a>
             </div>
         </div>
@@ -43,92 +44,3 @@
         </div>
     </div>
 </div>
-
-<style>
-    /*------------------------------------ карточка документа ------------------------------------*/
-    .doc-card-container {
-        padding: 5px;
-        height: 100%;
-    }
-
-        .doc-card-container .doc-card {
-            width: 190px;
-            background-color: #ffffff;
-            text-align: center;
-            vertical-align: top;
-            border-radius: 6px;
-            overflow: hidden;
-            box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
-        }
-
-    .doc-img-icons {
-        display: flex;
-        justify-content: space-between;
-        align-content: center;
-        padding: 0 10px;
-    }
-
-    .doc-card img {
-        width: 100px;
-        height: 100px;
-        float: left;
-        padding: 5px;
-    }
-
-    .doc-next-stage,
-    .doc-card-header {
-        background-color: #5580aa;
-        display: flex;
-        text-align: center;
-        justify-content: center;
-        align-content: center;
-        font-size: 14px;
-        color: white;
-    }
-
-    .doc-next-stage {
-        height: 32px;
-    }
-
-    .doc-card-header {
-        min-height: 36px;
-    }
-
-        .doc-card-header p {
-            align-self: center;
-        }
-
-    .doc-next-stage i,
-    .doc-next-stage span {
-        align-self: center;
-    }
-
-    .doc-next-stage:hover i,
-    .doc-next-stage:hover span {
-        transition: 0.3s;
-        color: white;
-    }
-
-    .doc-next-stage:hover {
-        transition: 0.3s;
-        background-color: #c42d5b;
-    }
-
-    .doc-next-stage span {
-        font-size: 14px;
-    }
-
-    .icons-column > hr {
-        margin: 0;
-        padding: 0;
-    }
-
-
-    .icons-column {
-        display: flex;
-        flex-flow: column;
-        justify-content: space-around;
-        max-width: 40px;
-        padding: 4px 0;
-    }
-</style>

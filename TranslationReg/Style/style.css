@@ -21,9 +21,23 @@ h2 {
     line-height: 32px;
 }
 
+.flex-row{
+    display:flex;
+    flex-flow: row wrap;
+    align-items:center;
+}
+
+h1, h2, h3, h4, h5, h6{
+      font-family: -apple-system,BlinkMacSystemFont,Roboto,"Segoe UI",Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+}
+
 .padding-container {
     padding-top: 20px;
     padding-left: 50px;
+}
+
+.pointer{
+    cursor:pointer;
 }
 
 input,

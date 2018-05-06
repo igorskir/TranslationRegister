@@ -6,13 +6,13 @@
         {
             <!-- Хедер -->
             <div class="modal-header blue-modal-header">
-                <h4 class="modal-title">Редактирование задачи</h4>
-                <p type="button" class="close" data-dismiss="modal">&times;</p>
+                <h4 class="modal-title">Назначение задачи</h4>
+                <i data-dismiss="modal" class="material-icons close">clear</i>
             </div>
 
             <!-- Тело -->
             <div class="modal-body">
-                <h3>Вы уверены, что хотите изменить данную запись?</h3>
+                <h3>Вы уверены, что хотите добавить данную запись?</h3>
 
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })

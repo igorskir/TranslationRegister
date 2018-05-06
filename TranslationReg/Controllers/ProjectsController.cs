@@ -137,6 +137,20 @@ namespace TranslationReg.Controllers
             ProjectModel model = await ProjectModel.GetModel(Rep, project);
             return View(model);
         }
+        // GET: Projects/EditModal/5
+        public async Task<ActionResult> EditModal(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            ProjectModel model = await ProjectModel.GetModel(Rep, project);
+            return PartialView(model);
+        }
         // POST: Projects/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]

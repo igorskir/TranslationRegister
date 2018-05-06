@@ -3,7 +3,7 @@
 <!-- ЗАГОЛОВОК И КНОПКА РЕДАКТИРОВАНИЯ -->
 <h2 class="iconed-text">
     Проект: @Model.Name
-    <a href="/Projects/Edit/@Model.Id"><i class="material-icons right-icon">edit</i></a>
+    <a data-href="/Projects/EditModal/@Model.Id"><i class="material-icons right-icon loadModal">edit</i></a>
 </h2>
 
 <!-- ФИЛЬТРЫ -->
@@ -57,7 +57,7 @@
             <div class="worktype-container">
                 <div class="worktype-header">
                     <div class="tableMaterial">
-                        <div class="titles">
+                        <div class="titles pointer toggle-stage-panel">
                             <div class="worktype-name">
                                 @currentWorkType.Name
                             </div>
@@ -88,9 +88,9 @@
                                     var stageId = oneDocStages.First().Id.ToString();
                                     <div class="works-table">
                                         <div class="tableMaterial">
-                                            <div class="work-titles">
+                                            <div class="work-titles pointer loadModal" data-href="/User_Stage/CreateModal/@stageId">
                                                 <div class="col-md-3 iconed-title">
-                                                    <i class="material-icons loadModal" data-ajax-update="#addWork@(stageId)" data-href="/User_Stage/CreateModal/@stageId">add_circle</i>
+                                                    <i class="material-icons">add_circle</i>
                                                     <span>
                                                         Исполнитель
                                                     </span>
@@ -101,7 +101,6 @@
                                             </div>
                                         </div>
                                         <div class="inner-padding">
-                                            <div id="addWork@(stageId)" class="dynamicBlock"  style="background-color:#ffffffed;"></div>
                                             @foreach (var work in typedDocWorks)
                                             {
                                                 <div class="properties">
@@ -141,7 +140,7 @@
                                                             </div>
                                                             }
                                                             <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
-                                                                <i class="material-icons">file_upload</i>
+                                                                <i class="material-icons">cloud_upload</i>
                                                             </a>
                                                             <a class="loadModal" data-href="/User_Stage/Edit/@work.Id">
                                                                 <i class="material-icons">edit</i>
@@ -175,7 +174,6 @@
     .iconed-title {
         display: flex;
         flex-flow: row wrap;
-        justify-content: center;
     }
 
         .iconed-title > span,
@@ -262,11 +260,11 @@
 
     .dropdown-btn {
         float: right;
-        width: 100px;
+        width: 60px;
     }
 
         .dropdown-btn > i {
-            font-size: 42px;
+            font-size: 36px;
             color: white;
             vertical-align: middle;
         }
@@ -294,8 +292,8 @@
         });
 
         // свернуть/развернуть стадию
-        $('.dropdown-btn').click(function (e) {
-            var btn = $(this);
+        $('.toggle-stage-panel').click(function (e) {
+            var btn = $(this).find('.dropdown-btn');
             var toogleId = '#' + btn.attr("toggleid");
             var toggleBlock = $(toogleId);
             var iconId = '#' + btn.attr("iconid");

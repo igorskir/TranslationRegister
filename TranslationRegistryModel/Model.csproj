@@ -51,6 +51,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Deadline.cs">
+      <DependentUpon>TRegModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="DocFile.cs">
       <DependentUpon>TRegModel.tt</DependentUpon>
     </Compile>

@@ -17,6 +17,7 @@
     <EntitySet Name="Users" EntityType="SqlRepository.SqlContextModel.Store.Users" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="WorkTypes" EntityType="SqlRepository.SqlContextModel.Store.WorkTypes" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="UnitOfMeasures" EntityType="SqlRepository.SqlContextModel.Store.UnitOfMeasures" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Deadlines" EntityType="SqlRepository.SqlContextModel.Store.Deadlines" store:Type="Tables" Schema="dbo" />
     <AssociationSet Name="FK_dbo_Documents_dbo_Projects_ProjectId" Association="SqlRepository.SqlContextModel.Store.FK_dbo_Documents_dbo_Projects_ProjectId">
       <End Role="Projects" EntitySet="Projects" />
       <End Role="Documents" EntitySet="Documents" />
@@ -87,6 +88,14 @@
     </AssociationSet>
     <AssociationSet Name="ProjectWorkType" Association="SqlRepository.SqlContextModel.Store.ProjectWorkType">
       <End Role="Project" EntitySet="Projects" />
+      <End Role="WorkType" EntitySet="WorkTypes" />
+    </AssociationSet>
+    <AssociationSet Name="DeadlineProject" Association="SqlRepository.SqlContextModel.Store.DeadlineProject">
+      <End Role="Deadline" EntitySet="Deadlines" />
+      <End Role="Project" EntitySet="Projects" />
+    </AssociationSet>
+    <AssociationSet Name="DeadlineWorkType" Association="SqlRepository.SqlContextModel.Store.DeadlineWorkType">
+      <End Role="Deadline" EntitySet="Deadlines" />
       <End Role="WorkType" EntitySet="WorkTypes" />
     </AssociationSet>
   </EntityContainer>
@@ -197,6 +206,15 @@
     </Key>
     <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Deadlines">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProjectId" Type="int" Nullable="false" />
+    <Property Name="WorkTypeId" Type="int" Nullable="true" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
   </EntityType>
   <Association Name="FK_dbo_Documents_dbo_Projects_ProjectId">
     <End Role="Projects" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="0..1">
@@ -424,6 +442,30 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="DeadlineProject">
+    <End Role="Deadline" Type="SqlRepository.SqlContextModel.Store.Deadlines" Multiplicity="*" />
+    <End Role="Project" Type="SqlRepository.SqlContextModel.Store.Projects" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Deadline">
+        <PropertyRef Name="ProjectId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DeadlineWorkType">
+    <End Role="Deadline" Type="SqlRepository.SqlContextModel.Store.Deadlines" Multiplicity="*" />
+    <End Role="WorkType" Type="SqlRepository.SqlContextModel.Store.WorkTypes" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Deadline">
+        <PropertyRef Name="WorkTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -493,6 +535,7 @@
           <Property Name="Deadline" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="InitialStage" Relationship="SqlRepository.SqlContextModel.ProjectWorkType" FromRole="Project" ToRole="WorkType" />
           <Property Name="WorkTypeId" Type="Int32" Nullable="true" />
+          <NavigationProperty Name="Deadlines" Relationship="SqlRepository.SqlContextModel.DeadlineProject" FromRole="Project" ToRole="Deadline" />
         </EntityType>
         <EntityType Name="ProjectStatus">
           <Key>
@@ -741,6 +784,15 @@
             <End Role="Project" EntitySet="Projects" />
             <End Role="WorkType" EntitySet="WorkTypes" />
           </AssociationSet>
+          <EntitySet Name="Deadlines" EntityType="SqlRepository.SqlContextModel.Deadline" />
+          <AssociationSet Name="DeadlineProject" Association="SqlRepository.SqlContextModel.DeadlineProject">
+            <End Role="Deadline" EntitySet="Deadlines" />
+            <End Role="Project" EntitySet="Projects" />
+          </AssociationSet>
+          <AssociationSet Name="DeadlineWorkType" Association="SqlRepository.SqlContextModel.DeadlineWorkType">
+            <End Role="Deadline" EntitySet="Deadlines" />
+            <End Role="WorkType" EntitySet="WorkTypes" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="LanguageLanguagePair">
           <End Type="SqlRepository.SqlContextModel.Language" Role="Language" Multiplicity="1" >
@@ -878,6 +930,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Deadline">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="WorkTypeId" Type="Int32" Nullable="true" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+        </EntityType>
+        <Association Name="DeadlineProject">
+          <End Type="SqlRepository.SqlContextModel.Deadline" Role="Deadline" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.Project" Role="Project" Multiplicity="1" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deadline">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="DeadlineWorkType">
+          <End Type="SqlRepository.SqlContextModel.Deadline" Role="Deadline" Multiplicity="*" />
+          <End Type="SqlRepository.SqlContextModel.WorkType" Role="WorkType" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="WorkType">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Deadline">
+              <PropertyRef Name="WorkTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1000,6 +1085,16 @@
         <MappingFragment StoreEntitySet="UnitOfMeasures">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Deadlines">
+      <EntityTypeMapping TypeName="IsTypeOf(SqlRepository.SqlContextModel.Deadline)">
+        <MappingFragment StoreEntitySet="Deadlines">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+          <ScalarProperty Name="WorkTypeId" ColumnName="WorkTypeId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

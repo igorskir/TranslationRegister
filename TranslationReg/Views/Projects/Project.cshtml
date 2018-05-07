@@ -61,7 +61,13 @@
                             <div class="worktype-name">
                                 @currentWorkType.Name
                             </div>
-                            <div class="dropdown-btn" toggleid="stageToggle@(currentWorkType.Id)" iconid="toggleIcon@(currentWorkType.Id)">
+
+                            <div >
+                                Deadline:
+                                <input class="deadline" type="date" value="" id="@currentWorkType.Id" onchange="DeadlineSet(this)" required="required"/>
+                            </div>
+                            
+                            <div class="dropdown-btn " toggleid="stageToggle@(currentWorkType.Id)" iconid="toggleIcon@(currentWorkType.Id)">
                                 <i class="material-icons" id="toggleIcon@(currentWorkType.Id)">expand_more</i>
                             </div>
                         </div>
@@ -171,6 +177,24 @@
 }
 
 <style>
+    .deadline {
+        padding: 2px;
+        vertical-align: middle;
+        height: 70%;
+        width: 60%;
+        color: #5e5e5e;
+        background: white;
+        opacity: 0.7;
+        font-size: 14px;
+        
+    }
+    ::-webkit-in {
+        display: none;
+    }
+    .deadline:hover{
+        opacity:1;
+
+    }
     .iconed-title {
         display: flex;
         flex-flow: row wrap;
@@ -277,6 +301,61 @@
         margin-left: 10px;
     }
 </style>
+<script>
+
+    window.onload = function () {
+
+        @if (stages != null && stages.Count() != 0)
+        {
+            var typedStages = stages.GroupBy(x => x.WorkTypeId);
+            foreach (var oneTypeStages in typedStages)
+            {
+                <text>
+                    DeadlineGet(@oneTypeStages.First().WorkType.Id);
+                </text>
+            }
+        }
+
+    };
+
+    function DeadlineSet(obj) {
+        
+        $.ajax({
+            url: '@Url.Action("DeadlineSet", "Projects")',
+            type: "get",
+            data: {
+                project: @Model.Id, workTypeid: obj.id, deadline: obj.value
+            },
+            dataType: 'json',
+            success: function (data) {
+                
+            },
+            error: function (jqXHR, exception) {
+                alert("Ошибка обновления дедлайна, попробуйте позже");
+                DeadlineGet(obj.id);
+            }
+
+        });
+    }
+    function DeadlineGet(WorkTypeid) {
+        $.ajax({
+            url: '@Url.Action("DeadlineGet", "Projects")',
+            type: "get",
+            data: { project: @Model.Id, workTypeid: WorkTypeid  },
+            dataType: 'json',
+            success: function (data) {
+                
+                document.getElementById(WorkTypeid).value = data;
+            },
+            error: function (jqXHR, exception) {
+                alert("Ошибка загрузки дедлайна, обновите страницу");
+                
+            }
+
+
+        });
+    }
+</script>
 
 @section scripts {
     <script>

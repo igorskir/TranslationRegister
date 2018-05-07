@@ -197,5 +197,23 @@ namespace TranslationReg.Controllers
             await Rep.DeleteProject(id);
             return RedirectToAction("Index");
         }
+        [HttpGet]
+
+        public async Task<JsonResult> DeadlineSet(int project, int workTypeid, DateTime deadline)
+        {
+            var obj = await Rep.GetDeadline(project, workTypeid);
+            obj.Date = deadline;
+            await Rep.PutDeadline(obj);
+            return Json("Дедлайн обновлен", JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public async Task<JsonResult> DeadlineGet(int project, int workTypeid)
+        {
+            var result = await Rep.GetDeadline(project, workTypeid);
+            if (result != null)
+                return Json(result.Date.ToString("yyyy-MM-dd"), JsonRequestBehavior.AllowGet);
+            else
+                throw new Exception("Нет данный о дедлайне");
+        }
     }
 }

@@ -111,5 +111,14 @@ namespace TranslationRegistryModel
         Task AddUnitOfMeasure(UnitOfMeasure UnitOfMeasure);
         //------------------------------------------------------------------------------------------------
 
+        //---------------------------------- DeadLine CRUD -----------------------------------------------
+        Task<List<Deadline>> GetDeadlines();
+        Task<Deadline> GetDeadline(int id);
+        Task<Deadline> GetDeadline(int projectId, int workTypeId);
+        Task AddDeadline(Deadline deadline);
+        Task PutDeadline(Deadline deadline);
+        Task DeleteDeadline(int id);
+
+        //------------------------------------------------------------------------------------------------
     }
 }

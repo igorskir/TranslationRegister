@@ -87,7 +87,7 @@ namespace TranslationReg.Controllers
                 await Rep.PutUser_Stage(user_Stage);
             }
 
-            return RedirectToAction("Tasks");
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: User_Stage/InWork

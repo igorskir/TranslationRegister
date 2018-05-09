@@ -1,14 +1,18 @@
 ﻿@model TranslationRegistryModel.Document
 <div class="doc-card-container">
     <div class="doc-card">
-        <div class="doc-card-header flex-row">
-            <p style="font-weight:500;margin:0;">@Model.Name</p>
-            <div class="flex-row">
-                <i class="material-icons loadModal" data-href="/Documents/Edit/@Model.Id">mode_edit</i>
-                <i class="material-icons loadModal" data-href="/Documents/Delete/@Model.Id">delete</i>
-            </div>
+        <div class="doc-card-header">
+            <p style="margin:0;">@Model.Name</p>
         </div>
         <div class="doc-img-icons">
+            <div class="icons-column">
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                    <i class="material-icons">file_download</i>
+                </a>
+                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                    <i class="material-icons">done_all</i>
+                </a>
+            </div>
             @{
                 var extension = Path.GetExtension(Model.OriginalFile.Path);
                 switch (extension)
@@ -30,12 +34,8 @@
                 }
             }
             <div class="icons-column">
-                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
-                    <i class="material-icons">file_download</i>
-                </a>
-                <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
-                    <i class="material-icons">cloud_upload</i>
-                </a>
+                <i class="material-icons loadModal" data-href="/Documents/Edit/@Model.Id">mode_edit</i>
+                <i class="material-icons loadModal" data-href="/Documents/Delete/@Model.Id">delete</i>
             </div>
         </div>
 

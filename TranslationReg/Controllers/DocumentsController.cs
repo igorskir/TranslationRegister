@@ -73,6 +73,24 @@ namespace TranslationReg.Controllers
         }
 
         // GET: Documents/Create
+        public async Task<ActionResult> AddFinalFile(int? id, HttpPostedFileBase file)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document doc = await Rep.GetDocument(id.Value);
+
+            if (doc == null)
+                return HttpNotFound();
+
+            // добавляем информацию о финальном файле
+            var finalDocFile = (await Helper.SetFile(file, Rep, Server));
+            doc.FinalFileId = finalDocFile.Id;
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // GET: Documents/Create
         public async Task<ActionResult> Create()
         {
             DocumentModel DocCreateViewModel = await DocumentModel.GetModel(Rep);

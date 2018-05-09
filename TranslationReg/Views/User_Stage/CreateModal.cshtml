@@ -12,7 +12,7 @@
 
             <!-- Тело -->
             <div class="modal-body">
-                <h3>Вы уверены, что хотите добавить данную запись?</h3>
+                <h3>Добавить запись?</h3>
 
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true, "", new { @class = "text-danger" })
@@ -51,7 +51,7 @@
 
             <!-- Подтверждение\отмена -->
             <div class="modal-footer">
-                <input type="submit" value="Сохранить" class="btn btn-modal-save btn-modal hide-modal" />
+                <input type="submit" value="Добавить" class="btn btn-modal-save btn-modal hide-modal" />
                 <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
             </div>
         }

@@ -1,13 +1,13 @@
-﻿@model TranslationRegistryModel.DocStage
+﻿@model TranslationRegistryModel.Document
 <div class="doc-card-container">
     <div class="doc-card">
         <div class="doc-card-header">
-            <p style="margin:0;">@Model.Document.Name</p>
-            <i class="material-icons loadModal" data-href="/DocStages/Delete/@Model.Id">delete</i>
+            <p style="margin:0;">@Model.Name</p>
+            <i class="material-icons loadModal" data-href="/Document/Delete/@Model.Id">delete</i>
         </div>
         <div class="doc-card-content">
             @{
-                var extension = Path.GetExtension(Model.Document.OriginalFile.Path);
+                var extension = Path.GetExtension(Model.OriginalFile.Path);
                 switch (extension)
                 {
                     case ".doc":
@@ -29,25 +29,15 @@
             <div class="flex-column doc-card-file">
                 <div class="flex-row">
                     <span>Оригинал</span>
-                    @if (Model.OriginalId != null)
-                    {
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.Original.Path })">
-                            <i class="material-icons">file_download</i>
-                        </a>
-                    }
-                    else
-                    {
-                        <a><i class="material-icons disabled-icon">file_download</i></a>
-                    }
-                    <a>
-                        <i class="material-icons">attach_file</i>
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                        <i class="material-icons">file_download</i>
                     </a>
                 </div>
                 <div class="flex-row">
-                    <span>@(Model.WorkType.Name)</span>
-                    @if (Model.ResultId != null)
+                    <span>Финальный</span>
+                    @if (Model.FinalFileId != null)
                     {
-                        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.Result.Path })">
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })">
                             <i class="material-icons">file_download</i>
                         </a>
                     }
@@ -55,15 +45,11 @@
                     {
                         <a><i class="material-icons disabled-icon">file_download</i></a>
                     }
-                    <a>
-                        <i class="material-icons">attach_file</i>
-                    </a>
                 </div>
             </div>
         </div>
 
-        <div class="doc-next-stage loadModal" data-href="/DocStages/CreateModal/@Model.DocumentId">
-            <i class="material-icons">keyboard_arrow_down</i>
+        <div class="doc-next-stage">
         </div>
     </div>
 </div>

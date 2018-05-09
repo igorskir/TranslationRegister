@@ -4,7 +4,7 @@
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
 }
 
-body{
+body {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
     font-size: 14px;
     font-style: normal;
@@ -21,14 +21,22 @@ h2 {
     line-height: 32px;
 }
 
-.flex-row{
-    display:flex;
+.flex-row {
+    display: flex;
     flex-flow: row wrap;
-    align-items:center;
+    justify-content: center;
 }
 
-h1, h2, h3, h4, h5, h6{
-      font-family: -apple-system,BlinkMacSystemFont,Roboto,"Segoe UI",Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+.flex-column {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: -apple-system,BlinkMacSystemFont,Roboto,"Segoe UI",Oxygen,Ubuntu,"Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
 }
 
 .padding-container {
@@ -36,8 +44,8 @@ h1, h2, h3, h4, h5, h6{
     padding-left: 50px;
 }
 
-.pointer{
-    cursor:pointer;
+.pointer {
+    cursor: pointer;
 }
 
 input,
@@ -46,7 +54,7 @@ textarea {
     max-width: 280px;
     height: 35px;
     padding: 6px;
-    font-size: 18px;
+    font-size: 14px;
     border: none;
     border-radius: 5px;
 }
@@ -58,6 +66,7 @@ textarea {
 .dl-horizontal dt {
     white-space: normal;
 }
+
 html {
     height: 100%;
 }
@@ -296,10 +305,9 @@ addFormContainer {
     margin-bottom: 10px;
 }
 
-.disabled-btn {
-    background: lightgrey;
-    border-color: grey;
-    color: black;
+.disabled-icon {
+    color: #918faa;
+    cursor:not-allowed;
 }
 
 .float-label {
@@ -401,5 +409,4 @@ addFormContainer {
 }
 
 .pressMe {
-
 }

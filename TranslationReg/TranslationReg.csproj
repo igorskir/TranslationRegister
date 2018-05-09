@@ -400,6 +400,7 @@
     <Content Include="Views\Documents\ListItem.cshtml" />
     <Content Include="Views\User_Stage\CreateModal.cshtml" />
     <Content Include="Views\Projects\EditModal.cshtml" />
+    <Content Include="Views\Documents\DocInProjectCard.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

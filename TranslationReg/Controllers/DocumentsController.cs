@@ -227,10 +227,11 @@ namespace TranslationReg.Controllers
                 }
                 
             }
-            return View("Index", await Rep.GetDocuments());
+            //return View("Index", await Rep.GetDocuments());
+            return Redirect(Request.UrlReferrer.ToString());
         }
-            // GET: Documents/Download
-            public ActionResult Download(string filepath)
+        // GET: Documents/Download
+        public ActionResult Download(string filepath)
             {
                 if (System.IO.File.Exists(filepath))
                 {

@@ -4,7 +4,7 @@
         <div class="titles">
             <div class="col-md-12">Добавление нового проекта</div>
         </div>
-        @using (Ajax.BeginForm("Create", "Projects", new AjaxOptions { UpdateTargetId = "projectList", HttpMethod = "Post" }))
+        @using (Ajax.BeginForm("Create", "Projects", new AjaxOptions { UpdateTargetId = "partialContent", HttpMethod = "Post" }))
         {
             @Html.AntiForgeryToken()
 

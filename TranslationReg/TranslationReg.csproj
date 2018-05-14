@@ -350,7 +350,6 @@
     <Content Include="Views\DocStages\Create.cshtml" />
     <Content Include="Views\DocStages\Delete.cshtml" />
     <Content Include="Views\DocStages\Item.cshtml" />
-    <Content Include="Views\User_Stage\Create.cshtml" />
     <Content Include="Views\User_Stage\Delete.cshtml" />
     <Content Include="Views\User_Stage\Edit.cshtml" />
     <Content Include="Views\User_Stage\List.cshtml" />
@@ -395,12 +394,16 @@
     <Content Include="Views\User_Stage\ListItem.cshtml" />
     <Content Include="Views\User_Stage\ListItemEdit.cshtml" />
     <Content Include="Views\User_Stage\AddResultFile.cshtml" />
-    <Content Include="Views\Documents\Card.cshtml" />
+    <Content Include="Views\DocStages\Card.cshtml" />
     <Content Include="Views\DocStages\CreateModal.cshtml" />
     <Content Include="Views\Documents\ListItem.cshtml" />
     <Content Include="Views\User_Stage\CreateModal.cshtml" />
     <Content Include="Views\Projects\EditModal.cshtml" />
     <Content Include="Views\Documents\DocInProjectCard.cshtml" />
+    <Content Include="Views\Documents\AddFinalFile.cshtml" />
+    <Content Include="Views\Documents\AddOriginalFile.cshtml" />
+    <Content Include="Views\DocStages\AddFinalFile.cshtml" />
+    <Content Include="Views\DocStages\AddOriginalFile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

@@ -23,7 +23,7 @@ namespace TranslationReg.Controllers
                 return PartialView(await Rep.GetDocuments());
             return View(await Rep.GetDocuments());
         }
-        
+
         //                                          ФИЛЬТРЫ
         // GET: Documents/All
         public async Task<ActionResult> All()
@@ -72,8 +72,9 @@ namespace TranslationReg.Controllers
             return View(doc);
         }
 
-        // GET: Documents/Create
-        public async Task<ActionResult> AddFinalFile(int? id, HttpPostedFileBase file)
+        // GET: Documents/AddOriginalFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddOriginalFile(int? id)
         {
             if (id == null)
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -83,9 +84,58 @@ namespace TranslationReg.Controllers
             if (doc == null)
                 return HttpNotFound();
 
+            return PartialView(doc);
+        }
+        // POST: Documents/AddOriginalFile
+        [HttpPost]
+        public async Task<ActionResult> AddOriginalFile(int? id, HttpPostedFileBase original)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document doc = await Rep.GetDocument(id.Value);
+
+            if (doc == null || original == null)
+                return HttpNotFound();
+
             // добавляем информацию о финальном файле
-            var finalDocFile = (await Helper.SetFile(file, Rep, Server));
+            var originalFile = (await Helper.SetFile(original, Rep, Server));
+            doc.OriginalFileId = originalFile.Id;
+            await Rep.PutDocument(doc);
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // GET: Documents/AddResultFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddFinalFile(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document doc = await Rep.GetDocument(id.Value);
+
+            if (doc == null)
+                return HttpNotFound();
+
+            return PartialView(doc);
+        }
+        // POST: Documents/AddFinalFile
+        [HttpPost]
+        public async Task<ActionResult> AddFinalFile(int? id, HttpPostedFileBase result)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Document doc = await Rep.GetDocument(id.Value);
+
+            if (doc == null || result == null)
+                return HttpNotFound();
+
+            // добавляем информацию о финальном файле
+            var finalDocFile = (await Helper.SetFile(result, Rep, Server));
             doc.FinalFileId = finalDocFile.Id;
+            await Rep.PutDocument(doc);
 
             return Redirect(Request.UrlReferrer.ToString());
         }
@@ -101,7 +151,7 @@ namespace TranslationReg.Controllers
         {
             return PartialView(new Document { ProjectId = Id });
         }
-
+        // GET: Documents/AddProjectDocs
         public ActionResult AddProjectDocs()
         {
             return PartialView();
@@ -147,7 +197,7 @@ namespace TranslationReg.Controllers
 
                     if (ModelState.IsValid)
                     {
-                        
+
                         // сохраняем док
                         await Rep.AddDocument(document);
 
@@ -170,8 +220,7 @@ namespace TranslationReg.Controllers
                 }
 
             }
-
-            return View("Index", await Rep.GetDocuments());
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
 
@@ -238,44 +287,44 @@ namespace TranslationReg.Controllers
                         // если прикрепили сразу перевод, добавляем в базу
                         if (final != null && final.ContentLength != 0)
                             NewDoc.FinalFileId = (await Helper.SetFile(final, Rep, Server)).Id;
-                        
+
                     }
                     else
                         await Rep.DeleteDocFile(originalFile.Id);
                 }
-                
+
             }
-            return View("Index", await Rep.GetDocuments());
+            return Redirect(Request.UrlReferrer.ToString());
         }
-            // GET: Documents/Download
-            public ActionResult Download(string filepath)
+        // GET: Documents/Download
+        public ActionResult Download(string filepath)
+        {
+            if (System.IO.File.Exists(filepath))
             {
-                if (System.IO.File.Exists(filepath))
-                {
-                    FileInfo file = new FileInfo(filepath);
-                    byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
-                    string fileName = file.Name;
-                    return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-                }
-                return HttpNotFound("Файл не найден");
+                FileInfo file = new FileInfo(filepath);
+                byte[] fileBytes = System.IO.File.ReadAllBytes(filepath);
+                string fileName = file.Name;
+                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
+            return HttpNotFound("Файл не найден");
+        }
 
-            // GET: Documents/Edit/5
-            public async Task<ActionResult> Edit(int? id)
-            {
-                if (id == null)
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        // GET: Documents/Edit/5
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
 
-                Document document = await Rep.GetDocument(id.Value);
+            Document document = await Rep.GetDocument(id.Value);
 
-                if (document == null)
-                    return HttpNotFound();
+            if (document == null)
+                return HttpNotFound();
 
-                //todo viewmodel
-                ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
+            //todo viewmodel
+            ViewBag.ProjectId = new SelectList(await Rep.GetProjects(), "Id", "Name", document.ProjectId);
 
-                return PartialView(document);
-            } 
+            return PartialView(document);
+        }
 
         // POST: Documents/Edit/5
         [HttpPost]
@@ -317,15 +366,6 @@ namespace TranslationReg.Controllers
         {
             await Rep.DeleteDocument(id);
             return Redirect(Request.UrlReferrer.ToString());
-        }
-
-        // POST: Documents/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFromList(int id)
-        {
-            await Rep.DeleteDocument(id);
-            return RedirectToAction("Index");
         }
     }
 }

@@ -15,19 +15,6 @@ namespace TranslationReg.Controllers
     {
         public User_StageController(IRepository repository) : base(repository) { } // Конструктор
 
-        // GET: User_Stage/Create
-        // принимает id стадии
-        public async Task<ActionResult> Create(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            DocStage docStage = await Rep.GetDocStage(id.Value);
-            if (docStage == null)
-                return HttpNotFound();
-
-            return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
-        }
-
         // GET: User_Stage/CreateModal
         // принимает id стадии
         public async Task<ActionResult> CreateModal(int? id)
@@ -38,7 +25,7 @@ namespace TranslationReg.Controllers
             if (docStage == null)
                 return HttpNotFound();
 
-            return PartialView(await Models.User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
+            return PartialView(await User_StageModel.GetModel(Rep, User.Identity.Name, id.Value));
         }
 
         // GET: User_Stage/Tasks
@@ -50,8 +37,6 @@ namespace TranslationReg.Controllers
                 return PartialView(tasks);
             return View(tasks);
         }
-
-
 
         // GET: User_Stage/AddResultFile/5
         // принимает id стадии
@@ -150,8 +135,6 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutUser_Stage(user_Stage);
-                //todo
-                var taskList = await Rep.GetMyCurrentTasks(User.Identity.Name);
                 return Redirect(Request.UrlReferrer.ToString());
             }
 
@@ -178,15 +161,6 @@ namespace TranslationReg.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        // POST: User_Stage/DeleteFromTasks/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFromTasks(int id)
-        {
-            await Rep.DeleteUser_Stage(id);
-            return RedirectToAction("Tasks");
-        }
-
         // GET: User_Stage/Download
         public ActionResult Download(string filepath)
         {
@@ -198,18 +172,6 @@ namespace TranslationReg.Controllers
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
             }
             return HttpNotFound("Файл не найден");
-        }
-
-        public async Task<ActionResult> Finalise(int? id)
-        {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            User_Stage user_Stage = await Rep.GetUser_Stage(id.Value);
-
-            user_Stage.Stage.Document.FinalFileId = user_Stage.DocFileId;
-            await Rep.PutDocument(user_Stage.Stage.Document);
-            return Redirect(Request.UrlReferrer.ToString());
         }
     }
 }

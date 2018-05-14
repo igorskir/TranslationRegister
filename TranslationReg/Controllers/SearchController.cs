@@ -10,6 +10,7 @@ namespace TranslationReg.Controllers
     {
         public SearchController(IRepository repository) : base(repository) { } // Конструктор
 
+        [HttpPost]
         public async Task<ActionResult> SearchByName(string searchToken)
         {
             if (!string.IsNullOrWhiteSpace(searchToken))

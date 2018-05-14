@@ -1,6 +1,5 @@
 ﻿/*------------------------------------ карточка документа ------------------------------------*/
 .doc-card-container {
-    padding: 3px;
     height: 100%;
 }
 
@@ -37,18 +36,19 @@
     color: white;
 }
 
-
 .doc-next-stage {
     justify-content: center;
+    height: 24px;
 }
 
-.doc-next-stage {
-    height: 24px;
+.doc-card-footer{
+    height: 16px;
+    background-color: #5580aa;
 }
 
 .doc-card-header {
     min-height: 36px;
-    padding: 0 4px;
+    padding: 3px 4px;
     display: flex;
     justify-content: center;
 }
@@ -84,7 +84,7 @@
 
     .doc-card-file a > i {
         font-size: 22px;
-        padding: 3px;
+        padding: 5px 3px 3px 3px;
         align-self: center;
     }
 

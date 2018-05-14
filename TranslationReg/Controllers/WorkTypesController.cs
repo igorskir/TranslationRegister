@@ -44,7 +44,7 @@ namespace TranslationReg.Controllers
             }
 
             ViewBag.UnitOfMeasureId = new SelectList(await Rep.GetUnitsOfMeasure(), "Id", "Name", workType.UnitOfMeasureId);
-            return View(workType);
+            return Redirect(Request.UrlReferrer.ToString());
         }
 
         // GET: WorkTypes/EditCard/5

@@ -57,7 +57,7 @@
     </div>
     <div class="worktype-content" id="docs">
         <div class="docworks-container docs-panel">
-            @{ 
+            @{
                 foreach (var doc in Model.Documents)
                 {
                     @Html.Partial("../Documents/DocInProjectCard", doc)
@@ -107,106 +107,105 @@
                         // работы по документам
                         foreach (var oneDocStages in docedStages)
                         {
-                    <div class="docworks-container">
-                        @{
+                            <div class="docworks-container">
+                                @{
 
                                     //--------------------------------------------- ОТОБРАЖЕНИЕ ДОКОВ ------------------------------------------
                                     var currentStage = oneDocStages.First();
                                     var currentDoc = oneDocStages.First().Document;
-                                @Html.Partial("../Documents/Card", currentStage)
+                                    @Html.Partial("../DocStages/Card", currentStage)
                                     //----------------------------------------------------------------------------------------------------------
 
                                     //--------------------------------------------- ТАБЛИЦА РАБОТ ------------------------------------------
                                     // работы по доку в стадии
                                     var typedDocWorks = oneDocStages.SelectMany(x => x.User_Stage);
                                     var stageId = oneDocStages.First().Id.ToString();
-                                <div class="works-table">
-                                    <div class="tableMaterial">
-                                        <div class="work-titles pointer loadModal" data-href="/User_Stage/CreateModal/@stageId">
-                                            <div class="col-md-3 iconed-title">
-                                                <i class="material-icons">add_circle</i>
-                                                <span>
-                                                    Исполнитель
-                                                </span>
+                                    <div class="works-table">
+                                        <div class="tableMaterial">
+                                            <div class="work-titles pointer loadModal rounded-top" data-href="/User_Stage/CreateModal/@stageId">
+                                                <div class="col-md-3 iconed-title">
+                                                    <i class="material-icons">add_circle</i>
+                                                    <span>
+                                                        Исполнитель
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-5">Комментарий</div>
+                                                <div class="col-md-2">Количество</div>
+                                                <div class="col-md-2">Комманды</div>
                                             </div>
-                                            <div class="col-md-5">Комментарий</div>
-                                            <div class="col-md-2">Количество</div>
-                                            <div class="col-md-2">Комманды</div>
                                         </div>
-                                    </div>
-                                    <div class="inner-padding">
-                                        @foreach (var work in typedDocWorks)
+                                        <div class="tasks-content">
+                                            @foreach (var work in typedDocWorks)
                                             {
-                                            <div class="properties">
-                                                <div class="col-md-3">
-                                                    @if (work.User.AvatarPath == null)
+                                                <div class="properties">
+                                                    <div class="col-md-3">
+                                                        @if (work.User.AvatarPath == null)
                                                         {
                                                             string avatarPath = Path.Combine(Helper.uploadDir, Helper.avatarsDir, Helper.defaultAvatar);
-                                                        <img src="@Url.Content("~/"+ avatarPath)" class="small-icon user-icon" />
+                                                            <img src="@Url.Content("~/"+ avatarPath)" class="small-icon user-icon" />
                                                         }
                                                         else
                                                         {
-                                                        <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon user-icon" />
+                                                            <img src="@Url.Content("~/"+ work.User.AvatarPath)" class="small-icon user-icon" />
                                                         }
 
-                                                    <span>
-                                                        @work.User.Name
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-5">
-                                                    <span>
-                                                        @work.Comment
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <span>
-                                                        @work.Amount
-                                                    </span>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="icons-container">
-                                                        @if (work.DocFileId != null)
+                                                        <span>
+                                                            @work.User.Name
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-5">
+                                                        <span>
+                                                            @work.Comment
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <span>
+                                                            @work.Amount
+                                                        </span>
+                                                    </div>
+                                                    <div class="col-md-2">
+                                                        <div class="icons-container">
+                                                            @if (work.DocFileId != null)
                                                             {
-                                                            <a href="@Url.Action("Download", "Documents", new { @filepath = work.DocFile.Path })">
-                                                                <i class="material-icons">file_download</i>
-                                                            </a>
+                                                                <a href="@Url.Action("Download", "Documents", new { @filepath = work.DocFile.Path })">
+                                                                    <i class="material-icons">file_download</i>
+                                                                </a>
                                                             }
                                                             else
                                                             {
-                                                            <a>
-                                                                <i class="material-icons disabled-icon">file_download</i>
-                                                            </a>
+                                                                <a>
+                                                                    <i class="material-icons disabled-icon">file_download</i>
+                                                                </a>
                                                             }
-                                                        <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
-                                                            <i class="material-icons">attach_file</i>
-                                                        </a>
-                                                        <a class="loadModal" data-href="/User_Stage/Edit/@work.Id">
-                                                            <i class="material-icons">edit</i>
-                                                        </a>
-                                                        <a class="loadModal" data-href="/User_Stage/Delete/@work.Id">
-                                                            <i class="material-icons">delete</i>
-                                                        </a>
+                                                            <a class="loadModal" data-href="/User_Stage/AddResultFile/@work.Id">
+                                                                <i class="material-icons">attach_file</i>
+                                                            </a>
+                                                            <a class="loadModal" data-href="/User_Stage/Edit/@work.Id">
+                                                                <i class="material-icons">edit</i>
+                                                            </a>
+                                                            <a class="loadModal" data-href="/User_Stage/Delete/@work.Id">
+                                                                <i class="material-icons">delete</i>
+                                                            </a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
                                             }
+                                        </div>
                                     </div>
-                                </div>
-                        }
-                    </div>
+                                }
+                            </div>
                                         //----------------------------------------------------------------------------------------------------------
                                     }
                     }
                 </div>
             </div>
-                                }
-                            }
+                                        }
+                                    }
 }
 
 <style>
-
-    .docs-panel{
-        justify-content:space-between;
+    .docs-panel {
+        justify-content: space-around;
     }
 
     .deadline {
@@ -254,21 +253,21 @@
         clear: left;
     }
 
-    .works-table .inner-padding {
-        margin: 0 6px 6px 6px;
+    .works-table .tasks-content {
+        /*margin: 0 6px 6px 6px;*/
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
         overflow: hidden;
         box-shadow: 1px 2px 3px 1px rgba(0, 0, 0, 0.2);
     }
 
-        .works-table .inner-padding .properties {
+        .works-table .tasks-content .properties {
             padding: 0 5px 0 5px;
             background-color: #ffffff;
             background-color: #ffffffed;
         }
 
-            .works-table .inner-padding .properties:last-child {
+            .works-table .tasks-content .properties:last-child {
                 border-bottom-left-radius: 6px;
                 border-bottom-right-radius: 6px;
                 overflow: hidden;
@@ -287,6 +286,10 @@
             text-align: center;
         }
 
+    .rounded-top {
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
 
     .worktype-content {
         padding: 5px;
@@ -308,7 +311,7 @@
         .worktype-content .works-table {
             width: 100%;
             overflow: hidden;
-            padding: 5px 20px 0 30px;
+            padding: 0 20px 0 30px;
         }
 
             .worktype-content .works-table > .tableMaterial {

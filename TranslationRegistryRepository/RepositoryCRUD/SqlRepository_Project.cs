@@ -79,6 +79,8 @@ namespace SqlRepository
             if (doc == null)
                 return;
 
+            var a = context.Deadlines.Where(x => x.ProjectId == id);
+            context.Deadlines.RemoveRange(a);
             context.Projects.Remove(doc);
             await context.SaveChangesAsync();
         }

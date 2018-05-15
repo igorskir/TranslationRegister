@@ -44,9 +44,10 @@ input,
 select,
 textarea {
     max-width: 280px;
+   
     height: 35px;
     padding: 6px;
-    font-size: 18px;
+    
     border: none;
     border-radius: 5px;
 }

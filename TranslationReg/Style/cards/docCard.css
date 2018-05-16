@@ -1,17 +1,13 @@
 ﻿/*------------------------------------ карточка документа ------------------------------------*/
-.doc-card-container {
-    height: 100%;
+.doc-card-container .doc-card {
+    width: 220px;
+    background-color: #ffffff;
+    text-align: center;
+    vertical-align: top;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
 }
-
-    .doc-card-container .doc-card {
-        width: 220px;
-        background-color: #ffffff;
-        text-align: center;
-        vertical-align: top;
-        border-radius: 6px;
-        overflow: hidden;
-        box-shadow: 1px 2px 3px 0px rgba(0, 0, 0, 0.2);
-    }
 
 .doc-card-content {
     display: flex;
@@ -41,7 +37,7 @@
     height: 24px;
 }
 
-.doc-card-footer{
+.doc-card-footer {
     height: 16px;
     background-color: #5580aa;
 }

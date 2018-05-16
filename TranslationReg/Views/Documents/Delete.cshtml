@@ -59,9 +59,20 @@
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.Id)
 
-                <input type="submit" value="Удалить" class="btn btn-delete hide-modal btn-modal" />
+                <input id="Confirm" type="submit" value="Удалить" class="btn btn-delete hide-modal btn-modal" />
             }
             <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
         </div>
     </div>
 </div>
+<script>
+    document.onkeyup = function (e) {
+        e = e || window.event;
+        if (e.keyCode === 13) {
+            document.getElementById("Confirm").click();
+        }
+        return false;
+    }
+
+</script>
+	

@@ -30,7 +30,7 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.Project.Deadline, "Дедлайн")
-                <input class="text-box single-line form-control" data-val="true" data-val-date="Поле Deadline должно содержать дату." id="Project_Deadline" name="Project.Deadline" type="date" value="@((DateTime.Now + TimeSpan.FromDays(7)).ToString("yyyy-MM-dd"))">
+                <input class="text-box single-line form-control" data-val="true" data-val-date="Поле Deadline должно содержать дату." id="Project_Deadline" name="Project.Deadline" type="date" value="@((DateTime.Now + TimeSpan.FromDays(7)).ToString("yyyy-MM-dd"))" required>
                 @Html.ValidationMessageFor(model => model.Project.Deadline, "", new { @class = "text-danger" })
             </div>
 

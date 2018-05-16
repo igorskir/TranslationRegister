@@ -203,10 +203,12 @@ namespace TranslationReg.Controllers
         public async Task<JsonResult> DeadlineGet(int project, int workTypeid)
         {
             var result = await Rep.GetDeadline(project, workTypeid);
-            if (result != null)
-                return Json(result.Date.ToString("yyyy-MM-dd"), JsonRequestBehavior.AllowGet);
-            else
-                throw new Exception("Нет данный о дедлайне");
+            if (result == null)
+            {
+                await Rep.AddDeadline(new Deadline { ProjectId = project, WorkTypeId = workTypeid, Date = DateTime.Now });
+                result = await Rep.GetDeadline(project, workTypeid);
+            }
+            return Json(result.Date.ToString("yyyy-MM-dd"), JsonRequestBehavior.AllowGet);
         }
     }
 }

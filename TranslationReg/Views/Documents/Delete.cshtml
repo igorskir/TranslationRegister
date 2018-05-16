@@ -53,7 +53,8 @@
 
         <!-- Подтверждение\отмена -->
         <div class="modal-footer">
-            @using (Ajax.BeginForm("Delete", "Documents", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "partialContent"}))
+            @*@using (Ajax.BeginForm("Delete", "Documents", new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "partialContent"}))*@
+            @using (Html.BeginForm("Delete", "Documents"))
             {
                 @Html.AntiForgeryToken()
                 @Html.HiddenFor(x => x.Id)

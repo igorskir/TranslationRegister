@@ -4,9 +4,9 @@
     color: white;
 }
 
-.modal-row{
-    padding-left:7%;
-    height: 40px !important;
+.modal-row {
+    MARGIN-LEFT: 16%;
+    height: 30px !important;
 }
 
 .btn-delete {
@@ -20,4 +20,7 @@
     text-align: center;
     
 }
+
+.modal-body{
+    padding:25px;
 }

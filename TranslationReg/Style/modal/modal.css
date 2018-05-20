@@ -3,6 +3,7 @@
     font-size: 16px;
     border: none;
     border-radius: 0;
+    width:85%;
 }
 
 .modal-header {
@@ -46,6 +47,7 @@
 .modal-body > h3 {
     margin: 0 0 20px 0;
     padding: 5px;
+    font-size:18px;
 }
 
 .modal-footer {
@@ -75,8 +77,8 @@
 
 .modal-row {
     display: flex;
-    align-items: center;
-    height: 50px;
+    /*align-items: center;
+    height: 45px;*/
 }
 
     .modal-row:last-of-type {
@@ -88,7 +90,7 @@
     text-align: left;
     display: flex;
     padding: 10px;
-    min-width: 200px;
+    min-width: 150px;
 }
 
     .modal-property > p {
@@ -98,8 +100,8 @@
     }
 
 .modal-value {
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 14px;
     text-align: left;
     display: flex;
     overflow: hidden;

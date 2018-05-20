@@ -111,7 +111,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\TranslationRegistryModel\Model.csproj">
       <Project>{706117ce-49c8-4f02-9fcd-abd0a37fe2dc}</Project>

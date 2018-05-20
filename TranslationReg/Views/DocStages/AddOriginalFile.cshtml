@@ -1,0 +1,33 @@
+﻿@model TranslationRegistryModel.DocStage
+
+<div class="modal-dialog">
+    <div class="modal-content">
+        @using (Html.BeginForm("AddOriginalFile", "DocStages", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <!-- Хедер -->
+            <div class="modal-header blue-modal-header">
+                <h4 class="modal-title">Вы уверены, что хотите заменить оригинал стадии?</h4>
+                <i data-dismiss="modal" class="material-icons close">clear</i>
+            </div>
+
+            <!-- Тело -->
+            <div class="modal-body">
+                @Html.AntiForgeryToken()
+
+                @Html.Hidden("Id", Model.Id)
+                <div class="modal-row">
+                    <div class="modal-property"><p>Оригинал:</p></div>
+                    <div class="modal-value">
+                        <input class="form-control" type="file" required name="original" />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Подтверждение\отмена -->
+            <div class="modal-footer">
+                <input type="submit" value="Сохранить" class="btn btn-modal-save btn-modal hide-modal" />
+                <button type="button" class="btn btn-default btn-cancel btn-modal" data-dismiss="modal">Отмена</button>
+            </div>
+        }
+    </div>
+</div>

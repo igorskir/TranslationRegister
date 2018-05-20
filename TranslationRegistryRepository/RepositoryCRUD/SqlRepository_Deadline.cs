@@ -26,7 +26,7 @@ namespace SqlRepository
             {
                 return await context.Deadlines.Where(x => x.ProjectId == projectId && x.WorkTypeId == workTypeId).FirstOrDefaultAsync();
             }
-            catch(Exception e) { return null; }
+            catch(Exception) { return null; }
              
         }
         public async Task AddDeadline(Deadline deadline)

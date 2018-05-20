@@ -1,0 +1,60 @@
+﻿@model TranslationRegistryModel.Document
+<div class="doc-card-container">
+    <div class="doc-card">
+        <div class="doc-card-header">
+            <p style="margin:0;">@Model.Name</p>
+            <i class="material-icons loadModal" data-href="/Documents/Delete/@Model.Id">delete</i>
+        </div>
+        <div class="doc-card-content">
+            @{
+                var extension = Path.GetExtension(Model.OriginalFile.Path);
+                switch (extension)
+                {
+                    case ".doc":
+                    case ".docx":
+                        <img src="~/Uploads/DocIcons/doc.png" />
+                        break;
+                    case ".ppt":
+                    case ".pptx":
+                        <img src="~/Uploads/DocIcons/ppt.png" />
+                        break;
+                    case ".pdf":
+                        <img src="~/Uploads/DocIcons/pdf.png" />
+                        break;
+                    default:
+                        <img src="~/Uploads/DocIcons/any.png" />
+                        break;
+                }
+            }
+            <div class="flex-column doc-card-file">
+                <div class="flex-row">
+                    <span>Оригинал</span>
+                    <a href="@Url.Action("Download", "Documents", new { @filepath = Model.OriginalFile.Path })">
+                        <i class="material-icons">file_download</i>
+                    </a>
+                    <a class="loadModal" data-href="/Documents/AddOriginalFile/@Model.Id">
+                        <i class="material-icons">attach_file</i>
+                    </a>
+                </div>
+                <div class="flex-row">
+                    <span>Финальный</span>
+                    @if (Model.FinalFileId != null)
+                    {
+                        <a href="@Url.Action("Download", "Documents", new { @filepath = Model.FinalFile.Path })">
+                            <i class="material-icons">file_download</i>
+                        </a>
+                    }
+                    else
+                    {
+                        <a><i class="material-icons disabled-icon">file_download</i></a>
+                    }
+                    <a class="loadModal" data-href="/Documents/AddFinalFile/@Model.Id">
+                        <i class="material-icons">attach_file</i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="doc-card-footer"></div>
+    </div>
+</div>

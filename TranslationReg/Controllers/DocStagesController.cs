@@ -15,41 +15,6 @@ namespace TranslationReg.Controllers
     {
         public DocStagesController(IRepository repository) : base(repository) { } // Конструктор
 
-        // POST: DocStages/AddToProject
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> AddToProject(int? worktypeId, int? projectId)
-        {
-            if (worktypeId == null || projectId == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
-            Project project = await Rep.GetProject(projectId.Value);
-            WorkType workType = await Rep.GetWorkType(worktypeId.Value);
-
-            if (project == null || workType == null)
-                return HttpNotFound();
-
-            foreach (var doc in project.Documents)
-            {
-                if (!doc.Stages.Select(x=>x.WorkType.Id).Contains(workType.Id))
-                {
-                    // todo транзакция
-                    DocStage addedStage = new DocStage
-                    {
-                        OriginalId = doc.OriginalFileId,
-                        DocumentId = doc.Id,
-                        WorkTypeId = workType.Id,
-                    };
-                    await Rep.AddDocStage(addedStage);
-                }
-            }
-
-         
-
-            return RedirectToAction("Project", "Projects", project.Id);
-        }
-
-
         // GET: DocStages/Create
         // Принимает id документа для которого создается
         public async Task<ActionResult> Create(int? id)
@@ -139,6 +104,75 @@ namespace TranslationReg.Controllers
 
             return Redirect(Request.UrlReferrer.ToString());
         }
+
+        // GET: Documents/AddOriginalFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddOriginalFile(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            DocStage stage = await Rep.GetDocStage(id.Value);
+
+            if (stage == null)
+                return HttpNotFound();
+
+            return PartialView(stage);
+        }
+        // POST: Documents/AddOriginalFile
+        [HttpPost]
+        public async Task<ActionResult> AddOriginalFile(int? id, HttpPostedFileBase original)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            DocStage stage = await Rep.GetDocStage(id.Value);
+            if (stage == null || original == null)
+                return HttpNotFound();
+
+            // добавляем информацию о финальном файле
+            var originalFile = (await Helper.SetFile(original, Rep, Server));
+            stage.OriginalId = originalFile.Id;
+            await Rep.PutDocStage(stage);
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+        // GET: Documents/AddResultFile/5
+        // принимает id стадии
+        public async Task<ActionResult> AddFinalFile(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            DocStage stage = await Rep.GetDocStage(id.Value);
+
+            if (stage == null)
+                return HttpNotFound();
+
+            return PartialView(stage);
+        }
+        // POST: Documents/AddFinalFile
+        [HttpPost]
+        public async Task<ActionResult> AddFinalFile(int? id, HttpPostedFileBase result)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            DocStage stage = await Rep.GetDocStage(id.Value);
+
+            if (stage == null || result == null)
+                return HttpNotFound();
+
+            // добавляем информацию о финальном файле
+            var finalStageFile = (await Helper.SetFile(result, Rep, Server));
+            stage.ResultId = finalStageFile.Id;
+            await Rep.PutDocStage(stage);
+
+            return Redirect(Request.UrlReferrer.ToString());
+        }
+
+
 
         // GET: DocStages/Edit/5
         public async Task<ActionResult> Edit(int? id)

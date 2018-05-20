@@ -33,6 +33,9 @@ namespace TranslationReg.Controllers
             if (project == null)
                 return HttpNotFound();
 
+            if (Request.IsAjaxRequest())
+                return PartialView(project);
+
             return View(project);
         }
 
@@ -40,7 +43,6 @@ namespace TranslationReg.Controllers
         public async Task<ActionResult> Projects()
         {
             var projects = await Rep.GetProjectsInWork();
-
             if (this.Request.IsAjaxRequest())
                 return PartialView("Index", projects);
             return View("Index", projects);
@@ -115,7 +117,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.AddProject(project);
-                return RedirectToAction("InWork");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             ProjectModel model = await ProjectModel.GetModel(Rep);
@@ -159,8 +161,7 @@ namespace TranslationReg.Controllers
             if (ModelState.IsValid)
             {
                 await Rep.PutProject(project);
-                //return Redirect(Request.UrlReferrer.ToString());
-                return RedirectToAction("Index");
+                return Redirect(Request.UrlReferrer.ToString());
             }
 
             return View(project);
@@ -189,16 +190,7 @@ namespace TranslationReg.Controllers
             return Redirect(Request.UrlReferrer.ToString());
         }
 
-        // POST: Projects/DeleteFromList/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteFromList(int id)
-        {
-            await Rep.DeleteProject(id);
-            return RedirectToAction("Index");
-        }
         [HttpGet]
-
         public async Task<JsonResult> DeadlineSet(int project, int workTypeid, DateTime deadline)
         {
             var obj = await Rep.GetDeadline(project, workTypeid);
@@ -206,6 +198,7 @@ namespace TranslationReg.Controllers
             await Rep.PutDeadline(obj);
             return Json("Дедлайн обновлен", JsonRequestBehavior.AllowGet);
         }
+
         [HttpGet]
         public async Task<JsonResult> DeadlineGet(int project, int workTypeid)
         {

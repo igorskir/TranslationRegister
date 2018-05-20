@@ -10,7 +10,7 @@ namespace TranslationReg.Controllers
         public ActionResult About()
         {
             if (Request.IsAjaxRequest())
-            return PartialView();
+                return PartialView();
             return View();
         }
 

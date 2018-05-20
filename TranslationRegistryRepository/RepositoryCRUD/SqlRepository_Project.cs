@@ -11,9 +11,9 @@ namespace SqlRepository
 {
     public partial class SqlRep : IRepository
     {
-        public async Task AddProject(Project doc)
+        public async Task AddProject(Project proj)
         {
-            context.Projects.Add(doc);
+            context.Projects.Add(proj);
             await context.SaveChangesAsync();
         }
 
@@ -62,9 +62,9 @@ namespace SqlRepository
                 .ToListAsync();
         }
 
-        public async Task PutProject(Project doc)
+        public async Task PutProject(Project proj)
         {
-            context.Entry(doc).State = EntityState.Modified;
+            context.Entry(proj).State = EntityState.Modified;
 
             try
             {
@@ -75,13 +75,14 @@ namespace SqlRepository
 
         public async Task DeleteProject(int id)
         {
-            var doc = await context.Projects.FindAsync(id);
-            if (doc == null)
+            var proj = await context.Projects.FindAsync(id);
+            if (proj == null)
                 return;
 
-            var a = context.Deadlines.Where(x => x.ProjectId == id);
-            context.Deadlines.RemoveRange(a);
-            context.Projects.Remove(doc);
+            var projDeadlines = context.Deadlines.Where(x => x.ProjectId == id);
+            context.Deadlines.RemoveRange(projDeadlines);
+
+            context.Projects.Remove(proj);
             await context.SaveChangesAsync();
         }
     }

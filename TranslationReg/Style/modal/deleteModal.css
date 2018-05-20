@@ -1,12 +1,23 @@
 .delete-header {
-    background-color: #ad5e5e;
+    /*background-color: #ad5e5e;*/
+    background-color: #c42d5b;
     color: white;
-    border-bottom: 2px solid #310404;
+}
+
+.modal-row{
+    padding-left:7%;
+    height: 40px !important;
 }
 
 .btn-delete {
-    background-color: #ad5e5e;
+    background-color: #c42d5b;
     color: white;
     width: 120px;
     float: left;
+}
+.dangerIcon {
+    color: #c42d5b;
+    text-align: center;
+    
+}
 }

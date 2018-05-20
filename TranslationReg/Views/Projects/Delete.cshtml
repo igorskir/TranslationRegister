@@ -6,13 +6,17 @@
 
         <!-- Хедер -->
         <div class="modal-header  delete-header">
-            <h4 class="modal-title">Удаление проекта "@Model.Name"</h4>
+            <h4 class="modal-title">Удаление проекта</h4>
             <i data-dismiss="modal" class="material-icons close">clear</i>
         </div>
 
         <!-- Тело -->
         <div class="modal-body">
-            <h3>Вы уверены, что хотите удалить данную запись?</h3>
+            <div class="dangerIcon">
+                <h3 class="material-icons " style="font-size:50px; margin-top: 0px;">error_outline</h3>
+            </div>
+            
+            <h3 align="center">Вы уверены, что хотите удалить проект "@Model.Name"?</h3>
             <div class="modal-row">
                 <div class="modal-property"><p>Название:</p></div>
                 <div class="modal-value">
@@ -32,32 +36,32 @@
                 </div>
             </div>
             @{
-                List<Document> docs = Model.Documents.ToList();
-                if (docs != null && docs.Count > 0)
+        List<Document> docs = Model.Documents.ToList();
+        if (docs != null && docs.Count > 0)
+        {
+            for (int i = 0; i < Model.Documents.Count && i < 3; i++)
+            {
+                <div class="modal-row">
+                    <div class="modal-property">
+                        @if (i == 0)
                 {
-                    for (int i = 0; i < Model.Documents.Count && i < 3; i++)
-                    {
-                        <div class="modal-row">
-                            <div class="modal-property">
-                                @if (i == 0)
-                                {
-                                    <p>Докуметы:</p>
-                                }
-                            </div>
-                            <div class="modal-value">
-                                @if (i == 2 && docs.Count > 3)
-                                {
-                                    <p>@(docs[i].Name + " ...")</p>
-                                }
-                                else
-                                {
-                                    <p>@docs[i].Name</p>
-                                }
-                            </div>
-                        </div>
-                    }
+                    <p>Докуметы:</p>
+        }
+                    </div>
+                    <div class="modal-value">
+                        @if (i == 2 && docs.Count > 3)
+                {
+                    <p>@(docs[i].Name + " ...")</p>
+        }
+        else
+        {
+            <p>@docs[i].Name</p>
+}
+                    </div>
+                </div>
+    }
 
-                }
+}
 
             }
         </div>

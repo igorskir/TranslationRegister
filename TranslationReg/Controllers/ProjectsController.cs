@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SqlRepository.Seeding;
+using System;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
@@ -47,7 +49,8 @@ namespace TranslationReg.Controllers
                 return PartialView("Index", projects);
             return View("Index", projects);
         }
-        //                                          ФИЛЬТРЫ
+
+        // ФИЛЬТРЫ
         // GET: Projects/All
         public async Task<ActionResult> All()
         {
@@ -209,6 +212,65 @@ namespace TranslationReg.Controllers
                 result = await Rep.GetDeadline(project, workTypeid);
             }
             return Json(result.Date.ToString("yyyy-MM-dd"), JsonRequestBehavior.AllowGet);
+        }
+
+        public async Task<ActionResult> FinaliseProject(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            if (IsFinalisible(project))
+            {
+                project.ProjectStatuseId = Seeder.DoneStatuseId;
+                await Rep.PutProject(project);
+            }
+            else
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            return Redirect(Request.UrlReferrer.ToString()); ;
+        }
+
+        public async Task<ActionResult> DefinaliseProject(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            Project project = await Rep.GetProject(id.Value);
+
+            if (project == null)
+                return HttpNotFound();
+
+            if (project.ProjectStatuseId == Seeder.DoneStatuseId)
+            {
+                project.ProjectStatuseId = Seeder.InWorkStatuseId;
+                await Rep.PutProject(project);
+            }
+            else
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            return Redirect(Request.UrlReferrer.ToString()); ;
+        }
+
+
+        // Условие возможности финализации
+        public static bool IsFinalisible(Project project)
+        {
+                // по всем стадиям прикреплены финальные файлы
+                // project.Documents.All(doc => doc.Stages.All(stage => stage.ResultId != null));
+
+                // смешанный вариант
+                // project.Documents.All(doc => doc.Stages.All(stage => stage.ResultId != null)) && project.Documents.All(doc => doc.FinalFileId != null);
+
+            return
+                // по всем докам прикреплены финальные файлы
+                project.Documents.All(doc => doc.FinalFileId != null)
+                // и еще - разве можно финализировать проект, который уже финализирован? думаю что нет
+                && project.ProjectStatuseId != Seeder.DoneStatuseId;
         }
     }
 }

@@ -16,24 +16,39 @@
             </div>
         </li>
         @{
-            bool finalisabe = Model.Documents.All(x => x.Stages.All(y => y.ResultId != null));
-            if (finalisabe)
+            if (ProjectsController.IsFinalisible(Model))
             {
                 <li>
-                    <div class="iconed-title" data-ajax="true" data-ajax-update="#projectList" data-href="/Projects/Finalise/@Model.Id">
-                        <i class="material-icons">done_all</i>
-                        <span> Финализировать</span>
-                    </div>
+                    <a href="/Projects/FinaliseProject/@Model.Id">
+                        <div class="iconed-title">
+                            <i class="material-icons">done_all</i>
+                            <span>Финализировать</span>
+                        </div>
+                    </a>
                 </li>
             }
             else
             {
-                <li>
-                    <div class="disabled-filter-btn iconed-title">
-                        <i class="material-icons">done_all</i>
-                        <span> Финализировать</span>
-                    </div>
-                </li>
+                if (Model.ProjectStatuseId == SqlRepository.Seeding.Seeder.DoneStatuseId)
+                {
+                    <li>
+                        <a href="/Projects/DefinaliseProject/@Model.Id">
+                            <div class="iconed-title">
+                                <i class="material-icons">settings_backup_restore</i>
+                                <span>Вернуть в работу</span>
+                            </div>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li>
+                        <div class="disabled-filter-btn iconed-title">
+                            <i class="material-icons">done_all</i>
+                            <span> Финализировать</span>
+                        </div>
+                    </li>
+                }
             }
         }
     </ul>
@@ -237,12 +252,17 @@
         flex-flow: row wrap;
     }
 
-        .iconed-title > span,
-        .iconed-title > i {
+        .iconed-title span,
+        .iconed-title i,
+        .iconed-title a {
             align-self: center;
         }
 
-        .iconed-title > i {
+         .iconed-title a {
+            text-decoration:none;
+        }
+
+        .iconed-title i {
             padding-right: 5px;
         }
 

@@ -45,6 +45,7 @@
 
     .buttons li {
         display: inline-block;
+        cursor: pointer;
     }
 
         .buttons li div {

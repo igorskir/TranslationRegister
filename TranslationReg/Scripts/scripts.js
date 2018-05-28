@@ -1,4 +1,16 @@
-﻿(function () {
+﻿function setfilter(obj) {
+    var path = obj.context.pathname.split('/')[1];
+    sessionStorage.setItem(path, obj.context.id);
+    console.log(obj.context.pathname);
+}
+$(function () {
+    var selectedID = sessionStorage.getItem(window.location.pathname.split('/')[1]);
+    console.log(window.location.pathname);
+    if (selectedID != null) {
+        $("#" + selectedID).click();
+    }
+});
+(function () {
     $(document).on('click', '.ajaxToggleBtn', function (e) {
         var updatedBlockId = $(this).attr("data-ajax-update");
         var updatedBlock = $(updatedBlockId);
@@ -46,6 +58,7 @@
     });
 
     $(document).on('click', '.filter', function () {
+        setfilter($(this));
         $(".filter").removeClass("filter-active");
         $(this).addClass("filter-active");
     });

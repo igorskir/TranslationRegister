@@ -38,7 +38,7 @@
             @Html.DropDownList("filters.workTypeId", Model.WorkTypeList, new { htmlAttributes = new { @class = "form-control", required = "required" } })
         </div>
 
-        <input type="submit" value="Сформировать отчет" class="btn btn-default btn-form" style="margin-top:10px; margin-bottom:-13px" />
+        <input type="submit" onclick = "SessionProj()"  value ="Сформировать отчет" class="btn btn-default btn-form" style="margin-top:10px; margin-bottom:-13px" />
         
     }
 </div>
@@ -94,6 +94,9 @@
     window.onload = function () {
         DateChanged();
     };
+    function SessionProj() {
+        sessionStorage.setItem("SelectedProj", $('#ProjectList :selected').val());
+    }
     function DateChanged()
     {
         var projects = $('#ProjectList');
@@ -103,19 +106,35 @@
             data: { dateFrom: document.getElementById("dateFrom").value },
             dataType: 'json',
             success: function (data) {
+                
                 projects.empty();
+                $('#ProjectCount').html("Проект (" + data.length + ")");
                 $.each(data, function (index, value) {
-                    $('#ProjectCount').html("Проект (" + data.length + ")");
-                    console.log(@Model.ProjectList.SelectedValue);
+                    var option = "<option/>";
+                    
                     projects.append($("<option/>", {
                          
                         value: value.Value,
                         text: value.Text,
                          
-                        
-                        
                     }));
                 });
+
+                var exists = false;
+                $('#ProjectList option').each(function () {
+                    if (this.value == sessionStorage.getItem("SelectedProj")) {
+                        exists = true;
+                        return false;
+                    }
+                });
+                
+                if (exists) {
+                    projects.val(sessionStorage.getItem("SelectedProj")).attr("selected", "selected");
+                } else {
+                    projects.val("-1").attr("selected", "selected");
+                    sessionStorage.setItem("SelectedProj", "-1");
+                }
+                
              }
 
         });

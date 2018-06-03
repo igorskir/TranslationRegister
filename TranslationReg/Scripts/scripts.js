@@ -1,11 +1,11 @@
 ﻿function setfilter(obj) {
     var path = obj.context.pathname.split('/')[1];
     sessionStorage.setItem(path, obj.context.id);
-    console.log(obj.context.pathname);
+    
 }
 $(function () {
     var selectedID = sessionStorage.getItem(window.location.pathname.split('/')[1]);
-    console.log(window.location.pathname);
+    //console.log(window.location.pathname);
     if (selectedID != null) {
         $("#" + selectedID).click();
     }

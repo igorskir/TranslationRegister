@@ -1,7 +1,7 @@
 ﻿@model TranslationRegistryModel.User_Stage
 <div class="properties" id="@Model.Id">
     <!-- Проект -->
-    <div class="col-md-2">
+    <div class="col-md-1">
         <a class="titleLink" href="/Projects/Project/@(Model.Stage.Document.Project.Id)">
             @Model.Stage.Document.Project.Name
         </a>
@@ -9,9 +9,18 @@
 
     <!-- Документ -->
     <div class="col-md-2">
-        <a class="titleLink" href="/Documents/DocAndStages/@(Model.Stage.Document.Id)">
-            @Model.Stage.Document.Name
-        </a>
+        <span>
+            <a class="titleLink" href="/Documents/DocAndStages/@(Model.Stage.Document.Id)">
+                @Model.Stage.Document.Name
+            </a>
+        </span>
+    </div>
+
+    <!-- Стадия -->
+    <div class="col-md-1">
+        <span>
+            @Html.DisplayFor(modelItem => Model.Stage.WorkType.Name)
+        </span>
     </div>
 
     <!-- Оригинал -->
@@ -45,7 +54,7 @@
     </div>
 
     <!-- Результат -->
-    <!--  
+    <!--
     <div class="col-md-1">
         <div class="icons-container">
             <a class="loadModal" data-href="/User_Stage/AddResultFile/@Model.Id">
@@ -54,7 +63,6 @@
         </div>
     </div>
     -->
-
     <!-- Команды -->
     <div class="col-md-2">
         <div class="icons-container">

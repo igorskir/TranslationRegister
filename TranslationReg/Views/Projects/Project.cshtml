@@ -60,7 +60,7 @@
 <div class="worktype-container">
     <div class="worktype-header">
         <div class="tableMaterial">
-            <div class="titles pointer toggle-stage-panel">
+            <div class="titles pointer toggle-stage-panel doc-panel">
                 <div class="worktype-name">
                     Документы проекта
                 </div>
@@ -104,10 +104,10 @@
                                 @currentWorkType.Name
                             </div>
 
-                            @*<div >
+                            <div class="deadline-active">
                                     Deadline:
                                     <input class="deadline" type="date" value="" id="@currentWorkType.Id" onchange="DeadlineSet(this)" required="required"/>
-                                </div>*@
+                                </div>
 
                             <div class="dropdown-btn " toggleid="stageToggle@(currentWorkType.Id)" iconid="toggleIcon@(currentWorkType.Id)">
                                 <i class="material-icons" id="toggleIcon@(currentWorkType.Id)">expand_more</i>
@@ -222,7 +222,9 @@
     .docs-panel {
         justify-content: space-around;
     }
-
+    .doc-panel {
+        background-color: #c42d5b;
+    }
     .deadline {
         padding: 2px;
         vertical-align: middle;
@@ -232,6 +234,7 @@
         background: white;
         opacity: 0.7;
         font-size: 14px;
+        pointer-events: auto;
     }
 
     ::-webkit-in {
@@ -362,7 +365,7 @@
         margin-left: 10px;
     }
 </style>
-@*<script>
+<script>
 
         window.onload = function () {
 
@@ -416,7 +419,7 @@
 
             });
         }
-    </script>*@
+    </script>
 
 @section scripts {
     <script>
@@ -431,21 +434,32 @@
             $(activeWorktypeId).show();
         });
 
+        var disableToogle = false;
         // свернуть/развернуть стадию
         $('.toggle-stage-panel').click(function (e) {
-            var btn = $(this).find('.dropdown-btn');
-            var toogleId = '#' + btn.attr("toggleid");
-            var toggleBlock = $(toogleId);
-            var iconId = '#' + btn.attr("iconid");
-            var icon = $(iconId);
-            toggleBlock.toggle();
+            if (disableToogle == false) {
+                var btn = $(this).find('.dropdown-btn');
+                var toogleId = '#' + btn.attr("toggleid");
+                var toggleBlock = $(toogleId);
+                var iconId = '#' + btn.attr("iconid");
+                var icon = $(iconId);
+                toggleBlock.toggle();
 
-            if (toggleBlock.is(":visible")) {
-                $(icon).html("expand_less");
-            } else {
-                $(icon).html("expand_more");
+                if (toggleBlock.is(":visible")) {
+                    $(icon).html("expand_less");
+                } else {
+                    $(icon).html("expand_more");
+                }
             }
+            
 
+        });
+        $('.deadline-active').mouseover(function (e) {
+            disableToogle = true;
+            
+        });
+        $('.deadline-active').mouseleave(function (e) {
+            disableToogle = false;
         });
     </script>
 }

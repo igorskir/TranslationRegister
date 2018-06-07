@@ -71,6 +71,7 @@
     justify-content: space-between;
     flex-wrap: wrap;
     border-bottom: 1px solid #b5b6dc;
+    position:relative;  
 }
     .properties i{
         font-size: 26px;

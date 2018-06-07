@@ -408,5 +408,10 @@ addFormContainer {
     color: black !important;
 }
 
-.pressMe {
+.click-catcher {
+    position: absolute;
+    width: 80%;
+    height: 100% !important;
+    cursor: pointer;
+    z-index:100;
 }

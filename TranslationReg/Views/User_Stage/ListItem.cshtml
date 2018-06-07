@@ -42,7 +42,7 @@
     <!-- Объем -->
     <div class="col-md-1">
         <span>
-            @Html.DisplayFor(modelItem => Model.Amount)
+            @Html.DisplayFor(modelItem => Model.Amount) (@Model.Stage.WorkType.UnitOfMeasure.Name)
         </span>
     </div>
 

@@ -10,5 +10,7 @@ namespace TranslationReg.Models
         public string User { get;set; }
         public string Work { get; set; }
         public int Count { get; set; }
+
+        public string UnitOfMeasure { get; set; }
     }
 }

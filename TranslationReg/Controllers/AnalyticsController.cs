@@ -70,8 +70,11 @@ namespace TranslationReg.Controllers
                             new WebReportModel {
                                 User = userName,
                                 Work = typedWorks.First().Stage.WorkType.Name,
-                                Count = typedWorks.Sum(x => x.Amount) });                
-                    }
+                                Count = typedWorks.Sum(x => x.Amount),
+                                UnitOfMeasure = typedWorks.First().Stage.WorkType.UnitOfMeasure.Name
+                            });
+
+                }
                 }
             }
             ViewBag.list = result;
